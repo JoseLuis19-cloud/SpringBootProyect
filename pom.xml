@@ -153,8 +153,6 @@
    		 <artifactId>mysql-backup4j</artifactId>
    		 <version>1.2.0</version>
 		</dependency>
-		
-
 
 	</dependencies>
 
