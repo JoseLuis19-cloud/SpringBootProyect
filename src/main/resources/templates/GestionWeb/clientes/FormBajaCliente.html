@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+ <style>
+.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
+
+
+.form-control-xs {
+	height: calc(1em + .375rem + 2px) !important;
+	padding: .125rem .25rem !important;
+	font-size: .75rem !important;
+	line-height: 1.5;
+	border-radius: .2rem;
+}
+
+h3 {
+	font-weight: bold !important;
+	color: #495057 !important;
+	font-size: 30px !important;
+	border-bottom: 2px solid #000 !important;
+	background: #e9ecef !important;
+	color: #003B49 !important;
+	display: inline-block !important;
+	padding: 8px 20px !important;
+	margin-left: 10px !important;
+}
+
+h5 {
+	color: #F2A900 !important;
+	font-size: 26px !important;
+	background: #e9ecef !important;
+	color: #F2A900 !important;
+	display: inline-block !important;
+	padding: 3px 15px !important;
+	margin-left: 10px !important;
+}
+
+#container {
+	position: relative;
+}
+
+#idNuevoElemMenu {
+	position: absolute;
+	top: 300;
+	left: 0;
+	z-index: 10;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+#idDivSubMenu1 {
+	position: absolute;
+	top: 300;
+	left: 0;
+	z-index: 1;
+	max-width: 100%;
+	overflow: hidden;
+}
+</style>
+</head>
+
+<body>
+
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8" style="border-bottom: 2px solid #000">
+				<h3 th:text="'Baja Cliente'"></h3>
+				<br />
+			</div>
+			<div class="col-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<form action="#" th:action="@{/gestionWeb/clientes/insertarcliente}" th:object="${clienteWeb}" method="post">
+
+					<div class="form-row">
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault01" th:text="'Nombre:'"></label> <input
+								type="text" class="form-control" id="idNomCliWeb"
+								th:field="*{nombreWeb}" th:maxlength="25"  th:readonly="true">
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault02" th:text="'Apellidos:' "></label>
+							<input type="text" class="form-control" id="idApelliCliWeb"
+								th:field="*{apellidosWeb}" th:maxlength="25"  th:readonly="true">
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="validationDefaultUsername">Username</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroupPrepend2">@</span>
+								</div>
+								<input type="text" class="form-control" id="validationDefaultUsername"   aria-describedby="inputGroupPrepend2"  th:readonly="true">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="col-md-4 mb-3">
+							<label for="validationDefault01" th:text="'Dirección:'"></label> <input
+								type="text" class="form-control" id="idDirCliWeb"
+								th:field="*{direccionWeb}" th:maxlength="35"  th:readonly="true">
+						</div>
+						<div class="col-md-2 mb-3">
+							<div class="form-group">
+								<label for="idTelefCliWeb" th:text="'telefono'"></label>
+								<input type="text" id="idTelefCliWeb" name="telefonoWeb" th:field="*{telefonoWeb}" class="form-control" h:maxlength="12"  th:readonly="true">
+								<div class="invalid-feedback" th:errors="*{telefonoWeb}">7uuu</div>
+							</div>
+						</div>
+						<div class="col-md-3 mb-3">
+							<label for="validationDefault02" th:text="'email'"></label>
+							<input type="text" id="idEmailCliWeb" name="emailCliWeb" th:field="*{dirEmailWeb}" class="form-control"  th:maxlength="25"  th:readonly="true">
+							<div class="invalid-feedback" th:errors="*{dirEmailWeb}">ffff</div>
+						</div>
+						<div class="col-md-3 mb-3">
+							<div class="form-group">
+								<label for="idTpoLabelCliente" th:text="'Tipo Cliente: ' "></label>
+								<select th:object="${clienteWeb}" class="form-control" name="tipoCliente" id="idTipoCliente"  th:readonly="true">
+									<option th:value="0" th:text="'Seleccionar tipo cliente' "></option>
+									<option th:each ="tpoCliEle:${tpoClienteWeb}"
+   						 				th:value="${tpoCliEle.idTpoCliente}"
+  						  				th:text ="${tpoCliEle.desTpoCliente}">
+  									</option>
+    							</select>
+							</div>
+						</div>
+					</div>
+			
+					<div class="form-row" style="border-bottom: 2px solid #000">
+						<div class="col-md-2 mb-3">
+							<label for="validationDefaultUsername">Fec. Nacimiento</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+       							 <i class="fa fa-calendar"> </i>
+      					 		</div>
+       							<input class="form-control" id="idFecNacimiento" name="fecNacimiento" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+							</div>
+						</div>
+						<div class="col-md-5 mb-3">
+							<label for="validationDefault04" th:text="'NIF: '"></label> <input
+								type="text" class="form-control" id="idDNICliWeb"
+								th:field="*{DNIWeb}" th:maxlength="14"  th:readonly="true">
+						</div>
+						<div class="col-md-5 mb-3">
+							<label for="validationDefault05" th:text="'Pais '"></label> <input
+								type="text" class="form-control" id="idPais"
+								th:field="*{paisWeb}" th:maxlength="20"  th:readonly="true">
+						</div>		
+					</div>
+					
+					<div class="form-group">
+						<label for="labImpCliente" th:text="'Importe cliente: '"></label>
+						<input type="text" id="idImpCliente" name="impCliente" th:field="*{impCliente}" class="form-control"  th:readonly="true"></input>
+						<div class="invalid-feedback" th:errors="*{impCliente}"></div>
+					</div>
+
+					<div class="d-flex">
+  						<div class="mr-auto p-2">
+  							<a th:href="@{/gestionWeb/clientes/formbajacliente}" class="btn btn-primary" role="button">Volver</a>
+  						</div>
+  			 
+  						<div class="p-2">
+						 <button type="submit" class="btn btn-primary">Baja</button>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+			<div class="col-2"></div>
+		</div>
+
+	</div>
+
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

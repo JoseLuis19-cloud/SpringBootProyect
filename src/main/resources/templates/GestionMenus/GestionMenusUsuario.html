@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+
+  	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+  	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+  	
+ 	 <style>  
+  	 .form-control-xs {
+   	 	height: calc(1em + .375rem + 2px) !important;
+    	padding: .125rem .25rem !important;
+    	font-size: .75rem !important;
+    	line-height: 1.5;
+    	border-radius: .2rem;
+		}
+	
+	h3 {
+  		font-weight: bold !important;
+  		color: #495057 !important;
+  		font-size: 30px !important;
+  		
+  		border-bottom: 2px solid #000 !important;
+ 		background:#e9ecef !important;
+  		color:#003B49 !important;
+
+  		display:inline-block !important;
+  		padding:8px 20px !important;
+ 		margin-left:10px !important;
+		}
+		
+	h5 {
+  		color: #F2A900 !important;
+  		font-size: 26px !important;
+  		
+ 		background:#e9ecef !important;
+  		color:#F2A900 !important;
+
+  		display:inline-block !important;
+  		padding:3px 15px !important;
+ 		margin-left:10px !important;
+		}
+		
+	#container {
+  	position: relative;
+	}
+
+	#idNuevoElemMenu {
+     position: absolute;
+     top:300;
+     left:0;
+     z-index:10;
+     max-width:100%;
+     overflow:hidden;
+	}
+
+	#idDivSubMenu1 {
+      position: absolute;
+     top:300;
+     left:0;
+     z-index:1;
+     max-width:100%;
+     overflow:hidden;
+}
+
+  </style>
+  
+  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  
+	<script th:inline="javascript">
+	
+	/*<![CDATA[*/
+		var idUsuarioParam = [[${idUsuarioApli}]];
+	/*]]>*/
+	
+	 var arrValueCheck;
+	 var idMenuSelec = "";
+
+		$(document).ready(function() {
+
+			  $('[name="checks[]"]').click(function() {
+			      arrValueCheck = $('[name="checks[]"]:checked').map(function(){
+			      return this.value;
+			    }).get();
+			     
+			  // var str = arrValueCheck.join(',');
+			  //  $('#arr').text(JSON.stringify(arr));
+			  //  $('#str').text(str);
+			  
+			  });
+
+			});
+		
+		
+		function anadirTodosElemenMenuUsuario()
+	  	 {
+			 idMenuSelec =  "todas";
+			
+			 $.ajax({
+				   type:"GET",
+				   cache:false,
+				   url:'/gestionmenususuario/anadirmenuusuariojax',
+				   data:{"idMenu": idMenuSelec,
+				       	 "idUsuario": idUsuarioParam},
+				   
+				       success: function (data) {
+				       	 // console.log(jqXHR.status);
+				       		console.log("Se ha realizado correctamente la llamada de ajax");
+				       		$("#idDivMenuUsuario").html(data);
+				     	 },
+				       	error: function (jqXHR, exception) {
+				       	 console.log("Se ha producido un error en la llamada de ajax" + jqXHR.responseText);
+				       	}
+				   });
+		 }
+			
+			
+	  
+		function anadirElemenMenuUsuario()
+	  	 {
+			idMenuSelec =  "";
+			 
+			if (arrValueCheck.length > 1) {
+				 alert("ha seleccionado más de uno elemento");
+				}
+			   else
+				 {
+					for (var i=0; i<arrValueCheck.length; i++) {
+					idMenuSelec = arrValueCheck[i];
+			    }
+		 }
+			
+	 alert(idMenuSelec);
+			
+		 $.ajax({
+			   type:"GET",
+			   cache:false,
+			   url:'/gestionmenususuario/anadirmenuusuariojax',
+			   data:{"idMenu": idMenuSelec,
+			       	 "idUsuario": idUsuarioParam},
+			   
+			       success: function (data) {
+			       	 // console.log(jqXHR.status);
+			       		console.log("Se ha realizado correctamente la llamada de ajax");
+			       		$("#idDivMenuUsuario").html(data);
+			     	 },
+			       	error: function (jqXHR, exception) {
+			       	 console.log("Se ha producido un error en la llamada de ajax" + jqXHR.responseText);
+			       	}
+			   });
+		}
+	
+		
+		//   $('#idActivado2').click(function() {
+		//	    if (!$(this).is(':checked')) {
+		//	    	console.log("Ha checkado el primero");
+		//	    }
+		//	  });
+		// 	var arrChecBox = $('#idTabMenuDispo > div .btn btn-primary btn-sm');
+		//	var atLeastOneIsChecked = $('#checkArray:checkbox:checked').length > 0;
+		//	alert(atLeastOneIsChecked)
+	</script>
+
+</head>
+
+  <body>
+  
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera :: menucabecera"></div>
+	
+	<div class="container-fluid">
+
+		<div class="row">
+ 			 <div class="col-12"><h3 th:text="'Gestión de menus para el usuario: ' + ${nomUsuario}"></h3></div>
+ 			 <a th:id="'enlace'" th:name="'enlace1'" class="btn btn-colour-1" role="button">Texto 1</a>
+		</div>
+		
+		<div class="row" style="border-bottom: 2px solid #000">
+  			<div class="col-5">
+  				<h5 th:text="'Opciones del menu principal activos para el usuario'"></h5>
+  				<div id="idDivSubMenu1Usu">
+					<div th:insert="gestionMenus/fragments/MenusSelecUsuario :: menuselecusuario"></div>
+				</div>	
+			</div>
+ 			<div class="col-2" style="text-align: center">
+ 				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+ 					<br/>
+ 					<br/>
+				 	<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  th:onclick="th:anadirElemenMenuUsuario()"  class="btn btn-primary btn-sm" role="button"> < Añadir</a>
+					<br/>
+					<a th:id="'idLinkSuprimir'" th:name="'linkSuprimir'" class="btn btn-colour-1" role="button">Suprimir ></a>
+					<br/>
+					<a th:id="'idLinkAnadirTodos'" th:name="'linkAnadirTodos'"  th:onclick="th:anadirTodosElemenMenuUsuario()"  class="btn btn-colour-1" role="button"> < Añadir todos</a>
+				</div> 
+ 			</div>
+ 			<div class="col-5">
+ 				<h5 th:text="'Opciones del menu principal'"></h5>
+ 				<div th:insert="gestionMenus/fragments/MenusAplicaDispUsuario :: menuapliselecusuario"></div>
+ 			</div>
+		</div>
+ 
+      	<div id="idDivSubMenu1Usu" style="visibility:visible; width:100%"> </div>
+	</div>
+  </body>
+</html>

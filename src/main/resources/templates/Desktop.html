@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	
+<head>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}" />
+	
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
+<style>
+h3 {
+	font-weight: bold !important;
+	color: #495057 !important;
+	font-size: 30px !important;
+	border-bottom: 2px solid #000 !important;
+	background: #e9ecef !important;
+	color: #003B49 !important;
+	display: inline-block !important;
+	padding: 8px 20px !important;
+	margin-left: 10px !important;
+}
+
+h5 {
+	color: #F2A900 !important;
+	font-size: 26px !important;
+	background: #e9ecef !important;
+	color: #F2A900 !important;
+	display: inline-block !important;
+	padding: 3px 15px !important;
+	margin-left: 10px !important;
+}
+</style>
+
+</head>
+
+<body>
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	<div class="container-fluid">
+		<h3>Desktop para modelo de Aplicacion Web Spring Boot</h3>
+		<p>If one of the column is taller than the other, the rest will follow.</p>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div sec:authorize="isAuthenticated()">
+					Bienvenido <b><span sec:authentication="name"> </span></b> &nbsp; <i><span
+						sec:authentication="principal.authorities">Roles</span></i>
+					<form th:action="@{/logout}" method="post">
+						<input type="submit" value="Logout" />
+					</form>
+				</div>
+				<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
+					<a href="new">Accede a sección de usuarios</a>
+				</div>
+			</div>
+			<div class="col">
+
+				<div>
+				<p>© 2020</p>
+				<p>Version Alpha 1.0<p>
+				</div>
+			</div>
+			<div class="col">
+				<span sec:authentication="principal.authorities">Roles</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<h5>Avisos del usuario</h5>	
+				<div class="panel panel-default" style="border-bottom: 2px solid #000">
+				<div class="panel-body" align="center">
+				<table class="table table-sm">
+			
+				<thead>
+					<tr>	
+						<th th:text="'id. Aviso'"></th>
+						<th th:text="Tarea"></th>
+						<th th:text="'Fecha Creacion'"></th>
+						<th th:text="'Fecha Ultima'"></th>
+						<th th:text="'Ir Tarea'"></th>
+					</tr>
+				</thead>
+
+					<tbody>
+					<tr th:if="${listAvisos.empty}">
+						<td colspan="4">No hay Avisos Pendientes para el usuario</td>
+					</tr>
+						<tr th:each="aviso:${listAvisos}">
+						<td th:text="${aviso.idAviso}"></td>
+						<td th:text="${aviso.desTarea}"></td>
+						<td th:text="${#calendars.format(aviso.fecLimiteAviso, 'dd/MM/yyyy')}"></td>
+						<td th:text="${#calendars.format(aviso.fecCreacionAviso, 'dd/MM/yyyy')}"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+		</div>
+			<div class="col-2"></div>
+		</div>
+		 <br>
+		  <br>
+	<footer class="container-fluid">
+		<div class="d-flex justify-content-center">
+			<a th:href="@{/gestionWeb/clientes/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo Cliente</a> 
+			<a th:href="@{/gestionWeb/clientes/pagclientesNue}" class="btn btn-primary" role="button">Clientes</a>
+			<a th:href="@{/gestionWeb/facturas/formaltafactura}" class="btn btn-primary" role="button">Nueva Factura</a> 
+			<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Facturas</a>
+			<a th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-primary" role="button">Usuarios</a>
+			<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">Menus Aplicación</a>
+			<a th:href="@{/informes/informeempleados}" class="btn btn-primary" role="button">Informe Empleados</a> 
+			<a th:href="@{/informes/informeusuarios}" class="btn btn-primary" role="button">Informe Usuarios</a> 
+			<a th:href="@{/gestionWeb/clientes/formuploadfichero}" class="btn btn-primary" role="button">Upload fichero</a>
+			<a th:href="@{/gestionWeb/clientes/cargarImagen}" class="btn btn-primary" role="button">Cargar Imagen</a> 
+			<a th:href="@{/gestionWeb/autores}" class="btn btn-primary" role="button">Autores</a>
+			<a th:href="@{gestionsistema/copsegMySQL}" class="btn btn-primary" role="button">Copia Seguridad</a>
+		</div>
+	</footer>
+</body>
+</html>
+
+

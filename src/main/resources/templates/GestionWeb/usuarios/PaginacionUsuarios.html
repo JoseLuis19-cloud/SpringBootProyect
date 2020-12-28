@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
+	
+<style> 	
+	h3 {
+  		font-weight: bold !important;
+  		color: #495057 !important;
+  		font-size: 30px !important;
+  		
+  		border-bottom: 2px solid #000 !important;
+ 		background:#e9ecef !important;
+  		color:#003B49 !important;
+
+  		display:inline-block !important;
+  		padding:8px 20px !important;
+ 		margin-left:10px !important;
+		}
+		
+	h5 {
+  		color: #F2A900 !important;
+  		font-size: 26px !important;
+  		
+ 		background:#e9ecef !important;
+  		color:#F2A900 !important;
+
+  		display:inline-block !important;
+  		padding:3px 15px !important;
+ 		margin-left:10px !important;
+		}
+  </style>
+</head>
+
+<body>
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+ 
+	<div class="container-fluid">
+	
+			<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-10" style="border-bottom: 2px solid #000">
+					<h3 th:text="'Usuarios de la aplicación'"></h3>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>
+	
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+			
+				<div class="panel panel-default" style="border-bottom: 2px solid #000">
+
+			<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th th:text="'Nombre/Alias'"></th>
+						<th th:text="'Usuario'"></th>
+						<th th:text="'empleado'"></th>
+						<th th:text="'roles en aplicación'"></th>
+						<th th:text="'email'"></th>
+						<th th:text="'fecha alta usuario'"></th>
+						<th th:text="'fecha baja usuario'"></th>
+						<th th:text="'activo'"></th>
+						<th th:text="'editar'"></th>
+						<th th:text="'Gestión'"></th>
+					</tr>
+				</thead>
+
+				<tbody class="table-striped">
+					<tr th:if="${pagUsuarios.empty}">
+						<td colspan="4">No hay Usuarios para la aplicación</td>
+					</tr>
+
+					<tr th:each="users:${pagUsuarios.content}">
+						<td th:text="${users.fullName}"></td>
+						<td th:text="${users.username}"></td>
+						<td>
+							<input type="checkbox" th:checked="${users.indEmpleado}" class="btn btn-primary btn-sm" th:id="'idUserEmpleado'+ ${users.id}" th:name="'userEmpleado'+ ${users.id}" />
+						</td>
+						<td>
+							<li th:each="elementRole : ${users.roles}">
+    							<span th:text="${elementRole.name}"></span>
+							</li>
+						 </td>
+						<td th:text="${users.email}"></td>
+						<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MMM/yyyy HH:mm')}"></td>
+						<td th:text="${#calendars.format(users.fecBajaUsuario, 'dd/MMM/yyyy HH:mm')}"></td>
+						<td>
+							<input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" />
+						</td>
+						<td>										 
+							<a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionmenususuario/formeditarusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">editar</a>	
+						</td>
+						<td>										 
+							<a th:id="'idLinkGesMenu' + ${users.id}" th:name="'linkGesMenu' + ${users.id}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">menus</a>	
+						</td>	  
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
+		 
+		<div th:insert="Aplicacion/fragments/BotoneraPaginacion :: botonerapaginacion"></div>
+	
+</body>
+</html>

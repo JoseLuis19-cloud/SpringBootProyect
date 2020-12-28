@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+  
+  <style>  
+   .form-control-xs {
+    height: calc(1em + .375rem + 2px) !important;
+    padding: .125rem .25rem !important;
+    font-size: .75rem !important;
+    line-height: 1.5;
+    border-radius: .2rem;
+	}
+	
+	h3 {
+  		font-weight: bold !important;
+  		color: #495057 !important;
+  		font-size: 30px !important;
+  		
+  		border-bottom: 2px solid #000 !important;
+ 		background:#e9ecef !important;
+  		color:#003B49 !important;
+
+  		display:inline-block !important;
+  		padding:8px 20px !important;
+ 		margin-left:10px !important;
+		}
+		
+	h5 {
+  		font-weight: bold !important;
+  		color: #F2A900 !important;
+  		font-size: 26px !important;
+  		
+ 		background:#e9ecef !important;
+  		color:#F2A900 !important;
+
+  		display:inline-block !important;
+  		padding:3px 15px !important;
+ 		margin-left:10px !important;
+		}
+		
+	#container {
+  	position: relative;
+	}
+
+	#idNuevoElemMenu {
+     position: absolute;
+     top:300;
+     left:0;
+     z-index:10;
+     max-width:100%;
+     overflow:hidden;
+	}
+
+	#idDivSubMenu1 {
+      position: absolute;
+     top:300;
+     left:0;
+     z-index:1;
+     max-width:100%;
+     overflow:hidden;
+}
+
+  </style>
+  
+ 	 <script src="https://cdn.jsdelivr.net/webjars/jquery/3.0.0/jquery.min.js"></script>
+ 	 <script src="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+  
+	<script th:inline="javascript">
+	
+	 
+	 function ocultarDivAlta()
+     {
+	   alert("entra en ocultarDivAlta");
+	   document.getElementById('idBotonNuevoEle').innerHTML = "Nuevo Elemento"
+	   document.getElementById("idNuevoElemSubMenu").style.visibility="hidden";
+     }
+	 
+	 function mostrarSubMenu(idSubMenu)
+      {
+		document.getElementById("idDivSubMenu1").style.visibility="visible";
+		
+		var url = '/gestionmenus/obtenersubmenunivelPruParam';
+		url = url + '/' + $('#idMenuHidden' + idSubMenu).val();
+	
+		alert(url);
+		  
+		$("#idDivSubMenu1").load(url);
+      }
+	 
+	 function grabarEleSubMenu(idSubMenu)
+      {
+	 
+      }
+	 
+	 function cancelarEleSubMenu(idSubMenu)
+     {
+		/*<![CDATA[*/
+		   var numElem = [[${#lists.size(subMenuNivel1)}]]
+		   numElem = numElem + 1;
+		   for (i = 1; i < numElem; i++) 
+		    {
+			 document.getElementById('idEditarSM'+i).style.visibility="visible";
+			 document.getElementById('idVerSM'+i).style.visibility="visible";
+			}
+		 /*]]>*/
+
+		document.getElementById('idGrabarSM'+idSubMenu).style.visibility="hidden";
+		document.getElementById('idCancelarSM'+idSubMenu).style.visibility="hidden";
+     } 
+	</script>
+</head>
+
+<body>
+   
+  <div th:fragment="eleSubmenuApliciacion" class="results-block">
+  
+  <div id="myModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+      <!-- Modal content-->
+      	<div class="modal-content">
+     
+       
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+   				<h5 th:text="'Elementos del Submenú'"></h5>
+			</div>		
+		</div>	
+		<div class="row">
+			<div class="col-10">
+     			<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th width="10%"  th:text="'Id. Submenú'"></th>
+							<th width="12%" th:text="'N. Orden'"></th>
+							<th width="18%" th:text="'Texto submenú'"></th>
+							<th width="25%" th:text="'Dirección o Link (href) submenú'"></th>
+							<th width="7%"  th:text="'Activado'"></th>
+							<th width="7%"  th:text="'Acción'"></th>
+							<th width="7%"  th:text="'Actualizar'"></th>
+							<th width="7%"  th:text="'Cancelar'"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="subMenuN1:${subMenuNivel1}">
+						<td>
+							<div class="form-group col-md-4">
+								<input type="text" class="form-control form-control-xs"  th:id="'idSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'subMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.idSubmenuNivel1}" th:maxlength="4" th:readonly="true"/>							
+							 </div>
+						</td>
+						<td>
+							<div class="form-group col-md-4">
+								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'mumOrdSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.numOrdenMenu}" th:maxlength="2" th:readonly="true"/>	
+							<!-- 	<p class="alert alert-danger"  th:if="${#fields.hasErrors('${menuP[__${row.index}__].numOrdenMenu}')}" th:errors="${menuP.numOrdenMenu}">	 -->	    			 
+							   </div>
+						</td>
+						<td>
+							<div class="form-group col-md-20">
+								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'textoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
+							</div>
+						</td>
+							<td>
+								<div class="form-group col-md-40">
+									<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacionSM'+ ${subMenuN1.idSubmenuNivel1}" th:name="'hrefAplicacionSM'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
+							    </div>
+							</td>
+							<td>
+								<input type="checkbox" th:checked="${subMenuN1.activo}" class="btn btn-primary btn-sm" th:id="'idActivadoSM'+ ${subMenuN1.idSubmenuNivel1}" th:name="'activadoSM'+ ${subMenuN1.idSubmenuNivel1}" th:disabled="disabled"/>											
+							</td>
+		
+							<td>
+							  <div th:id="'idEditarSM' + ${subMenuN1.idSubmenuNivel1}" style="visibility:visible">
+								<a th:id="'idLinkSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'gestionEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">editar</a>
+							  </div>
+							</td>
+						
+							<td>																											 
+							  <div th:id="'idGrabarSM' + ${subMenuN1.idSubmenuNivel1}" style="visibility:hidden">										 
+								<a th:id="'idLinkGrabarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkGrabarSM' + ${subMenuN1.idSubmenuNivel1}" th:href="@{/gestionmenus/updateelementosubmenu(objMenu=${menuP}) }"  class="btn btn-primary btn-sm" role="button" th:onclick="'grabarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">grabar</a>	
+							  </div>
+							</td>
+							
+							<td>
+							  <div th:id="'idCancelarSM' + ${subMenuN1.idSubmenuNivel1}" style="visibility:hidden">
+								<a th:id="'idLinkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">cancelar</a>	
+							  </div>
+							</td>
+		
+							<input type="hidden" th:id="'idSubMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:name="'idSubMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.idSubmenuNivel1}"/>													
+						</tr>
+					</tbody>
+				 </table>
+				
+				</div>
+				
+				<div class="col-2">
+					<br />
+					<div>Opciones</div>
+					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  class="btn btn-primary btn-sm" role="button" th:onclick="mostrarDivAltaSubMenu()">Nuevo elemento</a>
+				</div>
+				
+			</div>	
+			</div>	
+			</div>	
+		</div>	
+		</div>	
+  		
+				 
+		<div id="idNuevoElemSubMenu" style="visibility:hidden">
+			<h5 th:text="'Nuevo elemento de submenú'"></h5>
+			<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th th:text="'Número Orden'"></th>
+						<th th:text="'Texto elemento del submenú'"></th>
+						<th th:text="'Dirección o Link (href)'"></th>
+						<th th:text="'Activado'"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					 <td>
+						<div class="form-group col-md-2">
+							<input type="text" class="form-control form-control-sm"  th:id="idNumOrdSubMenuN" th:name="mumOrdMenuN" th:value="1" th:maxlength="2"/>											
+						</div>
+					</td>
+					<td>
+						<div class="form-group col-md-14">
+							<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:value="1" th:maxlength="30"/>											
+						 </div>
+					</td>
+					<td>
+						<div class="form-group col-md-14">
+							<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionSMN" th:name="hrefAplicacionN" th:value="1" th:maxlength="50"/>											
+				 	  	</div>
+					</td>
+					<td>
+						<div class="form-group col-md-4">
+							<input type="checkbox" th:checked="true" class="form-control form-control-sm"  th:id="idActivadoSMN" th:name="activadoN" th:readonly="false"/>											
+				 	 	</div>
+					</td>		
+			  	 </tr>
+				</tbody>
+		 	</table>
+			<a th:id="idBotonAltaEleSM" th:name="botonNuevoElSM"  class="btn btn-primary btn-sm" role="button" th:onclick="ocultarDivAlta()">Alta</a>
+			<a th:id="idBotonCancelarEleSM" th:name="botonCancelarEleSM"  class="btn btn-primary btn-sm" role="button" th:onclick="ocultarDivAlta()">Cancelar</a>
+		</div>
+
+      	<div id="idDivSubMenu1" style="visibility:hidden"> </div>	
+
+
+ </div>
+
+
+   
+</body>
+
+
+</html>

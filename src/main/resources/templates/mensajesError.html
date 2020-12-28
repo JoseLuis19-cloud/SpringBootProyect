@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome - Spring Boot Security Example </title>
+</head>
+<body>
+<div style="text-align: center;">
+ 	<p>Se ha producido un error al validar usuario </p>
+    <form th:action="@{/login}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
+</div>   
+</body>
+</html>

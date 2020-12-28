@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+ </head>
+
+	<body>
+		<header th:fragment="menuapliselecusuario">
+			<fieldset id="checkArray">
+				<table id="idTabMenuDispo" class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th th:text="'Seleccionado'"></th>
+							<th th:text="'Id. Menu'"></th>
+							<th th:text="'Texto menú'"></th>
+						</tr>
+					</thead>
+					<tbody class="table-striped">
+						<tr th:each="elemenMenuApli:${listMenuAplicacion}">
+							 <td>
+								<input type="checkbox" th:id="'idCheckActivado'+ ${elemenMenuApli.idMenu}" th:name="checks[]"  th:checked="false" th:value="${elemenMenuApli.idMenu}" class="btn btn-primary btn-sm"   />											
+							</td>
+							<td th:text="${elemenMenuApli.idMenu}"></td>
+							<td th:text="${elemenMenuApli.textoMenu}"></td>   
+					</tbody>
+				 </table>	
+				</fieldset>
+		</header>
+	</body>
+
+</html>

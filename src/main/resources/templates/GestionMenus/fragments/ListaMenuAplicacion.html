@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+
+  		<link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+  
+  <style>  
+   .form-control-xs {
+    height: calc(1em + .375rem + 2px) !important;
+    padding: .125rem .25rem !important;
+    font-size: .75rem !important;
+    line-height: 1.5;
+    border-radius: .2rem;
+	}
+	
+	h3 {
+  		font-weight: bold !important;
+  		color: #495057 !important;
+  		font-size: 30px !important;
+  		
+  		border-bottom: 2px solid #000 !important;
+ 		background:#e9ecef !important;
+  		color:#003B49 !important;
+
+  		display:inline-block !important;
+  		padding:8px 20px !important;
+ 		margin-left:10px !important;
+		}
+		
+	h5 {
+  		color: #F2A900 !important;
+  		font-size: 26px !important;
+  		
+ 		background:#e9ecef !important;
+  		color:#F2A900 !important;
+
+  		display:inline-block !important;
+  		padding:3px 15px !important;
+ 		margin-left:10px !important;
+		}
+		
+	#container {
+  	position: relative;
+	}
+
+	#idNuevoElemMenu {
+     position: absolute;
+     top:300;
+     left:0;
+     z-index:10;
+     max-width:100%;
+     overflow:hidden;
+	}
+
+	#idDivSubMenu1 {
+      position: absolute;
+     top:300;
+     left:0;
+     z-index:1;
+     max-width:100%;
+     overflow:hidden;
+}
+
+  </style>
+  
+  <script src="https://cdn.jsdelivr.net/webjars/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+  
+	<script th:inline="javascript">
+	 
+	function mostrarSubMenuAjax(idMenu)
+    {
+		alert("Entra");
+		
+		var url = '/gestionmenususuario/obtenersubmenuajax';
+		url = url + '/' + $('#idMenuHidden' + idMenu).val() ',' $('#idUserHidden').val()  ;
+	
+		alert(url);
+		  
+		$("#idDivSubMenu1").load(url);
+    }
+	</script>
+</head>
+
+  <body>
+  
+    <div th:fragment="ListSubMenuApli" class="results-block">
+    
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+   				<h5 th:text="'Elementos de menú de la aplicación'"></h5>
+			</div>		
+		</div>	
+		<div class="row" style="border-bottom: 2px solid #000">
+			<div class="col-6">
+     			<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th th:text="'Elemento menú'"></th>
+							<th th:text="'Añadir'"></th>
+							<th th:text="'Eliminar'"></th>
+						</tr>
+					</thead>
+					<tbody class="table-striped">
+						<tr th:each="elemenMenuApli:${listMenuApli}">
+							<td th:text="${listMenuUsuApli.elementoMenu}"></td>
+							<td>
+								<div th:id="'idDivMostrarMenuApli' + ${elemenMenuApli.idMenu}" style="visibility:visible">
+							  		<a th:id="'idLinkMostrarMenuApli' + ${elemenMenuApli.idMenu}" th:name="'linkMostrarSubMenuApli' + ${elemenMenuApli.idMenu}"  class="btn btn-primary btn-sm" role="button">menú</a>
+							 	</div>
+							 	<input type="hidden" th:id="'idMenuHidden'+ ${elemenMenuApli.idMenu}" th:name="'menuHidden'+ ${listMenuUsuApli.idMenu}" th:value="${listMenuUsuApli.idMenu}"/>		
+							 			
+							</td>	
+						</tr>
+					</tbody>
+				 </table>
+			</div>
+				
+			</div>	
+		</div>
+	</div>		 	
+	</body>
+</html>

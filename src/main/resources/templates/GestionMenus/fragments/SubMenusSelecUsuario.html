@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
+ </head>
+
+	<body>
+		<header th:fragment="submenuselecusuario">
+	
+				<input type="hidden" th:id="idUserHidden" th:name="userHidden" th:value="${idUsuarioApli}"/>
+     			<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th th:text="'Seleccionar'"></th>
+							<th th:text="'Id. Submenu'"></th>
+							<th th:text="'Texto Submenú'"></th>
+						</tr>
+					</thead>
+					<tbody class="table-striped">
+						<tr th:each="listSubMenuUsu:${listSubMenuUsuApliWeb}">
+							<td>
+								<input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${listSubMenuUsu.idSubmenuNivel1}" th:name="checksMenuUsu[]"  th:checked="false" th:value="${listSubMenuUsu.idSubmenuNivel1}" class="btn btn-primary btn-sm" />						
+							</td>
+							<td th:text="${listSubMenuUsu.idSubmenuNivel1}"></td>
+							<td th:text="${listSubMenuUsu.textoSubMenuN1}"></td>	
+						</tr>
+					</tbody>
+				 </table>
+		</header>
+	</body>
+
+</html>

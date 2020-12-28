@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2020-12-05T22:58:39 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeEmpleados" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="808e10a4-d604-4070-bfb1-bc3c7a32c618">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SakilaAdapter2"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="800" height="30" uuid="286bf183-386f-439c-b018-1ff56d0f27f0"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informe Empleados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement key="" x="-2" y="10" width="82" height="24" isPrintInFirstWholeBand="true" uuid="34ed4b2d-24ae-47d3-9048-3cad5b48ba1e">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod. Emp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="83" y="10" width="182" height="24" isPrintInFirstWholeBand="true" uuid="8d0411e4-3d54-42d8-9cea-e3a2732d13af"/>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="269" y="10" width="74" height="24" isPrintInFirstWholeBand="true" uuid="19bb4d4a-e222-4c78-a5cc-a944084f2473"/>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="352" y="10" width="90" height="24" isPrintInFirstWholeBand="true" uuid="1f02e8e2-9ad0-440d-93c9-80e350b1eb1c"/>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="450" y="10" width="74" height="24" isPrintInFirstWholeBand="true" uuid="e88365c0-d0b4-4c15-99f1-78cc0b948669"/>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fec. Alta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="530" y="10" width="71" height="24" isPrintInFirstWholeBand="true" uuid="71afd32b-f206-493f-b29b-0548bd5213cf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fec. Baja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="694" y="10" width="79" height="24" isPrintInFirstWholeBand="true" uuid="1846a4c7-3fb5-4cd3-b69d-7655917d884e"/>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salario Bruto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" x="608" y="10" width="82" height="24" isPrintInFirstWholeBand="true" uuid="b2357af2-fc35-4740-9759-ee84b3a5cd7b"/>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Antiguedad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="52" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement x="700" y="40" width="100" height="19" uuid="0e9181af-cc0f-46f6-a9f0-75261aade86a"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="15" width="100" height="30" uuid="56054ed9-684a-4bda-af25-1c9e85d2d230"/>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement key="" x="530" y="9" width="242" height="24" isPrintInFirstWholeBand="true" uuid="6204cec3-20a5-4391-9a71-ee2057294160"/>
+				<box topPadding="0"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salario empleados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="3" width="100" height="30" uuid="f5704c78-391c-4e00-a96d-7193939f71bd"/>
+				<text><![CDATA[Num. Empleados]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

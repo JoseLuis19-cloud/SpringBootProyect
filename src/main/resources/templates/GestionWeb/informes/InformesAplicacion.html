@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
+	
+<style> 	
+	h3 {
+  		font-weight: bold !important;
+  		color: #495057 !important;
+  		font-size: 30px !important;
+  		
+  		border-bottom: 2px solid #000 !important;
+ 		background:#e9ecef !important;
+  		color:#003B49 !important;
+
+  		display:inline-block !important;
+  		padding:8px 20px !important;
+ 		margin-left:10px !important;
+		}
+		
+	h5 {
+  		color: #F2A900 !important;
+  		font-size: 26px !important;
+  		
+ 		background:#e9ecef !important;
+  		color:#F2A900 !important;
+
+  		display:inline-block !important;
+  		padding:3px 15px !important;
+ 		margin-left:10px !important;
+		}
+  </style>
+</head>
+
+<body>
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	<h3 th:text="'Informes Generador en la Aplicación'"></h3>
+	<div class="container-fluid">
+		<p>Lista de informes generados por el usuario</p>
+	
+	
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+			<a th:id="'idLinkPDF'" th:name="'linkPDF'" class="btn btn-primary btn-sm" th:href="@{file:///~Users/UsuarioJoseLuis/Documents/InformeUsuarios.pdf}">Informe Usarios</a>
+			<a th:id="'idLinkPDF'" th:name="'linkPDF'" class="btn btn-primary btn-sm" th:href="@{/informes/downloadFile}" th:target="_blank">Informe Usarios PDF por controller</a>
+			</div>
+		<div class="col-sm-1"></div>
+		</div>
+	</div>
+	
+</body>
+</html>

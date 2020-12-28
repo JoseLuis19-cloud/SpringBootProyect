@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
+ </head>
+
+	<body>
+		<header th:fragment="menuselecusuario">
+	
+				<input type="hidden" th:id="idUserHidden" th:name="userHidden" th:value="${idUsuarioApli}"/>
+     			<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th th:text="'Seleccionado'"></th>
+							<th th:text="'Id. Menu'"></th>
+							<th th:text="'Texto menú'"></th>
+							<th th:text="'Submenú'"></th>
+						</tr>
+					</thead>
+					<tbody class="table-striped">
+						<tr th:each="listMenuUsuApli:${listMenuUsuApliWeb}">
+						 	<td>
+								<input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${listMenuUsuApli.idMenuWeb}" th:name="checksMenuUsu[]"  th:checked="false" th:value="${listMenuUsuApli.idMenuWeb}" class="btn btn-primary btn-sm" />						
+							</td>
+							<td th:text="${listMenuUsuApli.idMenuWeb}"></td>
+							<td th:text="${listMenuUsuApli.elementoMenu}"></td>
+							<td>
+								<div th:id="'idDivMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" style="visibility:visible">
+							  		<a th:id="'idLinkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:name="'linkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}"  th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${listMenuUsuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
+							 	</div>
+							 	<input type="hidden" th:id="'idMenuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:name="'menuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:value="${listMenuUsuApli.idMenuWeb}"/>							 			
+							</td>	
+						</tr>
+					</tbody>
+				 </table>
+		</header>
+	</body>
+
+</html>

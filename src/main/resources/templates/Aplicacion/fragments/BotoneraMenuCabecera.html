@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+ 							
+ 	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</head>
+
+ <body>
+
+	<header th:fragment="menucabecera">
+
+	<div class="d-flex">
+  		<div class="mr-auto p-2"> 
+			<div class="shadow p-3 mb-5 bg-white rounded">
+				<div class="btn-group" th:each="elemenMenuPrincipal : ${opcionesMenuUsuario}">
+		
+ 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${elemenMenuPrincipal.textoMenuSesion}"></button>  			
+  			   	
+  			   		<div class="dropdown-menu">
+  			  			<th:block th:each="eleSubMenuN1 : ${elemenMenuPrincipal.listBeanSubMenuN1UsuSession}">
+            				<a class="dropdown-item" th:text="${eleSubMenuN1.textoSubMenuN1Session}" th:href="${eleSubMenuN1.hrefAplicacionN1Session}"></a>
+        				</th:block>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		 <div class="p-2">
+			<div sec:authorize="isAuthenticated()">
+				Bienvenido <b><span sec:authentication="name"> </span></b>&nbsp; <i><span sec:authentication="principal.authorities">Roles</span></i>
+			</div>
+		</div>
+  </div>
+  		
+  		<!-- <div class="btn-group">
+  			<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${menuN1.textoMenu}">
+  			</button>
+ 			 <div class="dropdown-menu">
+    			<a class="dropdown-item" href="#">Action</a>
+    			<a class="dropdown-item" href="#">Another action</a>
+    			<a class="dropdown-item" href="#">Something else here</a>
+    			<div class="dropdown-divider"></div>
+    			<a class="dropdown-item" href="#">Separated link</a>
+  			</div>
+		</div> --> 
+	</header>
+ </body>
+</body>
+</html>
