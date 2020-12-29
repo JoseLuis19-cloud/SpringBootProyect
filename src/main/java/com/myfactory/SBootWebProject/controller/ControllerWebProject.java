@@ -36,8 +36,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
 import com.myfactory.SBootWebProject.model.Factura;
-import com.smattme.MysqlExportService;
-import com.smattme.MysqlImportService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -160,7 +158,7 @@ public class ControllerWebProject {
 	private static void buckUpMySQLBBDD() {
 		  
 	//  required properties for exporting of db
-	Properties properties = new Properties();
+/*	Properties properties = new Properties();
 	properties.setProperty(MysqlExportService.DB_NAME, "springboot");
 	properties.setProperty(MysqlExportService.DB_USERNAME, "root");
 	properties.setProperty(MysqlExportService.DB_PASSWORD, "");
@@ -173,19 +171,19 @@ public class ControllerWebProject {
 	properties.setProperty(MysqlExportService.EMAIL_USERNAME, "jlbuenome.andro@gmail.com");
 	properties.setProperty(MysqlExportService.EMAIL_PASSWORD, "19buenomendez70");
 	properties.setProperty(MysqlExportService.EMAIL_FROM, "jlbuenome.andro@gmail.com");
-	properties.setProperty(MysqlExportService.EMAIL_TO, "jlbuenome.andro@gmail.com");
+	properties.setProperty(MysqlExportService.EMAIL_TO, "jlbuenome.andro@gmail.com"); */
 
 	//set the outputs temp dir
 	
-	properties.setProperty(MysqlExportService.TEMP_DIR, new File("/Users/UsuarioJoseLuis/Documents/backupsmysql").getPath());
+/*	properties.setProperty(MysqlExportService.TEMP_DIR, new File("/Users/UsuarioJoseLuis/Documents/backupsmysql").getPath());
 	 properties.setProperty(MysqlExportService.PRESERVE_GENERATED_ZIP, "true");
 	
 	
 	MysqlExportService mysqlExportService = new MysqlExportService(properties);
 	//File file1 = mysqlExportService.getGeneratedZipFile();
-	// mysqlExportService..clearTempFiles();
+	// mysqlExportService..clearTempFiles(); */
 	
-	try {
+/*	try {
 		mysqlExportService.export();
 	} catch (ClassNotFoundException e) {
 		// TODO Auto-generated catch block
@@ -198,9 +196,9 @@ public class ControllerWebProject {
 		e.printStackTrace();
 	}
 	 
-	}
+	} */
 	
-	private static void restoreMySQLBBDD() {
+/*	private static void restoreMySQLBBDD() {
 	String sql = null;
 	try {
 		sql = new String(Files.readAllBytes(Paths.get("/Users/UsuarioJoseLuis/Documents/backupsmysql/26_12_2020_12_28_20_springboot_database_dump.zip")));
@@ -222,7 +220,7 @@ public class ControllerWebProject {
 	} catch (ClassNotFoundException | SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	} */
 
 
 	}
@@ -232,27 +230,36 @@ public class ControllerWebProject {
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
         String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
         File backupFile = new File(backupPath);
-        if (!backupFile.exists()) {
+       // if (!backupFile.exists()) {
             try {
             backupFile.createNewFile();
-            String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u%s -p%s %s","root","","springboot");
-            String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S",  mysqlCom};
-            ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command));
+         //   String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u%s -p%s %s","root","","springboot");
+            
+            String mysqlCom2=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u root -p springboot > /Users/UsuarioJoseLuis/Documents/copseg2.sql");
+          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S",  mysqlCom};
+            
+           // String[] command = new String[] { "/bin/bash", "-c" , "ls > /Users/UsuarioJoseLuis/Documents/lista12.txt"};
+            
+          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S /sbin/ifconfig > /Users/UsuarioJoseLuis/Documents/lista15.txt" };
+            String[] command2 = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S ", mysqlCom2 };
+   
+            
+            ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command2));
             processBuilder.redirectError(Redirect.INHERIT);
             processBuilder.redirectOutput(Redirect.to(backupFile));
             Process process = processBuilder.start();
             process.waitFor();
             System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
-			parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
+			// parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-    } else {
-    	parentLogger.error("Se realizo la copia de seguridad ya");
-    }
+ 
+   // } else {
+    //	parentLogger.error("Se realizo la copia de seguridad ya");
+   // }
 	}
         
         public static void restore() {
