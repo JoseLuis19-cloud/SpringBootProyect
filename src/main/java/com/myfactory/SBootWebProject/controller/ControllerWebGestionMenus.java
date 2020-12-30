@@ -138,7 +138,7 @@ public class ControllerWebGestionMenus {
 		elemenMenu.setHrefAplicacion(beanMenuAplicacionWeb.getHrefAplicacion());
 		elemenMenu.setActivo(beanMenuAplicacionWeb.isIndActivo());
 		
-	//	Menu elemenMenuAlta  = serviciosJPAMenu.insertarElementoMenu(elemenMenu);
+		elemenMenu = serviciosJPAMenu.insertarElementoMenu(elemenMenu);
 		
 		Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
 		
@@ -146,8 +146,10 @@ public class ControllerWebGestionMenus {
 		
 		modelo.addAttribute("elemenMenuNuevoWeb", beanMenuAplicacionWeb);
 		
-		Boolean errorAltaElemento  = true;
-		modelo.addAttribute("errorAltaElemento", errorAltaElemento);
+		if (elemenMenu == null) {
+			modelo.addAttribute("errorAltaElemento", true);
+		}
+		 
 	 	
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
