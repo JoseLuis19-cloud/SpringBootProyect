@@ -82,11 +82,20 @@
 	 $(document).ready(function(){
 		
 		$("#idBotonNuevoEle").click(function(){
-		 		$("#myModal").modal();
+		 	$("#myModal").modal();
 		 });
 		
+		// Evento de boton Editar
+		// 
 		$('a[id^="idLinkEdit"]').click(function(event) {
-			alert("Pinchado idLinkEdit "); 
+			
+			if ( $(this).text("editar")) {	
+				alert("Es editar");
+			}  
+	
+			 
+			 
+			// alert("Pinchado idLinkEdit "); 
 		  	// event.target.id.innerHTML = "grabar";
 		   // $(this).append("grabar");
 		 
@@ -109,14 +118,34 @@
 	//		 alert("no es un numero");
 	//	 }
 
-	 		$("#idTextoMenu" + lastChar).prop("readonly", false);
-	 		$("#idhRefAplicacion" + lastChar).prop("readonly", false);
-	 		$("#idActivado" + lastChar).prop("readonly", false);
+	 	 $("#idTextoMenu" + lastChar).prop("readonly", false);
+	 	 $("#idhRefAplicacion" + lastChar).prop("readonly", false);
+	 	 $("#idActivado" + lastChar).prop("readonly", false);
 			  
-		   $("#idLinkCancelar" + lastChar).show();
+		//  $("#idLinkCancelar" + lastChar).show();
+		//  $("#idLinkCancelar1").show();
+		  
+		  $('#idLinkCancelar' + lastChar).css('visibility', 'visible')
 		   
-		   $(this).text('grabar');  
-		   $(this).show();
+		  $(this).text('grabar');  
+		  $(this).show();
+		});
+		
+		// Evento de boton cancelar
+		// 
+		$('a[id^="idLinkCancelar"]').click(function(event) 
+		 {
+		 	$("a[id^='idLinkEdit']").show();
+		  	$("a[id^='idLinkSubMenu']").show();
+		   
+		  	var lastChar = event.target.id.substr(event.target.id.length - 1);  
+
+	 	  	$("#idTextoMenu" + lastChar).prop("readonly", true);
+	 	  	$("#idhRefAplicacion" + lastChar).prop("readonly", true);
+	 	  	$("#idActivado" + lastChar).prop("readonly", true);
+	 	  
+		  	$("a[id^='idLinkCancelar']").hide();
+		    $('#idLinkEdit' + lastChar).text('editar');
 		});
 		
 		 if	(isErrorAlta)
