@@ -1,10 +1,14 @@
 package com.myfactory.SBootWebProject.servicesJPA.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.repository.usuario.UsuarioJPABaseRepository;
 import com.myfactory.SBootWebProject.repository.usuario.UsuarioJPAPagRepository;
@@ -37,6 +41,11 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	@Override
 	public Iterable<User> listadoUsuarios() {
 		return usuarioJPABaseRepository.findAll();
+	}
+	
+	@Override
+	public Optional<User> findIdUsuario(Long idUsuario) {
+		return usuarioJPABaseRepository.findById(idUsuario);
 	}
 
 }

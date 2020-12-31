@@ -1,5 +1,7 @@
 package com.myfactory.SBootWebProject.servicesJPA.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Menu;
@@ -59,4 +61,9 @@ public class ServJPAMenuImp implements ServJPAMenu {
 	{	
 	return subMenuN1NuevoJPARepository.save(subMenuNivel1);
 	};
+	
+	@Override
+	public Optional<Menu> findIdMenu(Integer idMenu) {
+		return menuJPARepository.findById(idMenu);
+	}
 }

@@ -1,11 +1,13 @@
 package com.myfactory.SBootWebProject.controller;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,10 +59,12 @@ public class ControllerWebGestionMenus {
 	 	elemenMenuNuevo.setIndActivo(false);
 	 
 		modelo.addAttribute("elemenMenuNuevoWeb", elemenMenuNuevo);
-		
+
+		BeanMenuAplicacionWeb elementoEdicionMenuApli  = new BeanMenuAplicacionWeb();
+		modelo.addAttribute("elemenEditMenuApli", elementoEdicionMenuApli);
+
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
 		return "GestionMenus/GestionMenus";
 	}
 	
@@ -71,11 +75,8 @@ public class ControllerWebGestionMenus {
 		  
 		// Set<SubMenuNivel1> subMenuN1 = null;
 		Iterable <SubMenuNivel1> subMenuNivel1 = serviciosJPAMenu.obtenerSubMenuAplicacionSin0(new Integer(idMenu));
-	
 		Iterator<SubMenuNivel1> menu = subMenuNivel1.iterator();
-	  //  while(menu.hasNext()){
-	  //  	subMenuN1 = menu.next() ;
-	  //  }
+
 	    modelo.addAttribute("subMenuNivel1", subMenuNivel1);
 	   
 	    
@@ -170,23 +171,51 @@ public class ControllerWebGestionMenus {
 		elemenSubMenu.setActivo(beanSubMenuAplicacionWeb.isIndActivoSubMenu() );
 		
 		SubMenuNivel1 elemenSubMenuNuevo = new SubMenuNivel1();		
-		 elemenSubMenuNuevo  = serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
+		elemenSubMenuNuevo  = serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
 		
-	 	
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionMenus/GestionMenus";
 	}
 	
-//	@GetMapping("/updateelementomenu")
-	// public String updateElementoMenu(Model modelo, @RequestParam(value = "idMenu", required = true) Integer idMenu, Errors errors) 
-//	  public String updateElementoMenu(Model modelo, @RequestParam(value = "objMenu", required = true) Menu menu ) 
-	// public String updateElementoMenu(@ModelAttribute Menu menu)
-//	{ 
-//		serviciosJPAMenu.updateElementoMenu(menu);
-	//	return "GestionMenus/fragments/ListaSubmenu1  :: LSubmenu1";
-//	}
+	@RequestMapping(value = "/updateelementomenu", method = RequestMethod.POST)
+	public String updateElementoMenu(Model modelo, @ModelAttribute("beanMenuAplicacionWeb") BeanMenuAplicacionWeb beanMenuAplicacionWeb)
+		{ 
+		Menu elementoMenu = new Menu();
+		
+		elementoMenu.setIdMenu(beanMenuAplicacionWeb.getIdMenu() ) ;
+		elementoMenu.setNumOrdenMenu(beanMenuAplicacionWeb.getNumOrdenMenu() ) ;
+		elementoMenu.setTextoMenu(beanMenuAplicacionWeb.getTextoMenu() ) ;
+		elementoMenu.setHrefAplicacion(beanMenuAplicacionWeb.getHrefAplicacion() );
+ 
+		serviciosJPAMenu.updateElementoMenu(elementoMenu);
+		
+		
+	Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
+		
+		modelo.addAttribute("menuPrincipal", menuPrincipalAplicacion);
+		
+	 // Instanciar elemento menu nuevo por si da de alta uno
+	 	BeanMenuAplicacionWeb elemenMenuNuevo = new BeanMenuAplicacionWeb();
+	 	
+	  long count = StreamSupport.stream(menuPrincipalAplicacion.spliterator(), false).count();
+	  
+	  Long numRegMenuPrin = new Long(count);
+	  
+	 	elemenMenuNuevo.setNumOrdenMenu(numRegMenuPrin.intValue() + 1 );
+	 	elemenMenuNuevo.setIndActivo(false);
+	 
+		modelo.addAttribute("elemenMenuNuevoWeb", elemenMenuNuevo);
+
+		BeanMenuAplicacionWeb elementoEdicionMenuApli  = new BeanMenuAplicacionWeb();
+		modelo.addAttribute("elemenEditMenuApli", elementoEdicionMenuApli);
+
+	 // Carga el menu general
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "GestionMenus/GestionMenus";
+		}
 	
 
 	

@@ -73,17 +73,18 @@
 
   <body>
   
-   <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera :: menucabecera"></div>
+   <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	<div class="container-fluid">
 
 		<div class="row">
- 			 <div class="col-12"><h3 th:text="'Gestión de submenus para el usuario: ' + ${nomUsuario}"></h3></div>
+ 			 <div class="col-12"><h3 th:text="'Gestión de elementos submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></h3></div>
 		</div>
 		
 		<div class="row" style="border-bottom: 2px solid #000">
-  			<div class="col-5">
-  				<h5 th:text="'Elementos del submenú para la opción principal:'"></h5>
+			<div class="col-1"></div>
+  			<div class="col-4">
+  				<h5 th:text="'Elementos del submenú ya activas:'"></h5>
   				<div id="idDivSubMenu1Usu">
 					<div th:insert="gestionMenus/fragments/SubMenusSelecUsuario :: submenuselecusuario"></div>
 				</div>	
@@ -101,20 +102,22 @@
 					<br/>
 				</div>
  			</div>
- 			<div class="col-5">
- 				<h5 th:text="'Opciones del submenu para la opción principal: Fata el menu'"></h5>
+ 			<div class="col-4">
+ 				<h5 th:text="'Opciones del submenu disponibles'"></h5>
  				<div th:insert="gestionMenus/fragments/SubMenusAplicaDispUsuario :: submenuapliselecusuario"></div>
  			</div>
+ 			<div class="col-1"></div>
 		</div>
 		
 		<div class="row">
- 			 <div class="col-12"> 
+			<div class="col-1"></div>
+ 			 <div class="col-10"> 
   			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario}" class="btn btn-primary" role="button">Volver</a>
  			 </div>
-		</div>
+ 			<div class="col-1"></div>
+ 		</div>
 		
    </div>
-<!--  </div> --> 
 	 	
 	</body>
 </html>

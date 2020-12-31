@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.myfactory.SBootWebProject.beanForm.BeanCamposGesMenuUsu;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioWeb;
@@ -29,6 +30,7 @@ import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Controller
 @RequestMapping("/gestionmenususuario")
@@ -37,6 +39,9 @@ public class ControllerWebGestionMenusUsuario {
 	@Autowired
 	ServJPAMenusUsuario servJPAMenusUsuario;
 	
+	@Autowired
+	ServJPAUsuario servJPAUsuario;
+
 	@Autowired
 	ServJPAMenu servJPAMenu;
 	
@@ -102,6 +107,10 @@ public class ControllerWebGestionMenusUsuario {
 		modelo.addAttribute("listMenuUsuApliWeb", listMenuUsuWeb);
 		modelo.addAttribute("listMenuAplicacion", listMenuAplicacionSelecWeb);
 		
+		BeanCamposGesMenuUsu beanCamposGesMenuUsu = new BeanCamposGesMenuUsu();
+		modelo.addAttribute("beanCamposGesMenuUsu", beanCamposGesMenuUsu);
+		 
+		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionMenus/GestionMenusUsuario";
@@ -113,13 +122,11 @@ public class ControllerWebGestionMenusUsuario {
 		
 		List <BeanSubMenuN1UsuarioWeb> listSubMenuUsuWeb = new ArrayList<BeanSubMenuN1UsuarioWeb>() ;
 		List <BeanSubMenuAplicacionWeb> listSubMenuApliWeb = new ArrayList<BeanSubMenuAplicacionWeb>() ;
-		
-		
+
 		BeanSubMenuN1UsuarioWeb subMenuUsuApliWeb = null;
 		boolean encontradoSubmenuApli;
 	    
 		Iterable<MenusUsuario> subMenuUsuario = servJPAMenusUsuario.obtenerSubMenuUsuSin0(new Long(idUsuario), new Integer(idMenu) );
-		// Iterator<MenusUsuario> subMenuUsu = subMenuUsuario.iterator();
 		
 		Iterable<SubMenuNivel1> subMenuAplicacion = servJPAMenu.obtenerSubMenuAplicacionSin0(new Integer(idMenu)) ;
 	 	Iterator<SubMenuNivel1> subMenuApli = subMenuAplicacion.iterator();
@@ -159,12 +166,11 @@ public class ControllerWebGestionMenusUsuario {
 		modelo.addAttribute("listSubMenuUsuApliWeb", listSubMenuUsuWeb);
 		modelo.addAttribute("subMenuApliSelec", listSubMenuApliWeb);
 		
-		modelo.addAttribute("nomUsuario", "Falta");
-
+		modelo.addAttribute("nomUsuario", servJPAUsuario.findIdUsuario(new Long(idUsuario.trim())).get().getUsername()); 
+		modelo.addAttribute("nomMenuPrincipal", servJPAMenu.findIdMenu(new Integer(idMenu)).get().getTextoMenu());
+		 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
-	//	return "gestionMenus/fragments/ListaSubMenuUsuarioApli :: ListSubMenuApli";
-		
+	
 		return "GestionMenus/GestionSubMenuUsuarioApli";
 	}
 	 
@@ -214,30 +220,28 @@ public class ControllerWebGestionMenusUsuario {
 	}
 	 
 	 
-	 @RequestMapping(value = "/obtenermenuaplicacionajax", method = RequestMethod.GET)
-	 public String obtenerMenuAplicacion(Model modelo) {
+	@RequestMapping(value = "/obtenermenuaplicacionajax", method = RequestMethod.GET)
+	public String obtenerMenuAplicacion(Model modelo) {
 		Iterable<Menu> menuAplicacion = servJPAMenu.obtenerMenusAplicacionSin0();
 		modelo.addAttribute("menuAplicacionWeb", menuAplicacion);
 
 	return "GestionMenus/fragments/ListaSubMenuUsuarioApli :: ListSubMenuApli";
 	}
 	 
-	 
-	 @RequestMapping(value = "/anadirmenuusuariojax", method = RequestMethod.GET)
-	 public String anadirMenuUsuario(Model modelo, @RequestParam("idMenu")  String idMenu, @RequestParam("idUsuario")  String idUsuario) {
+	 @RequestMapping(value = "/anadirmenuusuario", method = RequestMethod.POST)
+	 public String anadirMenuUsuario(Model modelo, 
+			 						@ModelAttribute("beanCamposGesMenuUsu") BeanCamposGesMenuUsu beanCamposGesMenuUsu) {
 		 
 		List <BeanMenuAplicacionWeb>  listMenuAplicacionSelecWeb = new ArrayList<BeanMenuAplicacionWeb>();
 		 
-		 if (idMenu.equals("todas") )
-			 {	 
-			 listMenuAplicacionSelecWeb  = obtenerOpcApliDispoUsuario(new Long(idUsuario.trim()));
-			 
-			// BeanMenuUsuarioWeb menuUsuApliWeb = null;
+		if (beanCamposGesMenuUsu.getIdAccion().equals("todas") )
+			{	 
+			 listMenuAplicacionSelecWeb  = obtenerOpcApliDispoUsuario( beanCamposGesMenuUsu.getIdUsuario() );
 			 
 			 for (BeanMenuAplicacionWeb elemenMenusUsuApli : listMenuAplicacionSelecWeb) {
 				 
 				 User user = new User();
-				 user.setId(new Long(idUsuario));
+				 user.setId(beanCamposGesMenuUsu.getIdUsuario());
 				 
 				 Menu menu = new Menu();
 				 menu.setIdMenu(elemenMenusUsuApli.getIdMenu());
@@ -258,10 +262,10 @@ public class ControllerWebGestionMenusUsuario {
 		 else
 		 	{
 			 User user = new User();
-			 user.setId(new Long(idUsuario));
+			 user.setId(beanCamposGesMenuUsu.getIdUsuario());
 			 
 			 Menu menu = new Menu();
-			 menu.setIdMenu(new Integer(idMenu));
+			 menu.setIdMenu(beanCamposGesMenuUsu.getIdUsuario().intValue());
 			 
 			 SubMenuNivel1 subMenuNivel1 = new SubMenuNivel1();
 			 subMenuNivel1.setIdSubmenuNivel1(new Integer(0));
@@ -276,10 +280,10 @@ public class ControllerWebGestionMenusUsuario {
 		 	}
 
 		// Mostrar solo los Menus de aplicación que no tenga el usuario asignados	    
-		modelo.addAttribute("idUsuarioApli", idUsuario);
+		modelo.addAttribute("idUsuarioApli", beanCamposGesMenuUsu.getIdUsuario());
 		// modelo.addAttribute("nomUsuario", nomUsuario);
 		
-		modelo.addAttribute("listMenuUsuApliWeb", obtenerMenusUsuarioActualizado(new Long(idMenu.trim())));
+		modelo.addAttribute("listMenuUsuApliWeb", obtenerMenusUsuarioActualizado(beanCamposGesMenuUsu.getIdUsuario()));
 		modelo.addAttribute("listMenuAplicacion", listMenuAplicacionSelecWeb);
 			
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());

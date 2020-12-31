@@ -19,7 +19,7 @@
 					<tbody class="table-striped">
 						<tr th:each="elemenSubMenuApliSelec:${subMenuApliSelec}">
 							<td>
-								<input type="checkbox" th:id="'idCheckActivado'+ ${elemenSubMenuApliSelec.idSubMenuN1}" th:name="checks[]"  th:checked="false" th:value="${elemenSubMenuApliSelec.idSubMenuN1}" class="btn btn-primary btn-sm"   />											
+								<input type="checkbox" th:id="'idCheckActivado'+ ${elemenSubMenuApliSelec.idSubMenuN1}" th:name="checks[]"  th:checked="false" th:value="${elemenSubMenuApliSelec.idSubMenuN1}" class="btn btn-primary btn-sm"/>											
 							</td>
 							<td th:text="${elemenSubMenuApliSelec.idSubMenuN1}"></td>
 							<td th:text="${elemenSubMenuApliSelec.textoMenuSubMenu}"></td>

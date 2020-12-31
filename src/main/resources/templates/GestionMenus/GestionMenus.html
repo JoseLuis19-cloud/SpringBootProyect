@@ -48,7 +48,16 @@
 	#container {
   	position: relative;
 	}
-
+	
+ 	.div-desactivado{
+  	color: #DEBC8B;
+  	background-color: #ECC7CD;
+  	border-color: #004E64;
+  	font: 13px Arial, sans-serif;
+ 	letter-spacing: 0.05em;
+  	border-radius: 0;
+	}
+ 
 	#idNuevoElemMenu {
      position: absolute;
      top:300;
@@ -71,13 +80,10 @@
 
   <script th:inline="javascript">
   
- 
   /*<![CDATA[*/
 	var numElemenMenu = [[${#lists.size(menuPrincipal)}]];
-  
 	var isErrorAlta = [[${errorAltaElemento}]];
 	/*]]>*/
-	
 	
 	 $(document).ready(function(){
 		
@@ -87,66 +93,66 @@
 		
 		// Evento de boton Editar
 		// 
+		
 		$('a[id^="idLinkEdit"]').click(function(event) {
 			
-			if ( $(this).text("editar")) {	
-				alert("Es editar");
-			}  
-	
-			 
-			 
-			// alert("Pinchado idLinkEdit "); 
-		  	// event.target.id.innerHTML = "grabar";
-		   // $(this).append("grabar");
-		 
-		   //  $( "#idLinkCancelar1" ).hide(); 
-		  //    $("a[id^='idLinkCancelar']").hide();
-		     $("a[id^='idLinkEdit']").hide(); 
-		     $("a[id^='idLinkSubMenu']").hide(); 
-		   
-		   var lastChar = event.target.id.substr(event.target.id.length - 1);  
-		// alert(lastChar);
-		// var beforeLastChar = event.target.id.substr(event.target.id.length - 2);  
-		 
-		// alert(beforeLastChar);
-		 
-		// if(isNaN(beforeLastChar)){
-		//	 alert("es un numero");
-		// }
-		// else
-		// {
-	//		 alert("no es un numero");
-	//	 }
+			var lastChar = getNumber(event.target.id);
+			
+			if ($(this).text() == "editar") {
+				$("a[id^='idLinkEdit']").hide(); 
+				$("a[id^='idLinkSubMenu']").hide(); 
+				
+			 	$("#idTextoMenu" + lastChar).prop("readonly", false);
+			 	$("#idhRefAplicacion" + lastChar).prop("readonly", false);
+			 	$("#idActivado" + lastChar).prop("disabled", false);
+				  
+				$('#idLinkCancelar' + lastChar).css('visibility', 'visible');
+				   
+				$(this).text('grabar');  
+				$(this).show();
+				}  
+		   	  else
+				{
+				$("#idMenuHidden").val($("#idMenu" + lastChar).val()) ;
+				$("#idNumOrdenHidden").val($("#idNumOrdMenu" + lastChar).val()) ;
+				$("#idTextoMenu").val($("#idTextoMenu" + lastChar).val()); 
+				$("#idHREFMenu").val($("#idhRefAplicacion" + lastChar).val()); 
 
-	 	 $("#idTextoMenu" + lastChar).prop("readonly", false);
-	 	 $("#idhRefAplicacion" + lastChar).prop("readonly", false);
-	 	 $("#idActivado" + lastChar).prop("readonly", false);
-			  
-		//  $("#idLinkCancelar" + lastChar).show();
-		//  $("#idLinkCancelar1").show();
-		  
-		  $('#idLinkCancelar' + lastChar).css('visibility', 'visible')
-		   
-		  $(this).text('grabar');  
-		  $(this).show();
+			 // Submitir formulario
+				document.getElementById("idFormEditMenu").submit();
+			}	
 		});
 		
 		// Evento de boton cancelar
 		// 
 		$('a[id^="idLinkCancelar"]').click(function(event) 
 		 {
-		 	$("a[id^='idLinkEdit']").show();
-		  	$("a[id^='idLinkSubMenu']").show();
-		   
-		  	var lastChar = event.target.id.substr(event.target.id.length - 1);  
+		  $("a[id^='idLinkEdit']").show();
+		  $("a[id^='idLinkSubMenu']").show();
 
-	 	  	$("#idTextoMenu" + lastChar).prop("readonly", true);
-	 	  	$("#idhRefAplicacion" + lastChar).prop("readonly", true);
-	 	  	$("#idActivado" + lastChar).prop("readonly", true);
+		  var lastChar4 = getNumber(event.target.id);
+			
+	 	  $("#idTextoMenu" + lastChar4).prop("readonly", true);
+	 	  $("#idhRefAplicacion" + lastChar4).prop("readonly", true);
+	 	  $("#idActivado" + lastChar4).prop("disabled", true);
 	 	  
-		  	$("a[id^='idLinkCancelar']").hide();
-		    $('#idLinkEdit' + lastChar).text('editar');
-		});
+		  $("a[id^='idLinkCancelar']").hide();
+		  $('#idLinkEdit' + lastChar4).text('editar');
+		 });
+		
+		$("#idEditNumOrden").click(function() {
+			if ( $("#idEditNumOrden").text() == "editar")
+			   {
+			    $("input[id^='idNumOrdMenu']").prop("readonly", false);
+			    $("#idEditNumOrden").text('grabar'); 
+			   }
+			else
+			  {
+			   validarNumOrden();
+			  }
+				 
+		  });
+ 
 		
 		 if	(isErrorAlta)
 	    	{
@@ -157,90 +163,7 @@
 	    	{
 	  	  	console.log("NO CARGAR  ventana emergente");
 	    	}
-
 	});
-	
- 
-	 var estadoBoton = "editar";
-	
-	 function gestionEleMenu(idMenu)
-     {
-		 alert ("Entra 1");
-		if (document.getElementById('idLink'+idMenu).innerHTML == "editar")
-			{
-			alert ("Es editar 2");
-			document.getElementById('idLink'+idMenu).innerHTML = "grabar";
-			
-			// Ponemos todos los campos en edicion
-		//	document.getElementById('idNumOrdMenu'+idMenu).readOnly = false;
-			document.getElementById('idTextoMenu'+idMenu).readOnly = false;
-			document.getElementById('idhRefAplicacion'+idMenu).readOnly = false;
-			document.getElementById('idActivado'+idMenu).disabled = false;
-			
-			/*<![CDATA[*/
-		    var numElem = [[${#lists.size(menuPrincipal)}]]
-		    numElem = numElem + 1;
-		    for (i = 1; i < numElem; i++) 
-		     {
-			  document.getElementById('idVerM'+i).style.visibility="hidden";
-			 }
-		    /*]]>*/
-		    
-		 //   document.getElementById('idCancelar'+idMenu).style.visibility="visible";	
-			}
-		else
-			{
-			alert ("Es editar 3");
-			
-			document.getElementById('idLink'+idMenu).innerHTML = "editar";
-			
-		//	document.getElementById('idNumOrdMenu'+idMenu).readOnly = true;
-			document.getElementById('idTextoMenu'+idMenu).readOnly = true;
-			document.getElementById('idhRefAplicacion'+idMenu).readOnly = true;
-			document.getElementById('idActivado'+idMenu).disabled = true;
-			
-		/*<![CDATA[*/
-		    var numElem = [[${#lists.size(menuPrincipal)}]]
-		    numElem = numElem + 1;
-		    for (i = 1; i < numElem; i++) 
-		     {
-			 
-		//	  document.getElementById('idCancelar'+i).style.visibility="hidden";
-			 }
-		   /*]]>*/
-		}
-     }
-	 
-	 function cancelarEditarEleMenu(idMenu)
-	 {
-		/*<![CDATA[*/
-		var numElem = [[${#lists.size(menuPrincipal)}]]
-		numElem = numElem + 1;
-		for (i = 1; i < numElem; i++) 
-			 {
-			document.getElementById('idVerM'+i).style.visibility="visible";
-			}
-		/*]]>*/
-
-		document.getElementById('idTextoMenu'+idMenu).readOnly = true;
-		document.getElementById('idhRefAplicacion'+idMenu).readOnly = true;
-		document.getElementById('idActivado'+idMenu).disabled = true;
-			
-		document.getElementById('idLink'+idMenu).innerHTML = "editar";
-	//	document.getElementById('idCancelar'+idMenu).style.visibility="hidden";
-	 }
-	 
-	 function mostrarSubMenu(idMenu)
-     {
-		document.getElementById("idDivSubMenu1").style.visibility="visible";
-		
-		var url = '/gestionmenus/obtenersubmenunivelajax';
-		url = url + '/' + $('#idMenuHidden' + idMenu).val();
-	
-		alert(url);
-		  
-		$("#idDivSubMenu1").load(url);
-     }
 	 
 	 function editNumOrden(numOp)
 	 { 
@@ -256,7 +179,35 @@
 			  estadoBoton = "editar";
 			}
 	 }
- 
+	 
+	 function getNumber(objEvent)
+	 { 
+		var numero;
+ 		var lastChar = objEvent.substr(objEvent.length - 1);
+ 		numero = lastChar;
+	 
+		 while (true) 
+		  {
+			  var subCadena = event.target.id.substring(0, event.target.id.length - 1);		  
+			  var lastBeforeChar = subCadena.substr(subCadena.length - 1);
+		  
+			  if ( isNaN(lastBeforeChar)) {
+				   // break;
+				  return numero;
+			  }  
+			 else
+			  {
+				numero.concat(lastBeforeChar);  
+			  }
+		   } 
+	 }
+	 
+	 
+	 function validarNumOrden()
+	 {
+	  $("#idNumOrdMenu" + lastChar4).val();
+	 }
+	 
 	</script>
 	
 </head>
@@ -267,25 +218,27 @@
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	<div class="container-fluid">
 		<div class="row">
+			<div class="titulo-pag" th:text="'Menu de la aplicación'"></div>  
+		</div>
+	
+		<div class="row">
 			<div class="col-1"> </div>
 			<div class="col-10">
-				<h3 th:text="'Menus de la aplicación'"></h3>
- 				<br />
-   				<h5 th:text="'Elementos del Menu principal'"></h5>
+   				<div class="subtitulo-pag" th:text="'Elementos Menu principal'"></div>
 			</div>	
 			<div class="col-1"> </div>
 				
 		</div>	
-		<div class="row" style="border-bottom: 2px solid #000">
+		<div class="row" >
 			<div class="col-1"> </div>
-			<div class="col-10">
+			<div class="col-10" style="border-bottom: 2px solid #000">
      			<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th width="12%"  th:text="'Id. Menu'"></th>
-							<th width="12%" th:text="'N. Orden'"></th>
-							<th width="26%" th:text="'Texto menú'"></th>
-							<th width="26%" th:text="'Dirección o Link (href)'"></th>
+							<th width="8%" th:text="'Id. Menu'"></th>
+							<th width="8%" th:text="'N. Orden'"></th>
+							<th width="30%" th:text="'Texto menú'"></th>
+							<th width="30%" th:text="'Dirección o Link (href)'"></th>
 							<th width="7%"  th:text="'Activado'"></th>
 							<th width="7%"  th:text="'Acción'"></th>
 							<th width="7%"  th:text="'Cancelar'"></th>
@@ -294,48 +247,49 @@
 					</thead>
 					<tbody>
 						<tr th:each="menuP:${menuPrincipal}">
-						<td>
-							<div class="form-group col-md-4">
+						<td th:classappend="${! menuP.activo}? div-desactivado">
+							<div class="form-group">                     
 								<input type="text" class="form-control form-control-xs"  th:id="'idMenu'+ ${menuP.idMenu}" th:name="'menu'+ ${menuP.idMenu}" th:value="${menuP.idMenu}" th:maxlength="4" th:readonly="true"/>							
 							 </div>
 						</td>
-						<td>
-							<div class="form-group col-md-4">
-								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${menuP.idMenu}" th:name="'mumOrdMenu'+ ${menuP.idMenu}" th:value="${menuP.numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>	
-							<!-- 	<p class="alert alert-danger"  th:if="${#fields.hasErrors('${menuP[__${row.index}__].numOrdenMenu}')}" th:errors="${menuP.numOrdenMenu}">	 -->	    			 
-							   </div>
+						<td th:classappend="${menuP.activo}? div-desactivado">
+							<div class="form-group">
+								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${menuP.idMenu}" th:name="'mumOrdMenu'+ ${menuP.idMenu}" th:value="${menuP.numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
+							</div>
 						</td>
-						<td>
-							<div class="form-group col-md-20">
+						<td th:classappend="${menuP.activo}? div-desactivado">
+							<div class="form-group">
 								<input type="text" class="form-control form-control-xs"  th:id="'idTextoMenu'+ ${menuP.idMenu}" th:name="'textoMenu'+ ${menuP.idMenu}" th:value="${menuP.textoMenu}" th:maxlength="30" th:readonly="true" required/>											
 							</div>
 						</td>
-							<td>
-								<div class="form-group col-md-40">
-									<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${menuP.idMenu}" th:name="'hrefAplicacion'+ ${menuP.idMenu}" th:value="${menuP.hrefAplicacion}" th:maxlength="50" th:readonly="true"/>											
-							    </div>
-							</td>
-							<td>
-								<input type="checkbox" th:checked="${menuP.activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${menuP.idMenu}" th:name="'activado'+ ${menuP.idMenu}" th:disabled="disabled"/>											
-							</td>
+						<td th:classappend="${menuP.activo}? div-desactivado">
+							<div class="form-group">
+								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${menuP.idMenu}" th:name="'hrefAplicacion'+ ${menuP.idMenu}" th:value="${menuP.hrefAplicacion}" th:maxlength="50" th:readonly="true"/>											
+							 </div>
+						</td>
+						<td th:classappend="${menuP.activo}? div-desactivado" >
+							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
+							<input type="checkbox" th:checked="${menuP.activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${menuP.idMenu}" th:name="'activado'+ ${menuP.idMenu}" th:disabled="disabled"/>											
+							</div>
+						</td>
 		
-							<td>
-								<a th:id="'idLinkEdit' + ${menuP.idMenu}" th:name="'linkEdit' + ${menuP.idMenu}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a>
-							</td>
+						<td>
+							<a th:id="'idLinkEdit' + ${menuP.idMenu}" th:name="'linkEdit' + ${menuP.idMenu}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a>
+						</td>
 							
-							<td>
-								<a th:id="'idLinkCancelar' + ${menuP.idMenu}" th:name="'linkCancelar' + ${menuP.idMenu}" class="btn btn-colour-1"  role="button" th:onclick="'cancelarEditarEleMenu(' + ${menuP.idMenu} + ')' " style="visibility:hidden">cancelar</a>	
-							</td>
+						<td>
+							<a th:id="'idLinkCancelar' + ${menuP.idMenu}" th:name="'linkCancelar' + ${menuP.idMenu}" class="btn btn-colour-1"  role="button" th:onclick="'cancelarEditarEleMenu(' + ${menuP.idMenu} + ')' " style="visibility:hidden">cancelar</a>	
+						</td>
 							
-							<td>	
-								<a th:id="'idLinkSubMenu' + ${menuP.idMenu}" th:name="'linkSubMenu' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${menuP.idMenu} + '&nomElemMenu=' + ${menuP.textoMenu}}" style="visibility:visible">submenu</a>
-								<input type="hidden" th:id="'idMenuHidden'+ ${menuP.idMenu}" th:name="'idMenuHidden'+ ${menuP.idMenu}" th:value="${menuP.idMenu}"/>		
-							 </td>																				 											
+						<td>	
+							<a th:id="'idLinkSubMenu' + ${menuP.idMenu}" th:name="'linkSubMenu' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${menuP.idMenu} + '&nomElemMenu=' + ${menuP.textoMenu}}" style="visibility:visible">submenu</a>
+							<input type="hidden" th:id="'idMenuHidden'+ ${menuP.idMenu}" th:name="'idMenuHidden'+ ${menuP.idMenu}" th:value="${menuP.idMenu}"/>		
+						 </td>																				 											
 						</tr>
 						<tr>
 						<td></td>
 						<td>
-							<a href="#" id="idEditNumOrden" name="editNumOrden" class="btn btn-colour-1" role="button"  th:onclick="editNumOrden()" aria-disabled="true">Editar</a>
+							<a href="#" th:id="idEditNumOrden" th:name="editNumOrden" class="btn btn-colour-1" role="button"  th:onclick="editNumOrden()" aria-disabled="true">Editar</a>
 						</td>	
 						<td></td>
 						<td></td>
@@ -358,6 +312,13 @@
 			 </div>
 		 
 		 </div>
+		 
+		 <form th:id="idFormEditMenu" th:action="@{/gestionmenus/updateelementomenu}" 	 th:object="${elemenEditMenuApli}" method="post">
+		 	<input type="hidden" th:id="'idMenuHidden'" 	th:name="'idIdMenuHidden'" 	 th:field="*{idMenu}" />	
+		 	<input type="hidden" th:id="'idNumOrdenHidden'" th:name="'idNumOrdenHidden'" th:field="*{numOrdenMenu}" />	
+		 	<input type="hidden" th:id="'idTextoMenu'" 		th:name="'textoMenu'" 		 th:field="*{textoMenu}" />		
+		 	<input type="hidden" th:id="'idHREFMenu'" 		th:name="'hREFMenu'" 		 th:field="*{hrefAplicacion}" />											
+		 </form> 
 
     <!-- Modal -->
     <div id="myModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -367,19 +328,16 @@
       		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
       	
        	 <div class="container-fluid">
-        	<br/>
-         	<h5 th:text="'Nuevo elemento de menú'"> </h5> 
+        	<div class="subtitulo-pag" th:text="'Nuevo elementos Menu principal'"></div>
 
 			<div class="row">
-				<div class="col-12">
-	 
+				<div class="col-12"> 
 					<table class="table table-sm">
-					
 						<thead class="thead-light">
 							<tr>
 								<th width="15%" th:text="'Núm. Orden'"></th>
 								<th width="40%" th:text="'Texto elemento del menú'"></th>
-								<th width="35%" th:text="'Dirección o Link (href)'"></th>
+								<th width="35%" th:text="'Link (Href)'"></th>
 								<th width="10%" th:text="'Activado'"></th>
 							</tr>
 						</thead>
@@ -387,23 +345,23 @@
 							<tr>
 								<td> 
 									<div class="form-group col-md-6">
-										<input type="text" class="form-control form-control-sm"  th:id="idNumOrdMenuN" th:name="mumOrdMenuN" th:field="*{numOrdenMenu}"  th:maxlength="2" th:readonly="true"/>											
+										<input type="text" class="form-control form-control-sm"  th:id="idNumOrdMenuN" th:name="mumOrdMenuN" th:field="*{numOrdenMenu}" th:maxlength="2" th:readonly="true"/>											
 									</div>
 								</td>
 								<td>
 									<div class="form-group">
-										<input type="text" class="form-control form-control-sm"  th:id="idTextoMenuN" th:name="textoMenuN" th:field="*{textoMenu}"   placeholder="Teclee el texto del elemento de menú" th:maxlength="30" required/>											
+										<input type="text" class="form-control form-control-sm"  th:id="idTextoMenuN" th:name="textoMenuN" th:field="*{textoMenu}" placeholder="Teclee el texto del elemento de menú" th:maxlength="30" required/>											
 									</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionN" th:name="hrefAplicacionN" th:field="*{hrefAplicacion}"  placeholder="Teclee parte de url de enlace suministrada"  th:maxlength="30"/>											
-				 	  			</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<input type="checkbox" th:checked="*{indActivo}" class="form-control form-control-sm"  th:id="idActivadoN" th:name="activadoN" th:field="*{indActivo}" th:readonly="false"/>											
-				 	 			</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionN" th:name="hrefAplicacionN" th:field="*{hrefAplicacion}"  placeholder="Teclee parte de url de enlace suministrada"  th:maxlength="30"/>											
+				 	  				</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<input type="checkbox" th:checked="*{indActivo}" class="form-control form-control-sm" th:id="idActivadoN" th:name="activadoN" th:field="*{indActivo}" th:readonly="false"/>											
+				 	 				</div>
 							</td>		
 			  	 		</tr>
 					</tbody>
