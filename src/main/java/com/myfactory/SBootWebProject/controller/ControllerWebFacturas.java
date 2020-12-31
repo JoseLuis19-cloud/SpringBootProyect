@@ -266,11 +266,11 @@ public class ControllerWebFacturas {
 					}
 				}
 		
-			modelo.addAttribute("numPagAct1", "N" );
+		/*	modelo.addAttribute("numPagAct1", "N" );
 			modelo.addAttribute("numPagAct2", "N" );
 			modelo.addAttribute("numPagAct3", "N");
 			modelo.addAttribute("numPagAct4", "N" );
-			modelo.addAttribute("numPagAct5", "N" );
+			modelo.addAttribute("numPagAct5", "N" ); */
 			
 			switch (numPosInt) {
 			case 1:

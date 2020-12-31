@@ -350,6 +350,12 @@ public class CrearBotoneraPag {
 		modelo.addAttribute("linkBoton4", 	 URLPag + paramBotonera.get("numPaginaReal4") + "&numPos=4" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + apellidosBusqueda);
 		modelo.addAttribute("linkBoton5", 	 URLPag + paramBotonera.get("numPaginaReal5") + "&numPos=5" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + apellidosBusqueda);
 		modelo.addAttribute("linkBotonAvan", URLPag + numPagInt + "&tpoAccion=avan" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
+		
+		modelo.addAttribute("numPagAct1", "N" );
+		modelo.addAttribute("numPagAct2", "N" );
+		modelo.addAttribute("numPagAct3", "N");
+		modelo.addAttribute("numPagAct4", "N" );
+		modelo.addAttribute("numPagAct5", "N" );
 	
 	   
    }

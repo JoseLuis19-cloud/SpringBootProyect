@@ -45,7 +45,7 @@
 		<div class="row">
 			<div class="col-sm-1"></div> 
   			<div class="col-sm-10">
-  			  <h3 th:text="'Clientes'"></h3>
+  			  <h3 th:text="'Empleados'"></h3>
   			</div>
   			<div class="col-sm-1"></div> 
 		</div>
@@ -53,10 +53,10 @@
 	<div class="row">
 		<div class="col-sm-1"></div>   
   		<div class="col-sm-10">
-  			<form class="form-inline" action="#" th:action="@{/gestionWeb/clientes/pagclientesNue}" th:object="${objBusqueda}" method="post">
+  			<form class="form-inline" action="#" th:action="@{/gestionWeb/empleado/pagempleadosNue}" th:object="${objBusqueda}" method="post">
   				<div class="form-group mx-sm-3 mb-2">
     				<label for="buscarApellidos" th:text="'  Apellidos:  '"></label>
-    				<input type="text" class="form-control" th:id="idBuscarApellido" th:name="buscarApellido" th:maxlength="25" th:field="*{apellidosBusqueda}" >
+    				<input type="text" class="form-control" th:id="idBuscarApelEmpleado" th:name="buscarApelEmpleado" th:maxlength="25" th:field="*{apellidosBusqueda}" >
     				<button type="submit" class="btn btn-primary">Buscar</button>    
  				</div>	
 			</form>
@@ -75,29 +75,26 @@
 							<th th:text="'Apellidos'"></th>
 							<th th:text="'Nombre'"></th>
 							<th th:text="'NIF'"></th>
-							<th th:text="'NIF'"></th>
+							<th th:text="'Fec. Alta'"></th>
 							<th th:text="'Pais'"></th>
 							<th th:text="'email'"></th>
 							<th th:text="'Teléfono'"></th>
 							<th th:text="'Editar'"></th>
-							<th th:text="'Baja'"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${pagGenerica.empty}">
-							<td colspan="4">No hay clientes</td>
+							<td colspan="4">No hay empleados</td>
 						</tr>
-						<tr th:each="cliente:${pagGenerica.content}">
-							<td th:text="${cliente.idCliente}"></td>
-							<td th:text="${cliente.apellidos}"></td>
-							<td th:text="${cliente.nombre}"></td>
-							<td th:text="${cliente.DNI}"></td>
-							<td th:text="${cliente.pais}"></td>
-							<td th:text="${cliente.dirEmail}"></td>
-							<td th:text="${cliente.telefono}"></td>
-							<td th:text="${#calendars.format(cliente.fecAltaCliente, 'dd/MMM/yyyy')}"></td>
-							<td><a th:href="@{/gestionWeb/clientes/formeditarcliente(idCliente=${cliente.idCliente})}" class="btn btn-primary" role="button">Editar</a></td>
-							<td><a th:href="@{/gestionWeb/clientes/formbajacliente(idCliente=${cliente.idCliente})}" class="btn btn-primary" role="button">Baja</a></td>
+						<tr th:each="empleado:${pagGenerica.content}">
+							<td th:text="${empleado.idEmpleado}"></td>
+							<td th:text="${empleado.apellidos}"></td>
+							<td th:text="${empleado.nombre}"></td>
+							<td th:text="${empleado.DNI}"></td>
+							<td th:text="${empleado.pais}"></td>
+							<td th:text="${empleado.dirEmail}"></td>
+							<td th:text="${#calendars.format(cliente.fecAltaEmpleado, 'dd/MMM/yyyy')}"></td>
+							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idCliente=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -119,10 +116,10 @@
   			<div class="col-sm-10">
   				<div class="d-flex">
   						<div class="mr-auto p-2">
-  							<a th:href="@{/gestionWeb/clientes/formbajacliente}" class="btn btn-primary" role="button">Volver</a>
+  							<a th:href="@{/gestionWeb/empleados/formbajacliente}" class="btn btn-primary" role="button">Volver</a>
   						</div>
   						<div class="p-2">
-						 	<a th:href="@{/gestionWeb/clientes/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo</a>
+						 	<a th:href="@{/gestionWeb/empleados/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo</a>
 						</div>
 				</div>
   			</div>

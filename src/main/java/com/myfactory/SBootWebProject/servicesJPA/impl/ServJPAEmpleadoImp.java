@@ -3,18 +3,24 @@ package com.myfactory.SBootWebProject.servicesJPA.impl;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
-import com.myfactory.SBootWebProject.repository.EmpleadoJPARepository;
+import com.myfactory.SBootWebProject.repository.empleado.EmpleadoJPABaseRepository;
+import com.myfactory.SBootWebProject.repository.empleado.EmpleadoJPAPagRepository;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 
 @Service
 public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 
 	@Autowired
-	EmpleadoJPARepository empleadoJPARepository;
+	EmpleadoJPABaseRepository empleadoJPARepository;
+	
+	@Autowired
+	EmpleadoJPAPagRepository empleadoJPAPagRepository;
 	
 	public Empleado altaEmpleado(Empleado empleado){
 		return empleadoJPARepository.save(empleado);
@@ -42,5 +48,26 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 			System.out.println("Error al grabar imagen empleado");
 		}
 		return empleado1;
-	} 
+	}
+	
+	@Override
+	public Page<Empleado> pagEmpleados(Integer numPag, Integer numRegPag, String buscarApellido) {
+		Page<Empleado> restulPag;
+		
+		//if (buscarApellido.equals("")  )
+		//	{		
+		//	 restulPag = reposSDataPagCliente.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idCliente")));
+		//	}
+	//	else
+	//		{
+			 restulPag = empleadoJPAPagRepository.findMayorApellido(PageRequest.of(numPag, numRegPag, Sort.by("apellidos")), buscarApellido);
+	//		}
+
+		if (restulPag.hasContent()) {
+			System.out.println("tiene contenido la paginacion");
+		}
+		return restulPag;
+	}
+	
+	
 }

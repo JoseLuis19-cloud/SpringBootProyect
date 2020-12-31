@@ -2,6 +2,7 @@ package com.myfactory.SBootWebProject.servicesJPA;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Empleado;
 
@@ -17,5 +18,7 @@ public interface ServJPAEmpleado {
 	public Optional<Empleado> buscarIdEmpleado(Long idEmpleado);
 	
 	public Empleado grabarImagen(Empleado empleado);
+	
+	public Page<Empleado> pagEmpleados(Integer numPag, Integer numRegPag, String buscarApellido);
 	
 }
