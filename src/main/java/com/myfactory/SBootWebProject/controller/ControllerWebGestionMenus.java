@@ -105,10 +105,13 @@ public class ControllerWebGestionMenus {
 		elemenSubMenuNuevo.setIndActivoSubMenu(false);
 		
 		modelo.addAttribute("elemenSubMenuNuevoWeb", elemenSubMenuNuevo);
+		
+		BeanSubMenuAplicacionWeb elementoEdicionSubMenuApli  = new BeanSubMenuAplicacionWeb();
+		elementoEdicionSubMenuApli.setIdMenu(new Integer(idMenu.trim()));
+		modelo.addAttribute("elemenEditSubMenuApli", elementoEdicionSubMenuApli);
 	    
 	    // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
 		
 		return "GestionMenus/GestionSubmenus";
 	}

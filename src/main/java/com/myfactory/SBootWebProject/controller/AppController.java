@@ -108,12 +108,11 @@ public class AppController {
  		modelo.addAttribute("opcionesMenuUsuario", listMenuUsuarioSession);
  		
  		// Enviar un email 
- 		enviarEmail();
+ 		//enviarEmail();
  		
  		// Enviar un email 
  		leerAvisosUsuario(modelo, beanIdUsuario.getIdUsuario());
- 		
-	
+ 
 	return "Desktop";
 	}
 	

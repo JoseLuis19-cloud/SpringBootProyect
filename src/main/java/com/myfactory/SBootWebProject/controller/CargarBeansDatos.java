@@ -6,7 +6,10 @@ import org.springframework.web.context.annotation.ApplicationScope;
 
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
+
 import com.myfactory.SBootWebProject.model.Cliente;
+import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
 
@@ -50,6 +53,16 @@ public class CargarBeansDatos  implements Serializable {
 		  
 		 // Factura nueva=(Factura)f.clone();
 		  return clienteWeb;
+	  }
+	  
+	  
+	  public BeanEmpleadoWeb cargarBeanEmpleado (Empleado empleado)
+	  {
+		  
+	 
+		  
+		 // Factura nueva=(Factura)f.clone();
+		  return new BeanEmpleadoWeb();
 	  }
 
 		

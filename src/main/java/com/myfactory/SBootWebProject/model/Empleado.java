@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -65,6 +66,13 @@ public class Empleado  implements Serializable {
 	
 	@Column(name = "NUM_CUENTA_CORRIENTE", length = 24, nullable = true)
 	private String numCuentaCorriente;
+	
+	@Lob
+	//@Column(length=100000)
+	@Column(name = "IMG_FOTO_EMPLEADO", nullable = true)
+	private java.sql.Blob imagenFotoEmpleado;
+	
+	
 	
 	public Long getIdEmpleado() {
 		return idEmpleado;
@@ -150,6 +158,14 @@ public class Empleado  implements Serializable {
 	}
 	public void setFecBajaEmplelado(Calendar fecBajaEmplelado) {
 		this.fecBajaEmplelado = fecBajaEmplelado;
+	}
+	
+	public java.sql.Blob getImagenFotoEmpleado() {
+		return imagenFotoEmpleado;
+	}
+
+	public void setImagenFotoEmpleado(java.sql.Blob imagenFotoEmpleado) {
+		this.imagenFotoEmpleado = imagenFotoEmpleado;
 	}
 	
 }

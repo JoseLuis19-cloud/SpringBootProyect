@@ -12,6 +12,7 @@ public class BeanSubMenuAplicacionWeb implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
+	private Integer idMenu;
 	private Integer idSubMenuN1;
 	private Integer numOrdenSubMenu;
 	private String textoMenuSubMenu;
@@ -61,6 +62,14 @@ public class BeanSubMenuAplicacionWeb implements Serializable, Cloneable {
 	public void setIdSubMenuN1(Integer idSubMenuN1) {
 		this.idSubMenuN1 = idSubMenuN1;
 	}	
+	
+	public Integer getIdMenu() {
+		return idMenu;
+	}
+
+	public void setIdMenu(Integer idMenu) {
+		this.idMenu = idMenu;
+	}
 	
 	
 }

@@ -57,25 +57,6 @@
  	letter-spacing: 0.05em;
   	border-radius: 0;
 	}
- 
-	#idNuevoElemMenu {
-     position: absolute;
-     top:300;
-     left:0;
-     z-index:10;
-     max-width:100%;
-     overflow:hidden;
-	}
-
-	#idDivSubMenu1 {
-      position: absolute;
-     top:300;
-     left:0;
-     z-index:1;
-     max-width:100%;
-     overflow:hidden;
-	}
-
   </style>
 
   <script th:inline="javascript">
@@ -92,8 +73,7 @@
 		 });
 		
 		// Evento de boton Editar
-		// 
-		
+		//
 		$('a[id^="idLinkEdit"]').click(function(event) {
 			
 			var lastChar = getNumber(event.target.id);
@@ -123,7 +103,7 @@
 			}	
 		});
 		
-		// Evento de boton cancelar
+		// Evento de boton cancelar la edicion de un elemento de menu
 		// 
 		$('a[id^="idLinkCancelar"]').click(function(event) 
 		 {
@@ -140,45 +120,40 @@
 		  $('#idLinkEdit' + lastChar4).text('editar');
 		 });
 		
+		// Evento Editar numero de orden de menu
 		$("#idEditNumOrden").click(function() {
 			if ( $("#idEditNumOrden").text() == "editar")
 			   {
 			    $("input[id^='idNumOrdMenu']").prop("readonly", false);
-			    $("#idEditNumOrden").text('grabar'); 
+			    $("#idEditNumOrden").text('grabar');
+			    
+			    document.getElementById("idCancelNumOrden").style.display = "block";
 			   }
 			else
 			  {
-			   validarNumOrden();
+			   if (validarNumOrdenOK()) {
+			   	   document.getElementById("idCancelNumOrden").style.display = "none";
+			   }
+			   
 			  }
-				 
-		  });
+	 	});
+			
+		$("#idCancelNumOrden").click(function() {
+			$("input[id^='idNumOrdMenu']").prop("readonly", true);
+			$("#idEditNumOrden").text('editar');
+				document.getElementById("idCancelNumOrden").style.display = "none";
+		});
  
-		
-		 if	(isErrorAlta)
-	    	{
-	  	 	 console.log("cargar ventana emergente" + isErrorAlta);
-	  	 	 $('#myModal').modal('show');
+		if (isErrorAlta)
+	       {
+	  	 	console.log("cargar ventana emergente" + isErrorAlta);
+	  	 	$('#myModal').modal('show');
 	   		}
 	   	  else
-	    	{
+	       {
 	  	  	console.log("NO CARGAR  ventana emergente");
-	    	}
+	       }
 	});
-	 
-	 function editNumOrden(numOp)
-	 { 
-		alert ("estadoBoton " + estadoBoton);
-		if (estadoBoton == "editar")
-		    {
- 	 		 document.getElementById('idEditNumOrden').innerHTML = "Guardar";
- 	 		 estadoBoton = "guardar";
-			}
-		   else
-			{
-			  document.getElementById('idEditNumOrden').innerHTML = "Editar";
-			  estadoBoton = "editar";
-			}
-	 }
 	 
 	 function getNumber(objEvent)
 	 { 
@@ -203,18 +178,72 @@
 	 }
 	 
 	 
-	 function validarNumOrden()
+	 function validarNumOrdenOK()
 	 {
-	  $("#idNumOrdMenu" + lastChar4).val();
+	  var numOrdVal;
+	  var indNumOrden = 1;
+	  
+	 // alert($("#idNumOrdMenu" + indNumOrden).val());
+	  
+	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++) {
+		  
+		  numOrdVal = $("#idNumOrdMenu" + indNumOrden).val();
+		  
+		   if ( isNaN(numOrdVal)) {
+			   	alert("Los números de orden deben ser numéricos");
+			    return false;
+		   }
+		}
+	  
+	 // Valida que no haya numero de orden repetidos
+	  var indNumOrdenB = 1;
+	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
+		  {
+			  numOrdVal = $("#idNumOrdMenu" + indNumOrden).val();
+			  
+			  for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) {
+				  
+				  if (indNumOrden != indNumOrdenB) {
+				 	 if (numOrdVal == $("#idNumOrdMenu" + indNumOrdenB).val())
+					  	{
+				 		  alert("No puede haber números de orden repetidos");
+				 		  return false;
+					  	}
+		  			}
+			  }
+		  
+		  }
+	  
+	  // Valida que no falte ningún numero secuencialmente
+	  var encuentraSecuencial = "N";
+	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
+	  	   {
+		  	numOrdVal = $("#idNumOrdMenu" + indNumOrden).val().trim();
+			encuentraSecuencial = "N";
+
+		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) { 
+					// Encuentra el secuencial
+		 		  if (indNumOrdenB == numOrdVal) {
+		 			  encuentraSecuencial = "S";
+		 		  }
+		 	 }
+		 	
+		 	 if  (encuentraSecuencial != "S")
+		 		 {
+		 		  alert("Falta algún numero de orden desde el primero al ultimo que ha introducido");
+		 		  return false;
+		 		 }
+
+	  	 }
+	  return true;
 	 }
 	 
 	</script>
 	
 </head>
 
-<body>
-	
-	<!--  <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera :: menucabecera"></div>  -->
+ <body>
+
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	<div class="container-fluid">
 		<div class="row">
@@ -235,26 +264,22 @@
      			<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th width="8%" th:text="'Id. Menu'"></th>
-							<th width="8%" th:text="'N. Orden'"></th>
+							<th width="7%"  th:text="'Id. Menu'"></th>
+							<th width="7%"  th:text="'N. Orden'"></th>
 							<th width="30%" th:text="'Texto menú'"></th>
 							<th width="30%" th:text="'Dirección o Link (href)'"></th>
-							<th width="7%"  th:text="'Activado'"></th>
+							<th width="5%"  th:text="'Activado'"></th>
 							<th width="7%"  th:text="'Acción'"></th>
 							<th width="7%"  th:text="'Cancelar'"></th>
 							<th width="7%"  th:text="'Ver'"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="menuP:${menuPrincipal}">
-						<td th:classappend="${! menuP.activo}? div-desactivado">
-							<div class="form-group">                     
-								<input type="text" class="form-control form-control-xs"  th:id="'idMenu'+ ${menuP.idMenu}" th:name="'menu'+ ${menuP.idMenu}" th:value="${menuP.idMenu}" th:maxlength="4" th:readonly="true"/>							
-							 </div>
-						</td>
+					   <tr th:each="menuP:${menuPrincipal}">
+						<td th:text="${menuP.idMenu}"></td>
 						<td th:classappend="${menuP.activo}? div-desactivado">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${menuP.idMenu}" th:name="'mumOrdMenu'+ ${menuP.idMenu}" th:value="${menuP.numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
+								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${menuP.numOrdenMenu}" th:name="'mumOrdMenu'+ ${menuP.numOrdenMenu}" th:value="${menuP.numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
 							</div>
 						</td>
 						<td th:classappend="${menuP.activo}? div-desactivado">
@@ -264,12 +289,12 @@
 						</td>
 						<td th:classappend="${menuP.activo}? div-desactivado">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${menuP.idMenu}" th:name="'hrefAplicacion'+ ${menuP.idMenu}" th:value="${menuP.hrefAplicacion}" th:maxlength="50" th:readonly="true"/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${menuP.idMenu}" th:name="'hrefAplicacion'+ ${menuP.idMenu}" th:value="${menuP.hrefAplicacion}" th:maxlength="45" th:readonly="true"/>											
 							 </div>
 						</td>
 						<td th:classappend="${menuP.activo}? div-desactivado" >
 							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-							<input type="checkbox" th:checked="${menuP.activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${menuP.idMenu}" th:name="'activado'+ ${menuP.idMenu}" th:disabled="disabled"/>											
+								<input type="checkbox" th:checked="${menuP.activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${menuP.idMenu}" th:name="'activado'+ ${menuP.idMenu}" th:disabled="disabled"/>											
 							</div>
 						</td>
 		
@@ -287,15 +312,17 @@
 						 </td>																				 											
 						</tr>
 						<tr>
-						<td></td>
-						<td>
-							<a href="#" th:id="idEditNumOrden" th:name="editNumOrden" class="btn btn-colour-1" role="button"  th:onclick="editNumOrden()" aria-disabled="true">Editar</a>
-						</td>	
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+							<td></td>
+							<td>
+								<a href="#" th:id="idEditNumOrden" th:name="editNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true">editar</a>
+								<a href="#" th:id="idCancelNumOrden" th:name="editCancelNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true" style="display:none;">Cancelar</a>
+							</td>	
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 				 </table>

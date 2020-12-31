@@ -5,7 +5,8 @@
 <head>
 
   <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
- 							
+  	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+ 	
  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 
@@ -44,29 +45,6 @@
   		padding:3px 15px !important;
  		margin-left:10px !important;
 		}
-		
-	#container {
-  	position: relative;
-	}
-
-	#idNuevoElemMenu {
-     position: absolute;
-     top:300;
-     left:0;
-     z-index:10;
-     max-width:100%;
-     overflow:hidden;
-	}
-
-	#idDivSubMenu1 {
-      position: absolute;
-     top:300;
-     left:0;
-     z-index:1;
-     max-width:100%;
-     overflow:hidden;
-}
-
   </style>
  
  
@@ -77,103 +55,220 @@
   
 	var isErrorAlta = [[${errorAltaElemento}]];
 	var noTieneElemSubmenus = [[${noTieneSubmenus}]];
-	/*]]>*/
 	
+	/*]]>*/
 	
 	 $(document).ready(function(){
 		
-		 console.log("noTieneElemSubmenus: " + noTieneElemSubmenus);
-		 
 		$("#idBotonNuevoEleSM").click(function(){
-		 		$("#myModal2").modal();
+		 	$("#myModalNue").modal();
 		 });
 		
-		 if	(isErrorAlta || noTieneElemSubmenus)
-	    	{
-	  	 	 console.log("cargar ventana emergente" + isErrorAlta);
-	  	 	 $('#myModal2').modal('show');
+		// Evento de boton Editar de
+		//
+		$('a[id^="idLinkEditarSM"]').click(function(event) {
+			
+			var lastChar = getNumber(event.target.id);
+			
+			if ($(this).text() == "editar") {
+				$("a[id^='idLinkEditarSM']").hide(); 
+				
+			 	$("#idTextoSubMenu" + lastChar).prop("readonly", false);
+			 	$("#idHRefApliSubMenu" + lastChar).prop("readonly", false);
+			 	$("#idActivadoSubMenu" + lastChar).prop("disabled", false);
+				  
+				$('#idLinkCancelarSM' + lastChar).css('visibility', 'visible');
+				   
+				$(this).text('grabar');  
+				$(this).show();
+				}  
+		   	  else
+				{
+				$("#idIdSubMenuHidden").val($("#idSubMenuHidden" + lastChar).val());
+				$("#idNumOrdenSMHidden").val($("#idNumOrdSubMenu" + lastChar).val());
+				$("#idTextoMenuSMHidden").val($("#idTextoSubMenu" + lastChar).val()); 
+				$("#idHREFMenuSMHidden").val($("#idHRefApliSubMenu" + lastChar).val()); 
+				$("#idActivadoSMHidden").val($("#idActivadoSubMenu" + lastChar).val()); 
+				
+				// Falta el campo activado !!!!!
+				
+
+			 // Submitir formulario
+				document.getElementById("idFormEditMenu").submit();
+			}	
+		});
+		
+		// Evento de boton cancelar la edicion de un elemento de menu
+		// 
+		$('a[id^="idLinkCancelarSM"]').click(function(event) 
+		 {
+		  $("a[id^='idLinkEditarSM']").show();
+
+		  var lastChar4 = getNumber(event.target.id);
+			
+	 	  $("#idTextoMenu" + lastChar4).prop("readonly", true);
+	 	  $("#idhRefAplicacion" + lastChar4).prop("readonly", true);
+	 	  $("#idActivado" + lastChar4).prop("disabled", true);
+	 	  
+		  $("a[id^='idLinkCancelarSM']").hide();
+		  $('#idLinkEditarSM' + lastChar4).text('editar');
+		 });
+		
+		// Evento Editar numero de orden de menu
+		$("#idEditNumOrden").click(function() {
+			alert("Pinchar Editar num Orden");
+			if ( $("#idEditNumOrden").text() == "editar")
+			   {
+				alert("Editar un numero de orden");
+			    $("input[id^='idNumOrdSubMenu']").prop("readonly", false);
+			    $("#idEditNumOrden").text('grabar');
+			    
+			    document.getElementById("idCancelNumOrden").style.display = "block";
+			   }
+			else
+			  {
+			   if (validarNumOrdenOK()) {
+			   	   document.getElementById("idCancelNumOrden").style.display = "none";
+			   }
+			   
+			  }
+	 	});
+			
+		$("#idCancelNumOrden").click(function() {
+			$("input[id^='idNumOrdSubMenu']").prop("readonly", true);
+			$("#idEditNumOrden").text('editar');
+				document.getElementById("idCancelNumOrden").style.display = "none";
+		});
+ 
+		if (isErrorAlta)
+	       {
+	  	 	console.log("cargar ventana emergente" + isErrorAlta);
+	  	 	$('#myModalNue').modal('show');
 	   		}
 	   	  else
-	    	{
+	       {
 	  	  	console.log("NO CARGAR  ventana emergente");
-	    	}
-
+	       }
 	});
 	 
-	 function ocultarDivAlta()
-     {
-	   alert("entra en ocultarDivAlta");
-	   document.getElementById('idBotonNuevoEle').innerHTML = "Nuevo Elemento"
-	   document.getElementById("idNuevoElemSubMenu").style.visibility="hidden";
-     }
+	 function getNumber(objEvent)
+	 { 
+		var numero;
+ 		var lastChar = objEvent.substr(objEvent.length - 1);
+ 		numero = lastChar;
 	 
-	 function mostrarSubMenu(idSubMenu)
-      {
-		document.getElementById("idDivSubMenu1").style.visibility="visible";
-		
-		var url = '/gestionmenus/obtenersubmenunivelPruParam';
-		url = url + '/' + $('#idMenuHidden' + idSubMenu).val();
-	
-		alert(url);
+		 while (true) 
+		  {
+			  var subCadena = event.target.id.substring(0, event.target.id.length - 1);		  
+			  var lastBeforeChar = subCadena.substr(subCadena.length - 1);
 		  
-		$("#idDivSubMenu1").load(url);
-      }
-	
+			  if ( isNaN(lastBeforeChar)) {
+				  return numero;
+			  }  
+			 else
+			  {
+				numero.concat(lastBeforeChar);  
+			  }
+		   } 
+	 }
 	 
-	 function cancelarEleSubMenu(idSubMenu)
-     {
-		/*<![CDATA[*/
-		   var numElem = [[${#lists.size(subMenuNivel1)}]]
-		   numElem = numElem + 1;
-		   for (i = 1; i < numElem; i++) 
-		    {
-			 document.getElementById('idEditarSM'+i).style.visibility="visible";
-			 document.getElementById('idVerSM'+i).style.visibility="visible";
-			}
-		 /*]]>*/
+	 
+	 function validarNumOrdenOK()
+	 {
+	  var numOrdVal;
+	  var indNumOrden = 1;
+	  
+	 // alert($("#idNumOrdMenu" + indNumOrden).val());
+	  
+	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++) {
+	 
+		  numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val();
+		  
+		   if ( isNaN(numOrdVal)) {
+			   	alert("Los números de orden deben ser numéricos");
+			    return false;
+		   }
+		}
+	  
+	 // Valida que no haya numero de orden repetidos
+	  var indNumOrdenB = 1;
+	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
+		  {
+			  numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val();
+			  
+			  for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) {
+				  
+				  if (indNumOrden != indNumOrdenB) {
+				 	 if (numOrdVal == $("#idNumOrdSubMenu" + indNumOrdenB).val())
+					  	{
+				 		  alert("No puede haber números de orden repetidos");
+				 		  return false;
+					  	}
+		  			}
+			  }
+		  
+		  }
+	  
+	  // Valida que no falte ningún numero secuencialmente
+	  var encuentraSecuencial = "N";
+	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
+	  	   {
+		  	numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val().trim();
+			encuentraSecuencial = "N";
 
-		document.getElementById('idGrabarSM'+idSubMenu).style.visibility="hidden";
-		document.getElementById('idCancelarSM'+idSubMenu).style.visibility="hidden";
-     } 
+		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) { 
+					// Encuentra el secuencial
+		 		  if (indNumOrdenB == numOrdVal) {
+		 			  encuentraSecuencial = "S";
+		 		  }
+		 	 }
+		 	
+		 	 if  (encuentraSecuencial != "S")
+		 		 {
+		 		  alert("Falta algún numero de orden desde el primero al ultimo que ha introducido");
+		 		  return false;
+		 		 }
+
+	  	 }
+	  return true;
+	 }
 	</script>
 </head>
 
 <body>
    
-  <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera :: menucabecera"></div>
+  <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
        
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-12">
+			<div class="col-1"></div>
+			<div class="col-10">
    				<h5 th:text="'Elementos de  Submenú pertenecientes al menu principal: ' + ${elemenMenuPrincipal} "></h5>
-			</div>		
+			</div>
+			<div class="col-1">	</div>	
 		</div>	
 		<div class="row" style="border-bottom: 2px solid #000">
+			<div class="col-1"></div>
 			<div class="col-10">
      			<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th width="10%"  th:text="'Id. Submenú'"></th>
+							<th width="8%" th:text="'Id. submenú'"></th>
 							<th width="12%" th:text="'N. Orden'"></th>
-							<th width="18%" th:text="'Texto submenú'"></th>
+							<th width="20%" th:text="'Texto submenú'"></th>
 							<th width="25%" th:text="'Dirección o Link (href) submenú'"></th>
 							<th width="7%"  th:text="'Activado'"></th>
 							<th width="7%"  th:text="'Acción'"></th>
-							<th width="7%"  th:text="'Actualizar'"></th>
 							<th width="7%"  th:text="'Cancelar'"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="subMenuN1:${subMenuNivel1}">
+					  <tr th:each="subMenuN1:${subMenuNivel1}">
+						<td th:text="${subMenuN1.idSubmenuNivel1}"></td>
 						<td>
 							<div class="form-group col-md-4">
-								<input type="text" class="form-control form-control-xs"  th:id="'idSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'subMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.idSubmenuNivel1}" th:maxlength="4" th:readonly="true"/>							
-							 </div>
-						</td>
-						<td>
-							<div class="form-group col-md-4">
-								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'mumOrdSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.numOrdenMenu}" th:maxlength="2" th:readonly="true"/>	
-							<!-- 	<p class="alert alert-danger"  th:if="${#fields.hasErrors('${menuP[__${row.index}__].numOrdenMenu}')}" th:errors="${menuP.numOrdenMenu}">	 -->	    			 
+								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdSubMenu'+ ${subMenuN1.numOrdenMenu}" th:name="'mumOrdSubMenu'+ ${subMenuN1.numOrdenMenu}" th:value="${subMenuN1.numOrdenMenu}" th:maxlength="2" th:readonly="true"/>	
+							<!-- <p class="alert alert-danger"  th:if="${#fields.hasErrors('${menuP[__${row.index}__].numOrdenMenu}')}" th:errors="${menuP.numOrdenMenu}">	 -->	    			 
 							</div>
 						</td>
 						<td>
@@ -181,58 +276,63 @@
 								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'textoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
 							</div>
 						</td>
-							<td>
-								<div class="form-group col-md-40">
-									<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacionSM'+ ${subMenuN1.idSubmenuNivel1}" th:name="'hrefAplicacionSM'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
+							<td> 
+								<div class="form-group col-md-40" style="display: flex; justify-content: center; align-items: center;">
+									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'hRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
 							    </div>
 							</td>
 							<td>
-								<input type="checkbox" th:checked="${subMenuN1.activo}" class="btn btn-primary btn-sm" th:id="'idActivadoSM'+ ${subMenuN1.idSubmenuNivel1}" th:name="'activadoSM'+ ${subMenuN1.idSubmenuNivel1}" th:disabled="disabled"/>											
+								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'activadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:checked="${subMenuN1.activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>											
 							</td>
 		
 							<td>
-							  <div th:id="'idEditarSM' + ${subMenuN1.idSubmenuNivel1}" style="visibility:visible">
-								<a th:id="'idLinkSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'gestionEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">editar</a>
-							  </div>
-							</td>
-						
-							<td>																											 
-							  <div th:id="'idGrabarSM' + ${subMenuN1.idSubmenuNivel1}" style="visibility:hidden">										 
-								<a th:id="'idLinkGrabarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkGrabarSM' + ${subMenuN1.idSubmenuNivel1}" th:href="@{/gestionmenus/updateelementosubmenu(objMenu=${menuP}) }"  class="btn btn-primary btn-sm" role="button" th:onclick="'grabarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">grabar</a>	
-							  </div>
+								<a th:id="'idLinkEditarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkEditarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'gestionEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">editar</a>
 							</td>
 							
 							<td>
-							  <div th:id="'idCancelarSM' + ${subMenuN1.idSubmenuNivel1}" style="visibility:hidden">
 								<a th:id="'idLinkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">cancelar</a>	
-							  </div>
-							</td>
-		
-							<input type="hidden" th:id="'idSubMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:name="'idSubMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.idSubmenuNivel1}"/>													
+							</td>												
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<a href="#" th:id="idEditNumOrden" th:name="editNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true">editar</a>
+								<a href="#" th:id="idCancelNumOrden" th:name="editCancelNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true" style="display:none;">Cancelar</a>
+							</td>	
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 				 </table>
-				
 				</div>
-				
-				<div class="col-2">
-					<br />
-					<div>Opciones</div>
-					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>
-				</div>
-				
-			</div>
+				<div class="col-1"></div>
+			  </div>
 			
 			<div class="row">
-				<div class="col-12">
-				 <a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">volver menus</a>
+				<div class="col-1"></div>	
+				<div class="col-10">
+				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">volver menus</a>
 				 	<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAyuda">Ayuda pantalla</button>
+					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
 				 </div>	
+				 <div class="col-1"></div>	
 			</div>
 		</div>
 			
-		 <div id="myModal2" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="modalAyuda" aria-hidden="true">
+		<form th:id="idFormEditMenu" th:action="@{/gestionmenus/updateelementosubmenu}" th:object="${elemenEditSubMenuApli}" method="post">
+			<input type="hidden" th:id="'idMenuHidden'" 		th:name="'idMenuHidden'" 	 	th:field="*{idMenu}" />	
+		 	<input type="hidden" th:id="'idSubMenuHidden'" 		th:name="'idSubMenuHidden'"   	th:field="*{idSubMenuN1}" />	
+		 	<input type="hidden" th:id="'idNumOrdenSMHidden'" 	th:name="'idNumOrdenSMHidden'"  th:field="*{numOrdenSubMenu}" />	
+		 	<input type="hidden" th:id="'idTextoMenuSMHidden'" 	th:name="'textoMenuSMHidden'" 	th:field="*{textoMenuSubMenu}" />		
+		 	<input type="hidden" th:id="'idHREFMenuSMHidden'" 	th:name="'hREFMenuSMHidden'" 	th:field="*{hrefAplicacionSubMenu}" />	
+		 	<input type="hidden" th:id="'idActivadoSMHidden'" 	th:name="'activadoSMHidden'" 	th:field="*{indActivoSubMenu}" />												
+		 </form> 
+			
+		 <div id="myModalNue" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="modalAyuda" aria-hidden="true">
   			<div class="modal-dialog modal-xl">
       	<!-- Modal content-->
       		<div class="modal-content">
@@ -252,8 +352,7 @@
 					<tbody>
 						<tr th:each="elemenSumMenuNuevo:${elemenSubMenuNuevoWeb}">
 					 		<td>
-								<input type="text" class="form-control form-control-sm"  th:id="idNumOrdSubMenuN" th:name="mumOrdMenuN" th:field="*{numOrdenSubMenu}" th:maxlength="2" th:readonly="true"/>											
-								<input type="hidden" th:id="'idSubMenuHidden'" th:name="'subMenuHidden'" th:field="*{idMenu}"/> 
+								<input type="text" class="form-control form-control-sm"  th:id="idNumOrdSubMenuN" th:name="mumOrdMenuN" th:field="*{numOrdenSubMenu}" th:maxlength="2" th:readonly="true"/>
 							</td>
 							<td>
 								<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:field="*{textoMenuSubMenu}" th:maxlength="30"/>											
@@ -279,7 +378,7 @@
 	</div>
  
 <!-- Modal -->
-<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="#modalAyuda" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -292,7 +391,6 @@
        <p>. Para ordenar los sumenus se necesita</p>
         <p>. Para editar los submenus ....</p>
         <p>. 1 Para ordenar los sumenus se necesita</p>
-       		  <p>. 5 Para editar los submenus ....</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

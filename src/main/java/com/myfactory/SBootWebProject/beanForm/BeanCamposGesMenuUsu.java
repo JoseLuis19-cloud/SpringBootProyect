@@ -1,0 +1,98 @@
+package com.myfactory.SBootWebProject.beanForm;
+
+import java.io.Serializable;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+
+@Component
+@RequestScope
+public class BeanCamposGesMenuUsu implements Serializable, Cloneable {
+	
+	private static final long serialVersionUID = 1L;
+
+	private String idAccion;
+	private Long idUsuario;
+	private Integer idMenu1;
+	private Integer idMenu2;
+	private Integer idMenu3;
+	private Integer idMenu4;
+	private Integer idMenu5;
+	private Integer idMenu6;
+	private Integer idMenu7;
+	private Integer idMenu8;
+	private Integer idMenu9;
+	
+	
+	public String getIdAccion() {
+		return idAccion;
+	}
+	public void setIdAccion(String idAccion) {
+		this.idAccion = idAccion;
+	}
+	
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	
+	public Integer getIdMenu1() {
+		return idMenu1;
+	}
+	public void setIdMenu1(Integer idMenu1) {
+		this.idMenu1 = idMenu1;
+	}
+	public Integer getIdMenu2() {
+		return idMenu2;
+	}
+	public void setIdMenu2(Integer idMenu2) {
+		this.idMenu2 = idMenu2;
+	}
+	public Integer getIdMenu3() {
+		return idMenu3;
+	}
+	public void setIdMenu3(Integer idMenu3) {
+		this.idMenu3 = idMenu3;
+	}
+	public Integer getIdMenu4() {
+		return idMenu4;
+	}
+	public void setIdMenu4(Integer idMenu4) {
+		this.idMenu4 = idMenu4;
+	}
+	public Integer getIdMenu5() {
+		return idMenu5;
+	}
+	public void setIdMenu5(Integer idMenu5) {
+		this.idMenu5 = idMenu5;
+	}
+	
+	public Integer getIdMenu6() {
+		return idMenu6;
+	}
+	public void setIdMenu6(Integer idMenu6) {
+		this.idMenu6 = idMenu6;
+	}
+	public Integer getIdMenu7() {
+		return idMenu7;
+	}
+	public void setIdMenu7(Integer idMenu7) {
+		this.idMenu7 = idMenu7;
+	}
+	public Integer getIdMenu8() {
+		return idMenu8;
+	}
+	public void setIdMenu8(Integer idMenu8) {
+		this.idMenu8 = idMenu8;
+	}
+	public Integer getIdMenu9() {
+		return idMenu9;
+	}
+	public void setIdMenu9(Integer idMenu9) {
+		this.idMenu9 = idMenu9;
+	}
+
+	
+}

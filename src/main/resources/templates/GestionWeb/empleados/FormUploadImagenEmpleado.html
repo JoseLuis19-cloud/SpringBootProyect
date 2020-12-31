@@ -49,7 +49,7 @@ h5 {
 </style>
 </head>
 
-	<body> 
+	<body>
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 
@@ -58,9 +58,9 @@ h5 {
     					<div class="container">
        					 <div class="row">
          				   <div class="col-md-8 mx-auto">
-               				 <h2>Insertar Foto Empleado</h2>
+               				 <h2>Enviar Imagen Empleado</h2>
                					 <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
-               					 	<form method="post" th:action="@{/gestionWeb/empleados/uploadimagencliente}" enctype="multipart/form-data">
+               					 	<form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
                    				 <div class="form-group">
                        			 <input type="file" name="file" class="form-control-file">
                    				 </div>

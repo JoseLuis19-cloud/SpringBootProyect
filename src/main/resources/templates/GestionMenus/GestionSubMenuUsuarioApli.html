@@ -6,7 +6,14 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/css/bootstrap.min.css">
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	
-  <style>  
+	  
+  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+	
+  <style> 
+  
+   
    .form-control-xs {
     height: calc(1em + .375rem + 2px) !important;
     padding: .125rem .25rem !important;
@@ -40,35 +47,107 @@
   		padding:3px 15px !important;
  		margin-left:10px !important;
 		}
+  </style>	
 		
-	#container {
-  	position: relative;
-	}
+	<script th:inline="javascript">
+		
+		var arrValueCheck = null;
+		var arrValueCheckASupr  = null;
+	 	var idMenuSelec = "";
 
-	#idNuevoElemMenu {
-     position: absolute;
-     top:300;
-     left:0;
-     z-index:10;
-     max-width:100%;
-     overflow:hidden;
-	}
+		$(document).ready(function() {
 
-	#idDivSubMenu1 {
-      position: absolute;
-     top:300;
-     left:0;
-     z-index:1;
-     max-width:100%;
-     overflow:hidden;
-}
+			  $('[name="checks[]"]').click(function() {
+			      arrValueCheck = $('[name="checks[]"]:checked').map(function(){
+			      return this.value;
+			    }).get();
+			     
+			  // var str = arrValueCheck.join(',');
+			  //  $('#arr').text(JSON.stringify(arr));
+			  //  $('#str').text(str);
+			  });
+			  
+			  $('[name="checksMenuUsu[]"]').click(function() {
+				  arrValueCheckASupr = $('[name="checksMenuUsu[]"]:checked').map(function(){
+			      return this.value;
+			    }).get();
+			  
+			  });
+			 
+			 $("#idLinkAnadirTodos").click(function() {
+				 alert("boton idLinkAnadirTodos");
+				 
+				 $("input[id^='idCheckActivado']").prop("checked", true);
+				 
+				 document.getElementById("idP3").style.display = "block";
+				 $("#myModalConfirm").modal();
+				 
+			  });
+			 
+			 $("#idLinkConfirmar").click(function() {
+				    alert("boton confirmar");
+				  });
 
-  </style>
-  
-  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-	
+			});
+		
+		function anadirElemenSubMenuUsu()
+	  	 {
+			if (arrValueCheck == null)
+				{
+				 alert("Debe seleccionar al menos un elemento a añadir"); 
+				 return;
+				}
+			 else
+			  {
+				if (arrValueCheck.length == 0)
+					{
+					 alert("Debe seleccionar al menos un elemento a añadir");
+					 return;
+					}
+				else
+					{
+					 document.getElementById("idP1").style.display = "block";
+					 $("#myModalConfirm").modal();
+					}
+				
+				//	for (var i=0; i<arrValueCheck.length; i++)
+				//	 {
+				//	  idMenuSelec = arrValueCheck[i];
+			   	//   }
+			  }
+	  	 }
+		
+		function eliminarElemenSubMenuUsu()
+	  	 {
+			if (arrValueCheckASupr == null)
+				{
+				 alert("Debe seleccionar al menos un elemento a suprimir"); 
+				}
+			 else
+			  {
+				if (arrValueCheckASupr.length == 0)
+					{
+					 alert("Debe seleccionar al menos un elemento a suprimir");
+					}
+				else
+					{
+					 document.getElementById("idP2").style.display = "block";
+					 $("#myModalConfirm").modal();
+					}
+			    	//	for (var i=0; i<arrValueCheckASupr.length; i++)
+					// {
+					//	idMenuSelecSuprimir = arrValueCheckASupr[i];
+			   	 	// }
+	  			}
+		}
+		
+		function confirmarMenuUsuario()
+	  	 {
+		 // Submitir formulario
+		 document.getElementById("idFormMenuUsuario").submit();
+	  	 }
+	</script>
+
 </head>
 
   <body>
@@ -78,10 +157,12 @@
 	<div class="container-fluid">
 
 		<div class="row">
- 			 <div class="col-12"><h3 th:text="'Gestión de elementos submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></h3></div>
+			<div class="col-1"></div>
+ 			 <div class="col-10"><h3 th:text="'Gestión de elementos submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></h3></div>
+			<div class="col-1"></div>
 		</div>
 		
-		<div class="row" style="border-bottom: 2px solid #000">
+		<div class="row">
 			<div class="col-1"></div>
   			<div class="col-4">
   				<h5 th:text="'Elementos del submenú ya activas:'"></h5>
@@ -94,9 +175,9 @@
  					<br/>
  					<br/>
  					<br/>
-				 	<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  th:onclick="th:anadirElemenMenuUsuario()"  class="btn btn-primary btn-sm" role="button"> < Añadir</a>
+				 	<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  th:onclick="th:anadirElemenSubMenuUsu()"  class="btn btn-primary btn-sm" role="button"> < Añadir</a>
 				 	<br/>
-					<a th:id="'idLinkSuprimir'" th:name="'linkSuprimir'" class="btn btn-primary btn-sm" role="button">Suprimir ></a>
+					<a th:id="'idLinkSuprimir'" th:name="'linkSuprimir'" th:onclick="th:eliminarElemenSubMenuUsu()" class="btn btn-primary btn-sm" role="button">Suprimir ></a>
 					<br/>
 					<a th:id="'idLinkAnadirTodos'" th:name="'linkAnadirTodos'"  class="btn btn-primary btn-sm" role="button"> < Añadir todos</a>
 					<br/>
@@ -109,7 +190,7 @@
  			<div class="col-1"></div>
 		</div>
 		
-		<div class="row">
+		<div class="row" style="border-top: 2px solid #000">
 			<div class="col-1"></div>
  			 <div class="col-10"> 
   			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario}" class="btn btn-primary" role="button">Volver</a>
@@ -118,6 +199,29 @@
  		</div>
 		
    </div>
+   
+    <!-- Modal Confirmación -->
+  <div id="myModalConfirm" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmación elementos menu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<p th:id="'idP1'" style="display:none;"> ¿Confirmar que quiere añadir los elementos de submenu seleccionados a submenu este usuario?.</p>
+      	<p th:id="'idP2'" style="display:none;"> ¿Confirmar que quiere suprimir los elementos de submenu seleccionados a submenu este usuario?.</p>
+      	<p th:id="'idP3'" style="display:none;"> ¿Confirmar que quiere añadir todos los elementos de submenu a este usuario?.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <button type="button" th:onclick="th:confirmarMenuUsuario()" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
 	 	
 	</body>
 </html>
