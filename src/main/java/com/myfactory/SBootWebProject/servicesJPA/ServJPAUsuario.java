@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
 
 
@@ -17,5 +19,7 @@ public interface ServJPAUsuario {
 	public Iterable<User> listadoUsuarios();
 	
 	public Optional<User>  findIdUsuario(Long idUsuario);
+	
+	public Iterable<Role>  obtenerRoles();
 
 }

@@ -1,5 +1,6 @@
 package com.myfactory.SBootWebProject.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
+import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.model.User;
 
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
@@ -56,7 +59,7 @@ public class ControllerWebUsuarios {
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "gestionWeb/usuarios/PaginacionUsuarios.html";
+		return "gestionWeb/usuarios/PaginacionUsuarios";
 	}
 	
 	
@@ -85,6 +88,20 @@ public class ControllerWebUsuarios {
 	   // }  
 		
 		return "gestionWeb/UsuarioMenus.html";
+	}
+	
+	@RequestMapping("/forminsertarusuario")
+	public String formularioInserCliente(Model modelo ) {
+		
+		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb ();
+		
+		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
+		beanUsuarioWeb.setRolUsuarioWeb(servicioJPAUsuario.obtenerRoles());
+		
+		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "GestionWeb/usuarios/FormInsertarUsuario";
 	}
 	
 }

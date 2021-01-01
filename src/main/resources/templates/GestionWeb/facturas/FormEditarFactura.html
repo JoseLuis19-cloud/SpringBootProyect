@@ -109,9 +109,9 @@ h5 {
 					<div class="form-row">
 					 	<div class="col-md-4 mb-3">
 							<div class="form-group">
-								<label for="idFormaPago" th:text="'Forma de pago: ' "></label>
-									<select th:object="${facturaWeb}" class="col-xs-2" name="formaPago" id="idFormaPago">
-									<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
+								<label for="idFormaPago" th:text="'Rol en la apliación: ' "></label>
+									<select th:object="${facturaWeb}" class="col-xs-2" name="forAplicacion" id="idRolAplicacion">
+									<option th:value="0" th:text="'Seleccionar un rol en apliación' "></option>
 										<option th:each ="formPag:${formasPagoWeb}"
    						 				th:value="${formPag.idForPago}"
   						  				th:text ="${formPag.desForPago}">
@@ -119,21 +119,6 @@ h5 {
     							</select>
 							</div>
 						 </div>
-				 
-						<div class="col-md-4 mb-3">
-							<label for="validationFecFactura">Fec. Factura</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-       							 <i class="fa fa-calendar"> </i> 
-      					 		</div>
-       							<input class="form-control" id="idFecFactura" name="fecFactura" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-							</div>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validaCodFatura" th:text="'Porcentaje Descuento' "></label>
-							<input type="text" class="form-control" id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
-						</div>
-					</div>
 					</div>
 						
 					<div class="d-flex">

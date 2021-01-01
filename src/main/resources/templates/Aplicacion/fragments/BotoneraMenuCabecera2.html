@@ -39,7 +39,8 @@
 }
 </style>
 
-<script th:inline="javascript">
+ <script th:inline="javascript">
+
 	$(document).ready(function() {
 
 		$('.navbar .dropdown-item').on('click', function(e) {
@@ -75,12 +76,17 @@
 		});
 
 	});
-</script>
+ </script>
 </head>
 
 <body>
 	<header th:fragment="menucabecera">
- 
+	 <script th:inline="javascript">
+	function logoutSys()
+	{
+	 document.getElementById("idFormLogout").submit();		
+	}
+	 </script>
 		<div class="navbar navbar-expand-md navbar-dark bg-dark mb-4"
 			role="navigation">
 			<a class="navbar-brand" href="#">Beigar</a>
@@ -103,14 +109,16 @@
 							</th:block>
 						</ul>
 					</li>
-
 				</ul>
-        		<div class="navbar-brand"  sec:authorize="isAuthenticated()">
-					<img src="/images/botonOff2.png" class="img-rounded" width="40" height="40" alt="Boton desconectar">
-					</div><b><span sec:authentication="name"> </span></b>&nbsp; <i><span class="navbar-brand" sec:authentication="principal.authorities">Roles</span></i>
+        		<div class="navbar-brand" sec:authorize="isAuthenticated()">
+					<img src="/images/botonOff2.png" width="40" height="40" th:alt="desconectar" th:onclick="logoutSys();"></img>
+					<b><span>Usuario: </span><span sec:authentication="name"></span></b>
+						<form th:id="idFormLogout" th:action="@{/logout}" method="post">
+						<!-- 	<input type="submit" value="Logout" />  -->
+						</form>
+				</div>
 			</div>
 		</div>
-		
 		</header>
 		
 

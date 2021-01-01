@@ -9,7 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.myfactory.SBootWebProject.model.Menu;
+import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
+import com.myfactory.SBootWebProject.repository.role.RoleJPADao;
 import com.myfactory.SBootWebProject.repository.usuario.UsuarioJPABaseRepository;
 import com.myfactory.SBootWebProject.repository.usuario.UsuarioJPAPagRepository;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
@@ -21,6 +23,8 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	UsuarioJPABaseRepository usuarioJPABaseRepository;
 	@Autowired
 	UsuarioJPAPagRepository usuarioJPAPagRepository;
+	@Autowired
+	RoleJPADao roleJPADao;
 	
 	@Override
 	public User getMenusUsuario(Long idUsuario){
@@ -46,6 +50,11 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	@Override
 	public Optional<User> findIdUsuario(Long idUsuario) {
 		return usuarioJPABaseRepository.findById(idUsuario);
+	}
+	
+	@Override
+	public Iterable<Role>  obtenerRoles(){
+		return roleJPADao.findAll();
 	}
 
 }

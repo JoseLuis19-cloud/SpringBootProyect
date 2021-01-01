@@ -84,7 +84,7 @@
 					</thead>
 					<tbody>
 						<tr th:if="${pagGenerica.empty}">
-							<td colspan="4">No hay empleados</td>
+							<td colspan="9">No hay empleados</td>
 						</tr>
 						<tr th:each="empleado:${pagGenerica.content}">
 							<td th:text="${empleado.idEmpleado}"></td>

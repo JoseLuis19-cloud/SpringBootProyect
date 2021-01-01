@@ -41,8 +41,12 @@ h5 {
 <body>
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	<div class="container-fluid">
-		<h3>Desktop para modelo de Aplicacion Web Spring Boot</h3>
-		<p>If one of the column is taller than the other, the rest will follow.</p>
+	 	<br>
+		 <br>
+		<h3>Desktop modelo de Aplicacion Piloto</h3>
+		<p>Le recordamos que tienen que enviar el parte de actividad antes de .</p>
+		 <br>
+		 <br>
 	</div>
 
 	<div class="container-fluid">
@@ -60,54 +64,53 @@ h5 {
 				</div>
 			</div>
 			<div class="col">
-				<div>
-				<p>© 2020</p>
-				<p>Version Alpha 1.0<p>
-				</div>
 			</div>
 			<div class="col">
-				<span sec:authentication="principal.authorities">Roles</span>
+
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<h5>Avisos del usuario</h5>	
-				<div class="panel panel-default" style="border-bottom: 2px solid #000">
-				<div class="panel-body" align="center">
-				<table class="table table-sm">
-			
-				<thead>
-					<tr>	
-						<th th:text="'id. Aviso'"></th>
-						<th th:text="Tarea"></th>
-						<th th:text="'Fecha Creacion'"></th>
-						<th th:text="'Fecha Ultima'"></th>
-						<th th:text="'Ir Tarea'"></th>
-					</tr>
-				</thead>
-
-					<tbody>
-					<tr th:if="${listAvisos.empty}">
-						<td colspan="4">No hay Avisos Pendientes para el usuario</td>
-					</tr>
+				<h5>Avisos</h5>	
+					<div class="panel-body" align="center" style="border-bottom: 2px solid #000">
+					   <table class="table table-sm">
+						<thead class="thead-light">
+						 <tr>	
+							<th th:text="'id. Aviso'"></th>
+							<th th:text="Tarea"></th>
+							<th th:text="'Fecha Creacion'"></th>
+							<th th:text="'Fecha Ultima'"></th>
+							<th th:text="'Ir Tarea'"></th>
+						 </tr>
+				 	  </thead>
+					  <tbody>
+						<tr th:if="${listAvisos.empty}">
+							<td colspan="5">No hay avisos pendientes para el usuario</td>
+						</tr>
 						<tr th:each="aviso:${listAvisos}">
-						<td th:text="${aviso.idAviso}"></td>
-						<td th:text="${aviso.desTarea}"></td>
-						<td th:text="${#calendars.format(aviso.fecLimiteAviso, 'dd/MM/yyyy')}"></td>
-						<td th:text="${#calendars.format(aviso.fecCreacionAviso, 'dd/MM/yyyy')}"></td>
-					</tr>
+							<td th:text="${aviso.idAviso}"></td>
+							<td th:text="${aviso.desTarea}"></td>
+							<td th:text="${#calendars.format(aviso.fecLimiteAviso, 'dd/MM/yyyy')}"></td>
+							<td th:text="${#calendars.format(aviso.fecCreacionAviso, 'dd/MM/yyyy')}"></td>
+							<td th:text="'envio emails'"></td>
+						</tr>
 					</tbody>
-				</table>
+				  </table>
+			   </div>
 			</div>
-			</div>
-			</div>
-		</div>
 			<div class="col-2"></div>
 		</div>
+		<div class="row" style="border-top: 2px solid #000">
+			<div class="col-10"></div>	
+			<div class="col-2">
+				<p>© 2020</p>
+				<p>Version Alpha 1.0<p>
+			</div>
+		</div>
 		 <br>
-		  <br>
-	<footer class="container-fluid">
+		 <br>
+		<footer class="container-fluid">
 		<div class="d-flex justify-content-center">
 			<a th:href="@{/gestionWeb/clientes/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo Cliente</a> 
 			<a th:href="@{/gestionWeb/clientes/pagclientesNue}" class="btn btn-primary" role="button">Clientes</a>
@@ -125,6 +128,8 @@ h5 {
 			<a th:href="@{gestionsistema/copsegMySQL}" class="btn btn-primary" role="button">Copia Seguridad</a>
 		</div>
 	</footer>
+	</div>
+	
 </body>
 </html>
 
