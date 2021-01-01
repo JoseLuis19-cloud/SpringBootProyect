@@ -83,7 +83,7 @@
  
 		<div class="navbar navbar-expand-md navbar-dark bg-dark mb-4"
 			role="navigation">
-			<a class="navbar-brand" href="#">Bootstrap 4 Beigar</a>
+			<a class="navbar-brand" href="#">Beigar</a>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -106,8 +106,8 @@
 
 				</ul>
         		<div class="navbar-brand"  sec:authorize="isAuthenticated()">
-					Bienvenido <b><span sec:authentication="name"> </span></b>&nbsp; <i><span class="navbar-brand" sec:authentication="principal.authorities">Roles</span></i>
-				</div>
+					<img src="/images/botonOff2.png" class="img-rounded" width="40" height="40" alt="Boton desconectar">
+					</div><b><span sec:authentication="name"> </span></b>&nbsp; <i><span class="navbar-brand" sec:authentication="principal.authorities">Roles</span></i>
 			</div>
 		</div>
 		

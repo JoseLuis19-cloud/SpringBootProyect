@@ -41,7 +41,6 @@
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	<div class="container-fluid">
-	
 		<div class="row">
 			<div class="col-sm-1"></div> 
   			<div class="col-sm-10">
@@ -76,9 +75,10 @@
 							<th th:text="'Nombre'"></th>
 							<th th:text="'NIF'"></th>
 							<th th:text="'Fec. Alta'"></th>
-							<th th:text="'Pais'"></th>
 							<th th:text="'email'"></th>
 							<th th:text="'Teléfono'"></th>
+							<th th:text="'Num. Seg. Social'"></th>
+							<th th:text="'Num. Cuenta Corriente'"></th>
 							<th th:text="'Editar'"></th>
 						</tr>
 					</thead>
@@ -90,11 +90,13 @@
 							<td th:text="${empleado.idEmpleado}"></td>
 							<td th:text="${empleado.apellidos}"></td>
 							<td th:text="${empleado.nombre}"></td>
-							<td th:text="${empleado.DNI}"></td>
-							<td th:text="${empleado.pais}"></td>
-							<td th:text="${empleado.dirEmail}"></td>
-							<td th:text="${#calendars.format(cliente.fecAltaEmpleado, 'dd/MMM/yyyy')}"></td>
-							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idCliente=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Editar</a></td>
+							<td th:text="${empleado.nif}"></td>
+							<td th:text="${#calendars.format(empleado.fecAltaEmplelado, 'dd/MMM/yyyy')}"></td>
+							<td th:text="${empleado.email}"></td>
+							<td th:text="${empleado.telefMovil}"></td>
+							<td th:text="${empleado.numSeguridaSocial}"></td>
+							<td th:text="${empleado.numCuentaCorriente}"></td>
+							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -115,12 +117,12 @@
 			<div class="col-sm-1"></div>   
   			<div class="col-sm-10">
   				<div class="d-flex">
-  						<div class="mr-auto p-2">
-  							<a th:href="@{/gestionWeb/empleados/formbajacliente}" class="btn btn-primary" role="button">Volver</a>
-  						</div>
-  						<div class="p-2">
-						 	<a th:href="@{/gestionWeb/empleados/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo</a>
-						</div>
+  					<div class="mr-auto p-2">
+  						<a th:href="@{/gestionWeb/empleados/formbajacliente}" class="btn btn-primary" role="button">Volver</a>
+  					</div>
+  					<div class="p-2">
+						<a th:href="@{/gestionWeb/empleados/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo</a>
+					</div>
 				</div>
   			</div>
   			<div class="col-sm-1"></div>

@@ -85,6 +85,9 @@ public class ControllerWebEmpleados {
 	
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
+		
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
 
 		return "GestionWeb/empleados/FormEditarEmpleado";
 	}
@@ -119,7 +122,7 @@ public class ControllerWebEmpleados {
 			   
 			   } */
 		
-		return "GestionWeb/empleados/FormInsertarEmpleado.html";
+		return "GestionWeb/empleados/FormInsertarEmpleado";
 	}
 
 	@GetMapping("/formbajaempleado")
@@ -132,7 +135,7 @@ public class ControllerWebEmpleados {
 		//  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 	//	return "redirect:/gestionWeb/formBajaCliente/";
-		return "GestionWeb/clientes/FormBajaCliente.html";
+		return "GestionWeb/clientes/FormBajaEmpleado";
 	}
 	
 	@RequestMapping("/bajaempleado")
@@ -148,7 +151,7 @@ public class ControllerWebEmpleados {
 	
 
 	//	return "redirect:/gestionWeb/formBajaCliente/";
-		return "GestionWeb/empleados/FormUploadImagenEmpleado.html";
+		return "GestionWeb/empleados/FormUploadImagenEmpleado";
 	}
 	
 	@PostMapping("/uploadimagenempleado")
@@ -247,7 +250,7 @@ public class ControllerWebEmpleados {
 	//	}
 	
 	
-	@RequestMapping("/pagempledosNue")
+	@RequestMapping("/pagempleadosNue")
 	public String paginacionEmpleadosNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
 												      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
 	 											      @RequestParam(value = "numPos", required = false) String numPos,
