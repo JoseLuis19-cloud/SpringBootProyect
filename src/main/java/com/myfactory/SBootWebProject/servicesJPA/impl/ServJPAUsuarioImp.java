@@ -53,8 +53,23 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	}
 	
 	@Override
-	public Iterable<Role>  obtenerRoles(){
+	public Iterable<Role> obtenerRoles(){
 		return roleJPADao.findAll();
+	}
+	
+	@Override
+	public Optional<User> findByName(String userName){
+		return usuarioJPABaseRepository.findByName(userName);
+	}
+	
+	@Override
+	public Optional<User> findByEmail(String email){
+		return usuarioJPABaseRepository.findByEmail(email);
+	}
+	
+	@Override
+	public Optional<User> findByFullName(String fullName){
+		return usuarioJPABaseRepository.findByFullName(fullName);
 	}
 
 }

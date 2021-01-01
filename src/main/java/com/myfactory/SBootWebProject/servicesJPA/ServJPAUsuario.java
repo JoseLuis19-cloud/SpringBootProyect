@@ -21,5 +21,11 @@ public interface ServJPAUsuario {
 	public Optional<User>  findIdUsuario(Long idUsuario);
 	
 	public Iterable<Role>  obtenerRoles();
+	
+	public Optional<User>  findByName(String userName);
+	
+	public Optional<User>  findByEmail(String userEmail);
+	
+	public Optional<User>  findByFullName(String userFullName);
 
 }

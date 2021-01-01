@@ -80,7 +80,7 @@ public class ControllerWebClientes {
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "GestionWeb/clientes/FormInsertarCliente.html";
+		return "GestionWeb/clientes/FormInsertarCliente";
 	}
 	
 	@RequestMapping(value = "/insertarcliente", method = RequestMethod.POST)
