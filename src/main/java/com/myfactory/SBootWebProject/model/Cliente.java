@@ -62,7 +62,6 @@ public class Cliente implements Serializable {
 	@JoinColumn(name = "ID_TPO_CLIENTE_FK")
 	private TpoCliente tpoCliente;
 	
-	
 	@Lob
 	//@Column(length=100000)
 	@Column(name = "IMG_FOTO_PERSONA", nullable = true)

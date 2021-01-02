@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -72,8 +74,27 @@ public class Empleado  implements Serializable {
 	@Column(name = "IMG_FOTO_EMPLEADO", nullable = true)
 	private java.sql.Blob imagenFotoEmpleado;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_COD_PAIS_FK")
+	private Pais pais;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PUESTO_TRABAJO_FK")
+	private PuestoTrabajo puestoTrabajo;
 	
+	@Column(name = "DIRECCION", length = 35, nullable = true)
+	private String direccion;
 	
+	@Column(name = "COD_POSTAL", length = 5, nullable = true)
+	private String codPostal;
+	
+	@Column(name = "TELEFONO_2", length = 14, nullable = true)
+	private String telefono2;
+	
+	@Column(name = "IMP_BRUTO_ANUAL", nullable = true)
+	private Float impBrutoAnual;
+	
+
 	public Long getIdEmpleado() {
 		return idEmpleado;
 	}
@@ -167,5 +188,41 @@ public class Empleado  implements Serializable {
 	public void setImagenFotoEmpleado(java.sql.Blob imagenFotoEmpleado) {
 		this.imagenFotoEmpleado = imagenFotoEmpleado;
 	}
+	public Pais getPais() {
+		return pais;
+	}
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	public String getCodPostal() {
+		return codPostal;
+	}
+	public void setCodPostal(String codPostal) {
+		this.codPostal = codPostal;
+	}
+	public String getTelefono2() {
+		return telefono2;
+	}
+	public void setTelefono2(String telefono2) {
+		this.telefono2 = telefono2;
+	}
+	public PuestoTrabajo getPuestoTrabajo() {
+		return puestoTrabajo;
+	}
+	public void setPuestoTrabajo(PuestoTrabajo puestoTrabajo) {
+		this.puestoTrabajo = puestoTrabajo;
+	}
 	
+	public Float getImpBrutoAnual() {
+		return impBrutoAnual;
+	}
+	public void setImpBrutoAnual(Float impBrutoAnual) {
+		this.impBrutoAnual = impBrutoAnual;
+	}
 }

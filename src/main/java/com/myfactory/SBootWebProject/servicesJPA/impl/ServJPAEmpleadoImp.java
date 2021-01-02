@@ -9,8 +9,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.myfactory.SBootWebProject.model.Empleado;
+import com.myfactory.SBootWebProject.model.Pais;
+import com.myfactory.SBootWebProject.repository.PuestoTrabajoJPADao;
+import com.myfactory.SBootWebProject.repository.comunes.PaisJPADao;
 import com.myfactory.SBootWebProject.repository.empleado.EmpleadoJPABaseRepository;
 import com.myfactory.SBootWebProject.repository.empleado.EmpleadoJPAPagRepository;
+import com.myfactory.SBootWebProject.model.PuestoTrabajo;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 
 @Service
@@ -21,6 +25,13 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 	
 	@Autowired
 	EmpleadoJPAPagRepository empleadoJPAPagRepository;
+	
+	@Autowired
+	PaisJPADao paisJPADao;
+	
+	@Autowired
+	PuestoTrabajoJPADao puestoTrabajoJPADao;
+ 
 	
 	public Empleado altaEmpleado(Empleado empleado){
 		return empleadoJPARepository.save(empleado);
@@ -69,5 +80,14 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 		return restulPag;
 	}
 	
+	@Override
+	public Iterable<Pais> obtenerPaises(){
+		return paisJPADao.findAll();
+	}
+	
+	@Override
+	public Iterable<PuestoTrabajo> obtenerPuestoTrabajo(){
+		return puestoTrabajoJPADao.findAll();
+	}	
 	
 }

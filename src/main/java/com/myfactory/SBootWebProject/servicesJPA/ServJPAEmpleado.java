@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Empleado;
+import com.myfactory.SBootWebProject.model.Pais;
+import com.myfactory.SBootWebProject.model.PuestoTrabajo;
 
 @Service
 public interface ServJPAEmpleado {
@@ -21,4 +23,7 @@ public interface ServJPAEmpleado {
 	
 	public Page<Empleado> pagEmpleados(Integer numPag, Integer numRegPag, String buscarApellido);
 	
+	public Iterable<Pais> obtenerPaises() ;
+	
+	public Iterable<PuestoTrabajo> obtenerPuestoTrabajo() ;
 }

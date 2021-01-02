@@ -2,8 +2,14 @@ package com.myfactory.SBootWebProject.beanForm;
 
 import java.io.Serializable;
 import java.util.Calendar;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
+
+import com.myfactory.SBootWebProject.model.Pais;
+import com.myfactory.SBootWebProject.model.PuestoTrabajo;
+import com.myfactory.SBootWebProject.model.Role;
 
 
 @Component
@@ -16,15 +22,25 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private String nombreWeb;
 	private String apellidosWeb;
 	private String nifWeb;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Calendar fecAltaEmpleladoWeb;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Calendar fecBajaEmpleladoWeb;
 	private String telefMovilWeb;
 	private String emailWeb;
 	private boolean indBajaUsuarioWeb;
 	private boolean indbajaEmpleadoWeb;
 	private String numSeguridaSocialWeb;
-	private String numCuentaCorrienteWeb;	
-
+	private String numCuentaCorrienteWeb;
+	private String codPostalWeb;
+	private String direccionWeb;
+	private String telefono2;
+	private Integer codPaisWeb;
+	private Iterable<Pais> paisWeb;
+	private Integer codPuestoTrabajoWeb;
+	private Iterable<PuestoTrabajo> puestoTrabajoWeb;
+	private String impBrutoAnual2Web;
+	
 
 	public BeanEmpleadoWeb() {
 	}
@@ -169,13 +185,81 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	public void setNumCuentaCorrienteWeb(String numCuentaCorrienteWeb) {
 		this.numCuentaCorrienteWeb = numCuentaCorrienteWeb;
 	}
+	
 
+	public String getCodPostalWeb() {
+		return codPostalWeb;
+	}
 
+	public void setCodPostalWeb(String codPostalWeb) {
+		this.codPostalWeb = codPostalWeb;
+	}
 
-		@Override
-		protected Object clone() throws CloneNotSupportedException {
-			BeanEmpleadoWeb nuevoBeanClienteWeb = new BeanEmpleadoWeb ();
-		   return nuevoBeanClienteWeb;
-		 }   
+	public String getDireccionWeb() {
+		return direccionWeb;
+	}
+
+	public void setDireccionWeb(String direccionWeb) {
+		this.direccionWeb = direccionWeb;
+	}
+	
+	public String getTelefono2() {
+		return telefono2;
+	}
+
+	public void setTelefono2(String telefono2) {
+		this.telefono2 = telefono2;
+	}
+	
+	public Integer getCodPaisWeb() {
+		return codPaisWeb;
+	}
+
+	public void setCodPaisWeb(Integer codPaisWeb) {
+		this.codPaisWeb = codPaisWeb;
+	}
+
+	public Iterable<Pais> getPaisWeb() {
+		return paisWeb;
+	}
+
+	public void setPaisWeb(Iterable<Pais> paisWeb) {
+		this.paisWeb = paisWeb;
+	}
+	
+	
+	public Integer getCodPuestoTrabajo() {
+		return codPuestoTrabajoWeb;
+	}
+
+	public void setCodPuestoTrabajoWeb(Integer codPuestoTrabajo) {
+		this.codPuestoTrabajoWeb = codPuestoTrabajo;
+	}
+
+	public Iterable<PuestoTrabajo> getPuestoTrabajoWeb() {
+		return puestoTrabajoWeb;
+	}
+	
+	public void setPuestoTrabajoWeb(Iterable<PuestoTrabajo> puestoTrabajoWeb) {
+		this.puestoTrabajoWeb = puestoTrabajoWeb;
+	}
+
+	public String getImpBrutoAnual2Web() {
+		return impBrutoAnual2Web;
+	}
+
+	public void setImpBrutoAnual2Web(String impBrutoAnual2Web) {
+		this.impBrutoAnual2Web = impBrutoAnual2Web;
+	}
+
+	public Integer getCodPuestoTrabajoWeb() {
+		return codPuestoTrabajoWeb;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+	BeanEmpleadoWeb nuevoBeanClienteWeb = new BeanEmpleadoWeb ();
+	return nuevoBeanClienteWeb;
+	}   
 		
 }

@@ -75,8 +75,8 @@ public class ControllerWebEmpleados {
 		byte[] blobBytes = null;
 		byte[] encode =null;
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(1));
-		
-		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()) );
+		  
+		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get() ));
         
 		try {
 		 	Blob blobImg = empleado.get().getImagenFotoEmpleado();
@@ -87,6 +87,8 @@ public class ControllerWebEmpleados {
 		catch (Exception e) {
 			System.out.println("error validacion");
 		}
+		
+		
 	
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
