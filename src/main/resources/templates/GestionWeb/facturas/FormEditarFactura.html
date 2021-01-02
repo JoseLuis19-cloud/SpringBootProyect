@@ -16,7 +16,6 @@
  
 .bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
 
-
 .form-control-xs {
 	height: calc(1em + .375rem + 2px) !important;
 	padding: .125rem .25rem !important;
@@ -45,28 +44,6 @@ h5 {
 	display: inline-block !important;
 	padding: 3px 15px !important;
 	margin-left: 10px !important;
-}
-
-#container {
-	position: relative;
-}
-
-#idNuevoElemMenu {
-	position: absolute;
-	top: 300;
-	left: 0;
-	z-index: 10;
-	max-width: 100%;
-	overflow: hidden;
-}
-
-#idDivSubMenu1 {
-	position: absolute;
-	top: 300;
-	left: 0;
-	z-index: 1;
-	max-width: 100%;
-	overflow: hidden;
 }
 </style>
 </head>
@@ -110,7 +87,7 @@ h5 {
 					 	<div class="col-md-4 mb-3">
 							<div class="form-group">
 								<label for="idFormaPago" th:text="'Rol en la apliación: ' "></label>
-									<select th:object="${facturaWeb}" class="col-xs-2" name="forAplicacion" id="idRolAplicacion">
+									<select th:object="${facturaWeb}" class="col-xs-2" name="selecForPago" id="idSelecForPago">
 									<option th:value="0" th:text="'Seleccionar un rol en apliación' "></option>
 										<option th:each ="formPag:${formasPagoWeb}"
    						 				th:value="${formPag.idForPago}"
@@ -120,7 +97,7 @@ h5 {
 							</div>
 						 </div>
 					</div>
-						
+					</div>		
 					<div class="d-flex">
   						<div class="mr-auto p-2">
   							<a th:href="@{/gestionWeb/clientes/formbajacliente}" class="btn btn-primary" role="button">Volver</a>

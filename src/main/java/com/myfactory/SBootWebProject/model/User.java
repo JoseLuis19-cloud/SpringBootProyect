@@ -58,7 +58,7 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar fecBajaUsuario;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
@@ -73,6 +73,14 @@ public class User implements Serializable {
 	//		inverseJoinColumns = @JoinColumn(name = "ID_MENU")
 //			)
 //	private Set<Menu> menuUsuario = new HashSet<>();
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	@OneToOne(fetch = FetchType.LAZY)
 //	@MapsId
@@ -112,13 +120,6 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 
 	public boolean isIndEmpleado() {
 		return indEmpleado;

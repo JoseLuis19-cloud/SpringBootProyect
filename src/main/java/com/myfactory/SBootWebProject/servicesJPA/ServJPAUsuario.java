@@ -22,10 +22,12 @@ public interface ServJPAUsuario {
 	
 	public Iterable<Role>  obtenerRoles();
 	
-	public Optional<User>  findByName(String userName);
+	public User insertarUsuario(User usuario);
 	
-	public Optional<User>  findByEmail(String userEmail);
+	public Boolean findByName(String userName);
 	
-	public Optional<User>  findByFullName(String userFullName);
+	public Boolean findByEmail(String userEmail);
+	
+	public Boolean findByFullName(String userFullName);
 
 }

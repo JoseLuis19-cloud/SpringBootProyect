@@ -2,6 +2,8 @@ package com.myfactory.SBootWebProject.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -112,13 +114,13 @@ public class ControllerWebUsuarios {
 	public String insertarUsuario(Model modelo,
 			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb, 
 			BindingResult resultValidacion,
-			@RequestParam(value = "codRole", required = true) String codRole) {
+			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
 
 		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
 		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
+
+		 validarUsuario(beanUsuarioWeb, codRole);
 		
-	
-		validarUsuario(beanUsuarioWeb);
 		
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -126,41 +128,41 @@ public class ControllerWebUsuarios {
 		return "GestionWeb/usuarios/FormInsertarUsuario";
 	}
 	
-	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb) {
+	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole) {
 		
-		 User usuarioFind = new User();
+		 Boolean userEncontrado = new Boolean(false);
 		 User usuarioNuevo = new User();
+		 Set <Role> setRoles = new HashSet<>(); 
 		
-		 usuarioFind = servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()).get();
+		if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
+			System.out.println("Error username del Usuario esta es Duplicado");
+			userEncontrado = true;
+		}
 		
-		 if (usuarioFind != null)
-		 	{
-			 System.out.println("Error nombre Usuario Duplicado");
-		 	}
+		if (! userEncontrado) {
+			if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
+				System.out.println("Error username del Usuario esta es Duplicado");
+				userEncontrado = true;
+				}
+			}
+		
+		if (! userEncontrado) {
+			if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getEmailWeb().trim() )){
+				System.out.println("Error fullname del Usuario esta es Duplicado");
+				userEncontrado = true;
+				}
+			}
 		 
-		 usuarioFind = servJPAUsuario.findByName(beanUsuarioWeb.getFullNameWeb().trim()).get();
-		 
-		 if (usuarioFind != null)
-		 	{
-			 System.out.println("Error nombre completo del Usuario Duplicado");
-		 	}
-		 
-		 usuarioFind = servJPAUsuario.findByName(beanUsuarioWeb.getEmailWeb().trim()).get();
-		 
-		 if (usuarioFind != null)
-		 	{
-			 System.out.println("Error el email ya existe Duplicado");
-		 	}
-		 
-		if (usuarioFind  == null)
+		if (! userEncontrado )
 			{
 			// Encriptar password por el usuario
 			// Usuario 
 			GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
 			String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
 			
-			usuarioNuevo.setPassword(passordEncriptada);
-		 
+		 	usuarioNuevo.setPassword(passordEncriptada);
+		 	
+		 	usuarioNuevo.setEmail( beanUsuarioWeb.getEmailWeb());
 			usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
 			usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
 			usuarioNuevo.setFullName(beanUsuarioWeb.getFullNameWeb());
@@ -168,8 +170,12 @@ public class ControllerWebUsuarios {
 			usuarioNuevo.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
 			
 			Role role = new Role();
-			role.setId(new Integer(1));
-			// usuarioNuevo.setRoles(role);
+			role.setId(new Integer(codRole.trim()));
+			setRoles.add(role);
+			
+			usuarioNuevo.setRoles(setRoles);
+			
+			servJPAUsuario.insertarUsuario(usuarioNuevo);
 			}
 		return usuarioNuevo;
 		}

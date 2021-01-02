@@ -58,18 +58,23 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	}
 	
 	@Override
-	public Optional<User> findByName(String userName){
-		return usuarioJPABaseRepository.findByName(userName);
+	public User insertarUsuario(User usuario){
+		return usuarioJPABaseRepository.save(usuario);
 	}
 	
 	@Override
-	public Optional<User> findByEmail(String email){
-		return usuarioJPABaseRepository.findByEmail(email);
+	public Boolean findByName(String userName){
+		 return usuarioJPABaseRepository.findByName(userName).isPresent();
 	}
 	
 	@Override
-	public Optional<User> findByFullName(String fullName){
-		return usuarioJPABaseRepository.findByFullName(fullName);
+	public Boolean findByEmail(String email){
+		return usuarioJPABaseRepository.findByEmail(email).isPresent();
+	}
+	
+	@Override
+	public Boolean findByFullName(String fullName){
+		return usuarioJPABaseRepository.findByFullName(fullName).isPresent();
 	}
 
 }

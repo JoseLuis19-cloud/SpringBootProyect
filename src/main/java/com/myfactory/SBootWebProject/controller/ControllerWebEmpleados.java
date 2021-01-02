@@ -12,6 +12,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
+import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Cliente;
@@ -42,6 +44,7 @@ import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Controller
 @RequestMapping("/gestionWeb/empleados")
@@ -54,6 +57,8 @@ public class ControllerWebEmpleados {
 	BeanEmpleadoWeb beanEmpleadoWeb;
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
+	@Autowired
+	ServJPAUsuario servJPAUsuario;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
 	
@@ -86,9 +91,15 @@ public class ControllerWebEmpleados {
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
 		
+		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+		
+		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
+		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
+		
+		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-
 		return "GestionWeb/empleados/FormEditarEmpleado";
 	}
 		
