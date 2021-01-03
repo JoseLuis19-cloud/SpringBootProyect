@@ -23,7 +23,8 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private String apellidosWeb;
 	private String nifWeb;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Calendar fecAltaEmpleladoWeb;
+    private Calendar fecAltaEmplelado2Web;
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Calendar fecBajaEmpleladoWeb;
 	private String telefMovilWeb;
@@ -89,20 +90,6 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	public void setNifWeb(String nifWeb) {
 		this.nifWeb = nifWeb;
 	}
-
-
-
-	public Calendar getFecAltaEmpleladoWeb() {
-		return fecAltaEmpleladoWeb;
-	}
-
-
-
-	public void setFecAltaEmpleladoWeb(Calendar fecAltaEmpleladoWeb) {
-		this.fecAltaEmpleladoWeb = fecAltaEmpleladoWeb;
-	}
-
-
 
 	public Calendar getFecBajaEmpleladoWeb() {
 		return fecBajaEmpleladoWeb;
@@ -254,6 +241,14 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 
 	public Integer getCodPuestoTrabajoWeb() {
 		return codPuestoTrabajoWeb;
+	}
+	
+	public Calendar getFecAltaEmplelado2Web() {
+		return fecAltaEmplelado2Web;
+	}
+
+	public void setFecAltaEmplelado2Web(Calendar fecAltaEmplelado2Web) {
+		this.fecAltaEmplelado2Web = fecAltaEmplelado2Web;
 	}
 
 	@Override

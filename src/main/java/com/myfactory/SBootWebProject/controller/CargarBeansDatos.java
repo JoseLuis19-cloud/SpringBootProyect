@@ -77,7 +77,7 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setDireccionWeb(empleado.getDireccion());
 		  beanEmpleadoWeb.setCodPostalWeb(empleado.getCodPostal() );
 		  beanEmpleadoWeb.setNifWeb(empleado.getNif());
-		  beanEmpleadoWeb.setFecAltaEmpleladoWeb(empleado.getFecAltaEmplelado());
+		  beanEmpleadoWeb.setFecAltaEmplelado2Web(empleado.getFecAltaEmplelado());
 		  beanEmpleadoWeb.setFecBajaEmpleladoWeb(empleado.getFecBajaEmplelado() );
 		 
 		  beanEmpleadoWeb.setTelefMovilWeb(empleado.getTelefMovil() );

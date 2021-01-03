@@ -17,6 +17,8 @@ public interface ServJPAMenusUsuario {
 	
 	public MenusUsuario insertarMenuUsuario(MenusUsuario menuUsuario);
 	
+	public void suprimirMenuUsuario(MenusUsuario menuUsuario);
+	
 	public void deleteMenuUsuario(MenusUsuario menuUsuario);
 	
 }

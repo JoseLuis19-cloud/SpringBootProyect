@@ -22,7 +22,9 @@
 					<tbody class="table-striped">
 						<tr th:each="listMenuUsuApli:${listMenuUsuApliWeb}">
 						 	<td>
-								<input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${listMenuUsuApli.idMenuWeb}" th:name="checksMenuUsu[]"  th:checked="false" th:value="${listMenuUsuApli.idMenuWeb}" class="btn btn-primary btn-sm" />						
+						 		<div  style="display: flex; justify-content: center; align-items: center;">
+									<input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${listMenuUsuApli.idMenuWeb}" th:name="checksMenuUsu[]"  th:checked="false" th:value="${listMenuUsuApli.idMenuWeb}" class="btn btn-primary btn-sm" />						
+								</div>
 							</td>
 							<td th:text="${listMenuUsuApli.idMenuWeb}"></td>
 							<td th:text="${listMenuUsuApli.elementoMenu}"></td>

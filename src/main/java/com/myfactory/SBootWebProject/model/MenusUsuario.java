@@ -18,7 +18,7 @@ public class MenusUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "ID_MENU")
+	@Column(name = "ID_MENU", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idMenu;
 	

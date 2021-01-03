@@ -38,21 +38,15 @@
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
  
 	<div class="container-fluid">
-	
-			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-10" style="border-bottom: 2px solid #000">
-					<h3 th:text="'Usuarios de la aplicación'"></h3>
-				</div>
-				<div class="col-sm-1"></div>
-			</div>
+
+		<div class="row">
+			<div class="titulo-pag2">Usuarios de la aplicación</div>
+		</div>
 	
 		<div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
-			
-				<div class="panel panel-default" style="border-bottom: 2px solid #000">
-
+			<div class="panel panel-default" style="border-bottom: 2px solid #000">
 			<table class="table table-sm">
 				<thead class="thead-light">
 					<tr>
@@ -78,7 +72,9 @@
 						<td th:text="${users.fullName}"></td>
 						<td th:text="${users.username}"></td>
 						<td>
-							<input type="checkbox" th:checked="${users.indEmpleado}" class="btn btn-primary btn-sm" th:id="'idUserEmpleado'+ ${users.id}" th:name="'userEmpleado'+ ${users.id}" />
+							<div  style="display: flex; justify-content: center; align-items: center;">
+								<input type="checkbox" th:checked="${users.indEmpleado}" class="btn btn-primary btn-sm" th:id="'idUserEmpleado'+ ${users.id}" th:name="'userEmpleado'+ ${users.id}" />
+							</div>
 						</td>
 						<td>
 							<li th:each="elementRole : ${users.roles}">
@@ -89,7 +85,9 @@
 						<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MMM/yyyy HH:mm')}"></td>
 						<td th:text="${#calendars.format(users.fecBajaUsuario, 'dd/MMM/yyyy HH:mm')}"></td>
 						<td>
-							<input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" th:readonly="true" />
+							<div  style="display: flex; justify-content: center; align-items: center;">
+								<input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" th:readonly="true" />
+							</div>
 						</td>
 						<td>										 
 							<a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionmenususuario/formeditarusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">editar</a>	
@@ -114,6 +112,6 @@
 			<div class="col-sm-1"></div>
 		 </div>
 		<div th:insert="Aplicacion/fragments/BotoneraPaginacion :: botonerapaginacion"></div>
-	
+	</div>
 </body>
 </html>

@@ -59,6 +59,12 @@ h5 {
 			$("#idLinkCrearUsu").click(function(){
 		 		$("#myModalAltaUsu").modal();
 		 	});
+			
+			$("#idLinkCambiarFoto").click(function(){
+		 		$("#myModalCambiarFoto").modal();
+		 	});
+	 
+			
 	 	 });
 	</script>
 </head>
@@ -86,6 +92,10 @@ h5 {
   				<div style="display: flex; justify-content: center; align-items: center;">
 					<img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imgFoto}" width="200" height="400" />
 				</div>
+				<div style="display: flex; justify-content: center; align-items: center;"> 
+				<br>
+				 <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Cambiar foto</a>
+				</div>
  			</div>
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
@@ -104,44 +114,49 @@ h5 {
 				</div>
 				
 				<div class="form-row">
-						<div class="col-md-7 mb-3">
-							<label for="labelDireccion" th:text="'Dirección'"></label> 
-							<input type="text" class="form-control" id="idDireccionWeb" th:field="*{direccionWeb}" th:maxlength="25">
+					<div class="col-md-7 mb-3">
+						<label for="labelDireccion" th:text="'Dirección'"></label> 
+						<input type="text" class="form-control" id="idDireccionWeb" th:field="*{direccionWeb}" th:maxlength="25">
+					</div>
+					<div class="col-md-2 mb-3">
+						<label for="labelCP" th:text="'Codigo postal' "></label>
+						<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
+					</div>
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+							<label for="labelPais" th:text="'Pais empleado: ' "></label>
+							<select th:object="${empleadoWeb}" class="form-control" name="paisEmpleado" id="idPaisEmpleado">
+								<option th:value="0" th:text="'Seleccionar país empleado' "></option>
+								<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
+   						 			th:value="${paisEmple.idPais}"
+  						  			th:text ="${paisEmple.nombrePais}"
+  						  			th:selected="${paisEmple.idPais} == ${empleadoWeb.codPaisWeb}">
+  								</option>
+    						</select>
 						</div>
-						<div class="col-md-2 mb-3">
-							<label for="labelCP" th:text="'Codigo postal' "></label>
-							<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
-						</div>
-						<div class="col-md-3 mb-3">
-							<div class="form-group">
-								<label for="labelPais" th:text="'Pais empleado: ' "></label>
-								<select th:object="${empleadoWeb}" class="form-control" name="paisEmpleado" id="idPaisEmpleado">
-									<option th:value="0" th:text="'Seleccionar país empleado' "></option>
-									<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
-   						 				th:value="${paisEmple.idPais}"
-  						  				th:text ="${paisEmple.nombrePais}"
-  						  				th:selected="${paisEmple.idPais} == ${empleadoWeb.codPaisWeb}">
-  									</option>
-    							</select>
-							</div>
-						</div>
+					</div>
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-3 mb-3">
+					<div class="col-md-3 mb-4">
+						<label for="labelNIF" th:text="'NIF' "></label>
+						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
+					</div>
+					<div class="col-md-3 mb-4">
 						<label for="labelFecEmpleado">Fec. alta empleado</label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
        						<input class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmplelado2Web}"/>
 						</div>
 					</div>
-					<div class="col-md-3 mb-3">
+					<div class="col-md-2 mb-4">
 						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
 						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefMovilWeb}" th:maxlength="14">
 					</div>
-					<div class="col-md-5 mb-3">
+					<div class="col-md-4 mb-4">
 						<label for="labelemail" th:text="'email empleado' "></label>
 						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="25" required>
 					</div>
@@ -228,8 +243,8 @@ h5 {
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i> 
       					 		</div>
-       							<input type="text" class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado"  th:maxlength="10" th:readonly="true" required />
-       							<input type="hidden" id="idFecAltaEmpleHidden" name="fecAltaEmpleHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
+       							<input type="text" class="form-control" id="idFecAltaUsuario" name="fecAltaUsuario"  th:maxlength="10" th:readonly="true" required />
+       							<input type="hidden" id="idFecAltaUsuHidden" name="fecAltaUsuHidden"  th:field="*{fecAltaUsuarioWeb}"/>
 							</div>
 						 	 
 						</div>
@@ -255,6 +270,34 @@ h5 {
       
     </div>
   </div>
+  
+  
+  
+  
+    <!-- Modal Cambiar Foto -->
+  <div id="myModalCambiarFoto" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cambiar foto del empleado</h5>
+      </div>
+      <div class="modal-body">
+    		<div class="container">	
+               	 <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
+                 	 <div class="form-group">
+                   	  <input type="file" name="file" class="form-control-file">
+                  	 </div>
+                  	 <button type="submit" class="btn btn-primary">Enviar Fichero</button>
+               	</form>
+   		 </div>
+	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
 	
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -280,7 +323,8 @@ h5 {
             autoclose: true,
         });
         
-      document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleHidden").value;
+       document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
+      document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuHidden").value;
    
     });
  </script>

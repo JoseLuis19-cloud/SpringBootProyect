@@ -79,10 +79,11 @@
 			 
 			 $("#idLinkAnadirTodos").click(function() {
 				 alert("boton idLinkAnadirTodos");
-				 
 				 $("input[id^='idCheckActivado']").prop("checked", true);
 				 
 				 document.getElementById("idP3").style.display = "block";
+				 $("#idAccionHidden" + ind).val("anadirtodos");
+				 
 				 $("#myModalConfirm").modal();
 				 
 			  });
@@ -110,14 +111,18 @@
 				else
 					{
 					 document.getElementById("idP1").style.display = "block";
-				 
+					 
+					 var ind = 1;
+					 for (var i=0; i<arrValueCheck.length; i++)
+				 	 {
+					  $("#idIdMenuHidden" + ind).val( arrValueCheck[i] );
+					  alert( $("#idIdMenuHidden" + ind).val() );
+				 	 // idMenuSelec = arrValueCheck[i];
+			   	    }
+					 $("#idAccionHidden" + ind).val( "anadiruno" );  
 					 $("#myModalConfirm").modal();
 					}
-				
-				//	for (var i=0; i<arrValueCheck.length; i++)
-				//	 {
-				//	  idMenuSelec = arrValueCheck[i];
-			   	//   }
+			
 			  }
 	  	 }
 		
@@ -136,16 +141,18 @@
 				else
 					{
 					 document.getElementById("idP2").style.display = "block";
+					 
+					 var ind = 1;
+					 for (var i=0; i<arrValueCheckASupr.length; i++)
+				 	  { 
+					   $("#idIdMenuHidden" + ind).val( arrValueCheckASupr[i] );
+					   alert( $("#idIdMenuHidden" + ind).val() )
+				 	  // idMenuSelec = arrValueCheck[i];
+			   	      }
+					$("#idAccionHidden").val("suprimiruno");  
+					 alert("Debe " + $("#idAccionHidden").val());
 					$("#myModalConfirm").modal();
 					}
-				//  else
-				  // {
-			    	 //	for (var i=0; i<arrValueCheckASupr.length; i++)
-					// {
-				//		idMenuSelecSuprimir = arrValueCheckASupr[i];
-			   	 //    }
-			    	 //  }
-			    	 // }
 	  			}
 		}
 		
@@ -163,25 +170,26 @@
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	<div class="container-fluid">
-
 		<div class="row">
- 			<div class="col-12"><h3 th:text="'Gestión de menus para el usuario: ' + ${nomUsuario}"></h3></div>
+			<div class="titulo-pag2" th:text="'Gestión menus para el usuario: ' + ${nomUsuario}"></div>
 		</div>
 		
 		<div class="row" style="border-bottom: 2px solid #000">
 		<div class="col-1"> </div>
 		 
-		<form th:id="idFormMenuUsuario" th:action="@{/gestionmenus/updateelementosmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
-			<input type="hidden" th:id="'idAccionHidden'" th:name="'idAccionHidden'"   th:field="*{idAccion}" />
-		 	<input type="hidden" th:id="'idMenuHidden1'"  th:name="'idIdMenuHidden1'"  th:field="*{idMenu1}" />
-		 	<input type="hidden" th:id="'idMenuHidden2'"  th:name="'idIdMenuHidden2'"  th:field="*{idMenu2}" />
-		 	<input type="hidden" th:id="'idMenuHidden3'"  th:name="'idIdMenuHidden3'"  th:field="*{idMenu3}" />	
-		 	<input type="hidden" th:id="'idMenuHidden4'"  th:name="'idIdMenuHidden4'"  th:field="*{idMenu4}" />	
-		 	<input type="hidden" th:id="'idMenuHidden5'"  th:name="'idIdMenuHidden5'"  th:field="*{idMenu5}" />	
-		 	<input type="hidden" th:id="'idMenuHidden6'"  th:name="'idIdMenuHidden6'"  th:field="*{idMenu6}" />	
-		 	<input type="hidden" th:id="'idMenuHidden7'"  th:name="'idIdMenuHidden7'"  th:field="*{idMenu7}" />	
-		 	<input type="hidden" th:id="'idMenuHidden8'"  th:name="'idIdMenuHidden8'"  th:field="*{idMenu8}" />	
-		 	<input type="hidden" th:id="'idMenuHidden9'"  th:name="'idIdMenuHidden9'"  th:field="*{idMenu9}" />						
+		<form th:id="idFormMenuUsuario" th:action="@{/gestionmenususuario/actualizarmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
+			
+			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"   th:field="*{idAccion}" />
+			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"      th:field="*{idUsuario}" />
+		 	<input type="hidden" th:id="'idIdMenuHidden1'"  th:name="'idMenuHidden1'"  th:field="*{idMenu1}" />
+		 	<input type="hidden" th:id="'idIdMenuHidden2'"  th:name="'idMenuHidden2'"  th:field="*{idMenu2}" />
+		 	<input type="hidden" th:id="'idIdMenuHidden3'"  th:name="'idMenuHidden3'"  th:field="*{idMenu3}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden4'"  th:name="'idMenuHidden4'"  th:field="*{idMenu4}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden5'"  th:name="'idMenuHidden5'"  th:field="*{idMenu5}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden6'"  th:name="'idMenuHidden6'"  th:field="*{idMenu6}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden7'"  th:name="'idMenuHidden7'"  th:field="*{idMenu7}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden8'"  th:name="'idMenuHidden8'"  th:field="*{idMenu8}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden9'"  th:name="'idMenuHidden9'"  th:field="*{idMenu9}" />						
 		 </form> 
 
   			<div class="col-5">
@@ -194,11 +202,12 @@
  				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  					<br/>
  					<br/>
+ 					<br/>
 				 	<a th:id="'idLinkAnadir'"      th:name="'linkAnadir'"  th:onclick="th:anadirElemenMenuUsuario()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
 					<br/>
 					<a th:id="'idLinkSuprimir'"    th:name="'linkSuprimir'" th:onclick="th:eliminarElemenMenuUsuario()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
 					<br/>
-					<a th:id="'idLinkAnadirTodos'" th:name="'linkAnadirTodos'"    class="btn btn-colour-1" role="button">&#8920; Añadir todos</a>
+					<a th:id="'idLinkAnadirTodos'" th:name="'linkAnadirTodos'" class="btn btn-colour-1" role="button">&#8920; Añadir todos</a>
 				</div> 
  			</div>
  			<div class="col-4">
@@ -209,7 +218,7 @@
  			<div class="col-1"> </div>
 		</div>
 		
-		<a th:id="'idLinkVolver'"    th:name="'linkVolver'"    class="btn btn-colour-1" role="button">Volver</a>
+		<a th:id="'idLinkVolver'" th:name="'linkVolver'" class="btn btn-colour-1" role="button">Volver</a>
  
       	<div id="idDivSubMenu1Usu" style="visibility:visible; width:100%"> </div>
 	</div>

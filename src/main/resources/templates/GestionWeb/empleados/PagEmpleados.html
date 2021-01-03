@@ -3,8 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/css/bootstrap.min.css">
-
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	
 	<style> 	
@@ -42,11 +41,7 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-1"></div> 
-  			<div class="col-sm-10">
-  			  <h3 th:text="'Empleados'"></h3>
-  			</div>
-  			<div class="col-sm-1"></div> 
+			<div class="titulo-pag2">Empleados</div>
 		</div>
 	
 	<div class="row">
@@ -74,11 +69,9 @@
 							<th th:text="'Apellidos'"></th>
 							<th th:text="'Nombre'"></th>
 							<th th:text="'NIF'"></th>
-							<th th:text="'Fec. Alta'"></th>
+							<th th:text="'Fec. alta'"></th>
+							<th th:text="'Puesto Trabajo'"></th>
 							<th th:text="'email'"></th>
-							<th th:text="'Teléfono'"></th>
-							<th th:text="'Num. Seg. Social'"></th>
-							<th th:text="'Num. Cuenta Corriente'"></th>
 							<th th:text="'Editar'"></th>
 						</tr>
 					</thead>
@@ -92,10 +85,8 @@
 							<td th:text="${empleado.nombre}"></td>
 							<td th:text="${empleado.nif}"></td>
 							<td th:text="${#calendars.format(empleado.fecAltaEmplelado, 'dd/MMM/yyyy')}"></td>
+							<td th:text="${empleado.puestoTrabajo.desPuestoTrabajo}"></td>
 							<td th:text="${empleado.email}"></td>
-							<td th:text="${empleado.telefMovil}"></td>
-							<td th:text="${empleado.numSeguridaSocial}"></td>
-							<td th:text="${empleado.numCuentaCorriente}"></td>
 							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>
 					</tbody>
