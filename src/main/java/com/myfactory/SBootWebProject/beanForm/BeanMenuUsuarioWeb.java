@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.context.annotation.SessionScope;
-
 
 @Component
 @RequestScope
@@ -13,12 +11,14 @@ public class BeanMenuUsuarioWeb implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
+	private Integer idMenuUsuWeb;
 	private Integer idMenuWeb;
 	private String elementoMenu;
 	private Boolean yaSeleccionado;
 	
-	public BeanMenuUsuarioWeb(Integer idMenuWeb, String elementoMenu, Boolean yaSeleccionado) {
+	public BeanMenuUsuarioWeb(Integer idMenuUsuWeb, Integer idMenuWeb, String elementoMenu, Boolean yaSeleccionado) {
 		super();
+		this.idMenuUsuWeb = idMenuUsuWeb;
 		this.idMenuWeb = idMenuWeb;
 		this.elementoMenu = elementoMenu;
 		this.yaSeleccionado = yaSeleccionado;
@@ -42,6 +42,13 @@ public class BeanMenuUsuarioWeb implements Serializable, Cloneable {
 	}
 	public void setYaSeleccionado(Boolean yaSeleccionado) {
 		this.yaSeleccionado = yaSeleccionado;
+	}
+	
+	public Integer getIdMenuUsuWeb() {
+		return idMenuUsuWeb;
+	}
+	public void setIdMenuUsuWeb(Integer idMenuUsuWeb) {
+		this.idMenuUsuWeb = idMenuUsuWeb;
 	}
 
 	

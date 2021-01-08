@@ -2,11 +2,15 @@ package com.myfactory.SBootWebProject.servicesJPA.impl;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
@@ -39,6 +43,7 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 	}
 
 	@Override
+	@Transactional
 	public Factura altaFactura(Factura factura) {
 		try {
 			factura = reposSDataFactura.save(factura);

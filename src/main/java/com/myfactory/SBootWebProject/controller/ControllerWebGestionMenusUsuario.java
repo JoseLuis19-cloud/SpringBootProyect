@@ -56,12 +56,12 @@ public class ControllerWebGestionMenusUsuario {
 	{
 		BeanMenuUsuarioWeb menuUsuApliWeb = null;
 		boolean encontradoEnMenuAplicacion;
+		Integer idMenuUsuario = null;
 	
 	    List <BeanMenuUsuarioWeb> listMenuUsuWeb = new ArrayList<BeanMenuUsuarioWeb>() ;
 	    
 		List <BeanMenuAplicacionWeb>  listMenuAplicacionSelecWeb = new ArrayList<BeanMenuAplicacionWeb>();
-	    
-	    
+	       
 		Iterable <MenusUsuario> menuUsuario = servJPAMenusUsuario.obtenerMenuUsuSin0(idUsuario);
 		Iterable <Menu> menuAplicacion = servJPAMenu.obtenerMenusAplicacionSin0();
 		
@@ -79,13 +79,14 @@ public class ControllerWebGestionMenusUsuario {
 				if (elemenMenusUsuario.getMenu().getIdMenu().equals(menuApliIter.getIdMenu()) )
 		    		{
 		    		encontradoEnMenuAplicacion = true;
+		    		idMenuUsuario = elemenMenusUsuario.getIdMenu();
 		    		break;
 		    		}
 			   }
    
 			if (encontradoEnMenuAplicacion)
 				{
-				menuUsuApliWeb = new BeanMenuUsuarioWeb(menuApliIter.getIdMenu(), menuApliIter.getTextoMenu(), new Boolean(encontradoEnMenuAplicacion));
+				menuUsuApliWeb = new BeanMenuUsuarioWeb(idMenuUsuario, menuApliIter.getIdMenu(), menuApliIter.getTextoMenu(), new Boolean(encontradoEnMenuAplicacion));
 				listMenuUsuWeb.add(menuUsuApliWeb);
 				}
 			else
@@ -264,36 +265,36 @@ public class ControllerWebGestionMenusUsuario {
 		 else
 		 	{
 			 
-			 if (beanCamposGesMenuUsu.getIdAccion().equals("anadirtodos") )
-			 {
-			 User user = new User();
-			 user.setId(beanCamposGesMenuUsu.getIdUsuario());
-			 
-			 SubMenuNivel1 subMenuNivel1 = new SubMenuNivel1();
-			 subMenuNivel1.setIdSubmenuNivel1(new Integer(0));
-			 
-			 MenusUsuario menusUsuario = new MenusUsuario();
-			 
-			 menusUsuario.setUser(user);
-			 menusUsuario.setSubMenu1(subMenuNivel1); 
-			 
-			 if (beanCamposGesMenuUsu.getIdMenu1() != null)
+			 if (beanCamposGesMenuUsu.getIdAccion().equals("anadiruno") )
 			 	{
-				 Menu menu1 = new Menu();
-				 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenu1());
-				 menusUsuario.setMenu(menu1); 
-				 menusUsuario.setNumOrden(1); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-			 	}
+				 User user = new User();
+				 user.setId(beanCamposGesMenuUsu.getIdUsuario());
 			 
-			 if (beanCamposGesMenuUsu.getIdMenu2() != null)
-			 	{
-				 Menu menu2 = new Menu();
-				 menu2.setIdMenu(beanCamposGesMenuUsu.getIdMenu2());
-				 menusUsuario.setMenu(menu2);
-				 menusUsuario.setNumOrden(2); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-			 	}
+				 SubMenuNivel1 subMenuNivel1 = new SubMenuNivel1();
+				 subMenuNivel1.setIdSubmenuNivel1(new Integer(0));
+			 
+				 MenusUsuario menusUsuario = new MenusUsuario();
+			 
+				 menusUsuario.setUser(user);
+				 menusUsuario.setSubMenu1(subMenuNivel1); 
+			 
+				 if (beanCamposGesMenuUsu.getIdMenu1() != null)
+			 		{
+					 Menu menu1 = new Menu();
+					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenu1());
+					 menusUsuario.setMenu(menu1); 
+					 menusUsuario.setNumOrden(1); 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+			 		}
+			 
+				 if (beanCamposGesMenuUsu.getIdMenu2() != null)
+				 	{
+					 Menu menu2 = new Menu();
+					 menu2.setIdMenu(beanCamposGesMenuUsu.getIdMenu2());
+					 menusUsuario.setMenu(menu2);
+					 menusUsuario.setNumOrden(2); 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+				 	}
 			 
 			 if (beanCamposGesMenuUsu.getIdMenu3() != null)
 			 	{
@@ -372,9 +373,10 @@ public class ControllerWebGestionMenusUsuario {
 				 
 				 if (beanCamposGesMenuUsu.getIdMenu1() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu1());
+					 
 					 Menu menu1 = new Menu();
-					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenu1());
-					 //menusUsuario.setIdMenu( ); 
+					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenu1()); 
 					 menusUsuario.setMenu(menu1); 
 					 menusUsuario.setNumOrden(1); 
 				     servJPAMenusUsuario.suprimirMenuUsuario(menusUsuario) ;
@@ -382,6 +384,8 @@ public class ControllerWebGestionMenusUsuario {
 				 
 				 if (beanCamposGesMenuUsu.getIdMenu2() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu2());
+					 
 					 Menu menu2 = new Menu();
 					 menu2.setIdMenu(beanCamposGesMenuUsu.getIdMenu2());
 					 menusUsuario.setMenu(menu2);
@@ -391,6 +395,8 @@ public class ControllerWebGestionMenusUsuario {
 				 
 				 if (beanCamposGesMenuUsu.getIdMenu3() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu3());
+					 
 					 Menu menu3 = new Menu();
 					 menu3.setIdMenu(beanCamposGesMenuUsu.getIdMenu3());
 					 menusUsuario.setMenu(menu3);
@@ -399,6 +405,8 @@ public class ControllerWebGestionMenusUsuario {
 				 	}
 				 if (beanCamposGesMenuUsu.getIdMenu4() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu4());
+					 
 					 Menu menu4 = new Menu();
 					 menu4.setIdMenu(beanCamposGesMenuUsu.getIdMenu4());
 					 menusUsuario.setMenu(menu4);
@@ -407,6 +415,7 @@ public class ControllerWebGestionMenusUsuario {
 				 	}
 				 if (beanCamposGesMenuUsu.getIdMenu5() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu5());
 					 Menu menu5 = new Menu();
 					 menu5.setIdMenu(beanCamposGesMenuUsu.getIdMenu5());
 					 menusUsuario.setMenu(menu5);
@@ -415,6 +424,7 @@ public class ControllerWebGestionMenusUsuario {
 				 	}
 				 if (beanCamposGesMenuUsu.getIdMenu6() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu6());
 					 Menu menu6 = new Menu();
 					 menu6.setIdMenu(beanCamposGesMenuUsu.getIdMenu6());
 					 menusUsuario.setMenu(menu6);
@@ -423,6 +433,7 @@ public class ControllerWebGestionMenusUsuario {
 				 	}
 				 if (beanCamposGesMenuUsu.getIdMenu7() != null)
 					{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu7());
 					 Menu menu7 = new Menu();
 					 menu7.setIdMenu(beanCamposGesMenuUsu.getIdMenu7());
 					 menusUsuario.setMenu(menu7);
@@ -432,6 +443,7 @@ public class ControllerWebGestionMenusUsuario {
 				 
 				 if (beanCamposGesMenuUsu.getIdMenu8() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu8());
 					 Menu menu8 = new Menu();
 					 menu8.setIdMenu(beanCamposGesMenuUsu.getIdMenu8());
 					 menusUsuario.setMenu(menu8);
@@ -441,6 +453,7 @@ public class ControllerWebGestionMenusUsuario {
 				 
 				 if (beanCamposGesMenuUsu.getIdMenu9() != null)
 				 	{
+					 menusUsuario.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu9());
 					 Menu menu9 = new Menu();
 					 menu9.setIdMenu(beanCamposGesMenuUsu.getIdMenu9());
 					 menusUsuario.setMenu(menu9);
@@ -454,19 +467,63 @@ public class ControllerWebGestionMenusUsuario {
 		// Mostrar solo los Menus de aplicación que no tenga el usuario asignados	    
 		modelo.addAttribute("idUsuarioApli", beanCamposGesMenuUsu.getIdUsuario());
 		// modelo.addAttribute("nomUsuario", nomUsuario);
-		
-		modelo.addAttribute("listMenuUsuApliWeb", obtenerMenusUsuarioActualizado(beanCamposGesMenuUsu.getIdUsuario()));
-		modelo.addAttribute("listMenuAplicacion", listMenuAplicacionSelecWeb);
-			
+	
 		BeanCamposGesMenuUsu beanCamposGesMenuUsu2 = new BeanCamposGesMenuUsu();
 		beanCamposGesMenuUsu.setIdUsuario(beanCamposGesMenuUsu.getIdUsuario());
 		modelo.addAttribute("beanCamposGesMenuUsu", beanCamposGesMenuUsu2);
+		
+		//////////////////////////////
+		Boolean encontradoEnMenuAplicacion = null;
+		BeanMenuUsuarioWeb menuUsuApliWeb = null;
+	    List <BeanMenuUsuarioWeb> listMenuUsuWeb = new ArrayList<BeanMenuUsuarioWeb>() ;
+		
+		Iterable <MenusUsuario> menuUsuario = servJPAMenusUsuario.obtenerMenuUsuSin0(beanCamposGesMenuUsu.getIdUsuario());
+		Iterable <Menu> menuAplicacion = servJPAMenu.obtenerMenusAplicacionSin0();
+	 	Iterator <Menu> menuApli = menuAplicacion.iterator();
+	 	
+		Menu menuApliIter = null;
+		Integer idMenuUsuario = null;
+
+		while(menuApli.hasNext())
+		{
+			menuApliIter = menuApli.next();
+			encontradoEnMenuAplicacion = false;
+			
+			for (MenusUsuario elemenMenusUsuario : menuUsuario) {
+
+				if (elemenMenusUsuario.getMenu().getIdMenu().equals(menuApliIter.getIdMenu()) )
+		    		{
+		    		encontradoEnMenuAplicacion = true;
+		    		idMenuUsuario = elemenMenusUsuario.getIdMenu();
+		    		break;
+		    		}
+			   }
+   
+			if (encontradoEnMenuAplicacion)
+				{
+				menuUsuApliWeb = new BeanMenuUsuarioWeb(idMenuUsuario, menuApliIter.getIdMenu(), menuApliIter.getTextoMenu(), new Boolean(encontradoEnMenuAplicacion));
+				listMenuUsuWeb.add(menuUsuApliWeb);
+				}
+			else
+				{
+				BeanMenuAplicacionWeb  menuAplicacionWeb = new BeanMenuAplicacionWeb();
+				
+				menuAplicacionWeb.setIdMenu(menuApliIter.getIdMenu());
+				menuAplicacionWeb.setTextoMenu(menuApliIter.getTextoMenu());
+			
+				listMenuAplicacionSelecWeb.add(menuAplicacionWeb);	 
+				}
+		}
+		
+		/////
+		
+		modelo.addAttribute("listMenuUsuApliWeb", obtenerMenusUsuarioActualizado(beanCamposGesMenuUsu.getIdUsuario()));
+		modelo.addAttribute("listMenuAplicacion", listMenuAplicacionSelecWeb);
 		 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionMenus/GestionMenusUsuario";
 	}
-	 
 	 
 	 @RequestMapping(value = "/eliminarmenuusuario", method = RequestMethod.POST)
 	 public String eliminarMenuUsuario(Model modelo) {
@@ -532,24 +589,21 @@ public class ControllerWebGestionMenusUsuario {
 		   
 		return listMenuAplicacionSelecWeb;
 		 
-	 }	 
-	 
+	 } 
 	 
 	 private List <BeanMenuUsuarioWeb> obtenerMenusUsuarioActualizado(Long idUsuario) { 
 		boolean encontradoEnMenuAplicacion;
 		BeanMenuUsuarioWeb menuUsuApliWeb = null;
 		
 	    List <BeanMenuUsuarioWeb> listMenuUsuWeb = new ArrayList<BeanMenuUsuarioWeb>() ;
-	    
-		// List <BeanMenuAplicacionWeb>  listMenuAplicacionSelecWeb = new ArrayList<BeanMenuAplicacionWeb>();
-	    
-	    
+	   
 		Iterable <MenusUsuario> menuUsuario = servJPAMenusUsuario.obtenerMenuUsuSin0(idUsuario);
 		Iterable <Menu> menuAplicacion = servJPAMenu.obtenerMenusAplicacionSin0();
 		
 	 	Iterator<Menu> menuApli = menuAplicacion.iterator();
 	 	
 		Menu menuApliIter = null;
+		Integer idMenuUsu = null;
 
 		while(menuApli.hasNext())
 		{
@@ -557,17 +611,17 @@ public class ControllerWebGestionMenusUsuario {
 			encontradoEnMenuAplicacion = false;
 			
 			for (MenusUsuario elemenMenusUsuario : menuUsuario) {
-
 				if (elemenMenusUsuario.getMenu().getIdMenu().equals(menuApliIter.getIdMenu()) )
 		    		{
+					idMenuUsu = elemenMenusUsuario.getIdMenu();
 		    		encontradoEnMenuAplicacion = true;
 		    		break;
 		    		}
 			   }
-   
+
 			if (encontradoEnMenuAplicacion)
 				{
-				menuUsuApliWeb = new BeanMenuUsuarioWeb(menuApliIter.getIdMenu(), menuApliIter.getTextoMenu(), new Boolean(encontradoEnMenuAplicacion));
+				menuUsuApliWeb = new BeanMenuUsuarioWeb(idMenuUsu, menuApliIter.getIdMenu(), menuApliIter.getTextoMenu(), new Boolean(encontradoEnMenuAplicacion));
 				listMenuUsuWeb.add(menuUsuApliWeb);
 				}
 		}

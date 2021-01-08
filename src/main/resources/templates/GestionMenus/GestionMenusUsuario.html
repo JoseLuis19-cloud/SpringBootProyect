@@ -78,23 +78,22 @@
 			  });
 			 
 			 $("#idLinkAnadirTodos").click(function() {
-				 alert("boton idLinkAnadirTodos");
-				 $("input[id^='idCheckActivado']").prop("checked", true);
+				alert("boton idLinkAnadirTodos");
+				$("input[id^='idCheckActivado']").prop("checked", true);
 				 
-				 document.getElementById("idP3").style.display = "block";
-				 $("#idAccionHidden" + ind).val("anadirtodos");
-				 
-				 $("#myModalConfirm").modal();
+				document.getElementById("idP3").style.display = "block";
+				$("#idAccionHidden" + ind).val("anadirtodos");
+				$("#myModalConfirm").modal();
 				 
 			  });
 			 
 			 $("#idLinkConfirmar").click(function() {
-				    alert("boton confirmar");
-				  });
+				  alert("boton confirmar");
+				});
 
 			});
 		
-		function anadirElemenMenuUsuario()
+		function anadirElemenMenuUsuario(numEle)
 	  	 {
 			if (arrValueCheck == null)
 				{
@@ -111,15 +110,14 @@
 				else
 					{
 					 document.getElementById("idP1").style.display = "block";
-					 
-					 var ind = 1;
+
+					 var ind = 0;
 					 for (var i=0; i<arrValueCheck.length; i++)
 				 	 {
-					  $("#idIdMenuHidden" + ind).val( arrValueCheck[i] );
-					  alert( $("#idIdMenuHidden" + ind).val() );
+					  $("#idIdMenuHidden" + ind).val(arrValueCheck[i]);
 				 	 // idMenuSelec = arrValueCheck[i];
 			   	    }
-					 $("#idAccionHidden" + ind).val( "anadiruno" );  
+					 $("#idAccionHidden").val("anadiruno");  
 					 $("#myModalConfirm").modal();
 					}
 			
@@ -138,23 +136,42 @@
 					{
 					 alert("Debe seleccionar al menos un elemento a suprimir");
 					}
-				else
+				   else
 					{
 					 document.getElementById("idP2").style.display = "block";
 					 
-					 var ind = 1;
+					 var ind = 0;
 					 for (var i=0; i<arrValueCheckASupr.length; i++)
 				 	  { 
-					   $("#idIdMenuHidden" + ind).val( arrValueCheckASupr[i] );
-					   alert( $("#idIdMenuHidden" + ind).val() )
-				 	  // idMenuSelec = arrValueCheck[i];
+					   	$("#idIdMenuHidden" + ind).val( arrValueCheckASupr[i]);
+					   	alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
+					   	$("#idIdMenuUsuHidden" + ind).val($("#idMenuUsuHidden" + i).val());
+				 	 // idMenuSelec = arrValueCheck[i];
 			   	      }
+					 
 					$("#idAccionHidden").val("suprimiruno");  
-					 alert("Debe " + $("#idAccionHidden").val());
 					$("#myModalConfirm").modal();
 					}
 	  			}
 		}
+		var indExp = 0;
+		function anadirElemento(objElemen, ind)
+	  	 {  
+		 alert(objElemen.checked);
+		 alert(ind);
+		  if (objElemen.checked)
+			 {
+			 document.getElementById("idIdMenuUsuHidden"+indExp).value = document.getElementById("idMenuUsuHidden"+ind).value;
+			 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
+			 indExp = indExp + 1;
+			 }
+			else
+			{
+			 document.getElementById("idIdMenuUsuHidden"+indExp).value = "";
+			 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
+			 iindExp = indExp - 1;
+			}
+	  	 }
 		
 		function confirmarMenuUsuario()
 	  	 {
@@ -181,15 +198,26 @@
 			
 			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"   th:field="*{idAccion}" />
 			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"      th:field="*{idUsuario}" />
-		 	<input type="hidden" th:id="'idIdMenuHidden1'"  th:name="'idMenuHidden1'"  th:field="*{idMenu1}" />
-		 	<input type="hidden" th:id="'idIdMenuHidden2'"  th:name="'idMenuHidden2'"  th:field="*{idMenu2}" />
-		 	<input type="hidden" th:id="'idIdMenuHidden3'"  th:name="'idMenuHidden3'"  th:field="*{idMenu3}" />	
-		 	<input type="hidden" th:id="'idIdMenuHidden4'"  th:name="'idMenuHidden4'"  th:field="*{idMenu4}" />	
-		 	<input type="hidden" th:id="'idIdMenuHidden5'"  th:name="'idMenuHidden5'"  th:field="*{idMenu5}" />	
-		 	<input type="hidden" th:id="'idIdMenuHidden6'"  th:name="'idMenuHidden6'"  th:field="*{idMenu6}" />	
-		 	<input type="hidden" th:id="'idIdMenuHidden7'"  th:name="'idMenuHidden7'"  th:field="*{idMenu7}" />	
-		 	<input type="hidden" th:id="'idIdMenuHidden8'"  th:name="'idMenuHidden8'"  th:field="*{idMenu8}" />	
-		 	<input type="hidden" th:id="'idIdMenuHidden9'"  th:name="'idMenuHidden9'"  th:field="*{idMenu9}" />						
+			
+		 	<input type="hidden" th:id="'idIdMenuHidden0'"  th:name="'idMenuHidden0'"  th:field="*{idMenu1}" />
+		 	<input type="hidden" th:id="'idIdMenuHidden1'"  th:name="'idMenuHidden1'"  th:field="*{idMenu2}" />
+		 	<input type="hidden" th:id="'idIdMenuHidden2'"  th:name="'idMenuHidden2'"  th:field="*{idMenu3}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden3'"  th:name="'idMenuHidden3'"  th:field="*{idMenu4}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden4'"  th:name="'idMenuHidden4'"  th:field="*{idMenu5}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden5'"  th:name="'idMenuHidden5'"  th:field="*{idMenu6}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden6'"  th:name="'idMenuHidden6'"  th:field="*{idMenu7}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden7'"  th:name="'idMenuHidden7'"  th:field="*{idMenu8}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden8'"  th:name="'idMenuHidden8'"  th:field="*{idMenu9}" />	
+		 	
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden0'"  th:name="'idMenuUsuHidden0'"  th:field="*{idMenuUsu1}" />
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden1'"  th:name="'idMenuUsuHidden1'"  th:field="*{idMenuUsu2}" />
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden2'"  th:name="'idMenuUsuHidden2'"  th:field="*{idMenuUsu3}" />	
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden3'"  th:name="'idMenuUsuHidden3'"  th:field="*{idMenuUsu4}" />	
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden4'"  th:name="'idMenuUsuHidden4'"  th:field="*{idMenuUsu5}" />	
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden5'"  th:name="'idMenuUsuHidden5'"  th:field="*{idMenuUsu6}" />	
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden6'"  th:name="'idMenuUsuHidden6'"  th:field="*{idMenuUsu7}" />	
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden7'"  th:name="'idMenuUsuHidden7'"  th:field="*{idMenuUsu8}" />	
+		 	<input type="hidden" th:id="'idIdMenuUsuHidden8'"  th:name="'idMenuUsuHidden8'"  th:field="*{idMenuUsu9}" />						
 		 </form> 
 
   			<div class="col-5">

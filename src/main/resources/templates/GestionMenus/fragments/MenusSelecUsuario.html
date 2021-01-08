@@ -8,8 +8,7 @@
 
 	<body>
 		<header th:fragment="menuselecusuario">
-	
-				<input type="hidden" th:id="idUserHidden" th:name="userHidden" th:value="${idUsuarioApli}"/>
+			<input type="hidden" th:id="idUserHidden" th:name="userHidden" th:value="${idUsuarioApli}"/>
      			<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
@@ -20,19 +19,20 @@
 						</tr>
 					</thead>
 					<tbody class="table-striped">
-						<tr th:each="listMenuUsuApli:${listMenuUsuApliWeb}">
+						<tr th:each="listMenuUsuApli, iterStat :${listMenuUsuApliWeb}">
 						 	<td>
-						 		<div  style="display: flex; justify-content: center; align-items: center;">
-									<input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${listMenuUsuApli.idMenuWeb}" th:name="checksMenuUsu[]"  th:checked="false" th:value="${listMenuUsuApli.idMenuWeb}" class="btn btn-primary btn-sm" />						
+						 		<div style="display: flex; justify-content: center; align-items: center;"> 
+								 <input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${iterStat.index}" th:name="checksMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listMenuUsuApli.idMenuWeb}" class="btn btn-primary btn-sm" />						
 								</div>
 							</td>
 							<td th:text="${listMenuUsuApli.idMenuWeb}"></td>
 							<td th:text="${listMenuUsuApli.elementoMenu}"></td>
 							<td>
 								<div th:id="'idDivMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" style="visibility:visible">
-							  		<a th:id="'idLinkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:name="'linkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}"  th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${listMenuUsuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
+							  		<a th:id="'idLinkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:name="'linkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${listMenuUsuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
 							 	</div>
-							 	<input type="hidden" th:id="'idMenuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:name="'menuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:value="${listMenuUsuApli.idMenuWeb}"/>							 			
+							 	<input type="hidden" th:id="'idMenuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:name="'menuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:value="${listMenuUsuApli.idMenuWeb}"/>
+								<input type="hidden" th:id="'idMenuUsuHidden'+ ${iterStat.index}" th:name="'menuUsuHidden'+ ${iterStat.index}" th:value="${listMenuUsuApli.idMenuUsuWeb}"/>
 							</td>	
 						</tr>
 					</tbody>

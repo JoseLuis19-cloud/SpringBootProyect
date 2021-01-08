@@ -23,6 +23,15 @@ public class BeanCamposGesMenuUsu implements Serializable, Cloneable {
 	private Integer idMenu8;
 	private Integer idMenu9;
 	
+	private Integer idMenuUsu1;
+	private Integer idMenuUsu2;
+	private Integer idMenuUsu3;
+	private Integer idMenuUsu4;
+	private Integer idMenuUsu5;
+	private Integer idMenuUsu6;
+	private Integer idMenuUsu7;
+	private Integer idMenuUsu8;
+	private Integer idMenuUsu9;
 	
 	public String getIdAccion() {
 		return idAccion;
@@ -92,6 +101,62 @@ public class BeanCamposGesMenuUsu implements Serializable, Cloneable {
 	}
 	public void setIdMenu9(Integer idMenu9) {
 		this.idMenu9 = idMenu9;
+	}
+	
+	
+	public Integer getIdMenuUsu1() {
+		return idMenuUsu1;
+	}
+	public void setIdMenuUsu1(Integer idMenuUsu1) {
+		this.idMenuUsu1 = idMenuUsu1;
+	}
+	public Integer getIdMenuUsu2() {
+		return idMenuUsu2;
+	}
+	public void setIdMenuUsu2(Integer idMenuUsu2) {
+		this.idMenuUsu2 = idMenuUsu2;
+	}
+	public Integer getIdMenuUsu3() {
+		return idMenuUsu3;
+	}
+	public void setIdMenuUsu3(Integer idMenuUsu3) {
+		this.idMenuUsu3 = idMenuUsu3;
+	}
+	public Integer getIdMenuUsu4() {
+		return idMenuUsu4;
+	}
+	public void setIdMenuUsu4(Integer idMenuUsu4) {
+		this.idMenuUsu4 = idMenuUsu4;
+	}
+	public Integer getIdMenuUsu5() {
+		return idMenuUsu5;
+	}
+	public void setIdMenuUsu5(Integer idMenuUsu5) {
+		this.idMenuUsu5 = idMenuUsu5;
+	}
+	public Integer getIdMenuUsu6() {
+		return idMenuUsu6;
+	}
+	public void setIdMenuUsu6(Integer idMenuUsu6) {
+		this.idMenuUsu6 = idMenuUsu6;
+	}
+	public Integer getIdMenuUsu7() {
+		return idMenuUsu7;
+	}
+	public void setIdMenuUsu7(Integer idMenuUsu7) {
+		this.idMenuUsu7 = idMenuUsu7;
+	}
+	public Integer getIdMenuUsu8() {
+		return idMenuUsu8;
+	}
+	public void setIdMenuUsu8(Integer idMenuUsu8) {
+		this.idMenuUsu8 = idMenuUsu8;
+	}
+	public Integer getIdMenuUsu9() {
+		return idMenuUsu9;
+	}
+	public void setIdMenuUsu9(Integer idMenuUsu9) {
+		this.idMenuUsu9 = idMenuUsu9;
 	}
 
 	
