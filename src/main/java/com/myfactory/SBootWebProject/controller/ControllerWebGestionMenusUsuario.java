@@ -110,9 +110,9 @@ public class ControllerWebGestionMenusUsuario {
 		
 		BeanCamposGesMenuUsu beanCamposGesMenuUsu = new BeanCamposGesMenuUsu();
 		beanCamposGesMenuUsu.setIdUsuario(idUsuario);
+		beanCamposGesMenuUsu.setNomUsuario(nomUsuario);
 		modelo.addAttribute("beanCamposGesMenuUsu", beanCamposGesMenuUsu);
 		 
-		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionMenus/GestionMenusUsuario";
@@ -281,7 +281,7 @@ public class ControllerWebGestionMenusUsuario {
 				 if (beanCamposGesMenuUsu.getIdMenu1() != null)
 			 		{
 					 Menu menu1 = new Menu();
-					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenu1());
+					 menu1.setIdMenu( beanCamposGesMenuUsu.getIdMenu1());
 					 menusUsuario.setMenu(menu1); 
 					 menusUsuario.setNumOrden(1); 
 					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
@@ -296,68 +296,68 @@ public class ControllerWebGestionMenusUsuario {
 					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
 				 	}
 			 
-			 if (beanCamposGesMenuUsu.getIdMenu3() != null)
-			 	{
-				 Menu menu3 = new Menu();
-				 menu3.setIdMenu(beanCamposGesMenuUsu.getIdMenu3());
-				 menusUsuario.setMenu(menu3);
-				 menusUsuario.setNumOrden(3); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-			 	}
-			 if (beanCamposGesMenuUsu.getIdMenu4() != null)
-			 	{
-				 Menu menu4 = new Menu();
-				 menu4.setIdMenu(beanCamposGesMenuUsu.getIdMenu4());
-				 menusUsuario.setMenu(menu4);
-				 menusUsuario.setNumOrden(4); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-			 	}
-			 if (beanCamposGesMenuUsu.getIdMenu5() != null)
-			 	{
-				 Menu menu5 = new Menu();
-				 menu5.setIdMenu(beanCamposGesMenuUsu.getIdMenu5());
-				 menusUsuario.setMenu(menu5);
-				 menusUsuario.setNumOrden(5); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-			 	}
-			 if (beanCamposGesMenuUsu.getIdMenu6() != null)
-			 	{
-				 Menu menu6 = new Menu();
-				 menu6.setIdMenu(beanCamposGesMenuUsu.getIdMenu6());
-				 menusUsuario.setMenu(menu6);
-				 menusUsuario.setNumOrden(6); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-			 	}
-			 if (beanCamposGesMenuUsu.getIdMenu7() != null)
-				{
-				 Menu menu7 = new Menu();
-				 menu7.setIdMenu(beanCamposGesMenuUsu.getIdMenu7());
-				 menusUsuario.setMenu(menu7);
-				 menusUsuario.setNumOrden(7); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-				}
+				 if (beanCamposGesMenuUsu.getIdMenu3() != null)
+			 		{
+					Menu menu3 = new Menu();
+					menu3.setIdMenu(beanCamposGesMenuUsu.getIdMenu3());
+					menusUsuario.setMenu(menu3);
+					menusUsuario.setNumOrden(3); 
+					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+			 		}
+				if (beanCamposGesMenuUsu.getIdMenu4() != null)
+			 		{
+					Menu menu4 = new Menu();
+					menu4.setIdMenu(beanCamposGesMenuUsu.getIdMenu4());
+					menusUsuario.setMenu(menu4);
+					menusUsuario.setNumOrden(4); 
+					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+			 		}
+				if (beanCamposGesMenuUsu.getIdMenu5() != null)
+			 		{
+					Menu menu5 = new Menu();
+					menu5.setIdMenu(beanCamposGesMenuUsu.getIdMenu5());
+					menusUsuario.setMenu(menu5);
+					menusUsuario.setNumOrden(5); 
+					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+			 		}
+				if (beanCamposGesMenuUsu.getIdMenu6() != null)
+			 		{
+					Menu menu6 = new Menu();
+					menu6.setIdMenu(beanCamposGesMenuUsu.getIdMenu6());
+					menusUsuario.setMenu(menu6);
+				 	menusUsuario.setNumOrden(6); 
+				 	servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+			 		}
+				if (beanCamposGesMenuUsu.getIdMenu7() != null)
+					{
+					Menu menu7 = new Menu();
+					menu7.setIdMenu(beanCamposGesMenuUsu.getIdMenu7());
+					menusUsuario.setIdMenu(null);
+					menusUsuario.setMenu(menu7);
+					menusUsuario.setNumOrden(7); 
+					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+					}
 			 
-			 if (beanCamposGesMenuUsu.getIdMenu8() != null)
-			 	{
-				 Menu menu8 = new Menu();
-				 menu8.setIdMenu(beanCamposGesMenuUsu.getIdMenu8());
-				 menusUsuario.setMenu(menu8);
-				 menusUsuario.setNumOrden(8); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
-			 	}
+				if (beanCamposGesMenuUsu.getIdMenu8() != null)
+			 		{
+					Menu menu8 = new Menu();
+					menu8.setIdMenu(beanCamposGesMenuUsu.getIdMenu8());
+					menusUsuario.setMenu(menu8);
+					menusUsuario.setNumOrden(8); 
+					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+			 		}
 			 
-			 if (beanCamposGesMenuUsu.getIdMenu9() != null)
-			 	{
-				 Menu menu9 = new Menu();
-				 menu9.setIdMenu(beanCamposGesMenuUsu.getIdMenu9());
-				 menusUsuario.setMenu(menu9);
-				 menusUsuario.setNumOrden(9); 
-			     servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+				if (beanCamposGesMenuUsu.getIdMenu9() != null)
+			 		{
+					Menu menu9 = new Menu();
+					menu9.setIdMenu(beanCamposGesMenuUsu.getIdMenu9());
+					menusUsuario.setMenu(menu9);
+					menusUsuario.setNumOrden(9); 
+					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario) ;
+			 		}
 			 	}
-			 
-		 	}
-		  else
-		   {
+			 else
+			 {
 			if (beanCamposGesMenuUsu.getIdAccion().equals("suprimiruno") )
 				{	 
 				 User user = new User();
@@ -466,10 +466,11 @@ public class ControllerWebGestionMenusUsuario {
 
 		// Mostrar solo los Menus de aplicación que no tenga el usuario asignados	    
 		modelo.addAttribute("idUsuarioApli", beanCamposGesMenuUsu.getIdUsuario());
-		// modelo.addAttribute("nomUsuario", nomUsuario);
+		modelo.addAttribute("nomUsuario", beanCamposGesMenuUsu.getNomUsuario());
 	
 		BeanCamposGesMenuUsu beanCamposGesMenuUsu2 = new BeanCamposGesMenuUsu();
-		beanCamposGesMenuUsu.setIdUsuario(beanCamposGesMenuUsu.getIdUsuario());
+		beanCamposGesMenuUsu2.setIdUsuario(beanCamposGesMenuUsu.getIdUsuario());	
+		beanCamposGesMenuUsu2.setNomUsuario(beanCamposGesMenuUsu.getNomUsuario());
 		modelo.addAttribute("beanCamposGesMenuUsu", beanCamposGesMenuUsu2);
 		
 		//////////////////////////////

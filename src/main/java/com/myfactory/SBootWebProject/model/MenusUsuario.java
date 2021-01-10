@@ -32,12 +32,10 @@ public class MenusUsuario implements Serializable {
 	
  	@ManyToOne(fetch = FetchType.LAZY)
  	@JoinColumn(name = "COD_NIVEL_1_FK", nullable = false)
-	// @Column(name = "COD_NIVEL_1_FK")
 	private Menu menu;
 	
  	@ManyToOne(fetch = FetchType.LAZY)
  	@JoinColumn(name = "COD_NIVEL_2_FK", nullable = false)
-//	@Column(name = "COD_NIVEL_2_FK")
  	private SubMenuNivel1 subMenu1;
 
 	public Integer getIdMenu() {
@@ -79,6 +77,5 @@ public class MenusUsuario implements Serializable {
 	public void setSubMenu1(SubMenuNivel1 subMenu1) {
 		this.subMenu1 = subMenu1;
 	}
-
 
 }

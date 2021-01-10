@@ -13,6 +13,7 @@ public class BeanCamposGesMenuUsu implements Serializable, Cloneable {
 
 	private String idAccion;
 	private Long idUsuario;
+	private String nomUsuario;
 	private Integer idMenu1;
 	private Integer idMenu2;
 	private Integer idMenu3;
@@ -157,6 +158,13 @@ public class BeanCamposGesMenuUsu implements Serializable, Cloneable {
 	}
 	public void setIdMenuUsu9(Integer idMenuUsu9) {
 		this.idMenuUsu9 = idMenuUsu9;
+	}
+	
+	public String getNomUsuario() {
+		return nomUsuario;
+	}
+	public void setNomUsuario(String nomUsuario) {
+		this.nomUsuario = nomUsuario;
 	}
 
 	

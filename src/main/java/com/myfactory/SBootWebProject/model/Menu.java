@@ -18,7 +18,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-
 @Entity
 @Table(name = "MENU")
 public class Menu implements Serializable {
@@ -35,8 +34,8 @@ public class Menu implements Serializable {
 	
 //	@NotNull(message = "Debe introducir un valor numerico!")
 //	@Pattern(regexp="^(0|[1-9][0-9]*)$", message = "Debe introducir un valor numerico entre 1 y 99!")
-	// @Min(value = 1, message = "El rango de numero de orden es de 1 a 99!")
-	// @Max(value = 100, message = "El rango de numero de orden es de 1 a 99!")
+// @Min(value = 1, message = "El rango de numero de orden es de 1 a 99!")
+// @Max(value = 100, message = "El rango de numero de orden es de 1 a 99!")
 	@Column(name = "NUM_ORDEN_MENU",  nullable = false)
 	private Integer numOrdenMenu;
 	

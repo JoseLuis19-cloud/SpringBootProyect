@@ -55,8 +55,9 @@
 	/*]]>*/
 	
 	 var arrValueCheck = null;
-	 var arrValueCheckASupr  = null;
-	 var idMenuSelec = "";
+	 var arrValueCheckASupr = null;
+	// var idMenuSelec = "";
+	 var indExp = 0;
 
 		$(document).ready(function() {
 
@@ -96,12 +97,12 @@
 		function anadirElemenMenuUsuario(numEle)
 	  	 {
 			if (arrValueCheck == null)
-				{
+			   {
 				 alert("Debe seleccionar al menos un elemento a añadir"); 
 				 return;
 				}
-			 else
-			  {
+			  else
+			   {
 				if (arrValueCheck.length == 0)
 					{
 					 alert("Debe seleccionar al menos un elemento a añadir");
@@ -113,15 +114,16 @@
 
 					 var ind = 0;
 					 for (var i=0; i<arrValueCheck.length; i++)
-				 	 {
-					  $("#idIdMenuHidden" + ind).val(arrValueCheck[i]);
-				 	 // idMenuSelec = arrValueCheck[i];
-			   	    }
-					 $("#idAccionHidden").val("anadiruno");  
-					 $("#myModalConfirm").modal();
+				 	 	{
+					  	$("#idIdMenuHidden" + ind).val(arrValueCheck[i]);
+					  	alert("Ha elegido: " + $("#idIdMenuHidden" + ind).val());
+					  	ind++;
+				 	 	// idMenuSelec = arrValueCheck[i];
+			   	     	}
+					 	$("#idAccionHidden").val("anadiruno");  
+						$("#myModalConfirm").modal();
 					}
-			
-			  }
+			   }
 	  	 }
 		
 		function eliminarElemenMenuUsuario()
@@ -146,6 +148,7 @@
 					   	$("#idIdMenuHidden" + ind).val( arrValueCheckASupr[i]);
 					   	alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
 					   	$("#idIdMenuUsuHidden" + ind).val($("#idMenuUsuHidden" + i).val());
+					  	ind++;
 				 	 // idMenuSelec = arrValueCheck[i];
 			   	      }
 					 
@@ -154,21 +157,21 @@
 					}
 	  			}
 		}
-		var indExp = 0;
+	
 		function anadirElemento(objElemen, ind)
 	  	 {  
-		 alert(objElemen.checked);
-		 alert(ind);
+		// alert(objElemen.checked);
+		// alert(ind);
 		  if (objElemen.checked)
 			 {
 			 document.getElementById("idIdMenuUsuHidden"+indExp).value = document.getElementById("idMenuUsuHidden"+ind).value;
-			 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
+		//	 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
 			 indExp = indExp + 1;
 			 }
 			else
 			{
 			 document.getElementById("idIdMenuUsuHidden"+indExp).value = "";
-			 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
+		//	 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
 			 iindExp = indExp - 1;
 			}
 	  	 }
@@ -192,13 +195,14 @@
 		</div>
 		
 		<div class="row" style="border-bottom: 2px solid #000">
-		<div class="col-1"> </div>
+		<div class="col-1"></div>
 		 
 		<form th:id="idFormMenuUsuario" th:action="@{/gestionmenususuario/actualizarmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
 			
 			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"   th:field="*{idAccion}" />
 			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"      th:field="*{idUsuario}" />
-			
+			<input type="hidden" th:id="'idNomUsuario'" 	th:name="'nomUsuario'"     th:field="*{nomUsuario}" />
+
 		 	<input type="hidden" th:id="'idIdMenuHidden0'"  th:name="'idMenuHidden0'"  th:field="*{idMenu1}" />
 		 	<input type="hidden" th:id="'idIdMenuHidden1'"  th:name="'idMenuHidden1'"  th:field="*{idMenu2}" />
 		 	<input type="hidden" th:id="'idIdMenuHidden2'"  th:name="'idMenuHidden2'"  th:field="*{idMenu3}" />	

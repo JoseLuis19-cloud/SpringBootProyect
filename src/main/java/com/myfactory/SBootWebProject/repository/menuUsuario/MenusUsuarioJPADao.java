@@ -43,11 +43,7 @@ public interface MenusUsuarioJPADao extends CrudRepository<MenusUsuario, Integer
 			+ " WHERE us.id = :idUsuario"
 		 	+ "   AND me.idMenu = :idMenu"
 			+ "   AND sm1.idSubmenuNivel1 > 0")
+	
  	public Iterable <MenusUsuario> obtenerSubMenuUsuSin0(@Param("idUsuario") Long idUsuario, @Param("idMenu") Integer idMenu);
-	
-
-	//public Iterable <MenusUsuario> insertarMenuUsuario(@Param("menuUsuario") MenuUsuario menuUsuario);
-	
-	
 
 }
