@@ -116,7 +116,7 @@
 					 for (var i=0; i<arrValueCheck.length; i++)
 				 	 	{
 					  	$("#idIdMenuHidden" + ind).val(arrValueCheck[i]);
-					  	alert("Ha elegido: " + $("#idIdMenuHidden" + ind).val());
+					 // 	alert("Ha elegido: " + $("#idIdMenuHidden" + ind).val());
 					  	ind++;
 				 	 	// idMenuSelec = arrValueCheck[i];
 			   	     	}
@@ -146,7 +146,7 @@
 					 for (var i=0; i<arrValueCheckASupr.length; i++)
 				 	  { 
 					   	$("#idIdMenuHidden" + ind).val( arrValueCheckASupr[i]);
-					   	alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
+					//   	alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
 					   	$("#idIdMenuUsuHidden" + ind).val($("#idMenuUsuHidden" + i).val());
 					  	ind++;
 				 	 // idMenuSelec = arrValueCheck[i];
@@ -160,8 +160,8 @@
 	
 		function anadirElemento(objElemen, ind)
 	  	 {  
-		// alert(objElemen.checked);
-		// alert(ind);
+		  alert(objElemen.checked);
+		  alert(ind);
 		  if (objElemen.checked)
 			 {
 			 document.getElementById("idIdMenuUsuHidden"+indExp).value = document.getElementById("idMenuUsuHidden"+ind).value;
@@ -250,7 +250,7 @@
  			<div class="col-1"> </div>
 		</div>
 		
-		<a th:id="'idLinkVolver'" th:name="'linkVolver'" class="btn btn-colour-1" role="button">Volver</a>
+		<a th:id="'idLinkVolver'" th:name="'linkVolver'" th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-colour-1" role="button">Volver</a>
  
       	<div id="idDivSubMenu1Usu" style="visibility:visible; width:100%"> </div>
 	</div>

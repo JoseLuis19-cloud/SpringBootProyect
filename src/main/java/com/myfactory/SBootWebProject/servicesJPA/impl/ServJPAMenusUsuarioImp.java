@@ -47,5 +47,15 @@ public class ServJPAMenusUsuarioImp implements ServJPAMenusUsuario {
 	public void deleteMenuUsuario(MenusUsuario menuUsuario) {
 		  menusUsuJPARepository.delete(menuUsuario);
 	}
+
+	@Override
+	public MenusUsuario insertarSubMenuUsuario(MenusUsuario menuUsuario) {
+		return menusUsuJPARepository.save(menuUsuario) ;
+	};
+	
+	@Override
+	public void suprimirSubMenuUsuario(MenusUsuario menuUsuario) {
+		 menusUsuJPARepository.delete(menuUsuario);
+	};
 	
 }

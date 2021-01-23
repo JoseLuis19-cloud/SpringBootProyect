@@ -11,23 +11,23 @@ public class BeanSubMenuN1UsuarioWeb implements Serializable, Cloneable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Integer idSubmenuNivel1;;
+	private Integer idSubmenuNivel1;
+	private Integer idSubMenuUsuWeb;
 	private Integer numOrdenMenu;
 	private String 	textoSubMenuN1;
 	private String 	hrefAplicacionN1;
-	private Boolean  yaSeleccionado;;
+	private Boolean  yaSeleccionado;
 
-	public BeanSubMenuN1UsuarioWeb(Integer idSubmenuNivel1, Integer numOrdenMenu, String textoSubMenuN1,
-			String hrefAplicacionN1, Boolean yaSeleccionado) {
+	public BeanSubMenuN1UsuarioWeb(Integer idSubMenuUsuario, Integer idSubmenuNivel1, Integer numOrdenMenu, String textoSubMenuN1, String hrefAplicacionN1, Boolean yaSeleccionado) {
 		super();
+		this.idSubMenuUsuWeb = idSubMenuUsuario;
 		this.idSubmenuNivel1 = idSubmenuNivel1;
 		this.numOrdenMenu = numOrdenMenu;
 		this.textoSubMenuN1 = textoSubMenuN1;
 		this.hrefAplicacionN1 = hrefAplicacionN1;
 		this.yaSeleccionado    = yaSeleccionado;
 	}
-	
-	
+
 	public Integer getIdSubmenuNivel1() {
 		return idSubmenuNivel1;
 	}
@@ -61,7 +61,15 @@ public class BeanSubMenuN1UsuarioWeb implements Serializable, Cloneable {
 	public void setYaSeleccionado(Boolean yaSeleccionado) {
 		this.yaSeleccionado = yaSeleccionado;
 	}
+	
+	public Integer getIdSubMenuUsuWeb() {
+		return idSubMenuUsuWeb;
+	}
 
+
+	public void setIdSubMenuUsuWeb(Integer idSubMenuUsuWeb) {
+		this.idSubMenuUsuWeb = idSubMenuUsuWeb;
+	}
 	
 	
 }

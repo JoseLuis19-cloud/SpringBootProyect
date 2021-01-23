@@ -31,7 +31,7 @@
 								<div th:id="'idDivMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" style="visibility:visible">
 							  		<a th:id="'idLinkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:name="'linkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${listMenuUsuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
 							 	</div>
-							 	<input type="hidden" th:id="'idMenuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:name="'menuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:value="${listMenuUsuApli.idMenuWeb}"/>
+							 	<input type="hidden" th:id="'idMenuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:name="'menuHidden'+ ${iterStat.index}" th:value="${listMenuUsuApli.idMenuWeb}"/>
 								<input type="hidden" th:id="'idMenuUsuHidden'+ ${iterStat.index}" th:name="'menuUsuHidden'+ ${iterStat.index}" th:value="${listMenuUsuApli.idMenuUsuWeb}"/>
 							</td>	
 						</tr>
