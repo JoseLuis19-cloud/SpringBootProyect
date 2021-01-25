@@ -144,11 +144,11 @@
 				 	  { 
 					   	$("#idIdSubMenuHidden" + ind).val( arrValueCheckASupr[i]);
 					//   	alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
-					   	$("#idIdMenuUsuHidden" + ind).val($("#idMenuUsuHidden" + i).val());
+					   	$("#idIdSubMenuUsuHidden" + ind).val($("#idSubMenuUsuSelHidden" + i).val());
+					   	alert("alert: " + $("#idIdSubMenuUsuHidden" + ind).val() );
 					  	ind++;
 				 	 // idMenuSelec = arrValueCheck[i];
 			   	      }
-					 
 					$("#idAccionHidden").val("suprimiruno");  
 					$("#myModalConfirm").modal();
 					}
@@ -199,7 +199,7 @@
 			<div class="col-1"></div>
 		</div>
 		
-			<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
+		<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
 			
 			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"    th:field="*{idAccion}" />
 			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"       th:field="*{idUsuario}" />
@@ -258,7 +258,7 @@
 		<div class="row" style="border-top: 2px solid #000">
 			<div class="col-1"></div>
  			 <div class="col-10"> 
-  			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario}" class="btn btn-primary" role="button">Volver</a>
+  			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=*{beanCamposGesMenuUsu.idUsuario}, nomUsuario=${nomUsuario} )}" class="btn btn-primary" role="button">Volver</a>
  			 </div>
  			<div class="col-1"></div>
  		</div>

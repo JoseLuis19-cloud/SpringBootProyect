@@ -25,9 +25,8 @@
 							</td>
 							<td th:text="${listSubMenuUsu.idSubmenuNivel1}"></td>
 							<td th:text="${listSubMenuUsu.textoSubMenuN1}"></td>
-							<input type="hidden" th:id="'idSubMenuSelHidden'+ ${iterStat.index}" th:name="'subMenuSelHidden'+ ${iterStat.index}" th:value="${listSubMenuUsu.idSubmenuNivel1}"/>
-							<input type="hidden" th:id="'idSubMenuUsuSelHidden'+ ${iterStat.index}" th:name="'subMenuUsuSelHidden'+ ${iterStat.index}" th:value="${listSubMenuUsu.idSubMenuUsuWeb}"/>	
-						</tr>
+							<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:value="${listSubMenuUsu.idSubmenuNivel1}"/>
+							<input type="hidden" th:id="'idSubMenuUsuSelHidden'+ ${iterStat.index}" th:name="'subMenuUsuSelHidden'+ ${iterStat.index}" th:value="${listSubMenuUsu.idSubMenuUsuWeb}"/>
 					</tbody>
 				 </table>
 		</header>
