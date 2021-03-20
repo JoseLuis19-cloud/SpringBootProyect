@@ -81,11 +81,9 @@
 			if ($(this).text() == "editar") {
 				$("a[id^='idLinkEdit']").hide(); 
 				$("a[id^='idLinkSubMenu']").hide(); 
-				
 			 	$("#idTextoMenu" + lastChar).prop("readonly", false);
 			 	$("#idhRefAplicacion" + lastChar).prop("readonly", false);
 			 	$("#idActivado" + lastChar).prop("disabled", false);
-				  
 				$('#idLinkCancelar' + lastChar).css('visibility', 'visible');
 				   
 				$(this).text('grabar');  
@@ -93,11 +91,17 @@
 				}  
 		   	  else
 				{
-				$("#idMenuHidden").val($("#idMenu" + lastChar).val()) ;
+		   		alert("Entra antes Da error con el numero de orden" + lastChar);
+		   		
+				$("#idMenuHidden").val($("#idMenuHidden" + lastChar).val()) ;
 				$("#idNumOrdenHidden").val($("#idNumOrdMenu" + lastChar).val()) ;
 				$("#idTextoMenu").val($("#idTextoMenu" + lastChar).val()); 
 				$("#idHREFMenu").val($("#idhRefAplicacion" + lastChar).val()); 
-
+				
+			//	alert( document.getElementById("idIdMenuHidden").value );
+			//	alert( document.getElementById("idNumOrdenHidden").value );
+  		
+		 
 			 // Submitir formulario
 				document.getElementById("idFormEditMenu").submit();
 			}	
@@ -131,9 +135,10 @@
 			   }
 			else
 			  {
-			   if (validarNumOrdenOK()) {
+			   if (validarNumOrdenOK())
+			   	  {
 			   	   document.getElementById("idCancelNumOrden").style.display = "none";
-			   }
+			   	  }
 			   
 			  }
 	 	});
@@ -163,15 +168,18 @@
 	 
 		 while (true) 
 		  {
-			  var subCadena = event.target.id.substring(0, event.target.id.length - 1);		  
+			  var subCadena = event.target.id.substring(0, event.target.id.length - 1);
+			  alert("subCadena: " + subCadena);
 			  var lastBeforeChar = subCadena.substr(subCadena.length - 1);
 		  
-			  if ( isNaN(lastBeforeChar)) {
+			  if ( isNaN(lastBeforeChar) ) {
 				   // break;
+				   alert ("No Es numero : " + lastBeforeChar)
 				  return numero;
 			  }  
 			 else
 			  {
+				 alert ("Es numero : " + lastBeforeChar)
 				numero.concat(lastBeforeChar);  
 			  }
 		   } 
@@ -279,7 +287,7 @@
 						<td th:text="${menuP.idMenu}"></td>
 						<td th:classappend="${menuP.activo}? div-desactivado">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${menuP.numOrdenMenu}" th:name="'mumOrdMenu'+ ${menuP.numOrdenMenu}" th:value="${menuP.numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
+								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${menuP.idMenu}" th:name="'mumOrdMenu'+ ${menuP.numOrdenMenu}" th:value="${menuP.numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
 							</div>
 						</td>
 						<td th:classappend="${menuP.activo}? div-desactivado">
@@ -332,7 +340,7 @@
 		 
 			<div class="row">
 				<div class="col-1">	</div>
-				<div class="col-1">	<a th:id="idBotonVolver" th:name="botonVolver"  class="btn btn-colour-1"   role="button">Volver</a> </div>
+				<div class="col-1"> </div>
 				<div class="col-8"> </div>
 				<div class="col-1"><a th:id="idBotonNuevoEle" th:name="botonNuevoEle"  class="btn btn-colour-1"  role="button">Nuevo elemento</a> </div> 
 				<div class="col-1"></div> 
@@ -341,8 +349,8 @@
 		 </div>
 		 
 		 <form th:id="idFormEditMenu" th:action="@{/gestionmenus/updateelementomenu}" 	 th:object="${elemenEditMenuApli}" method="post">
-		 	<input type="hidden" th:id="'idMenuHidden'" 	th:name="'idIdMenuHidden'" 	 th:field="*{idMenu}" />	
-		 	<input type="hidden" th:id="'idNumOrdenHidden'" th:name="'idNumOrdenHidden'" th:field="*{numOrdenMenu}" />	
+		 	<input type="hidden" th:id="'idIdMenuHidden'" 	th:name="'idMenuHidden'" 	 th:field="*{idMenu}" />	
+		 	<input type="hidden" th:id="'idNumOrdenHidden'" th:name="'numOrdenHidden'"   th:field="*{numOrdenMenu}" />	
 		 	<input type="hidden" th:id="'idTextoMenu'" 		th:name="'textoMenu'" 		 th:field="*{textoMenu}" />		
 		 	<input type="hidden" th:id="'idHREFMenu'" 		th:name="'hREFMenu'" 		 th:field="*{hrefAplicacion}" />											
 		 </form> 

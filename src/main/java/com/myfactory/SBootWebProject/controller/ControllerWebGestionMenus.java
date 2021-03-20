@@ -182,6 +182,32 @@ public class ControllerWebGestionMenus {
 		return "GestionMenus/GestionMenus";
 	}
 	
+	@RequestMapping(value =  "/updateelementosubmenu", method = RequestMethod.POST)
+	public String modificarElementoSubMenu(Model modelo, @ModelAttribute("beanSubMenuAplicacionWeb") BeanSubMenuAplicacionWeb beanSubMenuAplicacionWeb) 
+	{
+		SubMenuNivel1 elemenSubMenu = new SubMenuNivel1();		
+	
+		Menu elemenMenu = new Menu();
+		elemenMenu.setIdMenu(beanSubMenuAplicacionWeb.getIdSubMenuN1());
+		elemenSubMenu.setMenu(elemenMenu) ;
+		elemenSubMenu.setIdSubmenuNivel1(beanSubMenuAplicacionWeb.getIdSubMenuN1());
+		elemenSubMenu.setNumOrdenMenu(beanSubMenuAplicacionWeb.getNumOrdenSubMenu() ) ;
+		elemenSubMenu.setTextoSubMenuN1(beanSubMenuAplicacionWeb.getTextoMenuSubMenu()  );
+		elemenSubMenu.setHrefAplicacionN1(beanSubMenuAplicacionWeb.getHrefAplicacionSubMenu());
+		elemenSubMenu.setActivo(beanSubMenuAplicacionWeb.isIndActivoSubMenu() );
+		
+	//	SubMenuNivel1 elemenSubMenuNuevo = new SubMenuNivel1();		
+	/* elemenSubMenuNuevo  = */ serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
+		
+	 // Carga el menu general
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "GestionMenus/GestionMenus";
+	}
+	
+	
+	
+				
 	@RequestMapping(value = "/updateelementomenu", method = RequestMethod.POST)
 	public String updateElementoMenu(Model modelo, @ModelAttribute("beanMenuAplicacionWeb") BeanMenuAplicacionWeb beanMenuAplicacionWeb)
 		{ 

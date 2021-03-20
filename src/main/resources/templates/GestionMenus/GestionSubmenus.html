@@ -50,7 +50,7 @@
  
 	<script th:inline="javascript">
 	
-	 /*<![CDATA[*/
+ /*<![CDATA[*/
 	var numElemenMenu = [[${#lists.size(subMenuNivel1)}]];
   
 	var isErrorAlta = [[${errorAltaElemento}]];
@@ -64,37 +64,41 @@
 		 	$("#myModalNue").modal();
 		 });
 		
-		// Evento de boton Editar de
-		//
+		// Evento de boton Editar
+
 		$('a[id^="idLinkEditarSM"]').click(function(event) {
+			alert ("Salta el envento ___" + event.target.id );
 			
 			var lastChar = getNumber(event.target.id);
+			alert("Paso 1, lastChar " + lastChar);
 			
-			if ($(this).text() == "editar") {
-				$("a[id^='idLinkEditarSM']").hide(); 
-				
-			 	$("#idTextoSubMenu" + lastChar).prop("readonly", false);
-			 	$("#idHRefApliSubMenu" + lastChar).prop("readonly", false);
-			 	$("#idActivadoSubMenu" + lastChar).prop("disabled", false);
-				  
-				$('#idLinkCancelarSM' + lastChar).css('visibility', 'visible');
-				   
-				$(this).text('grabar');  
-				$(this).show();
+			if ($(this).text() == "editar")
+			   {
+				 $("a[id^='idLinkEditarSM']").hide(); 
+				 
+			 	 $("#idTextoSubMenu" + lastChar).prop("readonly", false);
+			 	 $("#idHRefApliSubMenu" + lastChar).prop("readonly", false);
+			 	 $("#idActivadoSubMenu" + lastChar).prop("disabled", false);
+				 $('#idLinkCancelarSM' + lastChar).css('visibility', 'visible');
+		
+				 $(this).text('grabar');  
+				 $(this).show();
 				}  
 		   	  else
 				{
-				$("#idIdSubMenuHidden").val($("#idSubMenuHidden" + lastChar).val());
-				$("#idNumOrdenSMHidden").val($("#idNumOrdSubMenu" + lastChar).val());
-				$("#idTextoMenuSMHidden").val($("#idTextoSubMenu" + lastChar).val()); 
-				$("#idHREFMenuSMHidden").val($("#idHRefApliSubMenu" + lastChar).val()); 
-				$("#idActivadoSMHidden").val($("#idActivadoSubMenu" + lastChar).val()); 
-				
-				// Falta el campo activado !!!!!
-				
-
+		   		 alert ("Antes de submitir formulario");
+		   		 
+				 $("#idIdSubMenuHidden").val($("#idSubMenuHidden" + lastChar).val());
+				 $("#idNumOrdenSMHidden").val($("#idNumOrdSubMenu" + lastChar).val());
+				 $("#idTextoMenuSMHidden").val($("#idTextoSubMenu" + lastChar).val()); 
+				 $("#idHREFMenuSMHidden").val($("#idHRefApliSubMenu" + lastChar).val()); 
+				 $("#idActivadoSMHidden").val($("#idActivadoSubMenu" + lastChar).val()); 
+				 alert("Paso 5");
+				 alert( document.getElementById("idIdSubMenuHidden").value ) ;
+				 
+			 // Falta el campo activado !!!!!
 			 // Submitir formulario
-				document.getElementById("idFormEditMenu").submit();
+				document.getElementById("idFormEditSubMenu").submit();
 			}	
 		});
 		
@@ -153,23 +157,36 @@
 	 
 	 function getNumber(objEvent)
 	 { 
-		var numero;
- 		var lastChar = objEvent.substr(objEvent.length - 1);
- 		numero = lastChar;
-	 
+		 var numero = "";
+		// var n = 1;
+ 		// var lastChar = objEvent.substr(objEvent.length - 1);
+ 		// numero = lastChar;
+ 		// alert("Antes del while. numero: "  + numero);
+ 		
+ 		cadena = event.target.id;
+ 		
 		 while (true) 
 		  {
-			  var subCadena = event.target.id.substring(0, event.target.id.length - 1);		  
-			  var lastBeforeChar = subCadena.substr(subCadena.length - 1);
-		  
-			  if ( isNaN(lastBeforeChar)) {
+			// var subCadena = event.target.id.substring(0, event.target.id.length - n);
+		//	  alert("event.target.id.length " + event.target.id.length )
+			  var lastBeforeChar = cadena.substr(cadena.length - 1,  cadena.length);
+		//	  alert ("lastBeforeChar " + lastBeforeChar);
+			  
+			  if ( isNaN(lastBeforeChar.trim() ) )
+			  	 {
+		//		  alert("No es numero ya devolvemos el valor obtenido. numero " + numero);
 				  return numero;
-			  }  
-			 else
-			  {
-				numero.concat(lastBeforeChar);  
-			  }
-		   } 
+			  	 }  
+			   else
+			    {
+			//	 alert("Es numero  lo concatenamos y seguimos");
+			    // numero.concat(lastBeforeChar); 
+			     numero = lastBeforeChar.trim() + numero;
+			     cadena = cadena.substr(0, cadena.length - 1); 
+			  //   alert("cadena: " + cadena);
+			    }
+		   }
+	//	 alert("Termina metodo y el  numero es : " + numero);
 	 }
 	 
 	 
@@ -290,7 +307,7 @@
 							</td>
 							
 							<td>
-								<a th:id="'idLinkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">cancelar</a>	
+								<a th:id="'idLinkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' "  style="visibility:hidden" >cancelar</a>	
 							</td>												
 						</tr>
 						<tr>
@@ -323,9 +340,9 @@
 			</div>
 		</div>
 			
-		<form th:id="idFormEditMenu" th:action="@{/gestionmenus/updateelementosubmenu}" th:object="${elemenEditSubMenuApli}" method="post">
+		<form th:id="idFormEditSubMenu" th:action="@{/gestionmenus/updateelementosubmenu}" th:object="${elemenEditSubMenuApli}" method="post">
 			<input type="hidden" th:id="'idMenuHidden'" 		th:name="'idMenuHidden'" 	 	th:field="*{idMenu}" />	
-		 	<input type="hidden" th:id="'idSubMenuHidden'" 		th:name="'idSubMenuHidden'"   	th:field="*{idSubMenuN1}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuHidden'" 	th:name="'idSubMenuHidden'"   	th:field="*{idSubMenuN1}" />	
 		 	<input type="hidden" th:id="'idNumOrdenSMHidden'" 	th:name="'idNumOrdenSMHidden'"  th:field="*{numOrdenSubMenu}" />	
 		 	<input type="hidden" th:id="'idTextoMenuSMHidden'" 	th:name="'textoMenuSMHidden'" 	th:field="*{textoMenuSubMenu}" />		
 		 	<input type="hidden" th:id="'idHREFMenuSMHidden'" 	th:name="'hREFMenuSMHidden'" 	th:field="*{hrefAplicacionSubMenu}" />	
@@ -388,7 +405,7 @@
         </button>
       </div>
       <div class="modal-body">
-       <p>. Para ordenar los sumenus se necesita</p>
+        <p>. Para ordenar los sumenus se necesita</p>
         <p>. Para editar los submenus ....</p>
         <p>. 1 Para ordenar los sumenus se necesita</p>
       </div>
