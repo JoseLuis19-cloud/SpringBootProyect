@@ -20,7 +20,7 @@
 						<tr th:each="elemenMenuApli:${listMenuAplicacion}">
 							 <td>
 								 <div style="display: flex; justify-content: center; align-items: center;">
-									<input type="checkbox" th:id="'idCheckActivado'+ ${elemenMenuApli.idMenu}" th:name="checks[]"  th:checked="false" th:value="${elemenMenuApli.idMenu}" class="btn btn-primary btn-sm"   />											
+									<input type="checkbox" th:id="'idCheckActivado'+ ${elemenMenuApli.idMenu}" th:name="checks[]" th:checked="false" th:value="${elemenMenuApli.idMenu}" class="btn btn-primary btn-sm"/>											
 							 	</div>
 							</td>
 							<td th:text="${elemenMenuApli.idMenu}"></td>

@@ -79,13 +79,11 @@
 			  });
 			 
 			 $("#idLinkAnadirTodos").click(function() {
-				alert("boton idLinkAnadirTodos");
 				$("input[id^='idCheckActivado']").prop("checked", true);
-				 
 				document.getElementById("idP3").style.display = "block";
-				$("#idAccionHidden" + ind).val("anadirtodos");
+				$("#idAccionHidden").val("anadirtodos");
+				alert("Antes de mostrar Ventana todos");
 				$("#myModalConfirm").modal();
-				 
 			  });
 			 
 			 $("#idLinkConfirmar").click(function() {

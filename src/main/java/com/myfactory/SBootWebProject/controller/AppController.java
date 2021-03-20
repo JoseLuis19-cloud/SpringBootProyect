@@ -70,14 +70,13 @@ public class AppController {
 	 		MenusUsuario menuUsuarioIter = menuUsu.next();
 	 		
  			Iterable<MenusUsuario> subMenuUsuario = servJPAMenusUsuario.obtenerSubMenuUsuario(beanIdUsuario.getIdUsuario(), menuUsuarioIter.getMenu().getIdMenu());
- 			// Iterator<MenusUsuario> subMenuPrinUsuario = subMenuUsuario.iterator();
  			
  			listSubMenuUsuSession = new ArrayList<BeanSubMenuN1UsuarioSession>();
  			
- 		//	System.out.println(menuUsuarioIter.getIdMenu() + " , " + menuUsuarioIter.getMenu().getTextoMenu());
+ 			// System.out.println(menuUsuarioIter.getIdMenu() + " , " + menuUsuarioIter.getMenu().getTextoMenu());
  			
  			// Cargamos los Elementos que corresponden al submenu del elemento de menu principal para el usuario
-	 		//
+
  			for (MenusUsuario elemenMenusUsuario : subMenuUsuario) {
 
  			//	System.out.println("----->" + elemenMenusUsuario.getSubMenu1().getIdSubmenuNivel1()  + " , " + elemenMenusUsuario.getSubMenu1().getTextoSubMenuN1() );
@@ -87,14 +86,13 @@ public class AppController {
  				listSubMenuUsuSession.add(beanSubMenuN1UsuarioSession);
  		 	}
 
- 		 // Instanciamos de la manera que pueda ser leido la estructura de beans de menu de la pagina Web.	
+ 	  // Instanciamos de la manera que pueda ser leido la estructura de beans de menu de la pagina Web.	
  		 beanMenuPrinUsuario = new BeanMenuUsuarioSession(menuUsuarioIter.getIdMenu(), menuUsuarioIter.getNumOrden(), menuUsuarioIter.getMenu().getTextoMenu(), menuUsuarioIter.getMenu().getHrefAplicacion(), listSubMenuUsuSession );
  		 listMenuUsuarioSession.add(beanMenuPrinUsuario); 		
 	 	}
 	 	// CAMBIAR ESTO PRONTO EL 7
 	 	beanUsuarioSession.setIdUsuario(new Long(7));
  		beanUsuarioSession.setListBeanMenuUsuarioSession(listMenuUsuarioSession);
- 		
  		
  		// Cargar la lista de submenu de cada menu en su Bean de session.
  		// Iterator<BeanMenuUsuarioSession> listBeanUsuSesionIter = listMenuUsuarioSession.iterator();
@@ -129,7 +127,6 @@ public class AppController {
 	
 	private void enviarEmail()
 	{
-		
 	/*	 System.out.println("Buenbas");
 		 SimpleMailMessage message = new SimpleMailMessage(); 
 	        message.setFrom("jlbuenome.andro@gmail.com");
@@ -152,12 +149,12 @@ public class AppController {
 		    props.put("mail.debug", "true"); */
 		    
 		    
-		    Properties props = new Properties();
-		    props.put("mail.smtp.host", "smtp.gmail.com");
-		    props.put("mail.smtp.port", "465");
-		    props.put("mail.smtp.auth", "true");
-		    props.put("mail.smtp.socketFactory.port", "465");
-		    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		  Properties props = new Properties();
+		  props.put("mail.smtp.host", "smtp.gmail.com");
+		  props.put("mail.smtp.port", "465");
+		  props.put("mail.smtp.auth", "true");
+		  props.put("mail.smtp.socketFactory.port", "465");
+		  props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		 
 		
 		   Session session = Session.getInstance(props,

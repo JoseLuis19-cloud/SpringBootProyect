@@ -11,8 +11,7 @@
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 	
   <style> 
-  
-   
+ 
    .form-control-xs {
     height: calc(1em + .375rem + 2px) !important;
     padding: .125rem .25rem !important;
@@ -55,7 +54,6 @@
 	 	var idMenuSelec = "";
 
 		$(document).ready(function() {
-
 			  $('[name="checks[]"]').click(function() {
 			      arrValueCheck = $('[name="checks[]"]:checked').map(function(){
 			      return this.value;
@@ -74,10 +72,11 @@
 			  });
 			 
 			 $("#idLinkAnadirTodos").click(function() {
-				 alert("boton idLinkAnadirTodos");
-				 $("input[id^='idCheckActivado']").prop("checked", true);
-				 document.getElementById("idP3").style.display = "block";
-				 $("#myModalConfirm").modal();
+				$("input[id^='idCheckActivado']").prop("checked", true);
+				document.getElementById("idP3").style.display = "block";	
+				$("#idAccionHidden").val("anadirtodos");
+				alert("Antes de mostrar Ventana todos elementos submenu");
+				$("#myModalConfirm").modal();
 			  });
 			 
 			 $("#idLinkConfirmar").click(function() {
@@ -158,12 +157,13 @@
 			   	 	// }
 	  			}
 		}
-		
-		
+
 		function anadirElemento(objElemen, ind)
 	  	 {  
 		  alert(objElemen.checked);
 		  alert(ind);
+		  alert("buenas: " + document.getElementById("idSubMenuUsuSelHidden"+ind).value);
+		  
 		  if (objElemen.checked)
 			 {
 			 document.getElementById("idIdSubMenuUsuHidden"+indExp).value = document.getElementById("idSubMenuUsuSelHidden"+ind).value;
@@ -180,7 +180,7 @@
 		
 		function confirmarSubMenuUsuario()
 	  	 {
-		 // Submitir formulario
+	  // Submitir formulario
 		 document.getElementById("idFormSubMenuUsuario").submit();
 	  	 }
 	</script>
@@ -198,9 +198,8 @@
  			 <div class="col-10"><h3 th:text="'Gestión de elementos submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></h3></div>
 			<div class="col-1"></div>
 		</div>
-		
-		<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
-			
+																				
+		<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">		
 			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"    th:field="*{idAccion}" />
 			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"       th:field="*{idUsuario}" />
 			<input type="hidden" th:id="'idNomUsuario'" 	th:name="'nomUsuario'"      th:field="*{nomUsuario}" />
@@ -225,7 +224,7 @@
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden6'"  th:name="'idSubMenuUsuHidden6'"  th:field="*{idMenuUsu7}" />	
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden7'"  th:name="'idSubMenuUsuHidden7'"  th:field="*{idMenuUsu8}" />	
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden8'"  th:name="'idSubMenuUsuHidden8'"  th:field="*{idMenuUsu9}" />						
-		 </form> 
+		</form> 
 		
 		<div class="row">
 			<div class="col-1"></div>
