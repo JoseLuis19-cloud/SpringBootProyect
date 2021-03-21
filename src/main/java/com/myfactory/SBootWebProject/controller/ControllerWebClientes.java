@@ -12,6 +12,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 
 @Controller
 @RequestMapping("/gestionWeb/clientes")
@@ -47,6 +49,8 @@ public class ControllerWebClientes {
 
 	@Autowired
 	ServJPA servicioJPA;
+	@Autowired
+	ServJPACliente servicioClienteJPA;
 	@Autowired
 	BeanClienteWeb clienteWeb;
 	@Autowired
@@ -66,7 +70,8 @@ public class ControllerWebClientes {
 		Optional<Cliente> cliente = servicioJPA.buscarIdCliente(new Integer(Integer.parseInt(idCliente)));
 		
 		modelo.addAttribute("clienteWeb", cargarBeansDatos.cargarBeanCliente(cliente.get()) );
-		modelo.addAttribute("tipoClienteWeb", tipoCliente );
+		modelo.addAttribute("tpoClienteWeb", tipoCliente );
+		
 		return "GestionWeb/clientes/FormEditarCliente.html";
 	}
 		
@@ -105,6 +110,32 @@ public class ControllerWebClientes {
 			   }
 		
 		return "GestionWeb/clientes/FormInsertarCliente.html";
+	}
+	
+	
+	@RequestMapping(value = "/modificarcliente", method = RequestMethod.POST)
+	public String modificarCliente(@Valid @ModelAttribute("${clienteWeb}") BeanClienteWeb formClienteWeb, 
+			BindingResult resultValidacion,
+			RedirectAttributes redirectAttrs,
+			Model modelo, @RequestParam(value = "tipoCliente", required = true) String tpoCliente) {
+		
+		//  if (! resultValidacion.hasErrors()) {
+			  Cliente clienteModif = validarDatosCliente(formClienteWeb, tpoCliente);
+			  Cliente cliente = servicioClienteJPA.modificarCliente(clienteModif);
+
+			  	if (cliente == null)
+			  		{
+			  		modelo.addAttribute("clienteWeb", formClienteWeb);
+			  		modelo.addAttribute("ErrorBBDD", "1");
+			  		}
+		  	//	}
+			  else
+			   {
+			  	modelo.addAttribute("clienteWeb", formClienteWeb);
+			  	modelo.addAttribute("tpoClienteWeb", servicioJPA.getTipoCliente() );  
+			   }
+		
+		return "GestionWeb/clientes/FormEditarCliente.html";
 	}
 
 	@GetMapping("/formbajacliente")
@@ -528,29 +559,32 @@ public class ControllerWebClientes {
 	private Cliente validarDatosCliente(BeanClienteWeb clienteWeb, String tpoCliente) {
 
 		Cliente clienteNuevo = new Cliente();
-
+		
+		clienteNuevo.setIdCliente(clienteWeb.getIdClienteWeb());
 		clienteNuevo.setNombre(clienteWeb.getNombreWeb());
 		clienteNuevo.setApellidos(clienteWeb.getApellidosWeb());
 		clienteNuevo.setDireccion(clienteWeb.getDireccionWeb());
 		clienteNuevo.setDNI(clienteWeb.getDNIWeb());
 		clienteNuevo.setDireccion(clienteWeb.getDireccionWeb() );
 		clienteNuevo.setDirEmail(clienteWeb.getDirEmailWeb());
-		// clienteNuevo.setFecAltaCliente( )  );
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		try {
+			 clienteNuevo.setFecNacimiento(
+			 			new java.sql.Date((dateFormat.parse(clienteWeb.getFecNacimiento2Web())).getTime()));
+			} catch (Exception e) {
+			 System.out.println("error validacion");
+		 	}
+
+		clienteNuevo.setFecAltaCliente(Calendar.getInstance() )  ;
+		 
 		clienteNuevo.setPais(clienteWeb.getPaisWeb());
 		clienteNuevo.setTelefono(clienteWeb.getTelefonoWeb());
 		
 		TpoCliente tipClienteNue = new TpoCliente();
 		tipClienteNue.setIdTpoCliente(Integer.parseInt(tpoCliente));
 		clienteNuevo.setTpoCliente(tipClienteNue);
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	
-		try {
-			clienteNuevo.setFecNacimiento(
-					new java.sql.Date((dateFormat.parse(clienteWeb.getFecNacimientoWeb())).getTime()));
-		} catch (Exception e) {
-			System.out.println("error validacion");
-		}
 
 		return clienteNuevo;
 	}

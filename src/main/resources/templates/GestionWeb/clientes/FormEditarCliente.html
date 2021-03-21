@@ -86,8 +86,10 @@ h5 {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<form action="#" th:action="@{/gestionWeb/clientes/insertarcliente}" th:object="${clienteWeb}" method="post">
-
+				<form action="#" th:action="@{/gestionWeb/clientes/modificarcliente}" th:object="${clienteWeb}" method="post">
+				
+				<input type="hidden" th:id="'idIdClienteHidden'" th:name="'idClienteHidden'"  th:field="*{idClienteWeb}" />	 
+				
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault01" th:text="'Nombre:'"></label> <input
@@ -133,9 +135,10 @@ h5 {
 								<label for="idTpoLabelCliente" th:text="'Tipo Cliente: ' "></label>
 								<select th:object="${clienteWeb}" class="form-control" name="tipoCliente" id="idTipoCliente">
 									<option th:value="0" th:text="'Seleccionar tipo cliente' "></option>
-									<option th:each ="tpoCliEle:${tpoClienteWeb}"
+									<option th:each ="tpoCliEle:${tpoClienteWeb}"   
    						 				th:value="${tpoCliEle.idTpoCliente}"
-  						  				th:text ="${tpoCliEle.desTpoCliente}">
+  						  				th:text ="${tpoCliEle.desTpoCliente}"
+  						  				th:selected="${tpoCliEle.idTpoCliente} == *{idTpoCliente}">	
   									</option>
     							</select>
 							</div>
@@ -150,6 +153,8 @@ h5 {
        							 <i class="fa fa-calendar"> </i>
       					 		</div>
        							<input class="form-control" id="idFecNacimiento" name="fecNacimiento" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+								<input type="hidden"        id="idFecNacimientoHidden" name="idFecNacimientoHidden"  th:field="*{fecNacimiento2Web}"/>
+							
 							</div>
 						</div>
 						<div class="col-md-5 mb-3">
@@ -174,7 +179,6 @@ h5 {
   						<div class="mr-auto p-2">
   							<a th:href="@{/gestionWeb/clientes/pagclientesNue}" class="btn btn-primary" role="button">Volver</a>
   						</div>
-  			 
   						<div class="p-2">
 						 <button type="submit" class="btn btn-primary">Guardar</button>
 						</div>
@@ -191,7 +195,7 @@ h5 {
 	<footer class="container-fluid">
 		<div class="panel-danger">
 			<div th:if="${ErrorBBDD == '1'}">
-				<div class="alert alert-danger">Se ha producido un error en el alta del cliente</div>
+				<div class="alert alert-danger">Se ha producido un error en el edición del cliente</div>
 			</div>
 		</div>
 	</footer>

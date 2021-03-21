@@ -52,10 +52,13 @@ public class CargarBeansDatos  implements Serializable {
 	  public BeanClienteWeb cargarBeanCliente (Cliente cliente)
 	  {
 		  BeanClienteWeb clienteWeb = new BeanClienteWeb();
+		    
+		  clienteWeb.setIdClienteWeb(cliente.getIdCliente());
 		  clienteWeb.setApellidosWeb(cliente.getApellidos());
 		  clienteWeb.setNombreWeb(cliente.getNombre());
 		  clienteWeb.setDirEmailWeb(cliente.getDirEmail() );
 		  clienteWeb.setFecNacimientoWeb( cliente.getFecNacimiento().toString() );
+		  clienteWeb.setFecNacimiento2Web( cliente.getFecNacimiento().toString() );
 		  clienteWeb.setDNIWeb( cliente.getDNI() );
 		  clienteWeb.setTelefonoWeb( cliente.getTelefono()  );
 		  clienteWeb.setPaisWeb( cliente.getPais()  );

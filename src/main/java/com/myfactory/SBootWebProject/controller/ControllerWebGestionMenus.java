@@ -204,10 +204,7 @@ public class ControllerWebGestionMenus {
 		
 		return "GestionMenus/GestionMenus";
 	}
-	
-	
-	
-				
+			
 	@RequestMapping(value = "/updateelementomenu", method = RequestMethod.POST)
 	public String updateElementoMenu(Model modelo, @ModelAttribute("beanMenuAplicacionWeb") BeanMenuAplicacionWeb beanMenuAplicacionWeb)
 		{ 

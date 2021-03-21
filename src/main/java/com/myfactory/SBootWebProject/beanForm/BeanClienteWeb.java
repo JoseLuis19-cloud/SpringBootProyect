@@ -28,6 +28,9 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String fecNacimientoWeb;
     
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+   	private String fecNacimiento2Web;
+ 
 	private String DNIWeb;
 	
 	private String direccionWeb;
@@ -54,6 +57,7 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
 		super();
 		this.apellidosWeb = apellidos;
 		this.fecNacimientoWeb = fecNacimiento;
+		this.fecNacimiento2Web = fecNacimiento;
 		this.DNIWeb = dNI;
 		this.direccionWeb = direccion;
 		this.paisWeb = pais;
@@ -149,6 +153,15 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
 		public void setImpCliente(String impCliente) {
 			this.impCliente = impCliente;
 		}
+		
+		public String getFecNacimiento2Web() {
+			return fecNacimiento2Web;
+		}
+
+		public void setFecNacimiento2Web(String fecNacimiento2Web) {
+			this.fecNacimiento2Web = fecNacimiento2Web;
+		}
+
 
 
 		@Override
