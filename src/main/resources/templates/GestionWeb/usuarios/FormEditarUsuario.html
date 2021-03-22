@@ -57,6 +57,8 @@ h5 {
 	
 	<form action="#" th:action="@{/gestionWeb/usuarios/modificarusuario}" th:object="${usuarioWeb}" method="post">
 	
+		<input type="hidden" th:id="'idIdUsuarioHidden'" th:name="'idUsuarioHidden'"  th:field="*{idUsuarioWeb}" />	 
+	
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
@@ -129,7 +131,8 @@ h5 {
 									<option th:value="0" th:text="'Seleccionar rol Aplicación' "></option>
 									<option th:each ="rolApli:${usuarioWeb.rolUsuarioWeb}"
    						 				th:value="${rolApli.id}"
-  						  				th:text ="${rolApli.name}">
+  						  				th:text ="${rolApli.name}"
+  						  				th:selected="${rolApli.id} == *{idRole}">	>
   									</option>
     							</select>
 							</div>

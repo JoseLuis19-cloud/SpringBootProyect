@@ -33,6 +33,7 @@ public class ServJPAImpl implements ServJPA{
 	
 	@Autowired
 	FacturaJPARepository reposSDataFactura;
+	
 	@Autowired
 	FacturaJPAPagRepository reposSDataPagFactura;
 	

@@ -18,7 +18,7 @@ public interface ServJPAUsuario {
 	
 	public Iterable<User> listadoUsuarios();
 	
-	public Optional<User>  findIdUsuario(Long idUsuario);
+	public Optional<User> findIdUsuario(Long idUsuario);
 	
 	public Iterable<Role>  obtenerRoles();
 	

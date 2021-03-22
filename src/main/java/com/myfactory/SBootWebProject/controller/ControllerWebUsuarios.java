@@ -71,11 +71,10 @@ public class ControllerWebUsuarios {
 		return "gestionWeb/usuarios/PaginacionUsuarios";
 	}
 	
-	
 	@RequestMapping("/usuariomenu")
 	public String usuarioMenus(Model modelo, @RequestParam(value = "idUsuario", required = false) Long idUsuario){
 		
-		User usuarioMenu = servJPAUsuario.getMenusUsuario( idUsuario);
+		User usuarioMenu = servJPAUsuario.getMenusUsuario(idUsuario);
 		
 		modelo.addAttribute("aliasUsuario", usuarioMenu.getFullName());
 		modelo.addAttribute("nombreUsuario", usuarioMenu.getUsername());
@@ -83,60 +82,76 @@ public class ControllerWebUsuarios {
 		modelo.addAttribute("usuarioMenu", usuarioMenu);
 		
 	//	modelo.addAttribute("opcionesMenuUsu", usuarioMenu.getMenuUsuario());
+	//	Iterator<Menu> menu =  usuarioMenu.getMenuUsuario().iterator();
+	//  while(menu.hasNext()){
+    // 	Set<SubMenuNivel1> subMenuNiv1 = menu.next().getSubMenuNivel1();    	
+	//   Iterator<SubMenuNivel1> subMenuNiv1Ite =  subMenuNiv1.iterator();
+	//  	while(subMenuNiv1Ite.hasNext()){
+	// 		 System.out.println (subMenuNiv1Ite.next().getTextoSubMenuN1());
+	// 	}
+	// }  
 		
-	 //	Iterator<Menu> menu =  usuarioMenu.getMenuUsuario().iterator();
-		
-	  //  while(menu.hasNext()){
-	   // 	Set<SubMenuNivel1> subMenuNiv1 = menu.next().getSubMenuNivel1();
-	    	
-	   //  	Iterator<SubMenuNivel1> subMenuNiv1Ite =  subMenuNiv1.iterator();
-	    	
-	   //  	while(subMenuNiv1Ite.hasNext()){
-	    // 		 System.out.println (subMenuNiv1Ite.next().getTextoSubMenuN1());
-	   // 	}
-	   // }  
-		
-		return "gestionWeb/UsuarioMenus.html";
-	}
-	
-	@RequestMapping("/forminsertarusuario")
-	public String formularioInserCliente(Model modelo ) {
-		
-		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb ();
-		
-		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
-		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
-		
-		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
-		return "GestionWeb/usuarios/FormInsertarUsuario";
+	  return "gestionWeb/UsuarioMenus.html";
 	}
 	 
 	@RequestMapping(value = "/formeditarusuario", method = RequestMethod.GET)
 	public String formEditarUsuario(Model modelo, @ModelAttribute(value="idUsuario") String idUsuario) {
+	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+	
+	 beanUsuarioWeb = cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() );
+	 beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
+	
+	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb); 
 		
-	modelo.addAttribute("usuarioWeb", cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() )  ); 
-		
-	return "GestionWeb/usuarios/FormEditarUsuario";
+	 return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
+	@RequestMapping(value = "/forminsertarusuario", method = RequestMethod.GET)
+	public String insertarUsuario(Model modelo) {
+
+	 BeanUsuarioWeb	beanUsuarioWeb = new BeanUsuarioWeb();
+	 beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
+	 beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
+
+	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+	 return "GestionWeb/usuarios/FormInsertarUsuario";
+	}
+
 	@RequestMapping(value = "/insertarusuario", method = RequestMethod.POST)
 	public String insertarUsuario(Model modelo,
 			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb, 
 			BindingResult resultValidacion,
 			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
-
-		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
-		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
-
-		 validarUsuario(beanUsuarioWeb, codRole);
 		
+	   Set <Role> setRoles = new HashSet<>(); 
+		 
+	   User usuarioNuevo = validarUsuario(beanUsuarioWeb, codRole);
+	   if ( usuarioNuevo.getPassword( ) != null )
+	 	  {
+		   usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb());
+		   usuarioNuevo.setEmail(beanUsuarioWeb.getEmailWeb());
+		   usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
+		   usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
+		   usuarioNuevo.setFullName(beanUsuarioWeb.getFullNameWeb());
+		   usuarioNuevo.setUsername(beanUsuarioWeb.getUsernameWeb());
+		   usuarioNuevo.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
+		
+		   Role role = new Role();
+		   role.setId(new Integer(codRole.trim()));
+		   setRoles.add(role);
+		   usuarioNuevo.setRoles(setRoles);
+
+		   servJPAUsuario.insertarUsuario(usuarioNuevo);
+	 	}
 		
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "GestionWeb/usuarios/FormInsertarUsuario";
+		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+		
+		//return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
 	
@@ -146,15 +161,30 @@ public class ControllerWebUsuarios {
 			BindingResult resultValidacion,
 			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
 		
+	    Set <Role> setRoles = new HashSet<>(); 
+		User usuario = new User();
 		
-		User usuario = validarUsuario(beanUsuarioWeb, codRole);
-	
+	//	User usuario = validarUsuario(beanUsuarioWeb, codRole);
+	//	usuarioNuevo.setPassword(passordEncriptada);
+
+		usuario.setId(beanUsuarioWeb.getIdUsuarioWeb());
+		usuario.setEmail(beanUsuarioWeb.getEmailWeb());
+		usuario.setEnabled(beanUsuarioWeb.isEnabledWeb());
+		usuario.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
+		usuario.setFullName(beanUsuarioWeb.getFullNameWeb());
+		usuario.setUsername(beanUsuarioWeb.getUsernameWeb());
+		usuario.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
+		
+		Role role = new Role();
+		role.setId(new Integer(codRole.trim()));
+		setRoles.add(role);
+		usuario.setRoles(setRoles);
+
 		servJPAUsuario.modificarUsuario(usuario);
 		
-		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
 		
-		return "GestionWeb/usuarios/FormEditarUsuario";
+	//	return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
 	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole) {
@@ -182,15 +212,14 @@ public class ControllerWebUsuarios {
 				}
 			}
 		 
-		if (! userEncontrado )
-			{
+		if ( ! userEncontrado )
+		   {
 			// Encriptar password por el usuario
 			// Usuario 
 			GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
 			String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
 			
-		 	usuarioNuevo.setPassword(passordEncriptada);
-		 	
+		 	usuarioNuevo.setPassword(passordEncriptada); 	
 		 	usuarioNuevo.setEmail( beanUsuarioWeb.getEmailWeb());
 			usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
 			usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
@@ -203,9 +232,7 @@ public class ControllerWebUsuarios {
 			setRoles.add(role);
 			
 			usuarioNuevo.setRoles(setRoles);
-			
-			servJPAUsuario.insertarUsuario(usuarioNuevo);
 			}
-		return usuarioNuevo;
+		 return usuarioNuevo;
 		}
 }

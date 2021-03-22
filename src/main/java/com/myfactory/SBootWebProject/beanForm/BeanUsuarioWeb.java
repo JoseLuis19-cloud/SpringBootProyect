@@ -35,6 +35,7 @@ public class BeanUsuarioWeb  implements Serializable, Cloneable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Calendar fecBajaUsuarioWeb;	
 	private Iterable<Role> rolUsuarioWeb;
+	private Integer idRole;
 
 	public BeanUsuarioWeb() {
 	}
@@ -153,10 +154,19 @@ public class BeanUsuarioWeb  implements Serializable, Cloneable {
 		this.rolUsuarioWeb = rolUsuarioWeb;
 	}
 
-		@Override
-		protected Object clone() throws CloneNotSupportedException {
-			BeanUsuarioWeb nuevoBeanClienteWeb = new BeanUsuarioWeb ();
-		   return nuevoBeanClienteWeb;
-		 }   
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		BeanUsuarioWeb nuevoBeanClienteWeb = new BeanUsuarioWeb ();
+		return nuevoBeanClienteWeb;
+	}  
+	
+	public Integer getIdRole() {
+		return idRole;
+	}
+
+	public void setIdRole(Integer idRole) {
+		this.idRole = idRole;
+	}
+	
 		
 }

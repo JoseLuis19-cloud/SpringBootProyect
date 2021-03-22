@@ -32,6 +32,7 @@ public class CargarBeansDatos  implements Serializable {
 	@Autowired
 	ServJPAEmpleado servJPAEmpleado;
 	
+
 	   Iterable <FormaPago>  formasPago;
 
 		public CargarBeansDatos() {
@@ -79,13 +80,16 @@ public class CargarBeansDatos  implements Serializable {
 	  {
 		 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		 
+		 
+		 beanUsuarioWeb.setIdUsuarioWeb(usuario.getId());
 		 beanUsuarioWeb.setEmailWeb( usuario.getEmail());
 	//	 beanUsuarioWeb.setEnabled(usuario.get.isEnabledWeb());
 		// beanUsuarioWeb.setIndEmpleado(usuario.getEmpleado().G.isIndEmpleadoWeb());
 		 beanUsuarioWeb.setFullNameWeb(usuario.getFullName() );
 		 beanUsuarioWeb.setUsernameWeb(usuario.getUsername() );
 		 beanUsuarioWeb.setFecAltaUsuarioWeb(usuario.getFecAltaUsuario());
-			
+		 	 
+		 beanUsuarioWeb.setIdRole( 1 ) ;		
  
 		 return beanUsuarioWeb;
 	  }

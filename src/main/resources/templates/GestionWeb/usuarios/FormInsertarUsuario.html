@@ -22,7 +22,7 @@
 	font-size: .75rem !important;
 	line-height: 1.5;
 	border-radius: .2rem;
-}
+ }
 
 h3 {
 	font-weight: bold !important;
@@ -34,7 +34,7 @@ h3 {
 	display: inline-block !important;
 	padding: 8px 20px !important;
 	margin-left: 10px !important;
-}
+ }
 
 h5 {
 	color: #F2A900 !important;
@@ -44,9 +44,9 @@ h5 {
 	display: inline-block !important;
 	padding: 3px 15px !important;
 	margin-left: 10px !important;
-}
+ }
 
-</style>
+ </style>
 </head>
 
 <body>
@@ -54,6 +54,9 @@ h5 {
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 
 	<div class="container-fluid">
+	
+	 <form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
+	
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
@@ -65,8 +68,6 @@ h5 {
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
-				<form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
-
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
@@ -132,10 +133,10 @@ h5 {
 							</div>
 						</div>
 					</div>					
-				</form>
+				</div>
+				<div class="col-3"></div>
 			</div>
-			<div class="col-3"></div>
-		</div>
+		
 		<div class="row">
 			<div class="col-3"></div>
 				<div class="col-6">
@@ -144,7 +145,9 @@ h5 {
 		   		</div>
 			<div class="col-3"></div>
 	  	</div>
+	  	</form>
 	</div>
+	 	
 	
 	<footer class="container-fluid">
 		<div class="panel-danger">
