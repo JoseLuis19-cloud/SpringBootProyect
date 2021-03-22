@@ -63,6 +63,12 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	}
 	
 	@Override
+	public User modificarUsuario(User usuario){
+		return usuarioJPABaseRepository.save(usuario);
+	}
+ 
+	
+	@Override
 	public Boolean findByName(String userName){
 		 return usuarioJPABaseRepository.findByName(userName).isPresent();
 	}

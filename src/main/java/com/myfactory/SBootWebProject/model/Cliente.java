@@ -52,7 +52,6 @@ public class Cliente implements Serializable {
 	@Column(name = "TELEFONO", nullable = true, unique = false)
 	private String telefono;
 	
-	
 	@Column(name = "FEC_ALTA_CLIENTE", nullable = true, unique = false)
     @Temporal(TemporalType.DATE)
 	private Calendar fecAltaCliente;

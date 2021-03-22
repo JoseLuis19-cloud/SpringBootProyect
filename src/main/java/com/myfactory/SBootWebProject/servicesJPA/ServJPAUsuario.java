@@ -24,6 +24,8 @@ public interface ServJPAUsuario {
 	
 	public User insertarUsuario(User usuario);
 	
+	public User modificarUsuario(User usuario);
+	
 	public Boolean findByName(String userName);
 	
 	public Boolean findByEmail(String userEmail);

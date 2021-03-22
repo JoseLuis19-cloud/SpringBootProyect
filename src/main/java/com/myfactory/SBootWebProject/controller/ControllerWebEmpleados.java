@@ -68,7 +68,7 @@ public class ControllerWebEmpleados {
 
 	@GetMapping("/formeditarempleado")
 //	public String formularioEditarCliente(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
-		public String formularioEditarCliente(Model modelo)  {
+	public String formularioEditarCliente(Model modelo)  {
 
 	// Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Integer(idEmpleado));
 
@@ -88,8 +88,6 @@ public class ControllerWebEmpleados {
 			System.out.println("error validacion");
 		}
 		
-		
-	
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
 		
@@ -108,61 +106,26 @@ public class ControllerWebEmpleados {
 	@RequestMapping("/forminsertarempleado")
 	public String formularioInserEmpleado(Model modelo ) {
 		
-		// modelo.addAttribute("empleadoWeb", empleadoWeb );
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());	
 		return "GestionWeb/empleados/FormEditarEmpleado";
-	}
-	
-	@RequestMapping(value = "/insertarempleado", method = RequestMethod.POST)
-	public String altaCliente(@Valid @ModelAttribute("formClienteWeb") BeanClienteWeb formClienteWeb, 
-			BindingResult resultValidacion,
-			RedirectAttributes redirectAttrs,
-			Model modelo, @RequestParam(value = "tipoCliente", required = true) String tpoCliente) {
-		
-	/*	  if (! resultValidacion.hasErrors()) {
-			  Cliente clienteAlta = validarDatosEmpleado(formEmpleadoWeb);
-			  Cliente cliente = servJPAEmpleado.altaEmpleado(clienteAlta);
-
-			  	if (cliente == null) {
-			  		modelo.addAttribute("clienteWeb", formClienteWeb);
-			  		modelo.addAttribute("ErrorBBDD", "1");
-			  		}
-		  		}
-			   else
-			   {
-			  	modelo.addAttribute("clienteWeb", formClienteWeb );
-			   
-			   } */
-		
-		return "GestionWeb/empleados/FormInsertarEmpleado";
 	}
 
 	@GetMapping("/formbajaempleado")
 	public String formularioBajaCliente(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
- 
-		
-		// modelo.addAttribute("clienteWeb", cargarBeansDatos.cargarBeanCliente(cliente.get()) );
- 
-		
-		//  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
+	// modelo.addAttribute("clienteWeb", cargarBeansDatos.cargarBeanCliente(cliente.get()) );
+	//  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	//	return "redirect:/gestionWeb/formBajaCliente/";
 		return "GestionWeb/clientes/FormBajaEmpleado";
 	}
 	
 	@RequestMapping("/bajaempleado")
 	public String bajaEmpleado(Model modelo,  @RequestParam(value = "idCliente", required = false ) String idCliente)  {
-
 	//	servJPAEmpleado.bajaIdEmpleado(new Integer(Integer.parseInt(idCliente)));
 		return "personas/lista.html";
 	}
-
 	
 	@GetMapping("/formuploadfichero")
 	public String formUploadFichero(Model modelo)  {
-	
-
 	//	return "redirect:/gestionWeb/formBajaCliente/";
 		return "GestionWeb/empleados/FormUploadImagenEmpleado";
 	}
@@ -232,36 +195,6 @@ public class ControllerWebEmpleados {
 	 	return "GestionWeb/empleados/FormVerFotoEmpleado";
 	}
 
-	//	private Cliente validarDatosEmpleado(BeanEmpleadoWeb clienteWeb, String tpoCliente) {
-
-	//	Cliente clienteNuevo = new Cliente();
-
-		//	clienteNuevo.setNombre(clienteWeb.getNombreWeb());
-		//	clienteNuevo.setApellidos(clienteWeb.getApellidosWeb());
-		//	clienteNuevo.setDireccion(clienteWeb.getDireccionWeb());
-		//	clienteNuevo.setDNI(clienteWeb.getDNIWeb());
-		//	clienteNuevo.setDireccion(clienteWeb.getDireccionWeb() );
-		//	clienteNuevo.setDirEmail(clienteWeb.getDirEmailWeb());
-		// clienteNuevo.setFecAltaCliente( )  );
-		//	clienteNuevo.setPais(clienteWeb.getPaisWeb());
-		//	clienteNuevo.setTelefono(clienteWeb.getTelefonoWeb());
-		
-		//	TpoCliente tipClienteNue = new TpoCliente();
-		//	tipClienteNue.setIdTpoCliente(Integer.parseInt(tpoCliente));
-		//	clienteNuevo.setTpoCliente(tipClienteNue);
-
-		//	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	
-		//	try {
-		//		clienteNuevo.setFecNacimiento(
-		//				new java.sql.Date((dateFormat.parse(clienteWeb.getFecNacimientoWeb())).getTime()));
-					//	} catch (Exception e) {
-		//		System.out.println("error validacion");
-			//	}
-
-		//	return clienteNuevo;
-	//	}
-	
 	
 	@RequestMapping("/pagempleadosNue")
 	public String paginacionEmpleadosNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,

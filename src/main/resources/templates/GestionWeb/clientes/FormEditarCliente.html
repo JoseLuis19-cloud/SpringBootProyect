@@ -152,8 +152,8 @@ h5 {
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i>
       					 		</div>
-       							<input class="form-control" id="idFecNacimiento" name="fecNacimiento" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-								<input type="hidden"        id="idFecNacimientoHidden" name="idFecNacimientoHidden"  th:field="*{fecNacimiento2Web}"/>
+       							<input class="form-control" id="idFecNacimiento" 	   name="fecNacimiento" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+								<input type="hidden"        id="idFecNacimientoHidden" name="fecNacimientoHidden" th:field="*{fecNacimientoWeb}"/>
 							
 							</div>
 						</div>
@@ -167,12 +167,6 @@ h5 {
 								type="text" class="form-control" id="idPais"
 								th:field="*{paisWeb}" th:maxlength="20" required>
 						</div>		
-					</div>
-					
-					<div class="form-group">
-						<label for="labImpCliente" th:text="'Importe cliente: '"></label>
-						<input type="text" id="idImpCliente" name="impCliente" th:field="*{impCliente}" class="form-control" th:classappend="${#fields.hasErrors('impCliente')}? is-invalid"></input>
-						<div class="invalid-feedback" th:errors="*{impCliente}"></div>
 					</div>
 
 					<div class="d-flex">
@@ -188,8 +182,6 @@ h5 {
 			</div>
 			<div class="col-2"></div>
 		</div>
-
-		
 	</div>
 	
 	<footer class="container-fluid">
@@ -217,7 +209,11 @@ h5 {
             todayHighlight: true,
             autoclose: true,
         })
+        
+        document.getElementById("idFecNacimiento").value = document.getElementById("idFecNacimientoHidden").value;
     })
+    
+    
  </script>
 
 </body>

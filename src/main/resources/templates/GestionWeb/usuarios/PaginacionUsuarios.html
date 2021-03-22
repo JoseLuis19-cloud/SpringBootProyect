@@ -90,7 +90,7 @@
 							</div>
 						</td>
 						<td>										 
-							<a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionmenususuario/formeditarusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">editar</a>	
+							<a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionWeb/usuarios/formeditarusuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">editar</a>	
 						</td>
 						<td>										 
 							<a th:id="'idLinkGesMenu' + ${users.id}" th:name="'linkGesMenu' + ${users.id}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">menus</a>	

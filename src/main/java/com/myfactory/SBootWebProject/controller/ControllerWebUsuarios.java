@@ -32,6 +32,9 @@ public class ControllerWebUsuarios {
 	ServJPAUsuario servJPAUsuario;
 	
 	@Autowired
+	CargarBeansDatos cargarBeansDatos;
+	
+	@Autowired
 	public BeanUsuarioSession beanUsuarioSession;
 	
 	private static final Integer RegPorPagina  = new Integer(5);
@@ -109,6 +112,14 @@ public class ControllerWebUsuarios {
 		
 		return "GestionWeb/usuarios/FormInsertarUsuario";
 	}
+	 
+	@RequestMapping(value = "/formeditarusuario", method = RequestMethod.GET)
+	public String formEditarUsuario(Model modelo, @ModelAttribute(value="idUsuario") String idUsuario) {
+		
+	modelo.addAttribute("usuarioWeb", cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() )  ); 
+		
+	return "GestionWeb/usuarios/FormEditarUsuario";
+	}
 	
 	@RequestMapping(value = "/insertarusuario", method = RequestMethod.POST)
 	public String insertarUsuario(Model modelo,
@@ -126,6 +137,24 @@ public class ControllerWebUsuarios {
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionWeb/usuarios/FormInsertarUsuario";
+	}
+	
+	
+	@RequestMapping(value = "/modificarusuario", method = RequestMethod.POST)
+	public String modificarUsuario(Model modelo,
+			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb, 
+			BindingResult resultValidacion,
+			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
+		
+		
+		User usuario = validarUsuario(beanUsuarioWeb, codRole);
+	
+		servJPAUsuario.modificarUsuario(usuario);
+		
+		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
 	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole) {
