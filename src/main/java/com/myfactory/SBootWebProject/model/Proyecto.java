@@ -1,6 +1,8 @@
 package com.myfactory.SBootWebProject.model;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Repeatable;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,18 +38,30 @@ public class Proyecto implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar fecIniProyecto;
 	
-	@Column(name = "FEC_FEC_PROYECTO")
+	@Column(name = "FEC_FIN_PROYECTO")
 	@Temporal(TemporalType.DATE)
 	private Calendar fecFinProyecto;
 	
+	@Column(name = "IMP_PROYECTO")
+	private Long impProyecto;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "PROYECTO_EMPRESAS",
+			name = "REL_PROYECTO_EMPRESAS",
 			joinColumns = @JoinColumn(name = "ID_PROYECTO"),
 			inverseJoinColumns = @JoinColumn(name = "ID_EMPRESA")
 			)
 	
+/*	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "REL_PROYECTO_EMPLEADO",
+			joinColumns = @JoinColumn(name = "ID_PROYECTO"),
+			inverseJoinColumns = @JoinColumn(name = "ID_EMPLEADO")
+			) */
+	
 	private Set<Empresa> empresas = new HashSet<>(); 
+	
+	private Set<Empleado> empleados = new HashSet<>(); 
 	
 	public Set<Empresa> getEmpresas() {
 		return empresas;
@@ -55,6 +69,14 @@ public class Proyecto implements Serializable {
 
 	public void setEmpresas(Set<Empresa> empresas) {
 		this.empresas = empresas;
+	}
+	
+	public Set<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(Set<Empleado> empleados) {
+		this.empleados = empleados;
 	}
 
 	public Integer getIdProyecto() {
@@ -87,6 +109,14 @@ public class Proyecto implements Serializable {
 
 	public void setFecFinProyecto(Calendar fecFinProyecto) {
 		this.fecFinProyecto = fecFinProyecto;
+	}
+	
+	public Long getImpProyecto() {
+		return impProyecto;
+	}
+
+	public void setImpProyecto(Long impProyecto) {
+		this.impProyecto = impProyecto;
 	}
 
 	 }

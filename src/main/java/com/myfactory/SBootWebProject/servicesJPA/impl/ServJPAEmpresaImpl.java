@@ -22,8 +22,9 @@ public class ServJPAEmpresaImpl implements ServJPAEmpresa  {
 	@Autowired
 	EmpresaJPAPagRepository empresaJPAPagRepository;
 	
-	
- 
+	public Empresa buscarIdEmpresa(Integer idEmpresa) { 
+		return  ((Optional <Empresa>) empresaJPARepository.findById(idEmpresa)).get() ;
+	}
 	public Empresa altaEmpresa(Empresa empresa){
 		return empresaJPARepository.save(empresa);
 	}

@@ -41,16 +41,16 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="titulo-pag2">Proyectos que participa Beigar</div>
+			<div class="titulo-pag2">Empresas</div>
 		</div>
 	
 	<div class="row">
 		<div class="col-sm-1"></div>   
   		<div class="col-sm-10">
-  			<form class="form-inline" action="#" th:action="@{/gestionWeb/proyectos/pagproyecto}" th:object="${objBusqueda}" method="post">
+  			<form class="form-inline" action="#" th:action="@{/gestionWeb/empresa/pagempresas}" th:object="${objBusqueda}" method="post">
   				<div class="form-group mx-sm-3 mb-2">
-    				<label for="buscarApellidos" th:text="'  Proyecto:  '"></label>
-    				<input type="text" class="form-control" th:id="idBuscarProyecto" th:name="buscarProyecto" th:maxlength="25" th:field="*{proyectoBusqueda}" >
+    				<label for="buscarEmpresa" th:text="'  Empresa:  '"></label>
+    				<input type="text" class="form-control" th:id="idBuscarEmpresa" th:name="buscarEmpresa" th:maxlength="25" th:field="*{nomEmpresa}" >
     				<button type="submit" class="btn btn-primary">Buscar</button>    
  				</div>	
 			</form>
@@ -65,23 +65,23 @@
 				<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th th:text="'Cod. Proyecto'"></th>
-							<th th:text="'Proyecto'"></th>
-							<th th:text="'Fec. Inicio Proyecto'"></th>
-							<th th:text="'Fec. Fin Proyecto'"></th>
+							<th th:text="'Cod. Empresa'"></th>
+							<th th:text="'Nombre'"></th>
+							<th th:text="'CIF'"></th>
+							<th th:text="'email'"></th>
 							<th th:text="'Editar'"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${pagGenerica.empty}">
-							<td colspan="9">No hay Proyectos</td>
+							<td colspan="9">No hay empresas</td>
 						</tr>
-						<tr th:each="proyecto:${pagGenerica.content}">
-							<td th:text="${proyecto.idProyecto}"></td>
-							<td th:text="${proyecto.nomProyecto}"></td>
-							<td th:text="${#calendars.format(proyecto.fecIniProyecto, 'dd/MMM/yyyy')}"></td>
-							<td th:text="${#calendars.format(proyecto.fecFinProyecto, 'dd/MMM/yyyy')}"></td>
-							<td><a th:href="@{/gestionWeb/proyecto/formeditarproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Editar</a></td>
+						<tr th:each="empresa:${pagGenerica.content}">
+							<td th:text="${empresa.idEmpresa}"></td>
+							<td th:text="${empresa.nomEmpresa}"></td>
+							<td th:text="${empresa.cif}"></td>
+							<td th:text="${#calendars.format(empresa.fecAltaEmpresa, 'dd/MMM/yyyy')}"></td>
+							<td><a th:href="@{/gestionWeb/empresa/formeditarempresa(idEmpresa=${empresa.idEmpresa})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -103,7 +103,7 @@
   			<div class="col-sm-10">
   				<div class="d-flex">
   					<div class="p-2">
-						<a th:href="@{/gestionWeb/proyectos/formaltaproyecto}" class="btn btn-primary" role="button">Nuevo Proyecto</a>
+						<a th:href="@{/gestionWeb/empresa/forminsertarcliente}" class="btn btn-primary" role="button">Nueva</a>
 					</div>
 				</div>
   			</div>

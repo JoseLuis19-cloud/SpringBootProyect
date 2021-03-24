@@ -1,18 +1,6 @@
 package com.myfactory.SBootWebProject.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,7 +49,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.impl.ServJPAEmpresaImpl;
 
 @Controller
-@RequestMapping("/gestionmenususuario")
+@RequestMapping("/gestionWeb/empresas/")
 public class ControllerWebEmpresas {
 	
 	@Autowired
@@ -96,7 +84,7 @@ public class ControllerWebEmpresas {
 	return "GestionWeb/empresa/FormEditarEmpresa";
 	}
 	
-	@RequestMapping("/pagempresa")
+	@RequestMapping("/pagempresas")
 	public String paginacionEmpresas(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
 												      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
 	 											      @RequestParam(value = "numPos", required = false) String numPos,

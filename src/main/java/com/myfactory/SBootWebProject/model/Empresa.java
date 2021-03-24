@@ -25,6 +25,9 @@ public class Empresa implements Serializable {
 
 	@Column(name = "NOM_EMPRESA", nullable = false, unique = true)
 	private String nomEmpresa;
+	
+	@Column(name = "CIF", nullable = true, unique = true)
+	private String cif;
 
 	@Column(name = "DIRECCION", nullable = true, unique = false)
 	private String direcion;
@@ -162,5 +165,13 @@ public class Empresa implements Serializable {
 
 	public void setFecAltaEmpresa(Calendar fecAltaEmpresa) {
 		this.fecAltaEmpresa = fecAltaEmpresa;
+	}
+	
+	public String getCif() {
+		return cif;
+	}
+
+	public void setCif(String cif) {
+		this.cif = cif;
 	}
 }

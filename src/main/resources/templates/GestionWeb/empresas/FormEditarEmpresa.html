@@ -75,25 +75,33 @@ h5 {
 	
 	<div class="container-fluid" style="margin-top:0px;">
 		<div class="row">
-			<div class="titulo-pag2">Gestión de Proyectos</div>
+			<div class="titulo-pag2">Gestión de Empleado</div>
 		</div>
-		<form th:action="@{/gestionWeb/empleados/modifproyecto}" th:object="${datosProyectoWeb}" method="post">
+		<form th:action="@{/gestionWeb/empleados/modifempleado}" th:object="${empleadoWeb}" method="post">
 		<div class="row">
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Datos Proyectos</div>
+  				<div class="subtitulo-pag2">Datos Empleado</div>
   			</div>
   			<div class="col-1"></div>
   		</div>	
 		<div class="row">
 			<div class="col-1"></div>
-  			<div class="col-2" style="border-bottom: 2px solid #000; border-top: 2px solid #000"></div>
+  			<div class="col-2" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
+  				<div style="display: flex; justify-content: center; align-items: center;">
+					<img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imgFoto}" width="200" height="400" />
+				</div>
+				<div style="display: flex; justify-content: center; align-items: center;"> 
+				<br>
+				 <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Cambiar foto</a>
+				</div>
+ 			</div>
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
 						<div class="col-md-5 mb-3">
-							<label for="validationProyecto" th:text="'Nombre Proyecto'"></label> 
-							<input type="text" class="form-control" id="idNombreWeb" th:field="*{nomProyecto}" th:maxlength="25" required>
+							<label for="validationNombre" th:text="'Nombre'"></label> 
+							<input type="text" class="form-control" id="idNombreWeb" th:field="*{nombreWeb}" th:maxlength="25" required>
 						</div>
 						<div class="col-md-5 mb-3">
 							<label for="validaApellidos" th:text="'Apellidos' "></label>
