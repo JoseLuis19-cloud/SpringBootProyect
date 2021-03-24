@@ -10,7 +10,7 @@ import com.myfactory.SBootWebProject.model.Proyecto;
 
 public interface ProyectoJPAPagRepository extends PagingAndSortingRepository<Proyecto, Integer> {
 
-	@Query("select emp from Proyecto proy where proy.nomProyecto >= :buscarProyecto")
+	@Query("select pro from Proyecto pro where pro.nomProyecto >= :buscarProyecto")
 	Page<Proyecto>  findMayorProyecto( Pageable pageable, @Param("buscarProyecto") String nomProyecto) ;
 
 	

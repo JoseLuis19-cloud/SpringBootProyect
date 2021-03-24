@@ -2,12 +2,15 @@ package com.myfactory.SBootWebProject.controller;
 
 import java.util.HashMap;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,37 +19,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
-import com.myfactory.SBootWebProject.beanForm.BeanCamposGesMenuUsu;
-import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioSession;
-import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioWeb;
+
+import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
+
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanSubMenuN1UsuarioWeb;
+
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
-import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
+
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
-import com.myfactory.SBootWebProject.model.Empleado;
+
 import com.myfactory.SBootWebProject.model.Empresa;
-import com.myfactory.SBootWebProject.model.Menu;
-import com.myfactory.SBootWebProject.model.MenusUsuario;
-import com.myfactory.SBootWebProject.model.Proyecto;
-import com.myfactory.SBootWebProject.model.SubMenuNivel1;
-import com.myfactory.SBootWebProject.model.SubMenuNivel2;
-import com.myfactory.SBootWebProject.model.User;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAProyecto;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
-import com.myfactory.SBootWebProject.servicesJPA.impl.ServJPAEmpresaImpl;
 
 @Controller
 @RequestMapping("/gestionWeb/empresas/")
@@ -54,16 +48,15 @@ public class ControllerWebEmpresas {
 	
 	@Autowired
 	ServJPAMenusUsuario servJPAMenusUsuario;
-	
 	@Autowired
 	ServJPAUsuario servJPAUsuario;
-
 	@Autowired
 	ServJPAMenu servJPAMenu;
-	
 	@Autowired
 	public BeanUsuarioSession beanUsuarioSession;
 	
+	@Autowired
+	ServJPA servJPA;
 	@Autowired
 	ServJPAEmpresa  servJPAEmpresa;
 	@Autowired
@@ -74,7 +67,51 @@ public class ControllerWebEmpresas {
 	BeanProyectoWeb beanEmpleadoWeb;
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
-
+	
+	@GetMapping("/formaltaempresa")
+ 	public String formularioAltaEmpresa(Model modelo)  {
+		
+	 BeanEmpresaWeb datosEmpresaWeb = new BeanEmpresaWeb ();
+		
+	 modelo.addAttribute("provinciasWeb", servJPA.getProvincia() );	
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 modelo.addAttribute("datosEmpresaWeb", datosEmpresaWeb);
+	 
+	 return "GestionWeb/empresa/FormAltaEmpresa";
+	}
+		
+	@RequestMapping(value = "/altaempresa", method = RequestMethod.POST)
+	public String altaEmpresa(@Valid @ModelAttribute("formEmpresaWeb") BeanEmpresaWeb formEmpresaWeb, 
+				BindingResult resultValidacion,
+				RedirectAttributes redirectAttrs,
+				Model modelo, @RequestParam(value = "provincia", required = true) String codProvincia) {
+		
+		Empresa nuevaEmpresa = new Empresa();
+		
+		nuevaEmpresa.setNomEmpresa(formEmpresaWeb.getNomEmpresaWeb());
+		nuevaEmpresa.setCodPostal (formEmpresaWeb.getCodPostalWeb());
+		nuevaEmpresa.setCodProvincia(new Integer(codProvincia));
+		nuevaEmpresa.setDirecion(formEmpresaWeb.getDirecionWeb());
+		
+		nuevaEmpresa.setEmailContacto1(formEmpresaWeb.getEmailContacto1Web());
+		nuevaEmpresa.setEmailContacto2(formEmpresaWeb.getEmailContacto2Web());
+		
+		nuevaEmpresa.setTelefContacto1(formEmpresaWeb.getTelefContacto1Web());
+		nuevaEmpresa.setTelefContacto2(formEmpresaWeb.getTelefContacto2Web());
+		
+		nuevaEmpresa.setNomContacto1(formEmpresaWeb.getNomContacto1Web() );
+		nuevaEmpresa.setNomContacto2(formEmpresaWeb.getNomContacto2Web() );
+		
+		nuevaEmpresa.setFecAltaEmpresa(  formEmpresaWeb.getFecAltaEmpresaWeb() );
+		nuevaEmpresa.setCif(formEmpresaWeb.getCIFWeb());
+		
+		servJPAEmpresa.altaEmpresa(nuevaEmpresa);
+		
+		return "redirect:/gestionWeb/empresa/" + "pagempresas";
+	 
+	// return "GestionWeb/empresa/FormEditarEmpresa";
+	}
+	
 	@GetMapping("/formeditarempresa")
  	public String formularioEditarEmpresa(Model modelo, @RequestParam(value = "idEmpresa", required = false ) Integer idEmpresa)  {
  
@@ -130,22 +167,22 @@ public class ControllerWebEmpresas {
 				}
 		}
 
-		if (busquedaCampo.getApellidosBusqueda() == null)
+		if (busquedaCampo.getNomEmpresa()  == null)
 			{
 			busquedaCampo = new BeanCamposBusqueda();
 			
 			if (empresaBus == null)
 				{
-				busquedaCampo.setApellidosBusqueda("");
+				 busquedaCampo.setNomEmpresa("");
 				}
 			  else
 				{
-				  busquedaCampo.setApellidosBusqueda(empresaBus);
+				  busquedaCampo.setNomEmpresa(empresaBus);
 				}
 			}
 			else
 			{
-				busquedaCampo.setApellidosBusqueda(busquedaCampo.getApellidosBusqueda());
+			 busquedaCampo.setNomEmpresa(busquedaCampo.getNomEmpresa());
 			}
 			
 		
@@ -168,7 +205,7 @@ public class ControllerWebEmpresas {
 		
 		String URLPag = "/gestionWeb/empresas/pagempresas?numPag=" ;
 		
-		CrearBotoneraPag.montarEnlacesBotonera(paramBotonera, modelo, numPagInt, URLPag, busquedaCampo.getApellidosBusqueda().trim());
+		CrearBotoneraPag.montarEnlacesBotonera(paramBotonera, modelo, numPagInt, URLPag, busquedaCampo.getNomEmpresa().trim());
 
 	 // Si ha pinchado avance o retroceso de pagina.
 		if (tpoAccion != null)
@@ -207,12 +244,11 @@ public class ControllerWebEmpresas {
 				}
 			   else
 				{	
-				   // Si ha pinchado boton pagina
- 			 numPosInt = Integer.parseInt(numPos);
+			   // Si ha pinchado boton pagina
+				  numPosInt = Integer.parseInt(numPos);
 				}
 			}
 
-		
 		switch (numPosInt) {
 		case 1:
 			modelo.addAttribute("numPagAct1", "S" );
@@ -231,7 +267,6 @@ public class ControllerWebEmpresas {
 			break;
 		}
 		
-
 		if (pagEmpresas.isLast()  )
 			{
 			modelo.addAttribute("indUltPag", "S");

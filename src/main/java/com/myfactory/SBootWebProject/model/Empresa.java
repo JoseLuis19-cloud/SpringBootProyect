@@ -100,7 +100,7 @@ public class Empresa implements Serializable {
 	}
 
 	public void setCodPostal(String codPostal) {
-		codPostal = codPostal;
+		this.codPostal = codPostal;
 	}
 
 	public String getEmailContacto1() {

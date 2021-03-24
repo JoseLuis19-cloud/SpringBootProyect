@@ -333,7 +333,7 @@ public class CrearBotoneraPag {
     	return paramBotoneraPag;
    } 
    
-   public static void montarEnlacesBotonera(HashMap<String, Integer>  paramBotonera, Model modelo, int numPagInt, String URLPag, String apellidosBusqueda)  {
+   public static void montarEnlacesBotonera(HashMap<String, Integer>  paramBotonera, Model modelo, int numPagInt, String URLPag, String empresaBusqueda)  {
 	   
 	    modelo.addAttribute("numPagVisibles", paramBotonera.get("numPagVisibles") );
 		
@@ -344,11 +344,11 @@ public class CrearBotoneraPag {
 		modelo.addAttribute("numPagWeb5", paramBotonera.get("numPagWeb5") );
 
 		modelo.addAttribute("linkBotonAnt",  URLPag + numPagInt + "&tpoAccion=ant" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
-		modelo.addAttribute("linkBoton1",    URLPag + paramBotonera.get("numPaginaReal1") + "&numPos=1" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + apellidosBusqueda);
-		modelo.addAttribute("linkBoton2",    URLPag + paramBotonera.get("numPaginaReal2") + "&numPos=2" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + apellidosBusqueda);
-		modelo.addAttribute("linkBoton3", 	 URLPag + paramBotonera.get("numPaginaReal3") + "&numPos=3" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + apellidosBusqueda);
-		modelo.addAttribute("linkBoton4", 	 URLPag + paramBotonera.get("numPaginaReal4") + "&numPos=4" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + apellidosBusqueda);
-		modelo.addAttribute("linkBoton5", 	 URLPag + paramBotonera.get("numPaginaReal5") + "&numPos=5" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + apellidosBusqueda);
+		modelo.addAttribute("linkBoton1",    URLPag + paramBotonera.get("numPaginaReal1") + "&numPos=1" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton2",    URLPag + paramBotonera.get("numPaginaReal2") + "&numPos=2" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton3", 	 URLPag + paramBotonera.get("numPaginaReal3") + "&numPos=3" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton4", 	 URLPag + paramBotonera.get("numPaginaReal4") + "&numPos=4" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton5", 	 URLPag + paramBotonera.get("numPaginaReal5") + "&numPos=5" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
 		modelo.addAttribute("linkBotonAvan", URLPag + numPagInt + "&tpoAccion=avan" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
 		
 		modelo.addAttribute("numPagAct1", "N" );

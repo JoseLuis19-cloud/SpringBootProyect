@@ -34,21 +34,21 @@ public class ServJPAEmpresaImpl implements ServJPAEmpresa  {
 	}
 
 	@Override
-	public Page<Empresa> pagEmpresas(Integer numPag, Integer numRegPag, String buscarApellido) {
+	public Page<Empresa> pagEmpresas(Integer numPag, Integer numRegPag, String buscarEmpresa) {
 		Page<Empresa> restulPag;
 		
-		//  if (buscarApellido.equals("")  )
-		// 	{		
-		restulPag = empresaJPAPagRepository.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idEmpresa")));
-		// 	}
-	//	else
-	//		{
-		//	 restulPag = empresaJPAPagRepository.findMayorEmpresa(PageRequest.of(numPag, numRegPag, Sort.by("apellidos")), buscarApellido);
-	//		}
+		if (buscarEmpresa.equals("")  )
+		  {		
+			restulPag = empresaJPAPagRepository.findAll(PageRequest.of(numPag, numRegPag, Sort.by("nomEmpresa")));
+		  	}
+	 	else
+	 		{
+	 		restulPag = empresaJPAPagRepository.findMayorEmpresa(PageRequest.of(numPag, numRegPag, Sort.by("nomEmpresa")), buscarEmpresa);
+	 		}
 
 		if (restulPag.hasContent()) {
 			System.out.println("Tiene contenido la paginacion");
 		}
-		return restulPag;
+	return restulPag;
 	}
 }

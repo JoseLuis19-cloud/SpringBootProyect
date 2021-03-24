@@ -24,7 +24,7 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 	private Integer idEmpresaWeb;
 	private String nomEmpresaWeb;
 	private String direcionWeb;
- 
+	private String CIFWeb;
 	private Integer codProvinciaWeb;
 	private String codPostalWeb;
 	private String telefonoWeb;
@@ -170,5 +170,13 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 
 	public void setFecAltaEmpresaWeb(Calendar fecAltaEmpresaWeb) {
 		this.fecAltaEmpresaWeb = fecAltaEmpresaWeb;
+	}
+	
+	public String getCIFWeb() {
+		return CIFWeb;
+	}
+
+	public void setCIFWeb(String cIFWeb) {
+		CIFWeb = cIFWeb;
 	}
 	}

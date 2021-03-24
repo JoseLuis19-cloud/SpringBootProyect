@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
+import com.myfactory.SBootWebProject.model.Provincia;
 import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.repository.ClienteJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.ClienteJPARepository;
@@ -17,6 +18,7 @@ import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPARepository;
 import com.myfactory.SBootWebProject.repository.FormaPagoJPARepository;
 import com.myfactory.SBootWebProject.repository.TipoClienteJPARepository;
+import com.myfactory.SBootWebProject.repository.comunes.ProvinciaJPADao;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 
 @Service
@@ -42,6 +44,9 @@ public class ServJPAImpl implements ServJPA{
 	
 	@Autowired
 	TipoClienteJPARepository reposSDataTipoCliente;
+	
+	@Autowired
+	ProvinciaJPADao provinciaJPADao;
 
 	@Override
 	public Iterable<Cliente> buscarTodosClientes() {
@@ -141,6 +146,12 @@ public class ServJPAImpl implements ServJPA{
 
 		return reposSDataTipoCliente.findAll();
 	}
+	
+	@Override
+	public Iterable<Provincia> getProvincia(){
+		return provinciaJPADao.findAll();
+	}
+	
 
 	@Override
 	public Iterable<Cliente> findByApellidos(String apellidos) {

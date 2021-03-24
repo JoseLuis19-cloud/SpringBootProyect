@@ -45,12 +45,12 @@ public class Proyecto implements Serializable {
 	@Column(name = "IMP_PROYECTO")
 	private Long impProyecto;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "REL_PROYECTO_EMPRESAS",
-			joinColumns = @JoinColumn(name = "ID_PROYECTO"),
-			inverseJoinColumns = @JoinColumn(name = "ID_EMPRESA")
-			)
+//	@ManyToMany(fetch = FetchType.EAGER)
+	//	@JoinTable(
+	//			name = "REL_PROYECTO_EMPRESAS",
+	//			joinColumns = @JoinColumn(name = "ID_PROYECTO"),
+	//			inverseJoinColumns = @JoinColumn(name = "ID_EMPRESA")
+	//		)
 	
 /*	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -59,25 +59,25 @@ public class Proyecto implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "ID_EMPLEADO")
 			) */
 	
-	private Set<Empresa> empresas = new HashSet<>(); 
+	// private Set<Empresa> empresas = new HashSet<>(); 
 	
-	private Set<Empleado> empleados = new HashSet<>(); 
+	// private Set<Empleado> empleados = new HashSet<>(); 
 	
-	public Set<Empresa> getEmpresas() {
-		return empresas;
-	}
+//	public Set<Empresa> getEmpresas() {
+//		return empresas;
+//	}
 
-	public void setEmpresas(Set<Empresa> empresas) {
-		this.empresas = empresas;
-	}
+//	public void setEmpresas(Set<Empresa> empresas) {
+//		this.empresas = empresas;
+//	}
 	
-	public Set<Empleado> getEmpleados() {
-		return empleados;
-	}
+//	public Set<Empleado> getEmpleados() {
+//		return empleados;
+//	}
 
-	public void setEmpleados(Set<Empleado> empleados) {
-		this.empleados = empleados;
-	}
+//	public void setEmpleados(Set<Empleado> empleados) {
+//		this.empleados = empleados;
+//	}
 
 	public Integer getIdProyecto() {
 		return idProyecto;
