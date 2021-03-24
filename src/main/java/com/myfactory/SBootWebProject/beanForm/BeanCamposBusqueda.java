@@ -14,6 +14,8 @@ public class BeanCamposBusqueda implements Serializable, Cloneable {
 	private String apellidosBusqueda;
 	private String nombreBusqueda;
 	private String numFacturaBusqueda;
+	private String nomEmpresa;
+	private String nomProyecto;
 
 	public String getApellidosBusqueda() {
 		return apellidosBusqueda;
@@ -33,6 +35,26 @@ public class BeanCamposBusqueda implements Serializable, Cloneable {
 
 	public String getNumFacturaBusqueda() {
 		return numFacturaBusqueda;
+	}
+	
+	public String getNomProyecto() {
+		return nomProyecto;
+	}
+
+	public void setNomProyecto(String nomProyecto) {
+		this.nomProyecto = nomProyecto;
+	}
+	
+	public String getNomEmpresa() {
+		return nomEmpresa;
+	}
+
+	public void setNomEmpresa(String nomEmpresa) {
+		this.nomEmpresa = nomEmpresa;
+	}
+
+	public void setNumFacturaBusqueda(String numFacturaBusqueda) {
+		this.numFacturaBusqueda = numFacturaBusqueda;
 	}
 
 

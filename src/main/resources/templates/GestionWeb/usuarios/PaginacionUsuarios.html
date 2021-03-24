@@ -65,14 +65,14 @@
 
 				<tbody class="table-striped">
 					<tr th:if="${pagUsuarios.empty}">
-						<td colspan="4">No hay Usuarios para la aplicación</td>
+						<td colspan="4">No hay Usuarios definidos en la aplicación</td>
 					</tr>
 
-					<tr th:each="users:${pagUsuarios.content}">
+					<tr th:each="users:${pagUsuarios}">
 						<td th:text="${users.fullName}"></td>
 						<td th:text="${users.username}"></td>
 						<td>
-							<div  style="display: flex; justify-content: center; align-items: center;">
+							<div style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:checked="${users.indEmpleado}" class="btn btn-primary btn-sm" th:id="'idUserEmpleado'+ ${users.id}" th:name="'userEmpleado'+ ${users.id}" />
 							</div>
 						</td>

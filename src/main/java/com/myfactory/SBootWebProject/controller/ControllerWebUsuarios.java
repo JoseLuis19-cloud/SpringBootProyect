@@ -38,6 +38,7 @@ public class ControllerWebUsuarios {
 	public BeanUsuarioSession beanUsuarioSession;
 	
 	private static final Integer RegPorPagina  = new Integer(5);
+	private  String mensajeErrorActualizacion  = "";
 	
 	@RequestMapping("/pagusuarios")
 	public String paginacionUsuarios(Model modelo,  @RequestParam(value = "numPag", required = false) String numPag, 
@@ -59,11 +60,12 @@ public class ControllerWebUsuarios {
 				}
 			}
 
-		Page <User> pagUsuario = servJPAUsuario.paginacionUsuarios(numPagInt, RegPorPagina);
+		// Page <User> pagUsuario = servJPAUsuario.paginacionUsuarios(numPagInt, RegPorPagina);
+				Iterable <User> listUsuarios =  servJPAUsuario.listadoUsuarios() ;
 	
 		modelo.addAttribute("numPag", String.valueOf(numPagInt));
-		modelo.addAttribute("numRegPag", pagUsuario.getContent().size());
-		modelo.addAttribute("pagUsuarios", pagUsuario);
+		// modelo.addAttribute("numRegPag", pagUsuario.getContent().size());
+		modelo.addAttribute("pagUsuarios", listUsuarios);
 		modelo.addAttribute("standardDate", new Date());
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -75,7 +77,6 @@ public class ControllerWebUsuarios {
 	public String usuarioMenus(Model modelo, @RequestParam(value = "idUsuario", required = false) Long idUsuario){
 		
 		User usuarioMenu = servJPAUsuario.getMenusUsuario(idUsuario);
-		
 		modelo.addAttribute("aliasUsuario", usuarioMenu.getFullName());
 		modelo.addAttribute("nombreUsuario", usuarioMenu.getUsername());
 		
@@ -127,7 +128,8 @@ public class ControllerWebUsuarios {
 		
 	   Set <Role> setRoles = new HashSet<>(); 
 		 
-	   User usuarioNuevo = validarUsuario(beanUsuarioWeb, codRole);
+	   User usuarioNuevo = validarUsuario(beanUsuarioWeb, codRole, false);
+
 	   if ( usuarioNuevo.getPassword( ) != null )
 	 	  {
 		   usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb());
@@ -144,95 +146,125 @@ public class ControllerWebUsuarios {
 		   usuarioNuevo.setRoles(setRoles);
 
 		   servJPAUsuario.insertarUsuario(usuarioNuevo);
-	 	}
+	 	  }
 		
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
 		
-		//return "GestionWeb/usuarios/FormEditarUsuario";
+	// return "GestionWeb/usuarios/FormEditarUsuario";
 	}
-	
 	
 	@RequestMapping(value = "/modificarusuario", method = RequestMethod.POST)
 	public String modificarUsuario(Model modelo,
 			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb, 
 			BindingResult resultValidacion,
 			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
-		
-	    Set <Role> setRoles = new HashSet<>(); 
-		User usuario = new User();
-		
-	//	User usuario = validarUsuario(beanUsuarioWeb, codRole);
-	//	usuarioNuevo.setPassword(passordEncriptada);
 
-		usuario.setId(beanUsuarioWeb.getIdUsuarioWeb());
-		usuario.setEmail(beanUsuarioWeb.getEmailWeb());
-		usuario.setEnabled(beanUsuarioWeb.isEnabledWeb());
-		usuario.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
-		usuario.setFullName(beanUsuarioWeb.getFullNameWeb());
-		usuario.setUsername(beanUsuarioWeb.getUsernameWeb());
-		usuario.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
-		
-		Role role = new Role();
-		role.setId(new Integer(codRole.trim()));
-		setRoles.add(role);
-		usuario.setRoles(setRoles);
-
-		servJPAUsuario.modificarUsuario(usuario);
-		
-		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
-		
+	  User usuario ;	
+	  usuario = validarUsuario(beanUsuarioWeb, codRole, true);
+	 	
+	   if ( usuario.getPassword( ) != null )
+	 	  {
+		   servJPAUsuario.modificarUsuario(usuario);
+	 	  }
+	   // Pintar el error en pantalla mensajeErrorActualizacion
+	
+		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";	
 	//	return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
-	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole) {
+	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole, Boolean esModificacion) {
 		
-		 Boolean userEncontrado = new Boolean(false);
+		 Boolean userError = new Boolean(false);
 		 User usuarioNuevo = new User();
 		 Set <Role> setRoles = new HashSet<>(); 
-		
-		if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
-			System.out.println("Error username del Usuario esta es Duplicado");
-			userEncontrado = true;
-		}
-		
-		if (! userEncontrado) {
-			if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
-				System.out.println("Error username del Usuario esta es Duplicado");
-				userEncontrado = true;
-				}
-			}
-		
-		if (! userEncontrado) {
-			if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getEmailWeb().trim() )){
-				System.out.println("Error fullname del Usuario esta es Duplicado");
-				userEncontrado = true;
-				}
-			}
 		 
-		if ( ! userEncontrado )
-		   {
-			// Encriptar password por el usuario
-			// Usuario 
-			GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
-			String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
-			
-		 	usuarioNuevo.setPassword(passordEncriptada); 	
-		 	usuarioNuevo.setEmail( beanUsuarioWeb.getEmailWeb());
-			usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
-			usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
-			usuarioNuevo.setFullName(beanUsuarioWeb.getFullNameWeb());
-			usuarioNuevo.setUsername(beanUsuarioWeb.getUsernameWeb() );
-			usuarioNuevo.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
-			
-			Role role = new Role();
-			role.setId(new Integer(codRole.trim()));
-			setRoles.add(role);
-			
-			usuarioNuevo.setRoles(setRoles);
+		 mensajeErrorActualizacion = "";
+		 
+		if (! esModificacion ) 
+			{
+			if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
+				System.out.println("Error username del Usuario esta es duplicado");
+				mensajeErrorActualizacion= "Error username del Usuario esta es duplicado";
+				userError = true;
 			}
-		 return usuarioNuevo;
+		
+			if (! userError) {
+				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
+					System.out.println("Error el email esta duplicado");
+					mensajeErrorActualizacion= "Error el email esta duplicado";
+					userError = true;
+				}
+				}
+		
+			if (! userError) {
+				if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim() )){
+					System.out.println("Error fullname del Usuario esta duplicado");
+					mensajeErrorActualizacion= "Error fullname del Usuario esta duplicado";
+					userError = true;
+					}
+				}
 		}
+	else
+	{	
+		
+		usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb() ) ;	
+		
+		User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get();
+		
+		if ( ! beanUsuarioWeb.getUsernameWeb().trim().equals( usuario.getUsername() )  ) {
+			
+			if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
+				System.out.println("Error username del Usuario esta es duplicado");
+				mensajeErrorActualizacion= "Error username del Usuario esta es duplicado";
+				userError = true;
+			}
+ 
+		}
+	
+		if (! userError) {
+			if ( ! beanUsuarioWeb.getEmailWeb().trim().equals( usuario.getEmail() ) ) {
+				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
+					System.out.println("Error el email esta duplicado");
+					mensajeErrorActualizacion= "Error el email esta duplicado";
+					userError = true;
+				}
+			}
+		}
+	
+		if (! userError) {
+			if ( ! beanUsuarioWeb.getFullNameWeb().trim().equals( usuario.getFullName() ) ) {
+				if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim() )){
+					System.out.println("Error fullname del Usuario esta duplicado");
+					mensajeErrorActualizacion= "Error fullname del Usuario esta duplicado";
+					userError = true;
+					}
+				}
+		}
+	} // Fin if principal
+		 
+	if (! userError )
+	 	{
+	 // Encriptar password tecleado por el usuario
+		GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
+		String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
+			
+		usuarioNuevo.setPassword(passordEncriptada); 	
+		usuarioNuevo.setEmail(beanUsuarioWeb.getEmailWeb());
+		usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
+		usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
+		usuarioNuevo.setFullName(beanUsuarioWeb.getFullNameWeb());
+		usuarioNuevo.setUsername(beanUsuarioWeb.getUsernameWeb());
+		usuarioNuevo.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
+			
+		Role role = new Role();
+		role.setId(new Integer(codRole.trim()));
+		setRoles.add(role);
+		
+		usuarioNuevo.setRoles(setRoles);
+		}
+		return usuarioNuevo;
+	}
 }

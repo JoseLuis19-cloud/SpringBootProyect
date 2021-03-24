@@ -27,6 +27,7 @@ import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAFactura;
 
 @Controller
 @RequestMapping("/gestionWeb/facturas")
@@ -34,6 +35,8 @@ public class ControllerWebFacturas {
 
 	@Autowired
 	ServJPA servicioJPA;
+	@Autowired
+	ServJPAFactura servJPAFactura;
 	@Autowired
 	BeanClienteWeb facturaWeb;
 	@Autowired
@@ -44,57 +47,49 @@ public class ControllerWebFacturas {
 	private static final int numFac = 22;
 	
 	@GetMapping("/formeditarfactura")
-	public String formularioEditarFactura(Model modelo,  @RequestParam(value = "idFactura", required = false ) String idFactura)  {
-	
-	// Iterable <TpoCliente> tipoCliente = servicioJPA.getTipoCliente();
-		
+	public String formularioEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = false) String idFactura)  {
+
 		Optional<Factura> factura = servicioJPA.buscarIdFactura(new Integer(Integer.parseInt(idFactura)));
 		
 		modelo.addAttribute("facturaWeb", cargarBeansDatos.cargarBeanFactura(factura.get()) );
-	//	modelo.addAttribute("tipoClienteWeb", tipoCliente );
-		
+		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "gestionWeb/facturas/FormEditarFactura";
 	}
-	
-	
+
 	@GetMapping("/formaltafactura")
-	public String formularioAltaFactura(Model modelo,  @RequestParam(value = "idFactura", required = false ) String idFactura)  {
+	public String formularioAltaFactura(Model modelo, @RequestParam(value = "idFactura", required = false ) String idFactura)  {
 	
-	// Iterable <TpoCliente> tipoCliente = servicioJPA.getTipoCliente();
-		
 	//	Optional<Factura> factura = servicioJPA.buscarIdFactura(new Integer(Integer.parseInt(idFactura)));
 		
 		BeanFacturaWeb facturaWeb = new BeanFacturaWeb (new Integer(0), "", "", "", "", new Integer(0));
 
-	 
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		modelo.addAttribute("facturaWeb", facturaWeb);
-	//	modelo.addAttribute("tipoClienteWeb", tipoCliente );
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "gestionWeb/facturas/FormInsertarFactura";
 	}
 
-	@RequestMapping(value = "/altafactura", method = RequestMethod.GET)
+	@RequestMapping(value = "/insertarfactura", method = RequestMethod.POST)
 	public String altaFactura(@ModelAttribute("facturaWeb") @Valid BeanFacturaWeb facturaWeb,
-			BindingResult resultValidacion, 
-			 Model modelo, @RequestParam(value = "formaPago", required = true) String formaPago) {
+		BindingResult resultValidacion, 
+		Model modelo, @RequestParam(value = "formaPago", required = true) String formaPago) {
 
-		if (resultValidacion.hasErrors()) {
+	 	if (resultValidacion.hasErrors()) {
 			modelo.addAttribute("facturaWeb", facturaWeb);
 			modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 			modelo.addAttribute("CODERROR", "1");
 
 			return "gestionWeb/facturas/FormInsertarFactura.html";
-		}
+	 	}
 
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		Factura factura = validarDatosFactura(facturaWeb, formaPago);
 
-		factura = servicioJPA.altaFactura(factura);
+		factura = servJPAFactura.altaFactura(factura);
 
 		if (factura == null) {
 			modelo.addAttribute("facturaWeb", facturaWeb);
@@ -105,29 +100,31 @@ public class ControllerWebFacturas {
 		}
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
 	//	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
 
 		return "gestionWeb/facturas/FormInsertarFactura";
 	}
 	
-	@RequestMapping(value = "/modiffactura", method = RequestMethod.GET)
+	@RequestMapping(value = "/modiffactura", method = RequestMethod.POST)
 	public String modifFactura(@ModelAttribute("facturaWeb") @Valid BeanFacturaWeb facturaWeb,
 			BindingResult resultValidacion, 
 			 Model modelo, @RequestParam(value = "formaPago", required = true) String formaPago) {
 
-		if (resultValidacion.hasErrors()) {
+	 	if (resultValidacion.hasErrors()) {
 			modelo.addAttribute("facturaWeb", facturaWeb);
 			modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 			modelo.addAttribute("CODERROR", "1");
 
 			return "gestionWeb/facturas/FormEditarFactura";
-		}
+	 	}
 
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		Factura factura = validarDatosFactura(facturaWeb, formaPago);
+		
+		factura.setIdFactura( facturaWeb.getIdFacturaWeb() );
+		factura.setCodSituacion( 1); 
 
-		factura = servicioJPA.altaFactura(factura);
+		factura = servJPAFactura.modifFactura(factura);
 
 		if (factura == null) {
 			modelo.addAttribute("facturaWeb", facturaWeb);
@@ -145,8 +142,8 @@ public class ControllerWebFacturas {
 	}
 		
 
-		@RequestMapping("/pagfacturasnue")
-		public String paginacionFacturasNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
+	@RequestMapping("/pagfacturasnue")
+	public String paginacionFacturasNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
 													      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
 		 											      @RequestParam(value = "numPos", required = false) String numPos,
 		 											      @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag )
@@ -310,26 +307,32 @@ public class ControllerWebFacturas {
 
 			Factura facturaNueva = new Factura();
 			FormaPago forPagoNueva = new FormaPago();
+			
+			facturaWeb.setPorIvaWeb("21");
 
 			facturaNueva.setNumFactura("2020/00" + String.valueOf(numFac + 1));
 			facturaNueva.setPorIva(Integer.valueOf(facturaWeb.getPorIvaWeb().trim()));
 			facturaNueva.setConcepto(facturaWeb.getConceptoWeb());
 			facturaNueva.setImpFactura(new Float(facturaWeb.getImpFacturaWeb()));
 			forPagoNueva.setIdForPago(Integer.parseInt(formaPago));
-
 			facturaNueva.setFormaPago(forPagoNueva);
+			
+			facturaNueva.setCodDivisa( facturaWeb.getCodDivisaWeb());
 
-			try {
-				// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-				// String dateInString = "31-08-1982 10:20:56";
+			if (facturaWeb.getFecFacturaWeb() != null)
+				{
+				try {
+					// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+					// String dateInString = "31-08-1982 10:20:56";
 
-				facturaNueva.setFecFactura(new java.sql.Date((dateFormat.parse(facturaWeb.getFecFacturaWeb())).getTime()));
-			} catch (Exception e) {
-				facturaNueva = null;
-			}
+					facturaNueva.setFecFactura(new java.sql.Date((dateFormat.parse(facturaWeb.getFecFacturaWeb())).getTime()));
+					} catch (Exception e) {
+					facturaNueva = null;
+					}
+				}
 
-			Optional<Cliente> OptCliente = servicioJPA.buscarIdCliente(new Integer(1));
-			facturaNueva.setCliente(OptCliente.get());
+				Optional<Cliente> OptCliente = servicioJPA.buscarIdCliente(new Integer(1));
+				facturaNueva.setCliente(OptCliente.get());
 
 			return facturaNueva;
 		}

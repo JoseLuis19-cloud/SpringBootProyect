@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Blob;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 
@@ -94,7 +95,7 @@ public class ControllerWebClientes {
 			RedirectAttributes redirectAttrs,
 			Model modelo, @RequestParam(value = "tipoCliente", required = true) String tpoCliente) {
 		
-		  if (! resultValidacion.hasErrors()) {
+		//  if (! resultValidacion.hasErrors()) {
 			  Cliente clienteAlta = validarDatosCliente(formClienteWeb, tpoCliente);
 			  Cliente cliente = servicioJPA.altaCliente(clienteAlta);
 
@@ -102,12 +103,12 @@ public class ControllerWebClientes {
 			  		modelo.addAttribute("clienteWeb", formClienteWeb);
 			  		modelo.addAttribute("ErrorBBDD", "1");
 			  		}
-		  		}
-			   else
-			   {
-			  	modelo.addAttribute("clienteWeb", formClienteWeb );
+		 // 		}
+		//	   else
+		//	   {
+		  	  	modelo.addAttribute("clienteWeb", formClienteWeb );
 			  	modelo.addAttribute("tpoClienteWeb", servicioJPA.getTipoCliente() );  
-			   }
+		//	   }
 		
 		return "GestionWeb/clientes/FormInsertarCliente.html";
 	}
@@ -121,6 +122,9 @@ public class ControllerWebClientes {
 		
 		//  if (! resultValidacion.hasErrors()) {
 			  Cliente clienteModif = validarDatosCliente(formClienteWeb, tpoCliente);
+			  
+			  clienteModif.setIdCliente(clienteWeb.getIdClienteWeb());
+			  
 			  Cliente cliente = servicioClienteJPA.modificarCliente(clienteModif);
 
 			  	if (cliente == null)
@@ -560,7 +564,6 @@ public class ControllerWebClientes {
 
 		Cliente clienteNuevo = new Cliente();
 		
-		clienteNuevo.setIdCliente(clienteWeb.getIdClienteWeb());
 		clienteNuevo.setNombre(clienteWeb.getNombreWeb());
 		clienteNuevo.setApellidos(clienteWeb.getApellidosWeb());
 		clienteNuevo.setDireccion(clienteWeb.getDireccionWeb());
@@ -568,14 +571,18 @@ public class ControllerWebClientes {
 		clienteNuevo.setDireccion(clienteWeb.getDireccionWeb() );
 		clienteNuevo.setDirEmail(clienteWeb.getDirEmailWeb());
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		if ( clienteWeb.getFecNacimientoWeb() != null )
+			{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	
+			try {
+				clienteNuevo.setFecNacimiento( new  Date  (   dateFormat.parse(clienteWeb.getFecNacimientoWeb()).getTime()  )  );
+				} catch (Exception e) {
+				System.out.println("error validacion");
+				}
 		
-		try {
-			 clienteNuevo.setFecNacimiento(
-			 			new java.sql.Date((dateFormat.parse(clienteWeb.getFecNacimiento2Web())).getTime()));
-			} catch (Exception e) {
-			 System.out.println("error validacion");
-		 	}
+			}
+		
+		clienteNuevo.setFecNacimiento( null);
 
 		clienteNuevo.setFecAltaCliente(Calendar.getInstance() )  ;
 		 

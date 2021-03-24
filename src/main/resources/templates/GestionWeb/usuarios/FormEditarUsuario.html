@@ -67,61 +67,58 @@ h5 {
 			</div>
 			<div class="col-3"></div>
 		</div>
+		
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
-				
-
-					<div class="form-row">
-						<div class="col-md-4 mb-3">
-							<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
-							 <input type="text" class="form-control" id="idfullNameWeb"
+				<div class="form-row">
+					<div class="col-md-4 mb-3">
+						<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
+						 <input type="text" class="form-control" id="idfullNameWeb"
 								th:field="*{fullNameWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationUserNameWeb" th:text="'Nombre Usuario:' "></label>
-							<input type="text" class="form-control" id="idApelliCliWeb"
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="validationUserNameWeb" th:text="'Nombre Usuario:' "></label>
+						<input type="text" class="form-control" id="idApelliCliWeb"
 								th:field="*{usernameWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationPasswordWeb" th:text="'Password:' "></label>
-							<input type="text" class="form-control" id="idPasswordWeb"
+					</div>
+					<div class="col-md-4 mb-3">
+						<label for="validationPasswordWeb" th:text="'Password:' "></label>
+						<input type="text" class="form-control" id="idPasswordWeb"
 								th:field="*{passwordWeb}" th:maxlength="25" required>
-						</div>
-					</div>				
-					<div class="form-row">
-						<div class="col-md-6 mb-3">
-							<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
-								type="text" class="form-control" id="idDirCliWeb"
-								th:field="*{emailWeb}" th:maxlength="35" required>
-						</div>
+					</div>
+				</div>				
+				<div class="form-row">
+					<div class="col-md-6 mb-3">
+						<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
+							type="text" class="form-control" id="idDirCliWeb"
+							th:field="*{emailWeb}" th:maxlength="35" required>
+					</div>
 
-						<div class="col-md-3 mb-3">º
-						 	<div class="form-check">
+					<div class="col-md-3 mb-3">
+					 	<div class="form-check">
 						 	<br>
-						 		<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input"/>
-								<label for="validationIndActivadoWeb" th:text="'Activar Usuario:' " class="form-check-label"></label>
-								
-							</div>
+						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input"/>
+							<label for="validationIndActivadoWeb" th:text="'Activar Usuario:' " class="form-check-label"></label>					
 						</div>
-						<div class="col-md-3 mb-3">
-							<br>
-							<div class="form-check">
-								<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input"/>
-								<label for="validationIndEmpleadoWeb" th:text="'Es empleado?:' " class="form-check-label"></label>	
-							</div>
+					</div>
+					<div class="col-md-3 mb-3">
+						<br>
+						<div class="form-check">
+							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input"/>
+							<label for="validationIndEmpleadoWeb" th:text="'Es empleado?:' " class="form-check-label"></label>	
 						</div>
+					</div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-4 mb-2">
 							<label for="validationFecAltaUsu">Fec. Alta Usuario</label>
 							<div class="input-group">
 								<div class="input-group-addon">
-       							 <i class="fa fa-calendar"> </i> 
+       							  <i class="fa fa-calendar"> </i> 
       					 		</div>
-       							<input type="text" class="form-control" id="idFecAltaUsu" name="fecAltaUsu"  th:maxlength="10" th:readonly="true" required />
-       							
-       							<input type="hidden" id="idFecAltaUsuHidden" name="fecAltaUsuHidden"  th:field="*{fecAltaUsuarioWeb}"/>
+       							<input type="text" class="form-control" id="idFecAltaUsu" name="fecAltaUsu" th:value="${usuarioWeb.fecAltaUsuarioWeb}" th:maxlength="10" th:readonly="true" required />
+       							<input type="hidden" id="idFecAltaUsuHidden" name="fecAltaUsuHidden" th:field="*{fecAltaUsuarioWeb}"/>
 							</div>
 						</div>
 						<div class="col-md-8 mb-2">
@@ -132,7 +129,7 @@ h5 {
 									<option th:each ="rolApli:${usuarioWeb.rolUsuarioWeb}"
    						 				th:value="${rolApli.id}"
   						  				th:text ="${rolApli.name}"
-  						  				th:selected="${rolApli.id} == *{idRole}">	>
+  						  				th:selected="${rolApli.id} == *{idRole}">
   									</option>
     							</select>
 							</div>
@@ -142,6 +139,7 @@ h5 {
 			</div>
 			<div class="col-3"></div>
 		</div>
+		
 		<div class="row">
 			<div class="col-3"></div>
 				<div class="col-6">
@@ -150,9 +148,10 @@ h5 {
 		   		</div>
 			<div class="col-3"></div>
 	  	</div>
-	</div>
 	
 	</form>
+	
+	</div>
 	
 	<footer class="container-fluid">
 		<div class="panel-danger">
@@ -169,21 +168,20 @@ h5 {
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
-  <script th:inline="javascript">
-  
-    $(document).ready(function(){
-        var date_input=$('input[name="fecAltaUsu"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+   <script th:inline="javascript">
+    $(document).ready(function() {
+      var date_input=$('input[name="fecAltaUsu"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
         
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        });
-         document.getElementById("idFecAltaUsu").value = document.getElementById("idFecAltaUsuHidden").value;
+      date_input.datepicker({
+          format: 'dd/mm/yyyy',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+       });
+      document.getElementById("idFecAltaUsu").value = document.getElementById("idFecAltaUsuHidden").value;
     });
- </script>
+  </script>
 
-</body>
+ </body>
 </html>

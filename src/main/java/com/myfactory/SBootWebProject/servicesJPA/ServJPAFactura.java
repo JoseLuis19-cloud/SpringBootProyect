@@ -15,6 +15,8 @@ public interface ServJPAFactura {
 	public Optional<Factura> buscarIdFactura(Integer idFactura) ;
 
 	public Factura altaFactura(Factura factura) ;
+	
+	public Factura modifFactura(Factura factura) ;
 
 	public Optional<Factura> buscarFacturaId(Integer idFactura);
 

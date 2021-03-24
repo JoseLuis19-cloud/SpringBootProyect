@@ -2,25 +2,24 @@ package com.myfactory.SBootWebProject.controller;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
 
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
-
+import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
+import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
-import com.myfactory.SBootWebProject.model.Pais;
+import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 
 @Component
@@ -32,24 +31,21 @@ public class CargarBeansDatos  implements Serializable {
 	@Autowired
 	ServJPAEmpleado servJPAEmpleado;
 	
+	Iterable <FormaPago>  formasPago;
 
-	   Iterable <FormaPago>  formasPago;
+	public CargarBeansDatos() {
+	}
 
-		public CargarBeansDatos() {
-		}
-	    
-		
-	  public BeanFacturaWeb cargarBeanFactura (Factura factura)
+	public BeanFacturaWeb cargarBeanFactura (Factura factura)
 	  {
-		  BeanFacturaWeb facturaWeb = new BeanFacturaWeb();
-		  facturaWeb.setIdFacturaWeb(factura.getIdFactura());
-		  facturaWeb.setNumFactura(factura.getNumFactura());
-		  facturaWeb.setImpFacturaWeb(factura.getImpFactura().toString());
-		  facturaWeb.setConceptoWeb(factura.getConcepto());
-		  facturaWeb.setPorIvaWeb(factura.getPorIva().toString());
-		  facturaWeb.setFecFacturaWeb(factura.getFecFactura().toString());
-		//  facturaWeb.setFormasPago(factura.getFormaPago());
-		  return facturaWeb;
+		 BeanFacturaWeb facturaWeb = new BeanFacturaWeb();
+		 facturaWeb.setIdFacturaWeb(factura.getIdFactura());
+		 facturaWeb.setNumFactura(factura.getNumFactura());
+		 facturaWeb.setImpFacturaWeb(factura.getImpFactura().toString());
+		 facturaWeb.setConceptoWeb(factura.getConcepto());
+		 facturaWeb.setPorIvaWeb(factura.getPorIva().toString());
+		 facturaWeb.setFecFacturaWeb(new SimpleDateFormat("dd/MM/yyyy").format(factura.getFecFactura()));
+		return facturaWeb;
 	  }
 	  
 	  
@@ -79,7 +75,6 @@ public class CargarBeansDatos  implements Serializable {
 	  public BeanUsuarioWeb cargarBeanUsuario (User usuario)
 	  {
 		 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
-		 
 		 
 		 beanUsuarioWeb.setIdUsuarioWeb(usuario.getId());
 		 beanUsuarioWeb.setEmailWeb( usuario.getEmail());
@@ -125,6 +120,38 @@ public class CargarBeansDatos  implements Serializable {
 		  
 		  return beanEmpleadoWeb;
 	  }
-
-		
+	  
+	  public BeanProyectoWeb cargarBeanProyecto (Proyecto proyecto) 
+	  {
+		  BeanProyectoWeb proyectoWeb = new BeanProyectoWeb();
+		  
+		  proyectoWeb.setIdProyectoWeb(proyecto.getIdProyecto() );
+		  proyectoWeb.setNumProyecto( proyecto.getNomProyecto()  );
+		  proyectoWeb.setFecIniProyectoWeb(  new SimpleDateFormat("dd/MM/yyyy").format(proyecto.getFecIniProyecto() ));
+		  proyectoWeb.setFecFinProyectoWeb(  new SimpleDateFormat("dd/MM/yyyy").format(proyecto.getFecFinProyecto() ));
+		  return proyectoWeb;
+	  }
+	  
+	  public BeanEmpresaWeb cargarBeanEmpresa (Empresa empresa ) 
+	  {
+		  BeanEmpresaWeb datosEmpresaWeb = new BeanEmpresaWeb();
+		  
+		  datosEmpresaWeb.setIdEmpresaWeb(empresa.getIdEmpresa()   );
+		  datosEmpresaWeb.setNomEmpresaWeb(empresa.getNomEmpresa()  );
+		  datosEmpresaWeb.setCodPostalWeb(empresa.getCodPostal());
+		  datosEmpresaWeb.setDirecionWeb(empresa.getDirecion());
+		  datosEmpresaWeb.setTelefonoWeb(empresa.getTelefono());
+		  
+		  datosEmpresaWeb.setNomContacto1Web(empresa.getNomContacto1());
+		  datosEmpresaWeb.setTelefContacto1Web(empresa.getTelefContacto1() );
+		  datosEmpresaWeb.setEmailContacto1Web(empresa.getEmailContacto1());
+		  
+		  datosEmpresaWeb.setNomContacto2Web(  empresa.getNomContacto2());
+		  datosEmpresaWeb.setTelefContacto2Web(empresa.getTelefContacto2() );
+		  datosEmpresaWeb.setEmailContacto2Web(empresa.getEmailContacto2());
+		  
+	 //  datosEmpresaWeb.setFecAltaEmpresaWeb( new SimpleDateFormat("dd/MM/yyyy").format(empresa.getFecAltaEmpresa()  ));
+		  
+		  return datosEmpresaWeb;
+	  }
 }

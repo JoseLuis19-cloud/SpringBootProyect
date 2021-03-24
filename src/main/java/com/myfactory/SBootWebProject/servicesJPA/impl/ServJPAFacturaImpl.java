@@ -54,6 +54,17 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 	}
 	
 	@Override
+	@Transactional
+	public Factura modifFactura(Factura factura) {
+		try {
+			factura = reposSDataFactura.save(factura);
+		} catch (Exception ex) {
+			factura = null;
+		}
+		return factura;
+	}
+	
+	@Override
 	public Optional<Factura> buscarFacturaId(Integer idFactura) {
 
 		return reposSDataFactura.findById(idFactura);
@@ -65,7 +76,7 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 		Page<Factura> restulPag = reposSDataPagFactura.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idFactura")));
 
 		if (restulPag.hasContent()) {
-			System.out.println("tiene contenido la paginacion");
+			System.out.println("Tiene contenido la paginacion");
 		}
 
 		return restulPag;

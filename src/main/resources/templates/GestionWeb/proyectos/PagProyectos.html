@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	
+	<style> 	
+	h3 {
+  		font-weight: bold !important;
+  		color: #495057 !important;
+  		font-size: 30px !important;
+  		
+  		border-bottom: 2px solid #000 !important;
+ 		background:#e9ecef !important;
+  		color:#003B49 !important;
+
+  		display:inline-block !important;
+  		padding:8px 20px !important;
+ 		margin-left:10px !important;
+		}
+		
+	h5 {
+  		color: #F2A900 !important;
+  		font-size: 26px !important;
+  		
+ 		background:#e9ecef !important;
+  		color:#F2A900 !important;
+
+  		display:inline-block !important;
+  		padding:3px 15px !important;
+ 		margin-left:10px !important;
+		}
+  </style>
+
+</head>
+
+<body>
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="titulo-pag2">Proyectos</div>
+		</div>
+	
+	<div class="row">
+		<div class="col-sm-1"></div>   
+  		<div class="col-sm-10">
+  			<form class="form-inline" action="#" th:action="@{/gestionWeb/proyectos/pagproyecto}" th:object="${objBusqueda}" method="post">
+  				<div class="form-group mx-sm-3 mb-2">
+    				<label for="buscarApellidos" th:text="'  Proyecto:  '"></label>
+    				<input type="text" class="form-control" th:id="idBuscarProyecto" th:name="buscarProyecto" th:maxlength="25" th:field="*{proyectoBusqueda}" >
+    				<button type="submit" class="btn btn-primary">Buscar</button>    
+ 				</div>	
+			</form>
+  		</div>
+  		<div class="col-sm-1"></div> 
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-1"></div>   
+  		<div class="col-sm-10">
+			<div class="panel panel-default" style="border-bottom: 2px solid #000">
+				<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th th:text="'Cod. Empleado'"></th>
+							<th th:text="'Apellidos'"></th>
+							<th th:text="'Nombre'"></th>
+							<th th:text="'NIF'"></th>
+							<th th:text="'Fec. alta'"></th>
+							<th th:text="'Puesto Trabajo'"></th>
+							<th th:text="'email'"></th>
+							<th th:text="'Editar'"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${pagGenerica.empty}">
+							<td colspan="9">No hay empleados</td>
+						</tr>
+						<tr th:each="empleado:${pagGenerica.content}">
+							<td th:text="${empleado.idEmpleado}"></td>
+							<td th:text="${empleado.apellidos}"></td>
+							<td th:text="${empleado.nombre}"></td>
+							<td th:text="${empleado.nif}"></td>
+							<td th:text="${#calendars.format(empleado.fecAltaEmplelado, 'dd/MMM/yyyy')}"></td>
+							<td th:text="${empleado.puestoTrabajo.desPuestoTrabajo}"></td>
+							<td th:text="${empleado.email}"></td>
+							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Editar</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>		
+		<div class="col-sm-1"></div>
+	</div>
+		
+		<div class="row">
+			<div class="col-sm-1"></div>   
+  			<div class="col-sm-10">
+				<div th:insert="Aplicacion/fragments/BotoneraPaginacion :: botonerapaginacion"></div>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
+			
+		<div class="row">
+			<div class="col-sm-1"></div>   
+  			<div class="col-sm-10">
+  				<div class="d-flex">
+  					<div class="mr-auto p-2">
+  						<a th:href="@{/gestionWeb/empleados/formbajacliente}" class="btn btn-primary" role="button">Volver</a>
+  					</div>
+  					<div class="p-2">
+						<a th:href="@{/gestionWeb/empleados/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo</a>
+					</div>
+				</div>
+  			</div>
+  			<div class="col-sm-1"></div>
+		</div>
+	 </div>
+
+</body>
+</html>

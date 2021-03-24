@@ -85,8 +85,6 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		return nifWeb;
 	}
 
-
-
 	public void setNifWeb(String nifWeb) {
 		this.nifWeb = nifWeb;
 	}
@@ -143,13 +141,9 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		return indbajaEmpleadoWeb;
 	}
 
-
-
 	public void setIndbajaEmpleadoWeb(boolean indbajaEmpleadoWeb) {
 		this.indbajaEmpleadoWeb = indbajaEmpleadoWeb;
 	}
-
-
 
 	public String getNumSeguridaSocialWeb() {
 		return numSeguridaSocialWeb;

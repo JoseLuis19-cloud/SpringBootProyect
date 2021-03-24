@@ -152,9 +152,8 @@ h5 {
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i>
       					 		</div>
-       							<input class="form-control" id="idFecNacimiento" 	   name="fecNacimiento" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-								<input type="hidden"        id="idFecNacimientoHidden" name="fecNacimientoHidden" th:field="*{fecNacimientoWeb}"/>
-							
+       							<input type="text" class="form-control" id="idFecNacimiento" name="fecNacimiento" th:value="${clienteWeb.fecNacimientoWeb}" placeholder="MM/DD/YYYY" th:readonly="true" required />
+								<input type="hidden" id="idFecNacimientoHidden" name="fecNacimientoHidden" th:field="*{fecNacimientoWeb}"/>
 							</div>
 						</div>
 						<div class="col-md-5 mb-3">

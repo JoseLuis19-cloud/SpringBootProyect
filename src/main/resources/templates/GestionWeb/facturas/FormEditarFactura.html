@@ -65,6 +65,8 @@ h5 {
 			<div class="col-2"></div>
 			<div class="col-8">
 				<form th:action="@{/gestionWeb/facturas/modiffactura}" th:object="${facturaWeb}" method="post">
+						
+				<input type="hidden" th:id="'idIdFacturaWeb'" th:name="'idFacturaWeb'"  th:field="*{idFacturaWeb}" />	 
 				
 					<div class="container-fluid" style="border-bottom: 2px solid #000">
 					
@@ -86,25 +88,40 @@ h5 {
 					<div class="form-row">
 					 	<div class="col-md-4 mb-3">
 							<div class="form-group">
-								<label for="idFormaPago" th:text="'Rol en la apliación: ' "></label>
-									<select th:object="${facturaWeb}" class="col-xs-2" name="selecForPago" id="idSelecForPago">
-									<option th:value="0" th:text="'Seleccionar un rol en apliación' "></option>
+								<label for="idFormaPago" th:text="'Forma de pago: ' "></label>
+									<select th:object="${facturaWeb}" name="formaPago" id="idFormaPago">
+									<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
 										<option th:each ="formPag:${formasPagoWeb}"
-   						 					th:value="${formPag.idForPago}"
-  						  					th:text ="${formPag.desForPago}">
-  						 				</option>
+   						 				th:value="${formPag.idForPago}"
+  						  				th:text ="${formPag.desForPago}">
+  						 			</option>
     							</select>
 							</div>
 						 </div>
+
+						<div class="col-md-4 mb-3">
+							<label for="validationFecFactura">Fec. Factura</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+       							 <i class="fa fa-calendar"> </i> 
+      					 		</div>
+       							<input class="form-control" id="idFecFactura" name="fecFactura" th:value="${facturaWeb.fecFacturaWeb}" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+							</div>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="validaCodFatura" th:text="'Porcentaje Descuento' "></label>
+							<input type="text" class="form-control" id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
+						</div>
 					</div>
-					</div>		
+					</div>
+						
 					<div class="d-flex">
   						<div class="mr-auto p-2">
-  							<a th:href="@{/gestionWeb/clientes/formbajacliente}" class="btn btn-primary" role="button">Volver</a>
+  							<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
   						</div>
   			 
   						<div class="p-2">
-						 <button type="submit" class="btn btn-primary">Crear factura</button>
+						 <button type="submit" class="btn btn-primary">Modificar</button>
 						</div>
 					</div>
 				</form>
@@ -112,12 +129,11 @@ h5 {
 			<div class="col-2"></div>
 		</div>
 	</div>
-
 	
 	<footer class="container-fluid">
 		<div class="panel-danger">
 			<div th:if="${ErrorBBDD == '1'}">
-				<div class="alert alert-danger">Se ha producido un error en el alta de la factura</div>
+				<div class="alert alert-danger">Se ha producido un error en la modificación de la factura</div>
 			</div>
 		</div>
 	</footer>
