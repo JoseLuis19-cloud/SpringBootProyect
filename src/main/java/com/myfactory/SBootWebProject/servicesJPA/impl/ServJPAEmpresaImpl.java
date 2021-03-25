@@ -1,5 +1,6 @@
 package com.myfactory.SBootWebProject.servicesJPA.impl;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +36,26 @@ public class ServJPAEmpresaImpl implements ServJPAEmpresa  {
 
 	@Override
 	public Page<Empresa> pagEmpresas(Integer numPag, Integer numRegPag, String buscarEmpresa) {
-		Page<Empresa> restulPag;
 		
-		if (buscarEmpresa.equals("")  )
-		  {		
-			restulPag = empresaJPAPagRepository.findAll(PageRequest.of(numPag, numRegPag, Sort.by("nomEmpresa")));
-		  	}
-	 	else
-	 		{
-	 		restulPag = empresaJPAPagRepository.findMayorEmpresa(PageRequest.of(numPag, numRegPag, Sort.by("nomEmpresa")), buscarEmpresa);
-	 		}
-
-		if (restulPag.hasContent()) {
-			System.out.println("Tiene contenido la paginacion");
+	Page<Empresa> restulPag;
+		
+	if (buscarEmpresa.equals("") )
+		{		
+		restulPag = empresaJPAPagRepository.findAll(PageRequest.of(numPag, numRegPag, Sort.by("nomEmpresa")));
 		}
+	 else
+	 	{
+	 	restulPag = empresaJPAPagRepository.findMayorEmpresa(PageRequest.of(numPag, numRegPag, Sort.by("nomEmpresa")), buscarEmpresa);
+	 	}
+
+	if (restulPag.hasContent()) {
+		System.out.println("Tiene contenido la paginacion");
+	}
 	return restulPag;
+	}
+	
+	public Iterable <Empresa> listEmpresasProyecto()
+	{
+	 return empresaJPAPagRepository.findAll();
 	}
 }

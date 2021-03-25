@@ -1,18 +1,12 @@
 package com.myfactory.SBootWebProject.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 import com.myfactory.SBootWebProject.beanForm.BeanCamposGesMenuUsu;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioWeb;
@@ -44,7 +40,9 @@ import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
+import com.myfactory.SBootWebProject.dto.UserDTO;
 import com.myfactory.SBootWebProject.model.Empleado;
+import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.MenusUsuario;
 import com.myfactory.SBootWebProject.model.Proyecto;
@@ -60,7 +58,9 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.impl.ServJPAEmpresaImpl;
 
 @Controller
-@RequestMapping("/gestionmenususuario")
+
+ 
+@RequestMapping("/gestionWeb/proyectos")
 public class ControllerWebProyectos {
 	
 	@Autowired
@@ -86,12 +86,41 @@ public class ControllerWebProyectos {
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
 
-	@GetMapping("/formeditarproyecto")
- 	public String formularioEditarProyecto(Model modelo,  @RequestParam(value = "idProyecto", required = false ) Integer idProyecto)  {
- 
-	 Optional<Proyecto> proyecto = servJPAProyecto.buscarIdProyecto(idProyecto);
-	 modelo.addAttribute("proyectoWeb", cargarBeansDatos.cargarBeanProyecto(proyecto.get()));
-	return "GestionWeb/empleados/FormEditarEmpleado";
+	@GetMapping("/formaltaempresa")
+ 	public String formularioAltaEmpresa(Model modelo)  {
+		
+	 BeanEmpresaWeb datosEmpresaWeb = new BeanEmpresaWeb ();
+			
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 
+	 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
+	 obtenerEmpresasDisponibles(listEmpresasDisponibles);
+	 
+	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
+	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
+	 
+	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
+	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
+	 
+	 modelo.addAttribute("datosEmpresaWeb", datosEmpresaWeb);
+	 
+	 return "GestionWeb/proyectos/FormAltaProyecto";
+	}
+
+	@RequestMapping(value = "/altaproyecto", method = RequestMethod.POST)
+	public String altaProyecto(@Valid @ModelAttribute("formProyectoWeb") BeanProyectoWeb formProyectoWeb, 
+				BindingResult resultValidacion,
+				RedirectAttributes redirectAttrs,
+				Model modelo, @RequestParam(value = "provinciaEmpresa", required = false) String codProvincia) {
+		
+		Proyecto nuevoProyecto = new Proyecto();
+		
+		nuevoProyecto.setNomProyecto(formProyectoWeb.getNomProyecto() );
+		nuevoProyecto.setImpProyecto( formProyectoWeb.getImpProyectoWeb());
+		
+		servJPAProyecto.altaProyecto(nuevoProyecto);
+		
+		return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
 	}
 	
 	@RequestMapping("/pagproyectos")
@@ -99,7 +128,7 @@ public class ControllerWebProyectos {
 												      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
 	 											      @RequestParam(value = "numPos", required = false) String numPos,
 	 											      @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag,
-	 											      @RequestParam(value = "apellidosBus", required = false) String apellidosBus,
+	 											      @RequestParam(value = "proyectosBus", required = false) String proyectoBus,
 	 											      @ModelAttribute("objBusqueda") BeanCamposBusqueda busquedaCampo )
 	{
 	 // Con esta variable sabemos la pagina exacta, dentro de todas paginacias posibles,  de donde llega a la paginacion.
@@ -140,28 +169,28 @@ public class ControllerWebProyectos {
 				}
 		}
 
-		if (busquedaCampo.getApellidosBusqueda() == null)
+		if (busquedaCampo.getNomProyecto() == null)
 			{
 			busquedaCampo = new BeanCamposBusqueda();
 			
-			if (apellidosBus == null)
+			if (proyectoBus == null)
 				{
-				busquedaCampo.setApellidosBusqueda("");
+				busquedaCampo.setNomProyecto("");
 				}
 			  else
 				{
-				  busquedaCampo.setApellidosBusqueda(apellidosBus);
+				  busquedaCampo.setNomProyecto(proyectoBus);
 				}
 			}
 			else
 			{
-				busquedaCampo.setApellidosBusqueda(busquedaCampo.getApellidosBusqueda());
+				busquedaCampo.setNomProyecto(busquedaCampo.getNomProyecto());
 			}
 			
 		
 		modelo.addAttribute("objBusqueda", busquedaCampo);
 
-		Page<Proyecto> pagProyectos = servJPAProyecto.pagProyectos(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA, busquedaCampo.getApellidosBusqueda().trim());
+		Page<Proyecto> pagProyectos = servJPAProyecto.pagProyectos(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA, busquedaCampo.getNomProyecto().trim());
 		modelo.addAttribute("pagGenerica", pagProyectos);
 		modelo.addAttribute("numPag", String.valueOf(numPagInt));
 		modelo.addAttribute("numRegPag", pagProyectos.getContent().size());
@@ -178,7 +207,7 @@ public class ControllerWebProyectos {
 		
 		String URLPag = "/gestionWeb/proyectos/pagproyectos?numPag=" ;
 		
-		CrearBotoneraPag.montarEnlacesBotonera(paramBotonera, modelo, numPagInt, URLPag, busquedaCampo.getApellidosBusqueda().trim());
+		CrearBotoneraPag.montarEnlacesBotonera(paramBotonera, modelo, numPagInt, URLPag, busquedaCampo.getNomProyecto().trim());
 
 	 // Si ha pinchado avance o retroceso de pagina.
 		if (tpoAccion != null)
@@ -255,4 +284,65 @@ public class ControllerWebProyectos {
 
 		return "GestionWeb/proyectos/PagProyectos";
 	}
+	
+	
+	private List<Empresa> obtenerEmpresasDisponibles(List <Empresa> listaEmpresaYaSelec)
+	{
+	  List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
+	  
+	  Iterator<Empresa> listEmpreIter = servJPAEmpresa.listEmpresasProyecto().iterator();
+	  Empresa empresaI = null;
+			 
+	  while(listEmpreIter.hasNext())
+	  {
+		empresaI = listEmpreIter.next();
+		Boolean encontradoEnEmpresasSelec = false;
+				
+		for (Empresa eleEmpresa : listaEmpresaYaSelec) {
+
+			if (eleEmpresa.getIdEmpresa().equals(empresaI.getIdEmpresa() ) )
+			   	{
+				encontradoEnEmpresasSelec = true;
+			    break;
+			    }
+			 }
+	   
+			if (! encontradoEnEmpresasSelec)
+				{
+				listEmpresasDisponibles.add(empresaI );
+				}
+	 }
+	 
+	return listEmpresasDisponibles;
+	}	
+	
+	private List<Empleado> obtenerEmpleadosDisponibles(List <Empleado> listaEmpleadosYaSelec)
+	{
+	  List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
+	  
+	  Iterator<Empleado> listEmpleIter = servJPAEmpleado.listEmpleadosProyecto().iterator();
+	  Empleado empleadoI = null;
+			 
+	  while(listEmpleIter.hasNext())
+	  {
+		empleadoI = listEmpleIter.next();
+		Boolean encontradoEnEmpresasSelec = false;
+				
+		for (Empleado eleEmpleado : listaEmpleadosYaSelec) {
+
+			if (eleEmpleado.getIdEmpleado().equals(empleadoI.getIdEmpleado() ) )
+			   	{
+				encontradoEnEmpresasSelec = true;
+			    break;
+			    }
+			 }
+	   
+			if (! encontradoEnEmpresasSelec)
+				{
+				listEmpleadosDisponibles.add(empleadoI);
+				}
+	 }
+	 
+	return listEmpleadosDisponibles;
+	}	
 }

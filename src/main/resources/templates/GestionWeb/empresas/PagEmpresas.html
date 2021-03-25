@@ -41,7 +41,7 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="titulo-pag2">Empresas</div>
+			<div class="titulo-pag2">Gestión de Empresas</div>
 		</div>
 	
 	<div class="row">
@@ -66,9 +66,10 @@
 					<thead class="thead-light">
 						<tr>
 							<th th:text="'Cod. Empresa'"></th>
-							<th th:text="'Nombre'"></th>
+							<th th:text="'Nombre Empresa'"></th>
 							<th th:text="'CIF'"></th>
 							<th th:text="'email'"></th>
+							<th th:text="'Fecha Alta'"></th>
 							<th th:text="'Editar'"></th>
 						</tr>
 					</thead>
@@ -80,6 +81,7 @@
 							<td th:text="${empresa.idEmpresa}"></td>
 							<td th:text="${empresa.nomEmpresa}"></td>
 							<td th:text="${empresa.cif}"></td>
+							<td th:text="${empresa.emailEmpresa}"></td>
 							<td th:text="${#calendars.format(empresa.fecAltaEmpresa, 'dd/MMM/yyyy')}"></td>
 							<td><a th:href="@{/gestionWeb/empresa/formeditarempresa(idEmpresa=${empresa.idEmpresa})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>
@@ -103,7 +105,7 @@
   			<div class="col-sm-10">
   				<div class="d-flex">
   					<div class="p-2">
-						<a th:href="@{/gestionWeb/empresa/formaltaempresa}" class="btn btn-primary" role="button">Nueva</a>
+						<a th:href="@{/gestionWeb/empresas/formaltaempresa}" class="btn btn-primary" role="button">Nueva</a>
 					</div>
 				</div>
   			</div>

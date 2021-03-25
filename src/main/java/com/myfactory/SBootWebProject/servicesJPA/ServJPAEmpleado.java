@@ -26,4 +26,6 @@ public interface ServJPAEmpleado {
 	public Iterable<Pais> obtenerPaises() ;
 	
 	public Iterable<PuestoTrabajo> obtenerPuestoTrabajo() ;
+	
+	public Iterable<Empleado> listEmpleadosProyecto() ;
 }

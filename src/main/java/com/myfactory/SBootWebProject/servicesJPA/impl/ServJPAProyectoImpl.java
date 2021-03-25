@@ -38,14 +38,14 @@ public class ServJPAProyectoImpl implements ServJPAProyecto {
 	public Page<Proyecto> pagProyectos(Integer numPag, Integer numRegPag, String buscarProyecto) {
 		Page<Proyecto> restulPag;
 		
-		//if (buscarApellido.equals("")  )
-		//	{		
-		//	 restulPag = reposSDataPagCliente.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idCliente")));
-		//	}
-	//	else
-	//		{
+		 if (buscarProyecto.equals("")  )
+		 	{		
+		 	 restulPag = proyectoJPAPagRepository.findAll(PageRequest.of(numPag, numRegPag, Sort.by("nomProyecto")));
+		 	}
+	 	else
+	 	{
 			 restulPag = proyectoJPAPagRepository.findMayorProyecto(PageRequest.of(numPag, numRegPag, Sort.by("nomProyecto")), buscarProyecto);
-	//		}
+	 		}
 
 		if (restulPag.hasContent()) {
 			System.out.println("Tiene contenido la paginacion");

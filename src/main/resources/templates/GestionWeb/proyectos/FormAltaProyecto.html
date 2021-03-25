@@ -82,221 +82,75 @@ h5 {
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Datos Proyectos</div>
+  				<div class="subtitulo-pag2">Datos del Nuevo Proyecto</div>
   			</div>
   			<div class="col-1"></div>
-  		</div>	
+  		</div>
+  		
 		<div class="row">
 			<div class="col-1"></div>
-  			<div class="col-2" style="border-bottom: 2px solid #000; border-top: 2px solid #000"></div>
-  			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
+  			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
-						<div class="col-md-5 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="validationProyecto" th:text="'Nombre Proyecto'"></label> 
 							<input type="text" class="form-control" id="idNombreWeb" th:field="*{nomProyecto}" th:maxlength="25" required>
 						</div>
-						<div class="col-md-5 mb-3">
-							<label for="validaApellidos" th:text="'Apellidos' "></label>
-							<input type="text" class="form-control" id="idApellidosWeb" th:field="*{apellidosWeb}" th:maxlength="25" required>
+						<div class="col-md-2 mb-4">
+							<label for="validationImpProyecto" th:text="'Importe Proyecto'"></label> 
+							<input type="text" class="form-control" id="idImpProyectoWeb" th:field="*{impProyectoWeb}" th:maxlength="14">
 						</div>
-						<div class="col-md-2 mb-3">
-							<label for="validaTelefMovil" th:text="'Teléfono móvil' "></label>
-							<input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefMovilWeb}" th:maxlength="14" required>
-						</div>
-				</div>
-				
-				<div class="form-row">
-					<div class="col-md-7 mb-3">
-						<label for="labelDireccion" th:text="'Dirección'"></label> 
-						<input type="text" class="form-control" id="idDireccionWeb" th:field="*{direccionWeb}" th:maxlength="25">
-					</div>
-					<div class="col-md-2 mb-3">
-						<label for="labelCP" th:text="'Codigo postal' "></label>
-						<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
-					</div>
-					<div class="col-md-3 mb-3">
-						<div class="form-group">
-							<label for="labelPais" th:text="'Pais empleado: ' "></label>
-							<select th:object="${empleadoWeb}" class="form-control" name="paisEmpleado" id="idPaisEmpleado">
-								<option th:value="0" th:text="'Seleccionar país empleado' "></option>
-								<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
-   						 			th:value="${paisEmple.idPais}"
-  						  			th:text ="${paisEmple.nombrePais}"
-  						  			th:selected="${paisEmple.idPais} == ${empleadoWeb.codPaisWeb}">
-  								</option>
-    						</select>
-						</div>
-					</div>
-				</div>
-				
-				<div class="form-row">
-					<div class="col-md-3 mb-4">
-						<label for="labelNIF" th:text="'NIF' "></label>
-						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
-					</div>
-					<div class="col-md-3 mb-4">
-						<label for="labelFecEmpleado">Fec. alta empleado</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-       						 <i class="fa fa-calendar"> </i> 
-      					 	</div>
-       						<input class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmplelado2Web}"/>
-						</div>
-					</div>
-					<div class="col-md-2 mb-4">
-						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
-						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefMovilWeb}" th:maxlength="14">
-					</div>
-					<div class="col-md-4 mb-4">
-						<label for="labelemail" th:text="'email empleado' "></label>
-						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="25" required>
-					</div>
-				</div>
-				
-				<div class="form-row">
 						<div class="col-md-3 mb-4">
-							<div class="form-group">
-								<label for="labelPuestoTrabajo" th:text="'Puesto Trabajo: ' "></label>
-								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado">
-									<option th:value="0" th:text="'Seleccionar puesto trabajo' "></option>
-									<option th:each ="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
-   						 				th:value="${pTrabajoEmple.idPuestoTrabajo}"
-  						  				th:text ="${pTrabajoEmple.desPuestoTrabajo}"
-  						  				th:selected="${pTrabajoEmple.idPuestoTrabajo} == ${empleadoWeb.codPuestoTrabajoWeb}">
-  									</option>
-    							</select>
-							</div>
+							<label for="validaApellidos" th:text="'Fecha Inicio del proyecto' "></label>
+							<input type="text" class="form-control" id="idFecIniProyectoWeb" th:field="*{fecIniProyectoWeb}" th:maxlength="10" >
 						</div>
-				 		<div class="col-md-4 mb-4">
-							<div class="form-group">
-								<label for="idNumSegSocial" th:text="'Número Seguridad Social: ' "></label>
-								<input type="text" class="form-control" id="idNumSeguridaSocialWeb" th:field="*{numSeguridaSocialWeb}" th:maxlength="14" >	
-							</div>
-				 		</div>
-				<div class="col-md-3 mb-4">
-					<label for="validadNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
-					<input type="text" class="form-control" id="idNumCCWeb" name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24">
+						<div class="col-md-3 mb-4">
+							<label for="validaTelefMovil" th:text="'Fecha Fin del proyecto' "></label>
+							<input type="text" class="form-control" id="idFecFinProyectoWeb" th:field="*{fecFinProyectoWeb}" th:maxlength="10">
+						</div>
 				</div>
-				<div class="col-md-2 mb-4">
-					<label for="labelImpBrutoAnu" th:text="'Importe bruto anual' "></label>
-					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnual2Web}" th:maxlength="10">
+		   	
+				<div class="form-row">
+					<div class="col-md-5 mb-3">
+						<div id="idDivSubMenu1Usu">
+						<div th:insert="gestionMenus/fragments/anadirEmpProyecto :: anadirEmpresaProyecto"></div>
+						</div>
+			 		</div>
+				
+					<div class="col-md-2 mb-3">
+						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+ 						<br/>
+ 						<br/>
+				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  th:onclick="th:anadirEmpresaProyecto()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
+						<br/>
+						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimir'" th:onclick="th:eliminarEmpresaProyecto()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
+						<br/>
+						</div> 
+					</div>
+					
+					<div class="col-md-5 mb-3">
+						<div id="idDivSubMenu2Usu">
+							<div th:insert="gestionMenus/fragments/anadirEmpProyecto :: anadirEmpleadoProyecto"></div>	
+						</div>
+					</div>
 				</div>
-			</div>
-  			</div>
-  			<div class="col-1"></div>
- 		</div>
- 		<div class="row">
- 			<div class="col-1"></div>
- 			<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempleadosNue}" class="btn btn-primary" role="button">Volver</a></div>
- 			<div class="col-5"></div>
- 			<div class="col-3">
- 				<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Crear Usuario</a>	
-				<button type="submit" class="btn btn-primary">Guardar</button>
- 			</div>
- 			<div class="col-1"></div>
+			<div class="col-1"></div>	
 		</div>
+
+ 				<div class="row">
+ 					<div class="col-1"></div>
+ 					<div class="col-2"><a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
+ 					<div class="col-5"></div>
+ 				</div>
+			</div>
  		</form>
  	</div>
-	<!-- Modal -->
-    <div id="myModalAltaUsu" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-  		<div class="modal-dialog modal-xl">
-      <!-- Modal content-->
-      	<div class="modal-content">
-			<h5 th:text="'Datos Nuevo Usuario'"></h5>
-			<form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
-					<div class="form-row">
-						<div class="col-md-4 mb-3">
-							<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
-							 <input type="text" class="form-control" id="idfullNameWeb"
-								th:field="*{fullNameWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationUserNameWeb" th:text="'Nombre Usuario:' "></label>
-							<input type="text" class="form-control" id="idApelliCliWeb"
-								th:field="*{usernameWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationPasswordWeb" th:text="'Password:' "></label>
-							<input type="text" class="form-control" id="idPasswordWeb"
-								th:field="*{passwordWeb}" th:maxlength="25" required>
-						</div>
-					</div>				
-					<div class="form-row">
-						<div class="col-md-4 mb-3">
-							<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
-								type="text" class="form-control" id="idDirCliWeb"
-								th:field="*{emailWeb}" th:maxlength="35" required>
-						</div>
-
-						<div class="col-md-3 mb-3">
-						<label for="validationFecAltaUsu">Fecha Alta Empleado</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-       							 <i class="fa fa-calendar"> </i> 
-      					 		</div>
-       							<input type="text" class="form-control" id="idFecAltaUsuario" name="fecAltaUsuario"  th:maxlength="10" th:readonly="true" required />
-       							<input type="hidden" id="idFecAltaUsuHidden" name="fecAltaUsuHidden"  th:field="*{fecAltaUsuarioWeb}"/>
-							</div>
-						 	 
-						</div>
-						<div class="col-md-5 mb-3">
-							 <div class="form-group">
-								<label for="idRolAplicacion" th:text="'Rol de usario en la aplicación: ' "></label>
-								<select th:object="${usuarioWeb}" class="form-control" name="rolAplicacion" id="idRolAplicacion">
-									<option th:value="0" th:text="'Seleccionar rol Aplicación' "></option>
-									<option th:each ="rolApli:${usuarioWeb.rolUsuarioWeb}"
-   						 				th:value="${rolApli.id}"
-  						  				th:text ="${rolApli.name}">
-  									</option>
-    							</select>
-							</div>
-						</div>
-					</div>					
-        	<div class="modal-footer">
-          		<button type="submit" class="btn btn-colour-1" >Crear usuario</button>    
-       			<button type="button" class="btn btn-colour-1"  data-dismiss="modal">Cancelar</button>
-        	</div>
-        </form>	
-     </div>
-      
-    </div>
-  </div>
-  
-  
-  
-  
-    <!-- Modal Cambiar Foto -->
-  <div id="myModalCambiarFoto" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cambiar foto del empleado</h5>
-      </div>
-      <div class="modal-body">
-    		<div class="container">	
-               	 <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
-                 	 <div class="form-group">
-                   	  <input type="file" name="file" class="form-control-file">
-                  	 </div>
-                  	 <button type="submit" class="btn btn-primary">Enviar Fichero</button>
-               	</form>
-   		 </div>
-	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
 	
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
  <script>
     $(document).ready(function(){
-        var date_input=$('input[name="fecAltaEmpleado"]'); //our date input has the name "date"
+        var date_input=$('input[name="fecIniProyecto"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
             format: 'dd/mm/yyyy',
@@ -314,9 +168,6 @@ h5 {
             todayHighlight: true,
             autoclose: true,
         });
-        
-       document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
-      document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuHidden").value;
    
     });
  </script>

@@ -90,4 +90,7 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 		return puestoTrabajoJPADao.findAll();
 	}	
 	
+	public Iterable<Empleado> listEmpleadosProyecto() {
+		return empleadoJPARepository.findAll();
+	}	
 }

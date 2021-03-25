@@ -14,20 +14,38 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 
 	private Integer idProyectoWeb;
 	
-	private String numProyecto;
+	private String nomProyectoWeb;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String fecIniProyectoWeb;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String fecFinProyectoWeb;
+
+	private Long impProyectoWeb;
 	 
 	public BeanProyectoWeb() {
 	}
 	    
-	public BeanProyectoWeb(Integer idProyectoWeb, String numProyecto, String fecIniProyectoWeb, String fecFinProyectoWeb) {
+	public BeanProyectoWeb(Integer idProyectoWeb, String nomProyecto, String fecIniProyectoWeb, String fecFinProyectoWeb, Long impProyectoWeb) {
 			super();
 			
+	}
+
+	public String getNomProyectoWeb() {
+		return nomProyectoWeb;
+	}
+
+	public void setNomProyectoWeb(String nomProyectoWeb) {
+		this.nomProyectoWeb = nomProyectoWeb;
+	}
+
+	public Long getImpProyectoWeb() {
+		return impProyectoWeb;
+	}
+
+	public void setImpProyectoWeb(Long impProyectoWeb) {
+		this.impProyectoWeb = impProyectoWeb;
 	}
 
 	public Integer getIdProyectoWeb() {
@@ -36,14 +54,6 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 
 	public void setIdProyectoWeb(Integer idProyectoWeb) {
 		this.idProyectoWeb = idProyectoWeb;
-	}
-
-	public String getNumProyecto() {
-		return numProyecto;
-	}
-
-	public void setNumProyecto(String numProyecto) {
-		this.numProyecto = numProyecto;
 	}
 
 	public String getFecIniProyectoWeb() {
@@ -62,5 +72,5 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 		this.fecFinProyectoWeb = fecFinProyectoWeb;
 	}
 
-		
+
 }

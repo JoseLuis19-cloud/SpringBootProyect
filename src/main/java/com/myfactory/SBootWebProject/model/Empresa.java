@@ -62,6 +62,9 @@ public class Empresa implements Serializable {
 	@Column(name = "FEC_ALTA_EMPRESA", nullable = true, unique = false)
     @Temporal(TemporalType.DATE)
 	private Calendar fecAltaEmpresa;
+	
+	@Column(name = "EMAIL_EMPRESA", nullable = true, unique = false)
+	private String emailEmpresa;
 
 	public Integer getIdEmpresa() {
 		return idEmpresa;
@@ -173,5 +176,13 @@ public class Empresa implements Serializable {
 
 	public void setCif(String cif) {
 		this.cif = cif;
+	}
+	
+	public String getEmailEmpresa() {
+		return emailEmpresa;
+	}
+
+	public void setEmailEmpresa(String emailEmpresa) {
+		this.emailEmpresa = emailEmpresa;
 	}
 }

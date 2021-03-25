@@ -3,14 +3,6 @@ package com.myfactory.SBootWebProject.beanForm;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -36,7 +28,8 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 	private String emailContacto2Web; 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Calendar fecAltaEmpresaWeb;
-	
+	private String emailEmpresaWeb;
+
 	public BeanEmpresaWeb()
 	{}
  
@@ -51,7 +44,8 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 			String nomContacto2Web,
 			String telefContacto2Web,
 			String emailContacto2Web,
-			Calendar fecAltaEmpresaWeb)
+			Calendar fecAltaEmpresaWeb,
+			String emailEmpresaWeb)
 		{
 		 this.idEmpresaWeb = idEmpresaWeb;
 		 this.nomEmpresaWeb = nomEmpresaWeb;
@@ -66,6 +60,7 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 		 this.telefContacto2Web = telefContacto2Web;
 		 this.emailContacto2Web = emailContacto2Web;
 		 this.fecAltaEmpresaWeb = fecAltaEmpresaWeb;
+		 this.emailEmpresaWeb = emailEmpresaWeb; 
 		}
 
 	public Integer getIdEmpresaWeb() {
@@ -178,5 +173,13 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 
 	public void setCIFWeb(String cIFWeb) {
 		CIFWeb = cIFWeb;
+	}
+	
+	public String getEmailEmpresaWeb() {
+		return emailEmpresaWeb;
+	}
+
+	public void setEmailEmpresaWeb(String emailEmpresaWeb) {
+		this.emailEmpresaWeb = emailEmpresaWeb;
 	}
 	}

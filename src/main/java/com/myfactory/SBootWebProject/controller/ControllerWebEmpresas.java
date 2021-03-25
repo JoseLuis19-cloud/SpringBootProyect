@@ -77,14 +77,14 @@ public class ControllerWebEmpresas {
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 modelo.addAttribute("datosEmpresaWeb", datosEmpresaWeb);
 	 
-	 return "GestionWeb/empresa/FormAltaEmpresa";
+	 return "GestionWeb/empresas/FormAltaEmpresa";
 	}
-		
+
 	@RequestMapping(value = "/altaempresa", method = RequestMethod.POST)
 	public String altaEmpresa(@Valid @ModelAttribute("formEmpresaWeb") BeanEmpresaWeb formEmpresaWeb, 
 				BindingResult resultValidacion,
 				RedirectAttributes redirectAttrs,
-				Model modelo, @RequestParam(value = "provincia", required = true) String codProvincia) {
+				Model modelo, @RequestParam(value = "provinciaEmpresa", required = true) String codProvincia) {
 		
 		Empresa nuevaEmpresa = new Empresa();
 		
@@ -107,7 +107,7 @@ public class ControllerWebEmpresas {
 		
 		servJPAEmpresa.altaEmpresa(nuevaEmpresa);
 		
-		return "redirect:/gestionWeb/empresa/" + "pagempresas";
+		return "redirect:/gestionWeb/empresas/" + "pagempresas";
 	 
 	// return "GestionWeb/empresa/FormEditarEmpresa";
 	}
@@ -118,7 +118,7 @@ public class ControllerWebEmpresas {
 	 Empresa empresa = servJPAEmpresa.buscarIdEmpresa(idEmpresa);
 	 modelo.addAttribute("empresaWeb", cargarBeansDatos.cargarBeanEmpresa(empresa));
 	 
-	return "GestionWeb/empresa/FormEditarEmpresa";
+	return "GestionWeb/empresas/FormEditarEmpresa";
 	}
 	
 	@RequestMapping("/pagempresas")

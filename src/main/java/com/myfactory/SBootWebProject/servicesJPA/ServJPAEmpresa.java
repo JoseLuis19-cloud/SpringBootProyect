@@ -1,6 +1,6 @@
 package com.myfactory.SBootWebProject.servicesJPA;
 
-import java.util.Optional;
+import java.util.Iterator;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -17,5 +17,6 @@ public interface ServJPAEmpresa {
 	
 	public Page<Empresa> pagEmpresas(Integer numPag, Integer numRegPag, String buscarEmpresas);
 	
+	public Iterable <Empresa> listEmpresasProyecto();
 	 
 }

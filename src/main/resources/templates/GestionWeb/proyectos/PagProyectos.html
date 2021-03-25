@@ -50,7 +50,7 @@
   			<form class="form-inline" action="#" th:action="@{/gestionWeb/proyectos/pagproyecto}" th:object="${objBusqueda}" method="post">
   				<div class="form-group mx-sm-3 mb-2">
     				<label for="buscarApellidos" th:text="'  Proyecto:  '"></label>
-    				<input type="text" class="form-control" th:id="idBuscarProyecto" th:name="buscarProyecto" th:maxlength="25" th:field="*{proyectoBusqueda}" >
+    				<input type="text" class="form-control" th:id="idBuscarProyecto" th:name="buscarProyecto" th:maxlength="25" th:field="*{nomProyecto}" >
     				<button type="submit" class="btn btn-primary">Buscar</button>    
  				</div>	
 			</form>

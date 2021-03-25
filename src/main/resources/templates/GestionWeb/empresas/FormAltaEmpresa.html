@@ -66,56 +66,93 @@ h5 {
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Empresas</div>
 		</div>
-		<form th:action="@{/gestionWeb/empresa/altaempresa}" th:object="${datosEmpresaWeb}" method="post">
+		<form th:action="@{/gestionWeb/empresas/altaempresa}" th:object="${datosEmpresaWeb}" method="post">
 		<div class="row">
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Datos Empresa</div>
+  				<div class="subtitulo-pag2">Datos Nueva Empresa</div>
   			</div>
   			<div class="col-1"></div>
   		</div>
   		
 		<div class="row">
 			<div class="col-1"></div>
-  			<div class="col-2" style="border-bottom: 2px solid #000; border-top: 2px solid #000"> </div>
-  			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
+  			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
-					<div class="col-md-5 mb-3">
+					<div class="col-md-3 mb-4">
 						<label for="validationNombre" th:text="'Nombre Empresa'"></label> 
 						<input type="text" class="form-control" id="idNombreWeb" th:field="*{nomEmpresaWeb}" th:maxlength="25" required>
 					</div>
-					<div class="col-md-5 mb-3">
+					<div class="col-md-2 mb-4">
 						<label for="validaCIF" th:text="'CIF' "></label>
-						<input type="text" class="form-control" id="idCIFEmpresaWeb" th:field="*{CIFEmpresaWeb}" th:maxlength="25" required>
+						<input type="text" class="form-control" id="idCIFEmpresaWeb" th:field="*{CIFWeb}" th:maxlength="25">
 					</div>
 						
-					<div class="col-md-2 mb-3">
+					<div class="col-md-5 mb-4">
 						<label for="labelDireccion" th:text="'Dirección'"></label> 
-						<input type="text" class="form-control" id="idDireccionWeb" th:field="*{direccionWeb}" th:maxlength="25">
+						<input type="text" class="form-control" id="idDireccionWeb" th:field="*{direcionWeb}" th:maxlength="25">
+					</div>
+					
+					<div class="col-md-2 mb-4">
+						<label for="labelDireccion" th:text="'Teléfono'"></label> 
+						<input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefonoWeb}" th:maxlength="14">
 					</div>
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-7 mb-3">
-						<label for="validaTelefMovil" th:text="'Teléfono' "></label>
-						 <input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefMovilWeb}" th:maxlength="14" required>
+					<div class="col-md-3 mb-3">
+						<label for="validaNombreContacto1" th:text="'Nombre Contacto 1'"></label> 
+						<input type="text" class="form-control" id="nomContacto1Web" th:field="*{nomContacto1Web}" th:maxlength="25">
 					</div>
 					<div class="col-md-2 mb-3">
+						<label for="validaEmailContacto1" th:text="'Email Contacto 1' "></label>
+						<input type="text" class="form-control" id="idEMailContacto1Web" th:field="*{emailContacto1Web}" th:maxlength="35">
+					</div>
+						
+					<div class="col-md-5 mb-3">
+						<label for="validaTelefContacto1" th:text="'Telefono Contacto 1'"></label> 
+						<input type="text" class="form-control" id="idDireccionWeb" th:field="*{telefContacto1Web}" th:maxlength="14">
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="col-md-3 mb-3">
+						<label for="validaNombreContacto2" th:text="'Nombre Contacto 2'"></label> 
+						<input type="text" class="form-control" id="nomContacto1Web" th:field="*{nomContacto2Web}" th:maxlength="25" >
+					</div>
+					<div class="col-md-2 mb-3">
+						<label for="validaEmailContacto2" th:text="'Email Contacto 2' "></label>
+						<input type="text" class="form-control" id="idEMailContacto1Web" th:field="*{emailContacto2Web}" th:maxlength="35" >
+					</div>
+						
+					<div class="col-md-5 mb-3">
+						<label for="validaTelefContacto2" th:text="'Telefono Contacto 2'"></label> 
+						<input type="text" class="form-control" id="idTelefonoWeb" th:field="*{telefContacto2Web}" th:maxlength="14">
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="col-md-2 mb-4">
 						<label for="labelCP" th:text="'Codigo postal' "></label>
 						<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
 					</div>
-					<div class="col-md-3 mb-3">
+					<div class="col-md-4 mb-4">
 						<div class="form-group">
 							<label for="labelPais" th:text="'Provincia empresa: ' "></label>
 							<select th:object="${empleadoWeb}" class="form-control" name="provinciaEmpresa" id="idProvinciaEmpresa">
-								<option th:value="0" th:text="'Seleccionar Provincia empresa' "></option>
-								<option th:each ="provinEmpresa:${empleadoWeb.paisWeb}"
-   						 			th:value="${provinEmpresa.idPais}"
-  						  			th:text ="${provinEmpresa.nombrePais}">
+								<option th:value="0" th:text="'Seleccionar Provincia' "></option>
+								<option th:each ="provinEmpresa:${provinciasWeb}"
+   						 			th:value="${provinEmpresa.idProvincia}"
+  						  			th:text ="${provinEmpresa.provincia}">
   								</option>
     						</select>
 						</div>
+					</div>
+					<div class="col-md-3 mb-4">			
+					</div>
+					
+					<div class="col-md-3 mb-4">
 					</div>
 				</div>
 			 </div>
@@ -124,7 +161,7 @@ h5 {
 		 
  		<div class="row">
  			<div class="col-1"></div>
- 			<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
+ 			<div class="col-2"><a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
  			<div class="col-5"></div>
  			<div class="col-3">	
 				<button type="submit" class="btn btn-primary">Guardar</button>
