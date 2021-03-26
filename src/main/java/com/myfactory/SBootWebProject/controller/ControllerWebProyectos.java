@@ -86,10 +86,10 @@ public class ControllerWebProyectos {
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
 
-	@GetMapping("/formaltaempresa")
+	@GetMapping("/formaltaproyecto")
  	public String formularioAltaEmpresa(Model modelo)  {
 		
-	 BeanEmpresaWeb datosEmpresaWeb = new BeanEmpresaWeb ();
+	 BeanProyectoWeb datosProyectoWeb = new BeanProyectoWeb ();
 			
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
@@ -99,10 +99,13 @@ public class ControllerWebProyectos {
 	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
 	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
 	 
+	 
+	 modelo.addAttribute("listaEmprDispProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
+	 
 	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
 	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
 	 
-	 modelo.addAttribute("datosEmpresaWeb", datosEmpresaWeb);
+	 modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
 	 
 	 return "GestionWeb/proyectos/FormAltaProyecto";
 	}
@@ -115,7 +118,7 @@ public class ControllerWebProyectos {
 		
 		Proyecto nuevoProyecto = new Proyecto();
 		
-		nuevoProyecto.setNomProyecto(formProyectoWeb.getNomProyecto() );
+		// nuevoProyecto.setNomProyecto(formProyectoWeb.getNomProyecto() );
 		nuevoProyecto.setImpProyecto( formProyectoWeb.getImpProyectoWeb());
 		
 		servJPAProyecto.altaProyecto(nuevoProyecto);
@@ -285,7 +288,6 @@ public class ControllerWebProyectos {
 		return "GestionWeb/proyectos/PagProyectos";
 	}
 	
-	
 	private List<Empresa> obtenerEmpresasDisponibles(List <Empresa> listaEmpresaYaSelec)
 	{
 	  List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
@@ -344,5 +346,64 @@ public class ControllerWebProyectos {
 	 }
 	 
 	return listEmpleadosDisponibles;
-	}	
+	}
+	
+	@RequestMapping(value = "/anadirempresajax" )
+	public String anadirEmpresaAjax(@RequestParam("idEmpresa") String idEmpresa, @RequestParam(name="objList")  List<Empresa> listEmpresasDisponibles,  Model modelo) {
+	    
+		System.out.println(listEmpresasDisponibles);
+		List<Empresa> listEmpresasDisponibles2 = new ArrayList<Empresa>();
+		Empresa empresa = new Empresa();
+		empresa.setIdEmpresa(new Integer (idEmpresa));
+		empresa.setNomEmpresa("EEE"); 
+		listEmpresasDisponibles2.add(empresa);
+		
+		List<Empresa> listEmpresasSelec = new ArrayList<Empresa>();
+		Empresa empresa2 = new Empresa();
+		empresa2.setIdEmpresa(new Integer (idEmpresa));
+		empresa2.setNomEmpresa("EEE"); 
+		listEmpresasDisponibles2.add(empresa2);
+		
+		modelo.addAttribute("listaEmprSelecProyecto", listEmpresasSelec);
+		modelo.addAttribute("listaEmprDispProyecto", listEmpresasDisponibles);
+		
+		return "GestionWeb/fragments/SeleccionEmpresasProyecto :: SelecEmprProyecto";
+	}
+	
+	@RequestMapping(value = "/suprimirempresajax" )
+	public String suprimirEmpresAjax(@RequestParam("idEmpresa") String idEmpresa, Model modelo) {
+	    List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
+		Empresa empresa = new Empresa();
+		empresa.setIdEmpresa(new Integer (idEmpresa));
+		empresa.setNomEmpresa("EEE"); 
+		listEmpresasDisponibles.add(empresa);
+ 
+		modelo.addAttribute("listaEmpresasProyecto", listEmpresasDisponibles);
+		return "GestionWeb/fragments/SeleccionEmpresasProyecto :: SelecEmprProyecto";
+	}
+	
+	
+	@RequestMapping(value = "/anadirempleadoajax" )
+	public String anadirEmpleadoAjax(@RequestParam("idEmpleado") String idEmpleado, Model modelo) {
+	    List<Empleado> listEmpleadoDisponibles = new ArrayList<Empleado>();
+	    Empleado empleado = new Empleado();
+		empleado.setIdEmpleado(new Long (idEmpleado));
+		empleado.setNombre("EEE"); 
+		listEmpleadoDisponibles.add(empleado);
+ 
+		modelo.addAttribute("listaEmpresasProyecto", listEmpleadoDisponibles);
+		return "GestionWeb/fragments/SeleccionEmpleadosProyecto :: SelecEmplProyecto";
+	}
+	
+	@RequestMapping(value = "/suprimirempleadoajax" )
+	public String suprimirEmpleadoAjax(@RequestParam("idEmpleado") String idEmpleado, Model modelo) {
+	    List<Empleado> listEmpresasDisponibles = new ArrayList<Empleado>();
+	    Empleado empleado = new Empleado();
+	    empleado.setIdEmpleado(new Long (idEmpleado));
+	    empleado.setNombre("EEE"); 
+		listEmpresasDisponibles.add(empleado);
+ 
+		modelo.addAttribute("listaEmpresasProyecto", listEmpresasDisponibles);
+		return "GestionWeb/fragments/SeleccionEmpresasProyecto :: SelecEmprProyecto";
+	}
 }

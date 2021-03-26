@@ -7,7 +7,7 @@
   </head>
 
   <body>
-		<header th:fragment="anadirEmplProyecto">
+		<header th:fragment="SelecEmplProyecto">
      		<table class="table table-sm">
 				<thead class="thead-light">
 					<tr>
@@ -17,14 +17,14 @@
 					</tr>
 				</thead>
 				<tbody class="table-striped">
-					<tr th:each="listEmpleProyecto, iterStat :${listaEmpresasProyecto}">
+					<tr th:each="listEmpleProyecto, iterStat :${listaEmpleadosProyecto}">
 					<td>
 						<div style="display: flex; justify-content: center; align-items: center;"> 
 						 <input type="checkbox" th:id="'idCheckEmpleadoSel'+ ${iterStat.index}" th:name="checksEmpleadoSel[]" th:onclick="'anadirEmpleadoProyecto(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listEmpleProyecto.idEmpleado}" class="btn btn-primary btn-sm" />						
 					</div>
 				</td>
 					<td th:text="${listEmpleProyecto.idEmpleado}"></td>
-					<td th:text="${listEmpleProyecto.nomEmpleado}"></td>
+					<td th:text="${listEmpleProyecto.nombre}"></td>
 				</tr>
 				</tbody>
 			</table>

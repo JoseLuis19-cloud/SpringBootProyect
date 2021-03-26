@@ -44,6 +44,9 @@ public class Proyecto implements Serializable {
 	
 	@Column(name = "IMP_PROYECTO")
 	private Long impProyecto;
+	
+	@Column(name = "UBICACION_PROYECTO")
+	private String ubicacionProyecto;
 
 //	@ManyToMany(fetch = FetchType.EAGER)
 	//	@JoinTable(
@@ -78,6 +81,14 @@ public class Proyecto implements Serializable {
 //	public void setEmpleados(Set<Empleado> empleados) {
 //		this.empleados = empleados;
 //	}
+
+	public String getUbicacionProyecto() {
+		return ubicacionProyecto;
+	}
+
+	public void setUbicacionProyecto(String ubicacionProyecto) {
+		this.ubicacionProyecto = ubicacionProyecto;
+	}
 
 	public Integer getIdProyecto() {
 		return idProyecto;

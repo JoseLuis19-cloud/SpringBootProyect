@@ -126,7 +126,7 @@ public class CargarBeansDatos  implements Serializable {
 		  BeanProyectoWeb proyectoWeb = new BeanProyectoWeb();
 		  
 		  proyectoWeb.setIdProyectoWeb(proyecto.getIdProyecto() );
-		  proyectoWeb.setNumProyecto( proyecto.getNomProyecto()  );
+		  proyectoWeb.setNomProyectoWeb(proyecto.getNomProyecto()  );
 		  proyectoWeb.setFecIniProyectoWeb(  new SimpleDateFormat("dd/MM/yyyy").format(proyecto.getFecIniProyecto() ));
 		  proyectoWeb.setFecFinProyectoWeb(  new SimpleDateFormat("dd/MM/yyyy").format(proyecto.getFecFinProyecto() ));
 		  return proyectoWeb;

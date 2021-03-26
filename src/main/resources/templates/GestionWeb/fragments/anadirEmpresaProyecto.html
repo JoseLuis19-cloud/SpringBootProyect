@@ -11,7 +11,7 @@
      			<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th th:text="'Seleccionado'"></th>
+							<th th:text="'Marque'"></th>
 							<th th:text="'Id. Empresa'"></th>
 							<th th:text="'Empresa'"></th>
 						</tr>
@@ -20,7 +20,7 @@
 						<tr th:each="listEmpreProyecto, iterStat :${listaEmpresasProyecto}">
 						 	<td>
 						 		<div style="display: flex; justify-content: center; align-items: center;"> 
-								 <input type="checkbox" th:id="'idCheckEmpresaSel'+ ${iterStat.index}" th:name="checksEmpresaSel[]" th:onclick="'anadirEmpresaProyecto(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listEmpreProyecto.idEmpresa}" class="btn btn-primary btn-sm" />						
+								 <input type="checkbox" th:id="'idCheckEmpresaDis'+ ${iterStat.index}" th:name="checkEmpresaDis[]" th:checked="false" th:value="${listEmpreProyecto.idEmpresa}" class="btn btn-primary btn-sm" />						
 								</div>
 							</td>
 							<td th:text="${listEmpreProyecto.idEmpresa}"></td>

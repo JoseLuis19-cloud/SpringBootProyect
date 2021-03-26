@@ -46,32 +46,101 @@ h5 {
 	display: inline-block !important;
 	padding: 3px 15px !important;
 	margin-left: 10px !important;
-}
+   }
 
 </style>
+
 	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 	
 	 <script th:inline="javascript">
-	 	$(document).ready(function(){
- 
-			$("#idLinkCrearUsu").click(function(){
-		 		$("#myModalAltaUsu").modal();
-		 	});
-			
-			$("#idLinkCambiarFoto").click(function(){
-		 		$("#myModalCambiarFoto").modal();
-		 	});
 	 
-			
+	 /*<![CDATA[*/
+		 var empDispoPro = [[${listaEmprDispProyecto}]];
+	/*]]>*/	
+	 
+	 	$(document).ready(function() {	
+	 		
+	 		$('[name="checkEmpresaDis[]"]').click(function() {
+	 		    alert("check 1");
+			    arrValueCheck = $('[name="checkEmpresaDis[]"]:checked').map(function(){
+			    return this.value;
+			 }).get();
+			    
+			    alert(arrValueCheck);
+			// var str = checkEmpresaDis.join(',');
+			// $('#arr').text(JSON.stringify(arr));
+			// $('#str').text(str);
 	 	 });
+	 		
+	 		$( "#idLinkAnadir").click(function() {
+	 		 	  alert("pinchado");
+	 			// $("#idDivEmpresasUTE").load('/gestionWeb/proyectos/anadirempresajax', '1');
+	 			
+	 		 var reservationJson = $('#form-signin').serialize();
+	 	   $.ajax({
+	 	       //     type : "POST",
+	 	            contentType : "application/json",
+	 	            url : "/gestionWeb/proyectos/anadirempresajax",
+	 	            data : {"idEmpresa" : '1', 
+	 	            	    "objList" : reservationJson},
+	 	            dataType : 'json',
+	 	            timeout : 100000,
+	 	            success : function(data) {
+	 	              console.log("SUCCESS: ", data);
+	 	            },
+	 	            error : function(e) {
+	 	              console.log("ERROR: ", e);
+	 	            },
+	 	            done : function(e) {
+	 	              console.log("DONE");
+	 	            }
+	 	          });
+	 	   
+	 		});
+	 		
+	 		
+	 		$( "#idLinkSuprimir").click(function() {
+	 		 	  alert("pinchado");
+	 	   $.ajax({
+	 	       //     type : "POST",
+	 	            contentType : "application/json",
+	 	            url : "/gestionWeb/proyectos/suprimirempresajax",
+	 	            data : {"idEmpresa" : '1'},
+	 	            dataType : 'json',
+	 	            timeout : 100000,
+	 	            success : function(data) {
+	 	              console.log("SUCCESS: ", data);
+	 	            },
+	 	            error : function(e) {
+	 	              console.log("ERROR: ", e);
+	 	            },
+	 	            done : function(e) {
+	 	              console.log("DONE");
+	 	            }
+	 	          });
+	 	   
+	 		});
+	 		
+	 	});	 	 
+	 	
+	// 	function anadirEmpresaAjax()
+	//    {
+	//     alert("Buenas");
+	// 	 var urlAjax = '/gestionWeb/proyectos/anadirEmpresajax';
+	// 	 urlAjax = urlAjax + '/'  + '1';
+	// 	 alert(urlAjax);
+	// 	 $("#idDivEmpresasUTE").load(urlAjax);
+	 //   }
 	</script>
+	
 </head>
 
-<body>
-
+ <body>
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
+	<form th:action="@{/gestionWeb/empleados/modifproyecto}" method="POST" th:object="${empDispoPro}"  id="form-signin"> </form>
 	
 	<div class="container-fluid" style="margin-top:0px;">
 		<div class="row">
@@ -91,28 +160,50 @@ h5 {
 			<div class="col-1"></div>
   			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
-						<div class="col-md-4 mb-4">
+  				
+						<div class="col-md-3 mb-5">
 							<label for="validationProyecto" th:text="'Nombre Proyecto'"></label> 
-							<input type="text" class="form-control" id="idNombreWeb" th:field="*{nomProyecto}" th:maxlength="25" required>
+							<input type="text" class="form-control" id="idNombreProyecto" th:field="*{nomProyectoWeb}" th:maxlength="30" required>
 						</div>
-						<div class="col-md-2 mb-4">
+						
+						<div class="col-md-3 mb-5">
+							<label for="validationUbiProyecto" th:text="'Ubicacion Proyecto'"></label> 
+							<input type="text" class="form-control" id="idUbicacionProyecto" th:field="*{ubicacionProyectoWeb}" th:maxlength="30" required>
+						</div>
+						
+						<div class="col-md-2 mb-5">
 							<label for="validationImpProyecto" th:text="'Importe Proyecto'"></label> 
-							<input type="text" class="form-control" id="idImpProyectoWeb" th:field="*{impProyectoWeb}" th:maxlength="14">
+							<input type="text" class="form-control" id="idImpProyecto" th:field="*{impProyectoWeb}" th:maxlength="14">
 						</div>
-						<div class="col-md-3 mb-4">
-							<label for="validaApellidos" th:text="'Fecha Inicio del proyecto' "></label>
-							<input type="text" class="form-control" id="idFecIniProyectoWeb" th:field="*{fecIniProyectoWeb}" th:maxlength="10" >
+						
+						<div class="col-md-2 mb-5">
+							<label for="labelFecIniProyecto" th:text="'Fecha Inicio del proyecto' "></label>
+							<div class="input-group">
+								<div class="input-group-addon">
+       							 <i class="fa fa-calendar"> </i> 
+      					 		</div>
+       							<input class="form-control" id="idFecIniProyecto" name="fecIniProyecto" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+								<input type="hidden" id="idFecIniProyectoHidden" name="fecIniProyectoHidden"  th:field="*{fecIniProyectoWeb}"/>
+							</div>
 						</div>
-						<div class="col-md-3 mb-4">
-							<label for="validaTelefMovil" th:text="'Fecha Fin del proyecto' "></label>
-							<input type="text" class="form-control" id="idFecFinProyectoWeb" th:field="*{fecFinProyectoWeb}" th:maxlength="10">
+						
+						<div class="col-md-2 mb-5">
+						   <label for="labelFecFinProyecto" th:text="'Fecha Fin del proyecto' "></label>
+							<div class="input-group">
+								<div class="input-group-addon">
+       							 <i class="fa fa-calendar"> </i> 
+      					 		</div>
+       							<input class="form-control" id="fecFinProyecto" name="fecFinProyecto" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+								<input type="hidden" id="idFecIniProyectoHidden" name="fecFinProyectoHidden"  th:field="*{fecFinProyectoWeb}"/>
+							</div>
 						</div>
 				</div>
 		   	
 				<div class="form-row">
 					<div class="col-md-5 mb-3">
-						<div id="idDivSubMenu1Usu">
-						<div th:insert="gestionMenus/fragments/anadirEmpProyecto :: anadirEmpresaProyecto"></div>
+						<div id="idDivEmpresasDis">
+							<div class="subtitulo-pag3">Añada Empresas a proyecto</div>
+						<div th:insert="GestionWeb/fragments/anadirEmpresaProyecto :: anadirEmprProyecto"></div>
 						</div>
 			 		</div>
 				
@@ -120,31 +211,61 @@ h5 {
 						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  						<br/>
  						<br/>
-				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  th:onclick="th:anadirEmpresaProyecto()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
+				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  class="btn btn-primary btn-sm" role="button"> Añadir &#8680;</a>
 						<br/>
-						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimir'" th:onclick="th:eliminarEmpresaProyecto()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
+						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimir'" th:onclick="eliminarEmpresaAjax()" class="btn btn-colour-1" role="button">&#8678; Suprimir </a>
+						<br/>
+						</div>
+					</div>
+					
+					<div class="col-md-5 mb-3">
+						<div id="idDivEmpresasUTE">
+							<div class="subtitulo-pag3">UTE de empresas que forman del proyecto</div>
+							<div th:insert="GestionWeb/fragments/SeleccionEmpresasProyecto :: SelecEmprProyecto"></div>	
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="col-md-5 mb-3">
+						<div id="idDivSubMenu1Usu">
+						<div class="subtitulo-pag3"> Añada un empleado Beigar para el proyecto</div>
+						<div th:insert="GestionWeb/fragments/anadirEmpleadoProyecto :: anadirEmplProyecto"></div>
+						</div>
+			 		</div>
+				
+					<div class="col-md-2 mb-3">
+						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+ 						<br/>
+ 						<br/>
+				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  th:onclick="anadirEmpresaProyecto()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
+						<br/>
+						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimir'" th:onclick="eliminarEmpresaProyecto()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
 						<br/>
 						</div> 
 					</div>
 					
 					<div class="col-md-5 mb-3">
-						<div id="idDivSubMenu2Usu">
-							<div th:insert="gestionMenus/fragments/anadirEmpProyecto :: anadirEmpleadoProyecto"></div>	
+						<div id="idDivEmpleadoDis">
+						 <div class="subtitulo-pag3">Empleados Beigar para el proyecto</div>
+							<div th:insert="GestionWeb/fragments/SeleccionEmpleadoProyecto :: SelecEmplProyecto"></div>	
 						</div>
 					</div>
 				</div>
+				
+			</div>
 			<div class="col-1"></div>	
 		</div>
 
- 				<div class="row">
- 					<div class="col-1"></div>
- 					<div class="col-2"><a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
- 					<div class="col-5"></div>
- 				</div>
-			</div>
+ 		<div class="row">
+ 			<div class="col-1"></div>
+ 			<div class="col-2"><a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
+ 			<div class="col-5"></div>
+ 			</div>
+ 				
  		</form>
- 	</div>
-	
+	</div>
+ 		
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
@@ -159,7 +280,7 @@ h5 {
             autoclose: true,
         });
         
-        var date_input=$('input[name="fecAltaUsu"]'); //our date input has the name "date"
+        var date_input=$('input[name="fecFinProyecto"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         
         date_input.datepicker({
@@ -170,6 +291,8 @@ h5 {
         });
    
     });
+    
+    
  </script>
 
 </body>

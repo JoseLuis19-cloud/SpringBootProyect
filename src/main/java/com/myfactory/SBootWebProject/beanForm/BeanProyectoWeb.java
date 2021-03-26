@@ -23,13 +23,23 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 	private String fecFinProyectoWeb;
 
 	private Long impProyectoWeb;
+	
+	private String  ubicacionProyectoWeb;
 	 
 	public BeanProyectoWeb() {
 	}
 	    
-	public BeanProyectoWeb(Integer idProyectoWeb, String nomProyecto, String fecIniProyectoWeb, String fecFinProyectoWeb, Long impProyectoWeb) {
+	public BeanProyectoWeb(Integer idProyectoWeb, String nomProyecto, String fecIniProyectoWeb, String fecFinProyectoWeb, Long impProyectoWeb, String  ubicacionProyectoWeb) {
 			super();
 			
+	}
+
+	public String getUbicacionProyectoWeb() {
+		return ubicacionProyectoWeb;
+	}
+
+	public void setUbicacionProyectoWeb(String ubicacionProyectoWeb) {
+		this.ubicacionProyectoWeb = ubicacionProyectoWeb;
 	}
 
 	public String getNomProyectoWeb() {
