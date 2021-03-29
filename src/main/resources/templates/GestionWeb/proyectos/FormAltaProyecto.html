@@ -57,9 +57,18 @@ h5 {
 	 <script th:inline="javascript">
 	 
 	 /*<![CDATA[*/
-		 var empDispoPro = [[${listaEmprDispProyecto}]];
+		 var empDispoPro = [[${lprueba}]];
+		 console.log("a");
+		 console.log(empDispoPro);
+
 	/*]]>*/	
-	 
+	
+	
+		 var person = {
+            Name: "1",
+            Address: "2"
+        }
+	
 	 	$(document).ready(function() {	
 	 		
 	 		$('[name="checkEmpresaDis[]"]').click(function() {
@@ -68,23 +77,30 @@ h5 {
 			    return this.value;
 			 }).get();
 			    
-			    alert(arrValueCheck);
+			 alert(arrValueCheck);
 			// var str = checkEmpresaDis.join(',');
 			// $('#arr').text(JSON.stringify(arr));
 			// $('#str').text(str);
 	 	 });
 	 		
 	 		$( "#idLinkAnadir").click(function() {
-	 		 	  alert("pinchado");
+	 		 	alert("pinchado");
 	 			// $("#idDivEmpresasUTE").load('/gestionWeb/proyectos/anadirempresajax', '1');
 	 			
-	 		 var reservationJson = $('#form-signin').serialize();
-	 	   $.ajax({
-	 	       //     type : "POST",
-	 	            contentType : "application/json",
+	 		//	var obj = { customer: search };
+    	//		var data2send = JSON.stringify(obj);
+    			
+    			console.log(person);
+    			
+    		//	 data : {"idEmpresa" : '1', 
+	        //    	    "search" : JSON.stringify(search) },
+
+	 	//	 var reservationJson = $('#form-signin').serialize();
+	 	   		$.ajax({
+	 	           // type : "POST",
+	 	            contentType : "application/json; charset=utf-8", 
 	 	            url : "/gestionWeb/proyectos/anadirempresajax",
-	 	            data : {"idEmpresa" : '1', 
-	 	            	    "objList" : reservationJson},
+	 	            data : {"search" : JSON.stringify(person) },
 	 	            dataType : 'json',
 	 	            timeout : 100000,
 	 	            success : function(data) {
@@ -104,7 +120,7 @@ h5 {
 	 		$( "#idLinkSuprimir").click(function() {
 	 		 	  alert("pinchado");
 	 	   $.ajax({
-	 	       //     type : "POST",
+	 	       //   type : "POST",
 	 	            contentType : "application/json",
 	 	            url : "/gestionWeb/proyectos/suprimirempresajax",
 	 	            data : {"idEmpresa" : '1'},
@@ -139,8 +155,6 @@ h5 {
 
  <body>
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
-	
-	<form th:action="@{/gestionWeb/empleados/modifproyecto}" method="POST" th:object="${empDispoPro}"  id="form-signin"> </form>
 	
 	<div class="container-fluid" style="margin-top:0px;">
 		<div class="row">
@@ -291,8 +305,7 @@ h5 {
         });
    
     });
-    
-    
+     
  </script>
 
 </body>

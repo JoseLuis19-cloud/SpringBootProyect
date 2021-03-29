@@ -23,11 +23,11 @@ public class BeanMenuUsuarioSession implements Serializable, Cloneable {
 		
 	};
 
-	public BeanMenuUsuarioSession(Integer idMenuSesion, Integer numOrdenMenuSesion, String textoMenuSesion,
+	public BeanMenuUsuarioSession(Integer idMenuSesion, String textoMenuSesion,
 			String hrefAplicacionSesion, List<BeanSubMenuN1UsuarioSession> listBeanSubMenuN1UsuarioSessionParam) {
 		super();
 		this.idMenuSesion = idMenuSesion;
-		this.numOrdenMenuSesion = numOrdenMenuSesion;
+	//	this.numOrdenMenuSesion = numOrdenMenuSesion;
 		this.textoMenuSesion = textoMenuSesion;
 		this.hrefAplicacionSesion= hrefAplicacionSesion;
 		this.listBeanSubMenuN1UsuSession = listBeanSubMenuN1UsuarioSessionParam;

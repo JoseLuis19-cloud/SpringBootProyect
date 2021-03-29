@@ -26,9 +26,9 @@ public class MenusUsuario implements Serializable {
 	@JoinColumn(name = "ID_USUARIO_FK", nullable = false)
 	private User user;
 	
- 	@Column(name = "NUM_ORDEN", nullable = false)
- 	@JoinColumn(name = "ID_USUARIO_FK", nullable = false)
- 	private Integer numOrden;
+ //	@Column(name = "NUM_ORDEN", nullable = false)
+ //	@JoinColumn(name = "ID_USUARIO_FK", nullable = false)
+ //	private Integer numOrden;
 	
  	@ManyToOne(fetch = FetchType.LAZY)
  	@JoinColumn(name = "COD_NIVEL_1_FK", nullable = false)
@@ -54,13 +54,13 @@ public class MenusUsuario implements Serializable {
 		this.user = user;
 	}
 
-	public Integer getNumOrden() {
+/*	public Integer getNumOrden() {
 		return numOrden;
 	}
 
 	public void setNumOrden(Integer numOrden) {
 		this.numOrden = numOrden;
-	}
+	} */
 
 	public Menu getMenu() {
 		return menu;

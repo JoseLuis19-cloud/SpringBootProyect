@@ -6,11 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,9 +22,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,10 +38,12 @@ import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanPrueba1;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuN1UsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
+import com.myfactory.SBootWebProject.beanForm.Person;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.dto.UserDTO;
@@ -85,6 +91,8 @@ public class ControllerWebProyectos {
 	BeanProyectoWeb beanEmpleadoWeb;
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
+	
+	public  List<BeanPrueba1> lPrueba1 = new ArrayList<BeanPrueba1>();
 
 	@GetMapping("/formaltaproyecto")
  	public String formularioAltaEmpresa(Model modelo)  {
@@ -99,9 +107,13 @@ public class ControllerWebProyectos {
 	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
 	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
 	 
+	 BeanPrueba1 prueba1 = new BeanPrueba1();
+	 prueba1.setApellidosWeb("1");
+	 prueba1.setNombreWeb("2");
 	 
-	 modelo.addAttribute("listaEmprDispProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
-	 
+	 lPrueba1.add(prueba1);
+
+	 modelo.addAttribute("lprueba", lPrueba1);
 	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
 	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
 	 
@@ -347,25 +359,32 @@ public class ControllerWebProyectos {
 	 
 	return listEmpleadosDisponibles;
 	}
+ 
+	@RequestMapping(value = "/anadirempresajax" /*, consumes = MediaType.APPLICATION_JSON_VALUE */ )
+//	public String anadirEmpresaAjax(@RequestParam(name="idEmpresa") String idEmpresa, 
+//									@RequestParam(name="objList")  List<BeanPrueba1> lPru1, Model modelo) {
+		
+	//	public String anadirEmpresaAjax(/* @RequestParam(name="idEmpresa") String idEmpresa, */
+	//			@RequestParam(name="search")  Person per1, Model modelo) {
 	
-	@RequestMapping(value = "/anadirempresajax" )
-	public String anadirEmpresaAjax(@RequestParam("idEmpresa") String idEmpresa, @RequestParam(name="objList")  List<Empresa> listEmpresasDisponibles,  Model modelo) {
-	    
-		System.out.println(listEmpresasDisponibles);
+	
+	public  @ResponseBody String  getSearchUserProfiles(@RequestBody Person per1, HttpServletRequest request) {
+
+	    System.out.println (per1);
 		List<Empresa> listEmpresasDisponibles2 = new ArrayList<Empresa>();
 		Empresa empresa = new Empresa();
-		empresa.setIdEmpresa(new Integer (idEmpresa));
+//		empresa.setIdEmpresa(new Integer (idEmpresa));
 		empresa.setNomEmpresa("EEE"); 
 		listEmpresasDisponibles2.add(empresa);
 		
 		List<Empresa> listEmpresasSelec = new ArrayList<Empresa>();
 		Empresa empresa2 = new Empresa();
-		empresa2.setIdEmpresa(new Integer (idEmpresa));
+	//	empresa2.setIdEmpresa(new Integer (idEmpresa));
 		empresa2.setNomEmpresa("EEE"); 
 		listEmpresasDisponibles2.add(empresa2);
 		
-		modelo.addAttribute("listaEmprSelecProyecto", listEmpresasSelec);
-		modelo.addAttribute("listaEmprDispProyecto", listEmpresasDisponibles);
+	//	modelo.addAttribute("listaEmprSelecProyecto", listEmpresasSelec);
+//		modelo.addAttribute("listaEmprDispProyecto", listEmpresasDisponibles2);
 		
 		return "GestionWeb/fragments/SeleccionEmpresasProyecto :: SelecEmprProyecto";
 	}
@@ -381,7 +400,6 @@ public class ControllerWebProyectos {
 		modelo.addAttribute("listaEmpresasProyecto", listEmpresasDisponibles);
 		return "GestionWeb/fragments/SeleccionEmpresasProyecto :: SelecEmprProyecto";
 	}
-	
 	
 	@RequestMapping(value = "/anadirempleadoajax" )
 	public String anadirEmpleadoAjax(@RequestParam("idEmpleado") String idEmpleado, Model modelo) {
@@ -406,4 +424,7 @@ public class ControllerWebProyectos {
 		modelo.addAttribute("listaEmpresasProyecto", listEmpresasDisponibles);
 		return "GestionWeb/fragments/SeleccionEmpresasProyecto :: SelecEmprProyecto";
 	}
+	
+	
+	
 }

@@ -87,7 +87,7 @@ public class AppController {
  		 	}
 
  	  // Instanciamos de la manera que pueda ser leido la estructura de beans de menu de la pagina Web.	
- 		 beanMenuPrinUsuario = new BeanMenuUsuarioSession(menuUsuarioIter.getIdMenu(), menuUsuarioIter.getNumOrden(), menuUsuarioIter.getMenu().getTextoMenu(), menuUsuarioIter.getMenu().getHrefAplicacion(), listSubMenuUsuSession );
+ 		 beanMenuPrinUsuario = new BeanMenuUsuarioSession(menuUsuarioIter.getIdMenu(), menuUsuarioIter.getMenu().getTextoMenu(), menuUsuarioIter.getMenu().getHrefAplicacion(), listSubMenuUsuSession );
  		 listMenuUsuarioSession.add(beanMenuPrinUsuario); 		
 	 	}
 	 	// CAMBIAR ESTO PRONTO EL 7
