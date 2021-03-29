@@ -41,6 +41,11 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 		return empleadoJPARepository.save(empleado);
 	}
 	
+	public void bajaEmpleado(Empleado empleado)
+	{
+	   empleadoJPARepository.save(empleado);
+	}
+	
 	@Override
 	public Iterable<Empleado> obtenerListEmpleados() {
 		return empleadoJPARepository.findAll() ;

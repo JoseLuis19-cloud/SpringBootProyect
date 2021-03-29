@@ -33,22 +33,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
-import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
-import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
-import com.myfactory.SBootWebProject.model.Factura;
-import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Pais;
 import com.myfactory.SBootWebProject.model.PuestoTrabajo;
-import com.myfactory.SBootWebProject.model.TpoCliente;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
@@ -73,14 +65,11 @@ public class ControllerWebEmpleados {
 	private String pathMacOS;
 
 	@GetMapping("/formeditarempleado")
-//	public String formularioEditarCliente(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
-	public String formularioEditarEmpleado(Model modelo)  {
-
-	// Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Integer(idEmpleado));
+	public String formularioEditarEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(1));
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
 		  
 		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get() ));
         
@@ -108,14 +97,107 @@ public class ControllerWebEmpleados {
 		
 		return "GestionWeb/empleados/FormEditarEmpleado";
 	}
+	
+	
+	@GetMapping("/formbajaempleado")
+	public String formularioBajaEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
+
+		byte[] blobBytes = null;
+		byte[] encode =null;
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
+		  
+		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get() ));
+        
+		try {
+		 	Blob blobImg = empleado.get().getImagenFotoEmpleado();
+	        blobBytes = blobImg.getBytes(1, (int) blobImg.length());
+	        
+	        modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
+			} 
+		catch (Exception e) {
+			System.out.println("error validacion");
+		}
+		
+		modelo.addAttribute("empleado", empleado);
+		modelo.addAttribute("objImagen", encode);
+		
+		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+		
+		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
+		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
+		
+		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "GestionWeb/empleados/FormBajaEmpleado";
+	}
+	
+	@RequestMapping(value = "/bajaempleado", method = RequestMethod.POST)
+	public String bajaempleado(Model modelo,  @Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb)  { 
+		
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
+		
+		empleado.get().setFecBajaEmplelado(datosEmpleadoWeb.getFecBajaEmpleladoWeb());
+		empleado.get().setIndbajaEmpleado(true); 
+		
+		servJPAEmpleado.bajaEmpleado(empleado.get());
+	
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+	}
+	
+	
+	@GetMapping("/formaltaempleado")
+	public String formularioaltaEmpleado(Model modelo)  {
+
+	// Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Integer(idEmpleado));
+
+	//	byte[] blobBytes = null;
+	//	byte[] encode =null;
+	//	Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(1));
+		
+		BeanEmpleadoWeb datosEmpleado = new BeanEmpleadoWeb() ;
+		  
+		datosEmpleado.setImpBrutoAnual2Web("0");
+		modelo.addAttribute("empleadoWeb", datosEmpleado   );
+        
+	/*	try {
+		 	Blob blobImg = empleado.get().getImagenFotoEmpleado();
+	        blobBytes = blobImg.getBytes(1, (int) blobImg.length());
+	        
+	        modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
+			} 
+		catch (Exception e) {
+			System.out.println("error validacion");
+		} */
+		
+	// 	modelo.addAttribute("empleado", empleado);
+	//	modelo.addAttribute("objImagen", encode);
+		
+		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+		
+		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
+		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
+		
+		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
+		beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
+		beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
+		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);	 
+		   
+		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "GestionWeb/empleados/FormAltaEmpleado";
+	}
 
 	@RequestMapping(value = "/altaempleado", method = RequestMethod.POST)
 	public String altaEmpleado(@Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
 					BindingResult resultValidacion,
 					RedirectAttributes redirectAttrs,
 					Model modelo, 
-					@RequestParam(value = "paisEmpleado", required = true) String codPais,
-					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo) {
+			 		@RequestParam(value = "paisEmpleado", required = true) String codPais,
+		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo)   {
 		
 		Empleado empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
 		
@@ -124,7 +206,7 @@ public class ControllerWebEmpleados {
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "GestionWeb/empleados/FormAltaEmpleado";
+		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";	 
 	}
 	
 	@RequestMapping(value = "/modifempleado", method = RequestMethod.POST)
@@ -134,23 +216,16 @@ public class ControllerWebEmpleados {
 					Model modelo, 
 					@RequestParam(value = "paisEmpleado", required = true) String codPais,
 					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo) {
-		
+	
 		Empleado empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+		empleado.setIdEmpleado( datosEmpleadoWeb.getIdEmpleadoWeb( ) );
 		
-		servJPAEmpleado.altaEmpleado(empleado);
+		servJPAEmpleado.modifEmpleado(empleado);
 		
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionWeb/empleados/FormEditarEmpleado";
-	}
-		
-	@GetMapping("/formbajaempleado")
-	public String formularioBajaCliente(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
-	// modelo.addAttribute("clienteWeb", cargarBeansDatos.cargarBeanCliente(cliente.get()) );
-	//  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-	//	return "redirect:/gestionWeb/formBajaCliente/";
-		return "GestionWeb/clientes/FormBajaEmpleado";
 	}
 	
 	@GetMapping("/formuploadfichero")
@@ -227,11 +302,11 @@ public class ControllerWebEmpleados {
 	
 	@RequestMapping("/pagempleadosNue")
 	public String paginacionEmpleadosNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
-												      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
-	 											      @RequestParam(value = "numPos", required = false) String numPos,
-	 											      @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag,
-	 											      @RequestParam(value = "apellidosBus", required = false) String apellidosBus,
-	 											      @ModelAttribute("objBusqueda") BeanCamposBusqueda busquedaCampo )
+												       @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
+	 											       @RequestParam(value = "numPos", required = false) String numPos,
+	 											       @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag,
+ 	 											       @RequestParam(value = "apellidosBus", required = false) String apellidosBus,
+	 											       @ModelAttribute("objBusqueda") BeanCamposBusqueda busquedaCampo )
 	{
 	 // Con esta variable sabemos la pagina exacta, dentro de todas paginacias posibles,  de donde llega a la paginacion.
 		int numPagInt = 0;
@@ -336,7 +411,6 @@ public class ControllerWebEmpleados {
 					{
 					numPosInt = numPagInt - 5 ;
 					}
-				
 				}
 			}
 		   else
@@ -352,7 +426,6 @@ public class ControllerWebEmpleados {
  			 numPosInt = Integer.parseInt(numPos);
 				}
 			}
-
 		
 		switch (numPosInt) {
 		case 1:
@@ -414,11 +487,16 @@ public class ControllerWebEmpleados {
 		empleado.setNombre( datosEmpleadoWeb.getNombreWeb() );
 		empleado.setDireccion(   datosEmpleadoWeb.getDireccionWeb() );
 		empleado.setEmail(datosEmpleadoWeb.getEmailWeb());
-		empleado.setImpBrutoAnual(new Float(datosEmpleadoWeb.getImpBrutoAnual2Web()));
+		if (datosEmpleadoWeb.getImpBrutoAnual2Web() != "" && datosEmpleadoWeb.getImpBrutoAnual2Web() != null)
+				{
+			empleado.setImpBrutoAnual(new Float(datosEmpleadoWeb.getImpBrutoAnual2Web()));
+		
+				}
+		 
 		empleado.setCodPostal(datosEmpleadoWeb.getCodPostalWeb());
 		
-		pais.setIdPais(new Integer(codPais) );
-		puestoTrabajo.setIdPuestoTrabajo( new Integer( codPuestoTrabajo) );
+	 	pais.setIdPais(new Integer(codPais ) );
+      	puestoTrabajo.setIdPuestoTrabajo( new Integer( codPuestoTrabajo) );
 		
 		empleado.setPais(pais);
 		empleado.setPuestoTrabajo(puestoTrabajo);
@@ -434,11 +512,7 @@ public class ControllerWebEmpleados {
 			 
 				}
 			}
-
-			
-
 		return empleado;
 	}
- 
-		
+ 	
 }

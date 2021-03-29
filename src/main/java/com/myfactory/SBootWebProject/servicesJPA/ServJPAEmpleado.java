@@ -14,6 +14,8 @@ public interface ServJPAEmpleado {
 	public Empleado altaEmpleado(Empleado empleado);
 	
 	public Empleado modifEmpleado(Empleado empleado);
+	
+	public void bajaEmpleado(Empleado empleado);
 
 	public Iterable<Empleado> obtenerListEmpleados() ;
 	

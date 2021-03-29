@@ -67,7 +67,6 @@ public class CargarBeansDatos  implements Serializable {
 		 clienteWeb.setIdTpoCliente(   cliente.getTpoCliente().getIdTpoCliente() );
 		//  facturaWeb.setFormasPago(factura.getFormaPago());
 		  
-		  
 		 // Factura nueva=(Factura)f.clone();
 		 return clienteWeb;
 	  }
@@ -88,8 +87,7 @@ public class CargarBeansDatos  implements Serializable {
  
 		 return beanUsuarioWeb;
 	  }
-	  
-	  
+
 	  public BeanEmpleadoWeb cargarBeanEmpleado (Empleado empleado)
 	  {
 		  BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
@@ -115,13 +113,21 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setCodPaisWeb( empleado.getPais().getIdPais());
 		  
 		  beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
-		  beanEmpleadoWeb.setCodPuestoTrabajoWeb( empleado.getPuestoTrabajo().getIdPuestoTrabajo());	  
-		  beanEmpleadoWeb.setImpBrutoAnual2Web(empleado.getImpBrutoAnual().toString());
+		  beanEmpleadoWeb.setCodPuestoTrabajoWeb(empleado.getPuestoTrabajo().getIdPuestoTrabajo());	  
+		  
+		  if (empleado.getImpBrutoAnual() != null)
+		  	{
+			  beanEmpleadoWeb.setImpBrutoAnual2Web(empleado.getImpBrutoAnual().toString());
+		  	}
+		  else
+		  {
+			  beanEmpleadoWeb.setImpBrutoAnual2Web("0");
+		  }
 		  
 		  return beanEmpleadoWeb;
 	  }
 	  
-	  public BeanProyectoWeb cargarBeanProyecto (Proyecto proyecto) 
+	  public BeanProyectoWeb cargarBeanProyecto(Proyecto proyecto) 
 	  {
 		  BeanProyectoWeb proyectoWeb = new BeanProyectoWeb();
 		  
@@ -146,7 +152,7 @@ public class CargarBeansDatos  implements Serializable {
 		  datosEmpresaWeb.setTelefContacto1Web(empresa.getTelefContacto1() );
 		  datosEmpresaWeb.setEmailContacto1Web(empresa.getEmailContacto1());
 		  
-		  datosEmpresaWeb.setNomContacto2Web(  empresa.getNomContacto2());
+		  datosEmpresaWeb.setNomContacto2Web( empresa.getNomContacto2());
 		  datosEmpresaWeb.setTelefContacto2Web(empresa.getTelefContacto2() );
 		  datosEmpresaWeb.setEmailContacto2Web(empresa.getEmailContacto2());
 		  
