@@ -163,15 +163,15 @@ h5 {
 						<div class="invalid-feedback" th:errors="*{impCliente}"></div>
 					</div>
 
-					<div class="d-flex">
-  						<div class="mr-auto p-2">
-  							<a th:href="@{/gestionWeb/clientes/pagclientesNue}" class="btn btn-primary" role="button">Volver</a>
-  						</div>
- 
-  						<div class="p-2">
-						 <button type="submit" class="btn btn-primary">Baja</button>
-						</div>
-					</div>
+					<div class="row">
+ 						<div class="col-1"></div>
+ 						<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempleadosNue}" class="btn btn-primary" role="button">Volver</a></div>
+ 						<div class="col-5"></div>
+ 						<div class="col-3">	
+							<button type="submit" class="btn btn-primary">Confirmar</button>
+ 						</div>
+ 						<div class="col-1"></div>
+				</div>
 					
 				</form>
 			</div>

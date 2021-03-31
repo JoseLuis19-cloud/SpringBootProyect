@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Blob;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 
@@ -69,18 +70,26 @@ public class ControllerWebEmpleados {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
+
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
 		  
 		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get() ));
         
-		try {
-		 	Blob blobImg = empleado.get().getImagenFotoEmpleado();
-	        blobBytes = blobImg.getBytes(1, (int) blobImg.length());
+		if ( empleado.get().getImagenFotoEmpleado() != null )
+		{
+			try {
+				Blob blobImg = empleado.get().getImagenFotoEmpleado();
+				blobBytes = blobImg.getBytes(1, (int) blobImg.length());
 	        
-	        modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
-			} 
-		catch (Exception e) {
-			System.out.println("error validacion");
+				modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
+				} 
+			catch (Exception e) {
+				System.out.println("error validacion");
+				}
+		}
+		else
+		{
+			modelo.addAttribute("imgFoto", null);	
 		}
 		
 		modelo.addAttribute("empleado", empleado);
@@ -92,7 +101,6 @@ public class ControllerWebEmpleados {
 		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
 		
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
-		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionWeb/empleados/FormEditarEmpleado";
@@ -147,40 +155,16 @@ public class ControllerWebEmpleados {
 		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
 	}
 	
-	
 	@GetMapping("/formaltaempleado")
 	public String formularioaltaEmpleado(Model modelo)  {
-
-	// Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Integer(idEmpleado));
-
-	//	byte[] blobBytes = null;
-	//	byte[] encode =null;
-	//	Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(1));
-		
-		BeanEmpleadoWeb datosEmpleado = new BeanEmpleadoWeb() ;
-		  
-		datosEmpleado.setImpBrutoAnual2Web("0");
-		modelo.addAttribute("empleadoWeb", datosEmpleado   );
-        
-	/*	try {
-		 	Blob blobImg = empleado.get().getImagenFotoEmpleado();
-	        blobBytes = blobImg.getBytes(1, (int) blobImg.length());
-	        
-	        modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
-			} 
-		catch (Exception e) {
-			System.out.println("error validacion");
-		} */
-		
-	// 	modelo.addAttribute("empleado", empleado);
-	//	modelo.addAttribute("objImagen", encode);
-		
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		
 		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
 		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
 		
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
+		beanEmpleadoWeb.setImpBrutoAnualWeb("0");
+		
 		beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
 		beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
 		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);	 
@@ -203,7 +187,7 @@ public class ControllerWebEmpleados {
 		
 		servJPAEmpleado.altaEmpleado(empleado);
 		
-		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+		 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";	 
@@ -475,42 +459,39 @@ public class ControllerWebEmpleados {
 	
 	 
 	private Empleado validarDatosEmpleado(BeanEmpleadoWeb datosEmpleadoWeb, String codPais, String codPuestoTrabajo) {
-	
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
 		Empleado empleado = new Empleado();
 		Pais pais = new Pais();
 		PuestoTrabajo  puestoTrabajo = new PuestoTrabajo();
 		 
-		empleado.setApellidos(  datosEmpleadoWeb.getApellidosWeb( ) ); 
-		empleado.setNombre( datosEmpleadoWeb.getNombreWeb() );
-		empleado.setDireccion(   datosEmpleadoWeb.getDireccionWeb() );
+		empleado.setApellidos(datosEmpleadoWeb.getApellidosWeb()); 
+		empleado.setNombre(datosEmpleadoWeb.getNombreWeb());
+		empleado.setDireccion(datosEmpleadoWeb.getDireccionWeb());
 		empleado.setEmail(datosEmpleadoWeb.getEmailWeb());
-		if (datosEmpleadoWeb.getImpBrutoAnual2Web() != "" && datosEmpleadoWeb.getImpBrutoAnual2Web() != null)
-				{
-			empleado.setImpBrutoAnual(new Float(datosEmpleadoWeb.getImpBrutoAnual2Web()));
-		
-				}
-		 
 		empleado.setCodPostal(datosEmpleadoWeb.getCodPostalWeb());
+		empleado.setNif(datosEmpleadoWeb.getNifWeb());
+		empleado.setNumCuentaCorriente(datosEmpleadoWeb.getNumCuentaCorrienteWeb());
+		empleado.setNumSeguridaSocial( datosEmpleadoWeb.getNumSeguridaSocialWeb());
+		 
+		if ( datosEmpleadoWeb.getFecAltaEmplelado2Web() != null )
+			{
+			try { empleado.setFecAltaEmplelado( datosEmpleadoWeb.getFecAltaEmplelado2Web() ) ;
+			} 
+			catch (Exception e) {
+				System.out.println("error validacion");
+			}
+		}
+	 
+		if (datosEmpleadoWeb.getImpBrutoAnualWeb() != "" && datosEmpleadoWeb.getImpBrutoAnualWeb() != null)
+			{
+			empleado.setImpBrutoAnual(new Float(datosEmpleadoWeb.getImpBrutoAnualWeb()));
+			}
 		
-	 	pais.setIdPais(new Integer(codPais ) );
-      	puestoTrabajo.setIdPuestoTrabajo( new Integer( codPuestoTrabajo) );
+	 	pais.setIdPais(new Integer(codPais) );
+      	puestoTrabajo.setIdPuestoTrabajo( new Integer(codPuestoTrabajo) );
 		
 		empleado.setPais(pais);
 		empleado.setPuestoTrabajo(puestoTrabajo);
 
-		if (datosEmpleadoWeb.getFecAltaEmplelado2Web() != null)
-			{
-			try {
-				// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-				// String dateInString = "31-08-1982 10:20:56";
-
-			//	empleado.setFecFactura(datosEmpleadoWeb.getFecAltaEmplelado2Web());
-				} catch (Exception e) {
-			 
-				}
-			}
 		return empleado;
 	}
  	

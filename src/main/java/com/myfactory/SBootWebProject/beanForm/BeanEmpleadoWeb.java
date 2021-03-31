@@ -40,9 +40,8 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private Iterable<Pais> paisWeb;
 	private Integer codPuestoTrabajoWeb;
 	private Iterable<PuestoTrabajo> puestoTrabajoWeb;
-	private String impBrutoAnual2Web;
+	private String impBrutoAnualWeb;
 	
-
 	public BeanEmpleadoWeb() {
 	}
 
@@ -93,43 +92,29 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		return fecBajaEmpleladoWeb;
 	}
 
-
-
 	public void setFecBajaEmpleladoWeb(Calendar fecBajaEmpleladoWeb) {
 		this.fecBajaEmpleladoWeb = fecBajaEmpleladoWeb;
 	}
-
-
 
 	public String getTelefMovilWeb() {
 		return telefMovilWeb;
 	}
 
-
-
 	public void setTelefMovilWeb(String telefMovilWeb) {
 		this.telefMovilWeb = telefMovilWeb;
 	}
-
-
 
 	public String getEmailWeb() {
 		return emailWeb;
 	}
 
-
-
 	public void setEmailWeb(String emailWeb) {
 		this.emailWeb = emailWeb;
 	}
 
-
-
 	public boolean isIndBajaUsuarioWeb() {
 		return indBajaUsuarioWeb;
 	}
-
-
 
 	public void setIndBajaUsuarioWeb(boolean indBajaUsuarioWeb) {
 		this.indBajaUsuarioWeb = indBajaUsuarioWeb;
@@ -225,12 +210,12 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		this.puestoTrabajoWeb = puestoTrabajoWeb;
 	}
 
-	public String getImpBrutoAnual2Web() {
-		return impBrutoAnual2Web;
+	public String getImpBrutoAnualWeb() {
+		return impBrutoAnualWeb;
 	}
 
-	public void setImpBrutoAnual2Web(String impBrutoAnual2Web) {
-		this.impBrutoAnual2Web = impBrutoAnual2Web;
+	public void setImpBrutoAnualWeb(String impBrutoAnualWeb) {
+		this.impBrutoAnualWeb = impBrutoAnualWeb;
 	}
 
 	public Integer getCodPuestoTrabajoWeb() {

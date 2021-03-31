@@ -156,7 +156,7 @@ h5 {
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
-						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefMovilWeb}" th:maxlength="14" th:readonly="true">
+						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14" th:readonly="true">
 					</div>
 					<div class="col-md-4 mb-4">
 						<label for="labelemail" th:text="'email empleado' "></label>
@@ -165,8 +165,8 @@ h5 {
 				</div>
 				
 				<div class="form-row">
-						<div class="col-md-3 mb-4">
-							<div class="form-group">
+					<div class="col-md-3 mb-4">
+						<div class="form-group">
 								<label for="labelPuestoTrabajo" th:text="'Puesto Trabajo: ' "></label>
 								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado" th:readonly="true">
 									<option th:value="0" th:text="'Seleccionar puesto trabajo' "></option>
@@ -176,8 +176,8 @@ h5 {
   						  				th:selected="${pTrabajoEmple.idPuestoTrabajo} == ${empleadoWeb.codPuestoTrabajoWeb}">
   									</option>
     							</select>
-							</div>
 						</div>
+					</div>
 				 		<div class="col-md-4 mb-4">
 							<div class="form-group">
 								<label for="idNumSegSocial" th:text="'Número Seguridad Social: ' "></label>
@@ -190,7 +190,7 @@ h5 {
 				</div>
 				<div class="col-md-2 mb-4">
 					<label for="labelImpBrutoAnu" th:text="'Importe bruto anual' "></label>
-					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnual2Web}" th:maxlength="10" th:readonly="true">
+					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10" th:readonly="true">
 				</div>
 			</div>
   			</div>

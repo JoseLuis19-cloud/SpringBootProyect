@@ -102,26 +102,24 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setFecBajaEmpleladoWeb(empleado.getFecBajaEmplelado() );
 		 
 		  beanEmpleadoWeb.setTelefMovilWeb(empleado.getTelefMovil() );
-		  beanEmpleadoWeb.setTelefono2( empleado.getTelefono2() );
+		  beanEmpleadoWeb.setTelefono2(empleado.getTelefono2() );
 		  beanEmpleadoWeb.setEmailWeb(empleado.getEmail());
-	//	private boolean indBajaUsuarioWeb;
-	//	private boolean indbajaEmpleadoWeb;
 		  
 		  beanEmpleadoWeb.setNumSeguridaSocialWeb(empleado.getNumSeguridaSocial()); 
 		  beanEmpleadoWeb.setNumCuentaCorrienteWeb(empleado.getNumCuentaCorriente() ); 
-		  beanEmpleadoWeb.setPaisWeb( servJPAEmpleado.obtenerPaises() ); 
-		  beanEmpleadoWeb.setCodPaisWeb( empleado.getPais().getIdPais());
+		  beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
+		  beanEmpleadoWeb.setCodPaisWeb(empleado.getPais().getIdPais());
 		  
 		  beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
 		  beanEmpleadoWeb.setCodPuestoTrabajoWeb(empleado.getPuestoTrabajo().getIdPuestoTrabajo());	  
 		  
 		  if (empleado.getImpBrutoAnual() != null)
 		  	{
-			  beanEmpleadoWeb.setImpBrutoAnual2Web(empleado.getImpBrutoAnual().toString());
+			  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual().toString());
 		  	}
 		  else
 		  {
-			  beanEmpleadoWeb.setImpBrutoAnual2Web("0");
+			  beanEmpleadoWeb.setImpBrutoAnualWeb("0");
 		  }
 		  
 		  return beanEmpleadoWeb;

@@ -17,7 +17,6 @@
  
 .bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
 
-
 .form-control-xs {
 	height: calc(1em + .375rem + 2px) !important;
 	padding: .125rem .25rem !important;
@@ -75,14 +74,14 @@ h5 {
 	
 	<div class="container-fluid" style="margin-top:0px;">
 		<div class="row">
-			<div class="titulo-pag2">Gestión de Empleado</div>
+			<div class="titulo-pag2">Gestión de Empleados</div>
 		</div>
 		<form th:action="@{/gestionWeb/empleados/altaempleado}" th:object="${empleadoWeb}" method="post">
 		<div class="row">
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Datos Empleado</div>
+  				<div class="subtitulo-pag" th:text="'Datos Nuevo Empleado'"></div>
   			</div>
   			<div class="col-1"></div>
   		</div>	
@@ -109,7 +108,7 @@ h5 {
 						</div>
 						<div class="col-md-2 mb-3">
 							<label for="validaTelefMovil" th:text="'Teléfono móvil' "></label>
-							<input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefMovilWeb}" th:maxlength="14" required>
+							<input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefMovilWeb}" th:maxlength="14">
 						</div>
 				</div>
 				
@@ -154,11 +153,11 @@ h5 {
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
-						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefMovilWeb}" th:maxlength="14">
+						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14">
 					</div>
 					<div class="col-md-4 mb-4">
 						<label for="labelemail" th:text="'email empleado' "></label>
-						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="25" required>
+						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="35" required>
 					</div>
 				</div>
 				
@@ -166,7 +165,7 @@ h5 {
 						<div class="col-md-3 mb-4">
 							<div class="form-group">
 								<label for="labelPuestoTrabajo" th:text="'Puesto Trabajo: ' "></label>
-								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado">
+								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado" required>
 									<option th:value="0" th:text="'Seleccionar puesto trabajo' "></option>
 									<option th:each ="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
    						 				th:value="${pTrabajoEmple.idPuestoTrabajo}"
@@ -183,12 +182,12 @@ h5 {
 							</div>
 				 		</div>
 				<div class="col-md-3 mb-4">
-					<label for="validadNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
+					<label for="validadNumCCWeb" th:text="'Numero Cuenta Corriente (IBAN)' "></label>
 					<input type="text" class="form-control" id="idNumCCWeb" name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24">
 				</div>
 				<div class="col-md-2 mb-4">
 					<label for="labelImpBrutoAnu" th:text="'Importe bruto anual' "></label>
-					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnual2Web}" th:maxlength="10">
+					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10">
 				</div>
 			</div>
   			</div>
@@ -198,9 +197,8 @@ h5 {
  			<div class="col-1"></div>
  			<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempleadosNue}" class="btn btn-primary" role="button">Volver</a></div>
  			<div class="col-5"></div>
- 			<div class="col-3">
- 				<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Crear Usuario</a>	
-				<button type="submit" class="btn btn-primary">Guardar</button>
+ 			<div class="col-3">	
+				<button type="submit" class="btn btn-primary">Crear Usuario</button>
  			</div>
  			<div class="col-1"></div>
 		</div>
