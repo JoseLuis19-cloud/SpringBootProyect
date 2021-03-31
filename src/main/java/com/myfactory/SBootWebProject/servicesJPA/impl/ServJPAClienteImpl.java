@@ -8,8 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Cliente;
-import com.myfactory.SBootWebProject.model.Factura;
-import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.repository.ClienteJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.ClienteJPARepository;
@@ -17,7 +15,6 @@ import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPARepository;
 import com.myfactory.SBootWebProject.repository.FormaPagoJPARepository;
 import com.myfactory.SBootWebProject.repository.TipoClienteJPARepository;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 
 @Service

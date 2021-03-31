@@ -113,7 +113,6 @@ public class ControllerWebClientes {
 		return "GestionWeb/clientes/FormInsertarCliente.html";
 	}
 	
-	
 	@RequestMapping(value = "/modificarcliente", method = RequestMethod.POST)
 	public String modificarCliente(@Valid @ModelAttribute("${clienteWeb}") BeanClienteWeb formClienteWeb, 
 			BindingResult resultValidacion,

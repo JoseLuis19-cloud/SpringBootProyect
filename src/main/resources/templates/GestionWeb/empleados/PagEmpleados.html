@@ -74,12 +74,13 @@
 							<th th:text="'email'"></th>
 							<th th:text="'telef. movil'"></th>
 							<th th:text="'importe bruto'"></th>
+							<th th:text="'Baja'"></th>
 							<th th:text="'Editar'"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${pagGenerica.empty}">
-							<td colspan="9">No hay empleados</td>
+							<td colspan="11">No hay empleados</td>
 						</tr>
 						<tr th:each="empleado:${pagGenerica.content}">
 							<td th:text="${empleado.idEmpleado}"></td>

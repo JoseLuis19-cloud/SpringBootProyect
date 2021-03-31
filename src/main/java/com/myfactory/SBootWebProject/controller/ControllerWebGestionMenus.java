@@ -1,32 +1,20 @@
 package com.myfactory.SBootWebProject.controller;
 
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
-import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
@@ -43,20 +31,20 @@ public class ControllerWebGestionMenus {
  
 	@GetMapping("/obtenermenuprincipal")
 	public String obtenerMenuPrincipal(Model modelo) {
-		// Carga opciones del menu principal
-		Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
+	// Carga opciones del menu principal
+	 Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
 		
-		modelo.addAttribute("menuPrincipal", menuPrincipalAplicacion);
+	 modelo.addAttribute("menuPrincipal", menuPrincipalAplicacion);
 		
 	 // Instanciar elemento menu nuevo por si da de alta uno
-	 	BeanMenuAplicacionWeb elemenMenuNuevo = new BeanMenuAplicacionWeb();
+	 BeanMenuAplicacionWeb elemenMenuNuevo = new BeanMenuAplicacionWeb();
 	 	
 	  long count = StreamSupport.stream(menuPrincipalAplicacion.spliterator(), false).count();
 	  
 	  Long numRegMenuPrin = new Long(count);
 	  
-	 	elemenMenuNuevo.setNumOrdenMenu(numRegMenuPrin.intValue() + 1 );
-	 	elemenMenuNuevo.setIndActivo(false);
+	   elemenMenuNuevo.setNumOrdenMenu(numRegMenuPrin.intValue() + 1 );
+	   elemenMenuNuevo.setIndActivo(false);
 	 
 		modelo.addAttribute("elemenMenuNuevoWeb", elemenMenuNuevo);
 
@@ -78,8 +66,6 @@ public class ControllerWebGestionMenus {
 		Iterator<SubMenuNivel1> menu = subMenuNivel1.iterator();
 
 	    modelo.addAttribute("subMenuNivel1", subMenuNivel1);
-	   
-	    
 	    modelo.addAttribute("elemenMenuPrincipal", nomEleMenu);
 
 	    // Instanciar elemento submenu nuevo por si da de alta uno
@@ -119,7 +105,6 @@ public class ControllerWebGestionMenus {
 	@Deprecated
 	@RequestMapping(value = "/obtenersubmenunivelajax/{idmenu}", method = RequestMethod.GET)
 	public String showGuestList(Model model, @PathVariable("idmenu") Integer idMenu) {
-		
 		Set<SubMenuNivel1> subMenuN1 = null;
 		Iterable <Menu> subMenuNivel1 = serviciosJPAMenu.obtenerSubmenuN1Aplicacion(idMenu);
 	

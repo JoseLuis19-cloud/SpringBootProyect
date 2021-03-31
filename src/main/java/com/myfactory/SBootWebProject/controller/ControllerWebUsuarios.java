@@ -8,8 +8,6 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -175,16 +173,46 @@ public class ControllerWebUsuarios {
 	//	return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
+	@RequestMapping(value = "/formcambiarpass", method = RequestMethod.POST)
+	public String formCambiarPassword(Model modelo, 
+									@RequestParam(value = "idUsuario", required = true) Long idUsuario) { 
+	
+	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+	 beanUsuarioWeb = cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() );
+	
+	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 return "GestionWeb/usuarios/FormCambioUsuario";
+
+ 	}
+	
+	@RequestMapping(value = "/cambiarpass", method = RequestMethod.POST)
+	public String formCambiarPassword(Model modelo, 
+			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb) { 
+	
+	User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb() ).get() ;
+
+ // Encriptar la nueva password tecleada por el usuario
+	GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
+	String passWordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
+	
+	usuario.setPassword(passWordEncriptada);
+	
+	servJPAUsuario.modificarUsuario(usuario); 
+
+	return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+	}
+	
 	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole, Boolean esModificacion) {
 		
-		 Boolean userError = new Boolean(false);
-		 User usuarioNuevo = new User();
-		 Set <Role> setRoles = new HashSet<>(); 
+	Boolean userError = new Boolean(false);
+	User usuarioNuevo = new User();
+	Set <Role> setRoles = new HashSet<>(); 
 		 
-		 mensajeErrorActualizacion = "";
+	mensajeErrorActualizacion = "";
 		 
-		if (! esModificacion ) 
-			{
+	if (! esModificacion ) 
+		{
 			if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
 				System.out.println("Error username del Usuario esta es duplicado");
 				mensajeErrorActualizacion= "Error username del Usuario esta es duplicado";

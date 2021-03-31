@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.repository.role.RoleJPADao;

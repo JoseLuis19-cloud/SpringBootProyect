@@ -58,6 +58,7 @@
 						<th th:text="'fecha alta usuario'"></th>
 						<th th:text="'fecha baja usuario'"></th>
 						<th th:text="'activo'"></th>
+						<th th:text="'cambiar'"></th>
 						<th th:text="'editar'"></th>
 						<th th:text="'Gestión'"></th>
 					</tr>
@@ -88,6 +89,9 @@
 							<div  style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" th:readonly="true" />
 							</div>
+						</td>
+						<td>										 
+							<td><a th:href="@{/gestionWeb/usuarios/formcambiarpass(idUsuario=${users.id})}" class="btn btn-primary" role="button">Cambiar</a></td>
 						</td>
 						<td>										 
 							<a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionWeb/usuarios/formeditarusuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">editar</a>	

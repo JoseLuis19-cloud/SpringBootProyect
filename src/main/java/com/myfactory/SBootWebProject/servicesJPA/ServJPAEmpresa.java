@@ -1,7 +1,5 @@
 package com.myfactory.SBootWebProject.servicesJPA;
 
-import java.util.Iterator;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Empresa;

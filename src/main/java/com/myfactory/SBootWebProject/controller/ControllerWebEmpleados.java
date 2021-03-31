@@ -298,7 +298,7 @@ public class ControllerWebEmpleados {
  
 	 	return "GestionWeb/empleados/FormVerFotoEmpleado";
 	}
-
+	
 	
 	@RequestMapping("/pagempleadosNue")
 	public String paginacionEmpleadosNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
@@ -444,7 +444,6 @@ public class ControllerWebEmpleados {
 			modelo.addAttribute("numPagAct5", "S" );
 			break;
 		}
-		
 
 		if ( pagEmpleados.isLast()  )
 			{
