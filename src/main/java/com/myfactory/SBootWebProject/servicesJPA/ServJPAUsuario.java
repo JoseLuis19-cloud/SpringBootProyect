@@ -17,6 +17,7 @@ public interface ServJPAUsuario {
 	public Page<User> paginacionUsuarios(Integer numPag, Integer numRegPag);
 	
 	public Iterable<User> listadoUsuarios();
+	public Iterable<User> listadoUsuariosHistorico();
 	
 	public Optional<User> findIdUsuario(Long idUsuario);
 	

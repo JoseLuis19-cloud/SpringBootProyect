@@ -71,6 +71,17 @@ public class ControllerWebUsuarios {
 		return "gestionWeb/usuarios/PaginacionUsuarios";
 	}
 	
+	
+	@RequestMapping("/listausuarioshist")
+	public String listaUsuariosHist(Model modelo) {
+		
+	 modelo.addAttribute("pagUsuarios", servJPAUsuario.listadoUsuariosHistorico());
+	 
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+
+	 return "gestionWeb/usuarios/PaginacionUsuariosHistorico";
+	}
+	
 	@RequestMapping("/usuariomenu")
 	public String usuarioMenus(Model modelo, @RequestParam(value = "idUsuario", required = false) Long idUsuario){
 		
@@ -154,6 +165,43 @@ public class ControllerWebUsuarios {
 	// return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
+	@RequestMapping(value = "/formbajausuario")
+	public String formBajaUsuario(Model modelo, 
+									@RequestParam(value = "idUsuario", required = true) Long idUsuario) { 
+	
+	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+	 beanUsuarioWeb = cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() );
+	
+	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 return "GestionWeb/usuarios/FormBajaUsuario";
+
+ 	}
+	
+	@RequestMapping(value = "/bajausuario", method = RequestMethod.POST)
+	public String bajaUsuario(Model modelo, 
+			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb) { 
+	
+	User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb() ).get() ;
+	usuario.setEnabled(false);
+	
+	servJPAUsuario.modificarUsuario(usuario); 
+
+	return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+	}
+	
+	@RequestMapping(value = "/reactivarusuario", method = RequestMethod.POST)
+	public String reactivarUsuario(Model modelo, 
+			@RequestParam(value = "usuarioHisHidden", required = true)  String idUsuario ) { 
+	
+	User usuario = servJPAUsuario.findIdUsuario(new Long(idUsuario) ).get() ;
+	usuario.setEnabled(true);
+	
+	servJPAUsuario.modificarUsuario(usuario); 
+
+	return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+	}
+	
 	@RequestMapping(value = "/modificarusuario", method = RequestMethod.POST)
 	public String modificarUsuario(Model modelo,
 			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb, 
@@ -173,7 +221,7 @@ public class ControllerWebUsuarios {
 	//	return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
-	@RequestMapping(value = "/formcambiarpass", method = RequestMethod.POST)
+	@RequestMapping(value = "/formcambiarpass")
 	public String formCambiarPassword(Model modelo, 
 									@RequestParam(value = "idUsuario", required = true) Long idUsuario) { 
 	
@@ -182,8 +230,7 @@ public class ControllerWebUsuarios {
 	
 	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-	 return "GestionWeb/usuarios/FormCambioUsuario";
-
+	 return "GestionWeb/usuarios/FormCambiarPassword";
  	}
 	
 	@RequestMapping(value = "/cambiarpass", method = RequestMethod.POST)

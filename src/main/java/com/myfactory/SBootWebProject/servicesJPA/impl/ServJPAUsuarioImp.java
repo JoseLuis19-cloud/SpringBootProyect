@@ -46,6 +46,12 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 		return usuarioJPABaseRepository.findAll();
 	}
 	
+	
+	@Override
+	public Iterable<User> listadoUsuariosHistorico() {
+		return usuarioJPABaseRepository.listaUsuariosHistorico() ;
+	}
+	
 	@Override
 	public Optional<User> findIdUsuario(Long idUsuario) {
 		return usuarioJPABaseRepository.findById(idUsuario);

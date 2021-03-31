@@ -2,9 +2,8 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
- 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
-	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+  	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
 <style> 	
 	h3 {
   		font-weight: bold !important;
@@ -32,6 +31,10 @@
  		margin-left:10px !important;
 		}
   </style>
+  
+  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 </head>
 
 <body>
@@ -39,14 +42,14 @@
  
 	<div class="container-fluid">
 	
-		<div class="row">
-			<div class="titulo-pag" th:text="'Usuarios de la aplicación'"></div>  
-		</div>
-		 
-		<div class="row">
+	 <div class="row">
+		<div class="titulo-pag2" th:text="'Gestion usuarios aplicación: '"></div>
+	 </div>
+	 <div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
 			<div class="panel panel-default" style="border-bottom: 2px solid #000">
+			<div class="subtitulo-pag" th:text="'Usuarios activos en la aplicación'"></div>
 			<table class="table table-sm">
 				<thead class="thead-light">
 					<tr>
@@ -56,10 +59,10 @@
 						<th th:text="'roles en aplicación'"></th>
 						<th th:text="'email'"></th>
 						<th th:text="'fecha alta usuario'"></th>
-						<th th:text="'fecha baja usuario'"></th>
 						<th th:text="'activo'"></th>
 						<th th:text="'cambiar'"></th>
 						<th th:text="'editar'"></th>
+						<th th:text="'acción'"></th>
 						<th th:text="'Gestión'"></th>
 					</tr>
 				</thead>
@@ -81,24 +84,19 @@
 							<li th:each="elementRole : ${users.roles}">
     							<span th:text="${elementRole.name}"></span>
 							</li>
-						 </td>
+						</td>
 						<td th:text="${users.email}"></td>
-						<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MMM/yyyy HH:mm')}"></td>
-						<td th:text="${#calendars.format(users.fecBajaUsuario, 'dd/MMM/yyyy HH:mm')}"></td>
+					<!--	<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MMM/yyyy HH:mm')}"></td> -->
+						<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MM/yyyy')}"></td>
 						<td>
 							<div  style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" th:readonly="true" />
 							</div>
 						</td>
-						<td>										 
-							<td><a th:href="@{/gestionWeb/usuarios/formcambiarpass(idUsuario=${users.id})}" class="btn btn-primary" role="button">Cambiar</a></td>
-						</td>
-						<td>										 
-							<a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionWeb/usuarios/formeditarusuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">editar</a>	
-						</td>
-						<td>										 
-							<a th:id="'idLinkGesMenu' + ${users.id}" th:name="'linkGesMenu' + ${users.id}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">menus</a>	
-						</td>	  
+						<td><a th:href="@{/gestionWeb/usuarios/formcambiarpass(idUsuario=${users.id})}" class="btn btn-primary" role="button">Password</a></td>
+						<td><a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionWeb/usuarios/formeditarusuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">editar</a></td>
+						<td><a th:id="'idLinkBaja' + ${users.id}" th:name="'linkBaja' + ${users.id}" th:href="@{/gestionWeb/usuarios/formbajausuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">baja</a></td>
+						<td><a th:id="'idLinkGesMenu' + ${users.id}" th:name="'linkGesMenu' + ${users.id}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">menus</a></td>	  
 					</tr>
 				</tbody>
 			</table>
@@ -106,16 +104,15 @@
 			
 			</div>
 			<div class="col-sm-1"></div>
-		</div>
+		 </div>
 		
-		<div class="row">
+		 <div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
 				<a th:href="@{/gestionWeb/usuarios/forminsertarusuario}" class="btn btn-primary" role="button">Nuevo</a>
 			</div>
 			<div class="col-sm-1"></div>
 		 </div>
-		<div th:insert="Aplicacion/fragments/BotoneraPaginacion :: botonerapaginacion"></div>
 	</div>
 </body>
 </html>
