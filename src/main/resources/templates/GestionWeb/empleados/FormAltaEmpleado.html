@@ -56,6 +56,7 @@ h5 {
 	 	$(document).ready(function(){
  
 			$("#idLinkCrearUsu").click(function(){
+				// Cargar valores de empleado a usuario
 		 		$("#myModalAltaUsu").modal();
 		 	});
 			
@@ -63,7 +64,6 @@ h5 {
 		 		$("#myModalCambiarFoto").modal();
 		 	});
 	 
-			
 	 	 });
 	</script>
 </head>
@@ -93,7 +93,8 @@ h5 {
 				</div>
 				<div style="display: flex; justify-content: center; align-items: center;"> 
 				<br>
-				 <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Cambiar foto</a>
+				 <div> <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a></div>
+				 <p th:id="'idP1'"  th:text="'La foto no debe superar 65.535 bytes'"></p>
 				</div>
  			</div>
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
@@ -147,9 +148,9 @@ h5 {
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-       						<input class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmplelado2Web}"/>
-						</div>
+       						<input class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmplelado2Web, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden" th:field="*{fecAltaEmplelado2Web}" />
+						</div> 
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
@@ -157,7 +158,8 @@ h5 {
 					</div>
 					<div class="col-md-4 mb-4">
 						<label for="labelemail" th:text="'email empleado' "></label>
-						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="35" required>
+						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="35" required th:classappend="${#fields.hasErrors('emailWeb')}? is-invalid">
+						<div class="invalid-feedback" th:errors="*{emailWeb}">Formato no correcto del email</div>
 					</div>
 				</div>
 				
@@ -175,6 +177,7 @@ h5 {
     							</select>
 							</div>
 						</div>
+							
 				 		<div class="col-md-4 mb-4">
 							<div class="form-group">
 								<label for="idNumSegSocial" th:text="'Número Seguridad Social: ' "></label>
@@ -198,7 +201,7 @@ h5 {
  			<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempleadosNue}" class="btn btn-primary" role="button">Volver</a></div>
  			<div class="col-5"></div>
  			<div class="col-3">	
-				<button type="submit" class="btn btn-primary">Crear Usuario</button>
+				<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Crear Usuario</a>			 
  			</div>
  			<div class="col-1"></div>
 		</div>

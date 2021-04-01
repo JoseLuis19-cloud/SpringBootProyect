@@ -163,6 +163,8 @@ public class ControllerWebEmpleados {
 		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
 		
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
+		
+		beanEmpleadoWeb.setFecAltaEmplelado2Web(Calendar.getInstance()); 
 		beanEmpleadoWeb.setImpBrutoAnualWeb("0");
 		
 		beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
@@ -183,14 +185,26 @@ public class ControllerWebEmpleados {
 			 		@RequestParam(value = "paisEmpleado", required = true) String codPais,
 		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo)   {
 		
-		Empleado empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-		
-		servJPAEmpleado.altaEmpleado(empleado);
-		
-		 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";	 
+		
+		if (! resultValidacion.hasErrors())
+			{
+			Empleado empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+			
+			/* if (codPuestoTrabajo.equals("0") )
+			{
+				 
+			} */
+		 // Dar de alta Empleado
+			servJPAEmpleado.altaEmpleado(empleado);
+			return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";	 
+			}
+		  else
+			{
+			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);	 
+			return "GestionWeb/empleados/FormAltaEmpleado"; 
+			}
 	}
 	
 	@RequestMapping(value = "/modifempleado", method = RequestMethod.POST)

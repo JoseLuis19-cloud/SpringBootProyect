@@ -3,6 +3,8 @@ package com.myfactory.SBootWebProject.beanForm;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.validation.constraints.Email;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -28,6 +30,7 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Calendar fecBajaEmpleladoWeb;
 	private String telefMovilWeb;
+	@Email (message = "El formato de la dirección email no es correcto")
 	private String emailWeb;
 	private boolean indBajaUsuarioWeb;
 	private boolean indbajaEmpleadoWeb;
