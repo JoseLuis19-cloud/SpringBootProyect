@@ -66,17 +66,17 @@ public class ControllerWebEmpleados {
 	private String pathMacOS;
 
 	@GetMapping("/formeditarempleado")
-	public String formularioEditarEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
+	public String formularioEditarEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
 
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
 		  
-		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get() ));
+		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
         
-		if ( empleado.get().getImagenFotoEmpleado() != null )
-		{
+		if (empleado.get().getImagenFotoEmpleado() != null )
+			{
 			try {
 				Blob blobImg = empleado.get().getImagenFotoEmpleado();
 				blobBytes = blobImg.getBytes(1, (int) blobImg.length());
@@ -86,11 +86,11 @@ public class ControllerWebEmpleados {
 			catch (Exception e) {
 				System.out.println("error validacion");
 				}
-		}
+			}
 		else
-		{
+			{
 			modelo.addAttribute("imgFoto", null);	
-		}
+			}
 		
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
@@ -108,7 +108,7 @@ public class ControllerWebEmpleados {
 	
 	
 	@GetMapping("/formbajaempleado")
-	public String formularioBajaEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = false ) String idEmpleado)  {
+	public String formularioBajaEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
@@ -164,7 +164,7 @@ public class ControllerWebEmpleados {
 		
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
 		
-		beanEmpleadoWeb.setFecAltaEmplelado2Web(Calendar.getInstance()); 
+		beanEmpleadoWeb.setFecAltaEmpleladoWeb(Calendar.getInstance()); 
 		beanEmpleadoWeb.setImpBrutoAnualWeb("0");
 		
 		beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
@@ -183,15 +183,30 @@ public class ControllerWebEmpleados {
 					RedirectAttributes redirectAttrs,
 					Model modelo, 
 			 		@RequestParam(value = "paisEmpleado", required = true) String codPais,
-		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo)   {
+		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo,
+		 			@RequestParam(value = "fecAltaEmpleado", required = true) String fecAltaEmpleado)   {
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		
+		System.out.print(fecAltaEmpleado);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		  
+		Calendar calendar1 = Calendar.getInstance();
+		Empleado empleado = null;
+	   
 		if (! resultValidacion.hasErrors())
 			{
-			Empleado empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-			
+			try
+			{
+			calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
+			datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1 )  ;
+			empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+			}
+			catch (Exception e)
+			{
+				
+			}
+		
 			/* if (codPuestoTrabajo.equals("0") )
 			{
 				 
@@ -202,28 +217,60 @@ public class ControllerWebEmpleados {
 			}
 		  else
 			{
-			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);	 
+			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);	
+			
+			BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+			modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+			
 			return "GestionWeb/empleados/FormAltaEmpleado"; 
 			}
-	}
-	
+	  }
+     
 	@RequestMapping(value = "/modifempleado", method = RequestMethod.POST)
 	public String modifEmpleado(@Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
 					BindingResult resultValidacion,
 					RedirectAttributes redirectAttrs,
 					Model modelo, 
 					@RequestParam(value = "paisEmpleado", required = true) String codPais,
-					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo) {
-	
-		Empleado empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-		empleado.setIdEmpleado( datosEmpleadoWeb.getIdEmpleadoWeb( ) );
+					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo,
+					@RequestParam(value = "fecAltaEmpleado", required = true) String fecAltaEmpleado ){
 		
-		servJPAEmpleado.modifEmpleado(empleado);
+		System.out.print(fecAltaEmpleado);
 		
-		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "GestionWeb/empleados/FormEditarEmpleado";
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar calendar1 = Calendar.getInstance();
+		Empleado empleado = null;
+	   
+		if (! resultValidacion.hasErrors() )
+			{
+			try
+			{
+			 calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
+			 datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1)  ;
+			 empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+			 empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+			 
+			 servJPAEmpleado.modifEmpleado(empleado);
+			 
+			 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+			 }
+			catch (Exception e)
+			 {
+				
+			 }
+			}
+		  else
+			{
+			 modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);	
+			
+			 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+			 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+			
+			 return "GestionWeb/empleados/FormEditarEmpleado"; 
+			}
+		return "";
 	}
 	
 	@GetMapping("/formuploadfichero")
@@ -486,9 +533,9 @@ public class ControllerWebEmpleados {
 		empleado.setNumCuentaCorriente(datosEmpleadoWeb.getNumCuentaCorrienteWeb());
 		empleado.setNumSeguridaSocial( datosEmpleadoWeb.getNumSeguridaSocialWeb());
 		 
-		if ( datosEmpleadoWeb.getFecAltaEmplelado2Web() != null )
+		if ( datosEmpleadoWeb.getFecAltaEmpleladoWeb() != null )
 			{
-			try { empleado.setFecAltaEmplelado( datosEmpleadoWeb.getFecAltaEmplelado2Web() ) ;
+			try { empleado.setFecAltaEmplelado( datosEmpleadoWeb.getFecAltaEmpleladoWeb() ) ;
 			} 
 			catch (Exception e) {
 				System.out.println("error validacion");

@@ -94,7 +94,7 @@ h5 {
 				<div style="display: flex; justify-content: center; align-items: center;"> 
 				<br>
 				 <div> <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a></div>
-				 <p th:id="'idP1'"  th:text="'La foto no debe superar 65.535 bytes'"></p>
+				 <p th:id="'idP1'"  th:text="'El tamaño de la foto no debe superar 65.535 bytes'"></p>
 				</div>
  			</div>
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
@@ -124,13 +124,13 @@ h5 {
 					</div>
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
-							<label for="labelPais" th:text="'Pais empleado: ' "></label>
+							<label for="labelPais" th:text="'Pais empleado ' "></label>
 							<select th:object="${empleadoWeb}" class="form-control" name="paisEmpleado" id="idPaisEmpleado">
 								<option th:value="0" th:text="'Seleccionar país empleado' "></option>
 								<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
    						 			th:value="${paisEmple.idPais}"
   						  			th:text ="${paisEmple.nombrePais}"
-  						  			th:selected="${paisEmple.idPais} == ${empleadoWeb.codPaisWeb}">
+  						  			th:selected="${paisEmple.idPais} == 73">
   								</option>
     						</select>
 						</div>
@@ -138,18 +138,17 @@ h5 {
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-3 mb-4">
+					<div class="col-md-4 mb-4">
 						<label for="labelNIF" th:text="'NIF' "></label>
 						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
 					</div>
-					<div class="col-md-3 mb-4">
+					<div class="col-md-2 mb-4">
 						<label for="labelFecEmpleado">Fec. alta empleado</label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-       						<input class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmplelado2Web, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden" th:field="*{fecAltaEmplelado2Web}" />
+       						<input class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
 						</div> 
 					</div>
 					<div class="col-md-2 mb-4">
@@ -166,21 +165,19 @@ h5 {
 				<div class="form-row">
 						<div class="col-md-3 mb-4">
 							<div class="form-group">
-								<label for="labelPuestoTrabajo" th:text="'Puesto Trabajo: ' "></label>
+								<label for="labelPuestoTrabajo" th:text="'Puesto Trabajo ' "></label>
 								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado" required>
 									<option th:value="0" th:text="'Seleccionar puesto trabajo' "></option>
 									<option th:each ="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
    						 				th:value="${pTrabajoEmple.idPuestoTrabajo}"
-  						  				th:text ="${pTrabajoEmple.desPuestoTrabajo}"
-  						  				th:selected="${pTrabajoEmple.idPuestoTrabajo} == ${empleadoWeb.codPuestoTrabajoWeb}">
+  						  				th:text ="${pTrabajoEmple.desPuestoTrabajo}">
   									</option>
     							</select>
 							</div>
-						</div>
-							
+						</div>	
 				 		<div class="col-md-4 mb-4">
 							<div class="form-group">
-								<label for="idNumSegSocial" th:text="'Número Seguridad Social: ' "></label>
+								<label for="idNumSegSocial" th:text="'Número Seguridad Social ' "></label>
 								<input type="text" class="form-control" id="idNumSeguridaSocialWeb" th:field="*{numSeguridaSocialWeb}" th:maxlength="14" >	
 							</div>
 				 		</div>
@@ -201,7 +198,8 @@ h5 {
  			<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempleadosNue}" class="btn btn-primary" role="button">Volver</a></div>
  			<div class="col-5"></div>
  			<div class="col-3">	
-				<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Crear Usuario</a>			 
+ 			    <button type="submit" class="btn btn-primary">Crear</button>
+				<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Nuevo Usuario</a>			 
  			</div>
  			<div class="col-1"></div>
 		</div>
@@ -233,13 +231,13 @@ h5 {
 					</div>				
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
-							<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
+							<label for="validationEmailWeb" th:text="'Email de aplicación:'"></label> <input
 								type="text" class="form-control" id="idDirCliWeb"
 								th:field="*{emailWeb}" th:maxlength="35" required>
 						</div>
 
 						<div class="col-md-3 mb-3">
-						<label for="validationFecAltaUsu">Fecha Alta Empleado</label>
+						    <label for="validationFecAltaUsu">Fecha Alta Usuario</label>
 							<div class="input-group">
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i> 
@@ -247,24 +245,23 @@ h5 {
        							<input type="text" class="form-control" id="idFecAltaUsuario" name="fecAltaUsuario"  th:maxlength="10" th:readonly="true" required />
        							<input type="hidden" id="idFecAltaUsuHidden" name="fecAltaUsuHidden"  th:field="*{fecAltaUsuarioWeb}"/>
 							</div>
-						 	 
 						</div>
 						<div class="col-md-5 mb-3">
 							 <div class="form-group">
-								<label for="idRolAplicacion" th:text="'Rol de usario en la aplicación: ' "></label>
+								<label for="idRolAplicacion" th:text="'Rol de usario en la aplicación: '"></label>
 								<select th:object="${usuarioWeb}" class="form-control" name="rolAplicacion" id="idRolAplicacion">
 									<option th:value="0" th:text="'Seleccionar rol Aplicación' "></option>
 									<option th:each ="rolApli:${usuarioWeb.rolUsuarioWeb}"
    						 				th:value="${rolApli.id}"
-  						  				th:text ="${rolApli.name}">
+  						  				th:text ="${rolApli.name}" >
   									</option>
     							</select>
 							</div>
 						</div>
 					</div>					
         	<div class="modal-footer">
-          		<button type="submit" class="btn btn-colour-1" >Crear usuario</button>    
-       			<button type="button" class="btn btn-colour-1"  data-dismiss="modal">Cancelar</button>
+          		<button type="submit" class="btn btn-colour-1">Crear usuario</button>    
+       			<button type="button" class="btn btn-colour-1" data-dismiss="modal">Cancelar</button>
         	</div>
         </form>	
      </div>
@@ -272,10 +269,7 @@ h5 {
     </div>
   </div>
   
-  
-  
-  
-    <!-- Modal Cambiar Foto -->
+  <!-- Modal Cambiar Foto -->
   <div id="myModalCambiarFoto" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -288,7 +282,7 @@ h5 {
                  	 <div class="form-group">
                    	  <input type="file" name="file" class="form-control-file">
                   	 </div>
-                  	 <button type="submit" class="btn btn-primary">Enviar Fichero</button>
+                  	 <button type="submit" class="btn btn-primary">Enviar Foto</button>
                	</form>
    		 </div>
 	
@@ -324,9 +318,8 @@ h5 {
             autoclose: true,
         });
         
-       document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
-      document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuHidden").value;
-   
+       
+       document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuHidden").value;
     });
  </script>
 

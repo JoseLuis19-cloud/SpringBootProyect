@@ -24,14 +24,18 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private String nombreWeb;
 	private String apellidosWeb;
 	private String nifWeb;
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Calendar fecAltaEmplelado2Web;
-
+    private Calendar fecAltaEmpleladoWeb;
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Calendar fecBajaEmpleladoWeb;
+	
 	private String telefMovilWeb;
+	
 	@Email (message = "El formato de la dirección email no es correcto")
 	private String emailWeb;
+	
 	private boolean indBajaUsuarioWeb;
 	private boolean indbajaEmpleadoWeb;
 	private String numSeguridaSocialWeb;
@@ -57,31 +61,21 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		this.idEmpleadoWeb = idEmpleadoWeb;
 	}
 
-
-
 	public String getNombreWeb() {
 		return nombreWeb;
 	}
-
-
 
 	public void setNombreWeb(String nombreWeb) {
 		this.nombreWeb = nombreWeb;
 	}
 
-
-
 	public String getApellidosWeb() {
 		return apellidosWeb;
 	}
 
-
-
 	public void setApellidosWeb(String apellidosWeb) {
 		this.apellidosWeb = apellidosWeb;
 	}
-
-
 
 	public String getNifWeb() {
 		return nifWeb;
@@ -225,12 +219,12 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		return codPuestoTrabajoWeb;
 	}
 	
-	public Calendar getFecAltaEmplelado2Web() {
-		return fecAltaEmplelado2Web;
+	public Calendar getFecAltaEmpleladoWeb() {
+		return fecAltaEmpleladoWeb;
 	}
 
-	public void setFecAltaEmplelado2Web(Calendar fecAltaEmplelado2Web) {
-		this.fecAltaEmplelado2Web = fecAltaEmplelado2Web;
+	public void setFecAltaEmpleladoWeb(Calendar fecAltaEmpleladoWeb) {
+		this.fecAltaEmpleladoWeb = fecAltaEmpleladoWeb;
 	}
 
 	@Override

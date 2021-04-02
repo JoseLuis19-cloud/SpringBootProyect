@@ -98,15 +98,17 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setDireccionWeb(empleado.getDireccion());
 		  beanEmpleadoWeb.setCodPostalWeb(empleado.getCodPostal() );
 		  beanEmpleadoWeb.setNifWeb(empleado.getNif());
-		  beanEmpleadoWeb.setFecAltaEmplelado2Web(empleado.getFecAltaEmplelado());
-		  beanEmpleadoWeb.setFecBajaEmpleladoWeb(empleado.getFecBajaEmplelado() );
+		  
+		  beanEmpleadoWeb.setFecAltaEmpleladoWeb(empleado.getFecAltaEmplelado());
+		  beanEmpleadoWeb.setFecBajaEmpleladoWeb(empleado.getFecBajaEmplelado());
 		 
 		  beanEmpleadoWeb.setTelefMovilWeb(empleado.getTelefMovil() );
 		  beanEmpleadoWeb.setTelefono2(empleado.getTelefono2() );
 		  beanEmpleadoWeb.setEmailWeb(empleado.getEmail());
 		  
 		  beanEmpleadoWeb.setNumSeguridaSocialWeb(empleado.getNumSeguridaSocial()); 
-		  beanEmpleadoWeb.setNumCuentaCorrienteWeb(empleado.getNumCuentaCorriente() ); 
+		  beanEmpleadoWeb.setNumCuentaCorrienteWeb(empleado.getNumCuentaCorriente());
+		  
 		  beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
 		  beanEmpleadoWeb.setCodPaisWeb(empleado.getPais().getIdPais());
 		  
@@ -114,13 +116,13 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setCodPuestoTrabajoWeb(empleado.getPuestoTrabajo().getIdPuestoTrabajo());	  
 		  
 		  if (empleado.getImpBrutoAnual() != null)
-		  	{
+		  	 {
 			  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual().toString());
-		  	}
-		  else
-		  {
+		  	 }
+		   else
+		    {
 			  beanEmpleadoWeb.setImpBrutoAnualWeb("0");
-		  }
+		    }
 		  
 		  return beanEmpleadoWeb;
 	  }
