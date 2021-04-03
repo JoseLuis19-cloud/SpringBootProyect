@@ -74,12 +74,12 @@ h5 {
 		
 		  <input type="hidden" th:id="'idIdEmpleadoWeb'" th:name="'idEmpleadoWeb'"  th:field="*{idEmpleadoWeb}" />	 
 			
-		<div class="row">
-			<br>
-			<div class="col-1"></div>
-  			<div class="col-10" >
-  				<div class="subtitulo-pag2">Datos del Empleado</div>
-  			</div>
+			<div class="row">
+				<br>
+				<div class="col-1"></div>
+  				<div class="col-10" >
+  					<div class="subtitulo-pag2">Datos del Empleado</div>
+  				</div>
   			<div class="col-1"></div>
   		</div>	
 		<div class="row">
@@ -142,10 +142,10 @@ h5 {
 						<label for="labelFecEmpleado">Fec. alta empleado</label>
 						<div class="input-group">
 							<div class="input-group-addon">
-       						 <i class="fa fa-calendar"> </i> 
+       						 <i class="fa fa-calendar"> </i>
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="false" required />
-							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden" th:field="*{fecAltaEmpleladoWeb}" />
+       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}"th:readonly="false" required />
+							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
 						</div>
 					</div>
 					<div class="col-md-3 mb-4">
@@ -241,16 +241,7 @@ h5 {
             autoclose: true,
         });
         
-        var date_input=$('input[name="fecAltaUsu"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        });
-        
+        document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
     });
  </script>
 

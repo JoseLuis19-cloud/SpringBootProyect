@@ -95,8 +95,6 @@ h5 {
 					<img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imgFoto}" width="200" height="400" />
 				</div>
 				<div style="display: flex; justify-content: center; align-items: center;"> 
-				<br>
-				 <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Cambiar foto</a>
 				</div>
  			</div>
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
@@ -127,7 +125,7 @@ h5 {
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
 							<label for="labelPais" th:text="'Pais empleado: ' "></label>
-							<select th:object="${empleadoWeb}" class="form-control" name="paisEmpleado" id="idPaisEmpleado" th:readonly="true">
+							<select th:object="${empleadoWeb}" class="form-control" name="paisEmpleado" id="idPaisEmpleado" th:readonly="true" th:disabled="disabled">
 								<option th:value="0" th:text="'Seleccionar país empleado' "></option>
 								<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
    						 			th:value="${paisEmple.idPais}"
@@ -140,22 +138,18 @@ h5 {
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-3 mb-4">
+					<div class="col-md-4 mb-4">
 						<label for="labelNIF" th:text="'NIF' "></label>
 						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14" th:readonly="true">
 					</div>
-					<div class="col-md-3 mb-4">
-						<label for="labelFecEmpleado">Fec. baja empleado</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-       						 <i class="fa fa-calendar"> </i> 
-      					 	</div>
-       						<input class="form-control" id="idFecBajaEmpleado" name="fecbajaEmpleado" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-							<input type="hidden" id="idFecBajaEmpleadoHidden" name="fecBajaEmpleadoHidden"  th:field="*{fecBajaEmpleladoWeb}"/>
-						</div>
-					</div>
 					<div class="col-md-2 mb-4">
-						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
+						<label for="labelFecEmpleado">Fec. alta empleado</label>
+       						<input class="form-control" type="text" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" th:readonly="true" required th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" />
+							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
+					</div>
+	 
+					<div class="col-md-2 mb-4">
+						<label for="labelTelefAlter" th:text="'Teléfono alternativo' "></label>
 						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14" th:readonly="true">
 					</div>
 					<div class="col-md-4 mb-4">
@@ -168,7 +162,7 @@ h5 {
 					<div class="col-md-3 mb-4">
 						<div class="form-group">
 								<label for="labelPuestoTrabajo" th:text="'Puesto Trabajo: ' "></label>
-								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado" th:readonly="true">
+								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado" th:readonly="true" th:disabled="disabled">
 									<option th:value="0" th:text="'Seleccionar puesto trabajo' "></option>
 									<option th:each ="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
    						 				th:value="${pTrabajoEmple.idPuestoTrabajo}"
@@ -193,8 +187,22 @@ h5 {
 					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10" th:readonly="true">
 				</div>
 			</div>
-  			</div>
-  			<div class="col-1"></div>
+			<div class="form-row">
+				<div class="col-md-5 mb-3"></div>
+				<div class="col-md-2 mb-3">
+						<label for="labelFecEmpleado">Fec. Baja empleado</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+       						 <i class="fa fa-calendar"> </i> 
+      					 	</div>
+       						<input type="text"  class="form-control" id="idFecBajaEmpleado" name="fecBajaEmpleado" th:value="${#calendars.format(fecBajaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
+       						<input type="hidden" id="idFecBajaEmpleadoHidden" name="fecBajaEmpleadoHidden"  th:field="*{fecBajaEmpleladoWeb}"/>
+						</div> 
+			 	</div>
+			 	<div class="col-md-5 mb-3"></div>
+			  </div>	
+  			 <div class="col-1"></div>
+ 			</div>
  		</div>
  		<div class="row">
  			<div class="col-1"></div>
@@ -221,10 +229,7 @@ h5 {
             todayHighlight: true,
             autoclose: true,
         });
-        
-      document.getElementById("idFecBajaEmpleado").value = document.getElementById("idFecBajaEmpleadoHidden").value;
-       
-   
+        document.getElementById("idFecBajaEmpleado").value = document.getElementById("idFecBajaEmpleadoHidden").value;
     });
  </script>
 

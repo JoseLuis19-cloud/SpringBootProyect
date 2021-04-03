@@ -47,10 +47,10 @@
 	<div class="row">
 		<div class="col-sm-1"></div>   
   		<div class="col-sm-10">
-  			<form class="form-inline" action="#" th:action="@{/gestionWeb/empleado/pagempleadosNue}" th:object="${objBusqueda}" method="post">
+  			<form class="form-inline" action="#" th:action="@{/gestionWeb/empleados/pagempleadosNue}" th:object="${objBusqueda}" method="post">
   				<div class="form-group mx-sm-3 mb-2">
     				<label for="buscarApellidos" th:text="'  Apellidos:  '"></label>
-    				<input type="text" class="form-control" th:id="idBuscarApelEmpleado" th:name="buscarApelEmpleado" th:maxlength="25" th:field="*{apellidosBusqueda}" >
+    				<input type="text" class="form-control" th:id="idBuscarApelEmpleado" th:name="apellidosBus" th:maxlength="30" th:field="*{apellidosBusqueda}" >
     				<button type="submit" class="btn btn-primary">Buscar</button>    
  				</div>	
 			</form>
@@ -65,7 +65,7 @@
 				<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th th:text="'Cod. Empleado'"></th>
+							<th th:text="'Cod. Empl'"></th>
 							<th th:text="'Apellidos'"></th>
 							<th th:text="'Nombre'"></th>
 							<th th:text="'NIF'"></th>

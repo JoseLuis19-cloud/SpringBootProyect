@@ -84,7 +84,7 @@ public class ControllerWebEmpleados {
 				modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
 				} 
 			catch (Exception e) {
-				System.out.println("error validacion");
+				System.out.println("error cargar foro formulario");
 				}
 			}
 		else
@@ -108,50 +108,73 @@ public class ControllerWebEmpleados {
 	
 	
 	@GetMapping("/formbajaempleado")
-	public String formularioBajaEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formularioBajaEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
+		
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
+		
+		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
+		beanEmpleadoWeb = cargarBeansDatos.cargarBeanEmpleado(empleado.get());
+		
+		beanEmpleadoWeb.setFecBajaEmpleladoWeb(Calendar.getInstance()); 
 		  
-		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get() ));
-        
-		try {
-		 	Blob blobImg = empleado.get().getImagenFotoEmpleado();
-	        blobBytes = blobImg.getBytes(1, (int) blobImg.length());
+		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);
+		
+		if (empleado.get().getImagenFotoEmpleado() != null )
+			{
+			try {
+				Blob blobImg = empleado.get().getImagenFotoEmpleado();
+				blobBytes = blobImg.getBytes(1, (int) blobImg.length());
 	        
-	        modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
-			} 
-		catch (Exception e) {
-			System.out.println("error validacion");
-		}
+				modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
+				} 
+			catch (Exception e) {
+				System.out.println("error cargar foto formulario");
+				modelo.addAttribute("imgFoto", null);	
+			}
+			}
+			else
+			{
+				modelo.addAttribute("imgFoto", null);	
+			}
 		
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
 		
-		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
-		
-		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
-		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
-		
-		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionWeb/empleados/FormBajaEmpleado";
 	}
 	
 	@RequestMapping(value = "/bajaempleado", method = RequestMethod.POST)
-	public String bajaempleado(Model modelo,  @Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb)  { 
+	public String bajaempleado(Model modelo, @Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb,
+											 @Valid @ModelAttribute("fecBajaEmpleado") String fecBajaEmpleado)  { 
 		
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
 		
-		empleado.get().setFecBajaEmplelado(datosEmpleadoWeb.getFecBajaEmpleladoWeb());
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		  
+		Calendar calendar1 = Calendar.getInstance();
+		try
+		{
+		calendar1.setTime( dateFormat.parse(fecBajaEmpleado) );
+		
+		empleado.get().setFecBajaEmplelado(calendar1) ;
 		empleado.get().setIndbajaEmpleado(true); 
 		
 		servJPAEmpleado.bajaEmpleado(empleado.get());
-	
+		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
+		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+		}
+		catch (Exception e)
+		{
+			
+		}
 		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
 	}
 	
@@ -351,8 +374,8 @@ public class ControllerWebEmpleados {
 	 											       @RequestParam(value = "numPos", required = false) String numPos,
 	 											       @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag,
  	 											       @RequestParam(value = "apellidosBus", required = false) String apellidosBus,
-	 											       @ModelAttribute("objBusqueda") BeanCamposBusqueda busquedaCampo )
-	{
+	 											       @ModelAttribute("objBusqueda") BeanCamposBusqueda busquedaCampo ) {
+	 
 	 // Con esta variable sabemos la pagina exacta, dentro de todas paginacias posibles,  de donde llega a la paginacion.
 		int numPagInt = 0;
 		int numPosInt = 0;

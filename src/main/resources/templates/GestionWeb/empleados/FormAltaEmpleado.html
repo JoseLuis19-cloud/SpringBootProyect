@@ -92,9 +92,9 @@ h5 {
 					<img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imgFoto}" width="200" height="400" />
 				</div>
 				<div style="display: flex; justify-content: center; align-items: center;"> 
-				<br>
-				 <div> <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a></div>
-				 <p th:id="'idP1'"  th:text="'El tamaño de la foto no debe superar 65.535 bytes'"></p>
+		 
+				   <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a><br>
+				    <p th:id="'idP1'"  th:text="'El tamaño de la foto no debe superar 65.535 bytes'"></p><br>
 				</div>
  			</div>
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
@@ -149,6 +149,7 @@ h5 {
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
        						<input class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
 						</div> 
 					</div>
 					<div class="col-md-2 mb-4">
@@ -299,6 +300,7 @@ h5 {
 
  <script>
     $(document).ready(function(){
+    	
         var date_input=$('input[name="fecAltaEmpleado"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
@@ -318,7 +320,8 @@ h5 {
             autoclose: true,
         });
         
-       
+        
+        document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
        document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuHidden").value;
     });
  </script>

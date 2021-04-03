@@ -70,14 +70,14 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 	public Page<Empleado> pagEmpleados(Integer numPag, Integer numRegPag, String buscarApellido) {
 		Page<Empleado> restulPag;
 		
-		//if (buscarApellido.equals("")  )
-		//	{		
-		//	 restulPag = reposSDataPagCliente.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idCliente")));
-		//	}
-	//	else
-	//		{
+		 if (buscarApellido.equals("")  )
+		 	{		
+		 	 restulPag = empleadoJPAPagRepository.findAll(PageRequest.of(numPag, numRegPag, Sort.by("apellidos")));
+		 	}
+	 	else
+	 		{
 			 restulPag = empleadoJPAPagRepository.findMayorApellido(PageRequest.of(numPag, numRegPag, Sort.by("apellidos")), buscarApellido);
-	//		}
+	 		}
 
 		if (restulPag.hasContent()) {
 			System.out.println("tiene contenido la paginacion");
