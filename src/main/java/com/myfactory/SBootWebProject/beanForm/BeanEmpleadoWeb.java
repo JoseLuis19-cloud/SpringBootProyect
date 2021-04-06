@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -11,8 +13,6 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import com.myfactory.SBootWebProject.model.Pais;
 import com.myfactory.SBootWebProject.model.PuestoTrabajo;
-import com.myfactory.SBootWebProject.model.Role;
-
 
 @Component
 @SessionScope
@@ -42,7 +42,11 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private String numCuentaCorrienteWeb;
 	private String codPostalWeb;
 	private String direccionWeb;
+	
+	@NotNull(message="El teléfono alternativo es obligatorio")
+	@NotBlank(message="El teléfono alternativo es obligatorio")
 	private String telefono2;
+	
 	private Integer codPaisWeb;
 	private Iterable<Pais> paisWeb;
 	private Integer codPuestoTrabajoWeb;

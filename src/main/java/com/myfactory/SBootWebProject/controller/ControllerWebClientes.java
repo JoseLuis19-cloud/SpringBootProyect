@@ -95,7 +95,7 @@ public class ControllerWebClientes {
 			RedirectAttributes redirectAttrs,
 			Model modelo, @RequestParam(value = "tipoCliente", required = true) String tpoCliente) {
 		
-		//  if (! resultValidacion.hasErrors()) {
+		   if (! resultValidacion.hasErrors()) {
 			  Cliente clienteAlta = validarDatosCliente(formClienteWeb, tpoCliente);
 			  Cliente cliente = servicioJPA.altaCliente(clienteAlta);
 
@@ -103,12 +103,12 @@ public class ControllerWebClientes {
 			  		modelo.addAttribute("clienteWeb", formClienteWeb);
 			  		modelo.addAttribute("ErrorBBDD", "1");
 			  		}
-		 // 		}
-		//	   else
-		//	   {
+		 		}
+		 	   else
+		 	   {
 		  	  	modelo.addAttribute("clienteWeb", formClienteWeb );
 			  	modelo.addAttribute("tpoClienteWeb", servicioJPA.getTipoCliente() );  
-		//	   }
+		 	   }
 		
 		return "GestionWeb/clientes/FormInsertarCliente.html";
 	}

@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,7 +68,7 @@ public class ControllerWebEmpleados {
 	private String pathMacOS;
 
 	@GetMapping("/formeditarempleado")
-	public String formularioEditarEmpleado(Model modelo,  @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formularioEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
@@ -102,7 +104,7 @@ public class ControllerWebEmpleados {
 		
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
+	 
 		return "GestionWeb/empleados/FormEditarEmpleado";
 	}
 	
@@ -131,7 +133,7 @@ public class ControllerWebEmpleados {
 				modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
 				} 
 			catch (Exception e) {
-				System.out.println("error cargar foto formulario");
+				System.out.println("Error cargar foto formulario");
 				modelo.addAttribute("imgFoto", null);	
 			}
 			}
@@ -192,7 +194,8 @@ public class ControllerWebEmpleados {
 		
 		beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
 		beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
-		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);	 
+		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);
+		modelo.addAttribute("mostrarModalFoto", "N");
 		   
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -201,7 +204,7 @@ public class ControllerWebEmpleados {
 	}
 
 	@RequestMapping(value = "/altaempleado", method = RequestMethod.POST)
-	public String altaEmpleado(@Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
+	public String altaEmpleado(@Valid @ModelAttribute("empleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
 					BindingResult resultValidacion,
 					RedirectAttributes redirectAttrs,
 					Model modelo, 
@@ -235,8 +238,17 @@ public class ControllerWebEmpleados {
 				 
 			} */
 		 // Dar de alta Empleado
-			servJPAEmpleado.altaEmpleado(empleado);
-			return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";	 
+			Empleado empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);
+			
+			modelo.addAttribute("mostrarModalFoto", "S");	
+			BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+			modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);
+			modelo.addAttribute("idEmpleadoNuevo", empleadoNuevo.getIdEmpleado());
+			
+			return "GestionWeb/empleados/FormAltaEmpleado";  
+			
+			// return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";	 
 			}
 		  else
 			{
@@ -248,11 +260,11 @@ public class ControllerWebEmpleados {
 			return "GestionWeb/empleados/FormAltaEmpleado"; 
 			}
 	  }
-     
+
 	@RequestMapping(value = "/modifempleado", method = RequestMethod.POST)
-	public String modifEmpleado(@Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
+	public String modifEmpleado(@Valid  @ModelAttribute("empleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
 					BindingResult resultValidacion,
-					RedirectAttributes redirectAttrs,
+				//	RedirectAttributes redirectAttrs,
 					Model modelo, 
 					@RequestParam(value = "paisEmpleado", required = true) String codPais,
 					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo,
@@ -265,7 +277,10 @@ public class ControllerWebEmpleados {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar calendar1 = Calendar.getInstance();
 		Empleado empleado = null;
-	   
+		Boolean errorValidacion = true;
+		
+		System.out.println(datosEmpleadoWeb.getTelefono2());
+
 		if (! resultValidacion.hasErrors() )
 			{
 			try
@@ -281,11 +296,17 @@ public class ControllerWebEmpleados {
 			 }
 			catch (Exception e)
 			 {
-				
+				System.out.print(e);
 			 }
 			}
 		  else
 			{
+			  
+		//	 List<FieldError> listError = resultValidacion.getFieldErrors();
+			  errorValidacion = true;
+			  
+			 modelo.addAttribute("errorValidacion", errorValidacion);
+			 
 			 modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);	
 			
 			 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
@@ -303,8 +324,9 @@ public class ControllerWebEmpleados {
 	}
 	
 	@PostMapping("/uploadimagenempleado")
-    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
+    public String uploadFile(@RequestParam("file") MultipartFile file,  @RequestParam(value = "idEmpleado", required = true) String idEmpleado, RedirectAttributes attributes, Model modelo) {
 
+		byte[] arrayBytesImagen = null;
      // check if file is empty
         if (file.isEmpty()) {
             attributes.addFlashAttribute("message", "Seleccione una imagen a enviar.");
@@ -313,19 +335,33 @@ public class ControllerWebEmpleados {
 
      // normalize the file path
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(1));
+        Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
         
 		try
 		 {
-			byte[] arrayBytesImagen = file.getBytes();
-			java.sql.Blob blobImagen = new javax.sql.rowset.serial.SerialBlob(arrayBytesImagen);	
-			empleado.get().setImagenFotoEmpleado(blobImagen);
+			if ( file.getSize() > 65535L)
+				{
+				System.out.println("El tamaño de la foto no puede superar los 65.535 bytes");	
+				}
+			  else
+				{
+				 arrayBytesImagen = file.getBytes();
+				 java.sql.Blob blobImagen = new javax.sql.rowset.serial.SerialBlob(arrayBytesImagen);	
+				 empleado.get().setImagenFotoEmpleado(blobImagen);
+				}
 		 }
-		catch (Exception exp) {
+		catch (Exception exp) 
+		 {
 			System.out.println("Error conversion");
-		}
+		 }
         
 		servJPAEmpleado.grabarImagen(empleado.get());
+		modelo.addAttribute("imgFoto", this.getImgData(arrayBytesImagen) );
+		
+		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
+		
+		 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+		 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
         
         try {
         // save the file on the local file system
@@ -336,9 +372,62 @@ public class ControllerWebEmpleados {
         }
 
         // return success response
-        attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
+      //  attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
 
-        return "redirect:/";
+        return "GestionWeb/empleados/FormAltaEmpleado";  
+    }
+	
+	
+	@PostMapping("/cargarfotoempleado")
+    public String uploadFotoEmpleado(@RequestParam("file") MultipartFile file, RedirectAttributes attributes,
+    								Model modelo) {
+
+     // check if file is empty
+        if (file.isEmpty()) {
+            attributes.addFlashAttribute("message", "Seleccione una imagen a enviar.");
+            return "redirect:/";
+        }
+
+     // normalize the file path
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+     //    Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(1));
+        
+		try
+		 {
+			byte[] arrayBytesImagen = file.getBytes();
+		//	java.sql.Blob blobImagen = new javax.sql.rowset.serial.SerialBlob(arrayBytesImagen);	
+			BeanEmpleadoWeb datosEmpleadoWeb = new BeanEmpleadoWeb();
+			 
+			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);
+			modelo.addAttribute("imgFoto", this.getImgData(arrayBytesImagen) );
+			// empleado.get().setImagenFotoEmpleado(blobImagen);
+		 }
+		catch (Exception exp) {
+			System.out.println("Error conversion");
+		}
+		
+		 
+        
+	//	servJPAEmpleado.grabarImagen(empleado.get());
+        
+     //   try {
+        // save the file on the local file system
+   //         Path path = Paths.get(this.getPathMacOS() + fileName);
+    //        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+      //  } catch (IOException e) {
+       //     e.printStackTrace();
+        // }
+
+        // return success response
+     //   attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
+		
+	//	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+ 
+		
+		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		
+		return "GestionWeb/empleados/FormAltaEmpleado"; 
     }
 
 	
@@ -404,8 +493,7 @@ public class ControllerWebEmpleados {
 					else 
 						{
 						numPagInt = Integer.parseInt(numPag) - 1;
-						}	
-				
+						}		
 				}
 			else
 				{
@@ -557,13 +645,16 @@ public class ControllerWebEmpleados {
 		empleado.setNumSeguridaSocial( datosEmpleadoWeb.getNumSeguridaSocialWeb());
 		 
 		if ( datosEmpleadoWeb.getFecAltaEmpleladoWeb() != null )
-			{
-			try { empleado.setFecAltaEmplelado( datosEmpleadoWeb.getFecAltaEmpleladoWeb() ) ;
-			} 
-			catch (Exception e) {
+		   {
+			try 
+				{ 
+				empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb()) ;
+				} 
+			catch (Exception e)
+				{
 				System.out.println("error validacion");
+				}
 			}
-		}
 	 
 		if (datosEmpleadoWeb.getImpBrutoAnualWeb() != "" && datosEmpleadoWeb.getImpBrutoAnualWeb() != null)
 			{

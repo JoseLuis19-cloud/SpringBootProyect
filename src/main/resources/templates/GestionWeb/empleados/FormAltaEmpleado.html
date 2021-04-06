@@ -53,18 +53,34 @@ h5 {
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 	
 	 <script th:inline="javascript">
+	 
+	   /*<![CDATA[*/
+		var mostrarModalFoto = [[${mostrarModalFoto}]];
+	   /*]]>*/
+
 	 	$(document).ready(function(){
  
 			$("#idLinkCrearUsu").click(function(){
-				// Cargar valores de empleado a usuario
+			 // Cargar valores de empleado a usuario
 		 		$("#myModalAltaUsu").modal();
 		 	});
 			
-			$("#idLinkCambiarFoto").click(function(){
-		 		$("#myModalCambiarFoto").modal();
-		 	});
-	 
-	 	 });
+	//	 	$("#idLinkCambiarFoto").click(function(){
+	//	 	    $("#myModalCambiarFoto").modal();
+	//	 	});
+		 	
+		 	
+		 	$('#idSaltarPaso').click(function()
+		 	 {
+		 		document.getElementById("idFormPaginacion").submit();
+			});
+		 	
+		 	if (mostrarModalFoto == "S")
+			   {
+			    $("#myModalCambiarFoto").modal();
+			   }
+	 	 }); 
+	 	
 	</script>
 </head>
 
@@ -91,12 +107,10 @@ h5 {
   				<div style="display: flex; justify-content: center; align-items: center;">
 					<img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imgFoto}" width="200" height="400" />
 				</div>
-				<div style="display: flex; justify-content: center; align-items: center;"> 
-		 
-				   <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a><br>
-				    <p th:id="'idP1'"  th:text="'El tamaño de la foto no debe superar 65.535 bytes'"></p><br>
-				</div>
- 			</div>
+			  <!--  <div style="display: flex; justify-content: center; align-items: center;"> 
+				   <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a> 
+				</div>  -->
+			 </div> 	
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
 						<div class="col-md-5 mb-3">
@@ -159,7 +173,8 @@ h5 {
 					<div class="col-md-4 mb-4">
 						<label for="labelemail" th:text="'email empleado' "></label>
 						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="35" required th:classappend="${#fields.hasErrors('emailWeb')}? is-invalid">
-						<div class="invalid-feedback" th:errors="*{emailWeb}">Formato no correcto del email</div>
+						<p th:if="${#fields.hasErrors('emailWeb')}" th:errors="*{emailWeb}">Formato no correcto del email</p>
+						
 					</div>
 				</div>
 				
@@ -190,9 +205,10 @@ h5 {
 					<label for="labelImpBrutoAnu" th:text="'Importe bruto anual' "></label>
 					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10">
 				</div>
-			</div>
   			</div>
-  			<div class="col-1"></div>
+ 		 </div>
+ 		 <div class="col-1"></div>
+ 	 
  		</div>
  		<div class="row">
  			<div class="col-1"></div>
@@ -272,29 +288,32 @@ h5 {
   
   <!-- Modal Cambiar Foto -->
   <div id="myModalCambiarFoto" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Cambiar foto del empleado</h5>
+        <h5 class="modal-title">Añadir foto del empleado</h5>
       </div>
       <div class="modal-body">
     		<div class="container">	
                	 <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
+               	  <input type="hidden" th:id="'idIdEmpleado'" th:name="'idEmpleado'" th:value="${idEmpleadoNuevo}" /> 
+               	    <p th:id="'idP1'"  th:text="'El tamaño de la foto no debe superar 65.535 bytes'"></p>
                  	 <div class="form-group">
                    	  <input type="file" name="file" class="form-control-file">
                   	 </div>
                   	 <button type="submit" class="btn btn-primary">Enviar Foto</button>
                	</form>
-   		 </div>
-	
-      </div>
+     	   </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <button type="button" id="idSaltarPaso" class="btn btn-primary" data-dismiss="modal">Saltar Paso</button>
       </div>
     </div>
   </div>
 </div>
-	
+
+ 		<form th:id="idFormPaginacion" th:action="@{/gestionWeb/empleados/pagempleadosNue}"  method="post">
+      </form>
+</div>	
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
@@ -319,9 +338,8 @@ h5 {
             todayHighlight: true,
             autoclose: true,
         });
-        
-        
-        document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
+  
+       document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
        document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuHidden").value;
     });
  </script>

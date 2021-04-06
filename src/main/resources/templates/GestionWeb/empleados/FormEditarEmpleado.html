@@ -67,6 +67,17 @@ h5 {
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	<div class="container-fluid" style="margin-top:0px;">
+	
+		<!-- Mostrar los errores en una lista -->
+				<!-- 
+				<div th:object="${producto}" th:remove="tag">
+					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+						<li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
+					</ul>
+				</div>
+				 -->
+		 <div class="alert alert-danger"  th:if="${errorValidacion}"> Ha habido error validacion </div>
+				 
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Empleado</div>
 		</div>
@@ -150,11 +161,12 @@ h5 {
 					</div>
 					<div class="col-md-3 mb-4">
 						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
-						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14">
+						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14" th:classappend="${#fields.hasErrors('telefono2')}? is-invalid">
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('telefono2')}" th:errors="*{telefono2}"> Teléfono alternativo es obligatorio</small>
 					</div>
 					<div class="col-md-4 mb-4">
-						<label for="labelemail" th:text="'email empleado' "></label>
-						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="25" required>
+					<label for="labelFecEmpleado">Fec. alta empleado</label>
+						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="30" required>
 					</div>
 				</div>
 				

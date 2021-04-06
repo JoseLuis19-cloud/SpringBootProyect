@@ -24,4 +24,6 @@ public interface ServJPAMenu {
 	public SubMenuNivel1 insertarElementoSubMenu(SubMenuNivel1 subMenuNivel1);
 	
 	public Optional<Menu> findIdMenu(Integer idMenu);
+	
+	public void eliminarElementoMenu(Integer idMenu);
 }

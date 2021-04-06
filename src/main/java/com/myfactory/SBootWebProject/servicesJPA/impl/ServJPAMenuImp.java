@@ -66,4 +66,9 @@ public class ServJPAMenuImp implements ServJPAMenu {
 	public Optional<Menu> findIdMenu(Integer idMenu) {
 		return menuJPARepository.findById(idMenu);
 	}
+
+	@Override
+	public void eliminarElementoMenu(Integer idMenu) {
+	  menuJPARepository.deleteById(idMenu);
+	}
 }

@@ -280,6 +280,7 @@
 							<th width="7%"  th:text="'Acción'"></th>
 							<th width="7%"  th:text="'Cancelar'"></th>
 							<th width="7%"  th:text="'Ver'"></th>
+							<th width="7%"  th:text="'Accion'"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -317,7 +318,10 @@
 						<td>	
 							<a th:id="'idLinkSubMenu' + ${menuP.idMenu}" th:name="'linkSubMenu' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${menuP.idMenu} + '&nomElemMenu=' + ${menuP.textoMenu}}" style="visibility:visible">submenu</a>
 							<input type="hidden" th:id="'idMenuHidden'+ ${menuP.idMenu}" th:name="'idMenuHidden'+ ${menuP.idMenu}" th:value="${menuP.idMenu}"/>		
-						 </td>																				 											
+						 </td>
+						 <td>	
+							<a th:id="'idLinkBaja' + ${menuP.idMenu}" th:name="'linkBaja' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${menuP.idMenu} + '&nomElemMenu=' + ${menuP.textoMenu}}" style="visibility:visible">baja</a>		
+						 </td>																					 											
 						</tr>
 						<tr>
 							<td></td>
@@ -417,6 +421,29 @@
       
     </div>
   </div>
+  
+  <!-- Modal Eliminar Menu -->
+  <div id="myModalEliminarMenu" class="modal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar este elemento de menú</h5>
+      </div>
+      <div class="modal-body">
+    		<div class="container">
+               	 <form method="post" th:action="@{/gestionmenus/eliminarmenu}" enctype="multipart/form-data">
+               	  <input type="hidden" th:id="'idIdMenu'" th:name="'idMenu'" th:value="${idMenu}" /> 
+               	    <p th:id="'idP1'"  th:text="'El elemento de menu se eliminará si no está asignado a ningun menú de usuario'"></p>
+               	</form>
+     	   </div>
+      <div class="modal-footer">
+        <button type="button" id="idConfirmar" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+        <button type="button" id="idCancelar" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
 	
 </body>
 </html>

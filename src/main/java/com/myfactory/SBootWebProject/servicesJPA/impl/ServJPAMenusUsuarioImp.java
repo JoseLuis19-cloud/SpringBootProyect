@@ -58,4 +58,17 @@ public class ServJPAMenusUsuarioImp implements ServJPAMenusUsuario {
 		 menusUsuJPARepository.delete(menuUsuario);
 	};
 	
+	@Override
+	public Boolean existenElementosMenuUsuario (Integer idMenu) {
+ 
+		if (menusUsuJPARepository.numElementosMenuUsuario(idMenu).intValue() > 0 )
+		   {
+		    return true;
+		   }
+		 else
+		  {
+			return  false;
+		  }
+	};
+	
 }

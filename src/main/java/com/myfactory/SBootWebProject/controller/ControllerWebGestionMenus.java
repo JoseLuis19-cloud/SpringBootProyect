@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
 
 @Controller
 @RequestMapping("/gestionmenus")
@@ -25,6 +28,9 @@ public class ControllerWebGestionMenus {
 	
 	@Autowired
 	ServJPAMenu serviciosJPAMenu;
+	
+	@Autowired
+	ServJPAMenusUsuario  servJPAMenusUsuarioImp;
 	
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
@@ -228,13 +234,22 @@ public class ControllerWebGestionMenus {
 		return "GestionMenus/GestionMenus";
 		}
 	
-
-	
 	@RequestMapping(value = "/ventanamodal", method = RequestMethod.GET)
 	public String popupventana(Model modelo) {
-		
+		// Comprobar que  no esta asignado a ningún menu de usuario.
  
 		return "GestionMenus/VentanaModal";
 	}
 	
+	@RequestMapping("/eliminarmenu")
+	public String bajaMenu(Model modelo, @RequestParam(value = "idMenu", required = true) String idMenu)  {
+		
+	 // Comprobamos que el elemento de menú no está dado de alta en ningún menu usuario.
+		if (! servJPAMenusUsuarioImp.existenElementosMenuUsuario(new Integer(idMenu) ) ) 
+		   {
+		   serviciosJPAMenu.eliminarElementoMenu(new Integer(idMenu));
+		   }
+		
+		return "GestionMenus/VentanaModal";
+	}
 }
