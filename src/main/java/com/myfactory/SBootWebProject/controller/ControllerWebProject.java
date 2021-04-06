@@ -23,7 +23,6 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 import javax.validation.Valid;
-
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

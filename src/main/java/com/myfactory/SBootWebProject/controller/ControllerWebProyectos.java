@@ -31,41 +31,23 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
-import com.myfactory.SBootWebProject.beanForm.BeanCamposGesMenuUsu;
-import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioSession;
-import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanPrueba1;
-import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanSubMenuN1UsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
-import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.Person;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
-import com.myfactory.SBootWebProject.dto.UserDTO;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Empresa;
-import com.myfactory.SBootWebProject.model.Menu;
-import com.myfactory.SBootWebProject.model.MenusUsuario;
 import com.myfactory.SBootWebProject.model.Proyecto;
-import com.myfactory.SBootWebProject.model.SubMenuNivel1;
-import com.myfactory.SBootWebProject.model.SubMenuNivel2;
-import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAProyecto;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
-import com.myfactory.SBootWebProject.servicesJPA.impl.ServJPAEmpresaImpl;
 
 @Controller
-
- 
 @RequestMapping("/gestionWeb/proyectos")
 public class ControllerWebProyectos {
 	
@@ -201,7 +183,6 @@ public class ControllerWebProyectos {
 			{
 				busquedaCampo.setNomProyecto(busquedaCampo.getNomProyecto());
 			}
-			
 		
 		modelo.addAttribute("objBusqueda", busquedaCampo);
 

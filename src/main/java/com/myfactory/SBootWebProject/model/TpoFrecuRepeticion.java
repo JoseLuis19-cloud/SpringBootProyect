@@ -38,7 +38,5 @@ public class TpoFrecuRepeticion implements Serializable {
 		public void setDesFrecuRepeticion(String desFrecuRepeticion) {
 			this.desFrecuRepeticion = desFrecuRepeticion;
 		}
-	    
-
 		
 }

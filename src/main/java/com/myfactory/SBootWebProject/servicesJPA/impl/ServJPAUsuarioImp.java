@@ -46,7 +46,6 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 		return usuarioJPABaseRepository.findAll();
 	}
 	
-	
 	@Override
 	public Iterable<User> listadoUsuariosHistorico() {
 		return usuarioJPABaseRepository.listaUsuariosHistorico() ;
@@ -72,7 +71,6 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 		return usuarioJPABaseRepository.save(usuario);
 	}
  
-	
 	@Override
 	public Boolean findByName(String userName){
 		 return usuarioJPABaseRepository.findByName(userName).isPresent();

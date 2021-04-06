@@ -154,7 +154,7 @@ public class ControllerWebClientes {
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 	//	return "redirect:/gestionWeb/formBajaCliente/";
-		return "GestionWeb/clientes/FormBajaCliente.html";
+		return "GestionWeb/clientes/FormBajaCliente";
 	}
 	
 	

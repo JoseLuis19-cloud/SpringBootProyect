@@ -29,7 +29,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
  
 
- 
 @Controller
 @RequestMapping("/informes")
 @PropertySource("classpath:parametrosaplicacion.properties")
@@ -100,6 +99,5 @@ public class ControllerWebInformes {
         };
         
     }
-	
-	 
+ 
 }
