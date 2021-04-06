@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,10 +38,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
+import com.myfactory.SBootWebProject.constantes.ConstantesErroresAplicacion;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Pais;
 import com.myfactory.SBootWebProject.model.PuestoTrabajo;
@@ -73,12 +76,11 @@ public class ControllerWebEmpleados {
 		byte[] blobBytes = null;
 		byte[] encode =null;
 
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
-		  
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));	  
 		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
         
 		if (empleado.get().getImagenFotoEmpleado() != null )
-			{
+		   {
 			try {
 				Blob blobImg = empleado.get().getImagenFotoEmpleado();
 				blobBytes = blobImg.getBytes(1, (int) blobImg.length());
@@ -107,7 +109,6 @@ public class ControllerWebEmpleados {
 	 
 		return "GestionWeb/empleados/FormEditarEmpleado";
 	}
-	
 	
 	@GetMapping("/formbajaempleado")
 	public String formularioBajaEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
@@ -139,9 +140,9 @@ public class ControllerWebEmpleados {
 			}
 			else
 			{
-				modelo.addAttribute("imgFoto", null);	
+			 modelo.addAttribute("imgFoto", null);	
 			}
-		
+
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
 		
@@ -162,17 +163,17 @@ public class ControllerWebEmpleados {
 		Calendar calendar1 = Calendar.getInstance();
 		try
 		{
-		calendar1.setTime( dateFormat.parse(fecBajaEmpleado) );
+		 calendar1.setTime( dateFormat.parse(fecBajaEmpleado) );
 		
-		empleado.get().setFecBajaEmplelado(calendar1) ;
-		empleado.get().setIndbajaEmpleado(true); 
+		 empleado.get().setFecBajaEmplelado(calendar1) ;
+		 empleado.get().setIndbajaEmpleado(true); 
 		
-		servJPAEmpleado.bajaEmpleado(empleado.get());
+		 servJPAEmpleado.bajaEmpleado(empleado.get());
 		
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
-		}
+		 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+		 }
 		catch (Exception e)
 		{
 			
@@ -212,6 +213,10 @@ public class ControllerWebEmpleados {
 		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo,
 		 			@RequestParam(value = "fecAltaEmpleado", required = true) String fecAltaEmpleado)   {
 		
+		
+		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
+		
+		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		System.out.print(fecAltaEmpleado);
@@ -226,7 +231,26 @@ public class ControllerWebEmpleados {
 			{
 			calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
 			datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1 )  ;
-			empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+			
+			Map<String, Object> resultValEmpleado;
+			resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+			
+			resultValEmpleado.put("empleadoValidado", empleado);
+			BeanErrorValidacion datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
+			
+			if (datosError.getCodError().intValue() != 0 ) 
+			   {
+				modelo.addAttribute("errorValidacion" , true);
+				modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError()   );
+			   }
+			  else
+			   {
+				empleado = (Empleado) resultValEmpleado.get("empleadoValidacion" );
+				empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+					
+				modelo.addAttribute("errorValidacion" , true);
+				modelo.addAttribute("mensajeError", "" );
+			   }
 			}
 			catch (Exception e)
 			{
@@ -286,9 +310,29 @@ public class ControllerWebEmpleados {
 			try
 			{
 			 calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
-			 datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1)  ;
-			 empleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-			 empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+			 datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1);
+ 
+			 Map<String, Object> resultValEmpleado;
+			
+			 // empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+				
+			 resultValEmpleado.put("empleadoValidado", empleado);
+			 BeanErrorValidacion datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
+				
+			if (datosError.getCodError().intValue() != 0 ) 
+				{
+				modelo.addAttribute("errorValidacion" , true);
+				modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError()   );
+				}
+			  else
+				{
+				modelo.addAttribute("errorValidacion" , true);
+				modelo.addAttribute("mensajeError", "" );
+					
+				empleado = (Empleado) resultValEmpleado.get("empleadoValidacion" );
+				empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+			   }
 			 
 			 servJPAEmpleado.modifEmpleado(empleado);
 			 
@@ -630,7 +674,11 @@ public class ControllerWebEmpleados {
 	}
 	
 	 
-	private Empleado validarDatosEmpleado(BeanEmpleadoWeb datosEmpleadoWeb, String codPais, String codPuestoTrabajo) {
+	private Map<String, Object> validarDatosEmpleado(BeanEmpleadoWeb datosEmpleadoWeb, String codPais, String codPuestoTrabajo) {
+		
+		Map<String, Object> resultadoValidacion = new HashMap<>();
+		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
+		
 		Empleado empleado = new Empleado();
 		Pais pais = new Pais();
 		PuestoTrabajo  puestoTrabajo = new PuestoTrabajo();
@@ -647,13 +695,15 @@ public class ControllerWebEmpleados {
 		if ( datosEmpleadoWeb.getFecAltaEmpleladoWeb() != null )
 		   {
 			try 
-				{ 
+			  { 
 				empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb()) ;
-				} 
+			  } 
 			catch (Exception e)
-				{
+			  {
 				System.out.println("error validacion");
-				}
+				datosErrorValidacion.setCodError(new Integer(10) );
+				datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_FORMATO_FECHA + "Empleado" );
+			  } 
 			}
 	 
 		if (datosEmpleadoWeb.getImpBrutoAnualWeb() != "" && datosEmpleadoWeb.getImpBrutoAnualWeb() != null)
@@ -666,8 +716,11 @@ public class ControllerWebEmpleados {
 		
 		empleado.setPais(pais);
 		empleado.setPuestoTrabajo(puestoTrabajo);
+		
+		resultadoValidacion.put("empleadoValidacion", empleado);
+		resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
 
-		return empleado;
+		return resultadoValidacion;
 	}
  	
 }

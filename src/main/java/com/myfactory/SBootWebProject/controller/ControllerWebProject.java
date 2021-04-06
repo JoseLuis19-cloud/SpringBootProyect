@@ -34,8 +34,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
-import com.myfactory.SBootWebProject.model.Factura;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

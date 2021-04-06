@@ -6,7 +6,6 @@ import java.util.List;
 
 public class ConstantesAplicacion {
 	
-	
 	// Numero de registros mostrados por paginas
 	public static final Integer REG_POR_PAGINA  = new Integer(5);
 	public static final int NUM_PAGINAS_PAGINADAS  = 4;

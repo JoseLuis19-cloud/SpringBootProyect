@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposGesMenuUsu;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuUsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuN1UsuarioWeb;
@@ -25,7 +24,6 @@ import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.MenusUsuario;
 import com.myfactory.SBootWebProject.model.SubMenuNivel1;
-import com.myfactory.SBootWebProject.model.SubMenuNivel2;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;

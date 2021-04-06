@@ -73,7 +73,7 @@
 		 });
 		
 		// Evento de boton Editar
-		//
+		 
 		$('a[id^="idLinkEdit"]').click(function(event) {
 			
 			var lastChar = getNumber(event.target.id);
@@ -101,7 +101,6 @@
 			//	alert( document.getElementById("idIdMenuHidden").value );
 			//	alert( document.getElementById("idNumOrdenHidden").value );
   		
-		 
 			 // Submitir formulario
 				document.getElementById("idFormEditMenu").submit();
 			}	
@@ -122,6 +121,13 @@
 	 	  
 		  $("a[id^='idLinkCancelar']").hide();
 		  $('#idLinkEdit' + lastChar4).text('editar');
+		 });
+	
+		$('a[id^="idLinkBaja"]').click(function(event) {
+			alert("Buenas 1");
+		   var lastChar5 = getNumber(event.target.id);
+		   $("#idIdMenu").val($("#idLinkBaja" + lastChar5).val());   
+		   $("#myModalEliminarMenu").modal();
 		 });
 		
 		// Evento Editar numero de orden de menu
@@ -146,12 +152,12 @@
 		$("#idCancelNumOrden").click(function() {
 			$("input[id^='idNumOrdMenu']").prop("readonly", true);
 			$("#idEditNumOrden").text('editar');
-				document.getElementById("idCancelNumOrden").style.display = "none";
+			  document.getElementById("idCancelNumOrden").style.display = "none";
 		});
  
 		if (isErrorAlta)
 	       {
-	  	 	console.log("cargar ventana emergente" + isErrorAlta);
+	  	 	console.log("Cargar Ventana Emergente" + isErrorAlta);
 	  	 	$('#myModal').modal('show');
 	   		}
 	   	  else
@@ -263,9 +269,9 @@
 			<div class="col-10">
    				<div class="subtitulo-pag" th:text="'Elementos Menu principal'"></div>
 			</div>	
-			<div class="col-1"> </div>
-				
-		</div>	
+			<div class="col-1"> </div>		
+		</div>
+		
 		<div class="row" >
 			<div class="col-1"> </div>
 			<div class="col-10" style="border-bottom: 2px solid #000">
@@ -274,8 +280,8 @@
 						<tr>
 							<th width="7%"  th:text="'Id. Menu'"></th>
 							<th width="7%"  th:text="'N. Orden'"></th>
-							<th width="30%" th:text="'Texto menú'"></th>
-							<th width="30%" th:text="'Dirección o Link (href)'"></th>
+							<th width="28%" th:text="'Texto menú'"></th>
+							<th width="25%" th:text="'Dirección o Link (href)'"></th>
 							<th width="5%"  th:text="'Activado'"></th>
 							<th width="7%"  th:text="'Acción'"></th>
 							<th width="7%"  th:text="'Cancelar'"></th>
@@ -320,7 +326,7 @@
 							<input type="hidden" th:id="'idMenuHidden'+ ${menuP.idMenu}" th:name="'idMenuHidden'+ ${menuP.idMenu}" th:value="${menuP.idMenu}"/>		
 						 </td>
 						 <td>	
-							<a th:id="'idLinkBaja' + ${menuP.idMenu}" th:name="'linkBaja' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${menuP.idMenu} + '&nomElemMenu=' + ${menuP.textoMenu}}" style="visibility:visible">baja</a>		
+							<a th:id="'idLinkBaja' + ${menuP.idMenu}" th:name="'linkBaja' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button"  style="visibility:visible">baja</a>		
 						 </td>																					 											
 						</tr>
 						<tr>

@@ -74,7 +74,7 @@ public class ControllerWebGestionMenus {
 	    modelo.addAttribute("subMenuNivel1", subMenuNivel1);
 	    modelo.addAttribute("elemenMenuPrincipal", nomEleMenu);
 
-	    // Instanciar elemento submenu nuevo por si da de alta uno
+	 // Instanciar elemento submenu nuevo por si da de alta uno
 	    BeanSubMenuAplicacionWeb elemenSubMenuNuevo = new BeanSubMenuAplicacionWeb();
 	    
 	    long count = StreamSupport.stream(subMenuNivel1.spliterator(), false).count();
@@ -89,9 +89,8 @@ public class ControllerWebGestionMenus {
 			  noTieneSubmenus = false;
 		  }
 		  
-		  modelo.addAttribute("noTieneSubmenus", noTieneSubmenus);
-		  modelo.addAttribute("errorAltaElemento", false);
-		  
+		modelo.addAttribute("noTieneSubmenus", noTieneSubmenus);
+		modelo.addAttribute("errorAltaElemento", false);  
 		  
 		elemenSubMenuNuevo.setNumOrdenSubMenu(numRegSubMenu.intValue() + 1 );
 		elemenSubMenuNuevo.setIndActivoSubMenu(false);
@@ -144,14 +143,13 @@ public class ControllerWebGestionMenus {
 		if (elemenMenu == null) {
 			modelo.addAttribute("errorAltaElemento", true);
 		}
-		 
-	 	
+
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		return "GestionMenus/GestionMenus";
 	}
 	
-	@RequestMapping(value =  "/insertelementosubmenu", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertelementosubmenu", method = RequestMethod.POST)
 	public String insertElementoSubMenu(Model modelo, @ModelAttribute("beanSubMenuAplicacionWeb") BeanSubMenuAplicacionWeb beanSubMenuAplicacionWeb) 
 	{
 		SubMenuNivel1 elemenSubMenu = new SubMenuNivel1();		
