@@ -71,4 +71,9 @@ public class ServJPAMenuImp implements ServJPAMenu {
 	public void eliminarElementoMenu(Integer idMenu) {
 	  menuJPARepository.deleteById(idMenu);
 	}
+	
+	@Override
+	public void modifNumOrden( Menu menu){
+		  menuJPARepository.save(menu);
+		}
 }

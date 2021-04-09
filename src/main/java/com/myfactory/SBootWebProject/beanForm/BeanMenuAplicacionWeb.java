@@ -24,6 +24,14 @@ public class BeanMenuAplicacionWeb implements Serializable, Cloneable {
 	public BeanMenuAplicacionWeb() {
 	 
 	}
+	
+	public BeanMenuAplicacionWeb(Integer idMenu, Integer numOrdenMenu, String textoMenu, String hrefAplicacion, boolean indActivo) {
+		this.idMenu = idMenu;
+		this.numOrdenMenu = numOrdenMenu;
+		this.textoMenu = textoMenu;
+		this.hrefAplicacion = hrefAplicacion;
+		this.indActivo = indActivo;
+	}
 
 	public Integer getNumOrdenMenu() {
 		return numOrdenMenu;

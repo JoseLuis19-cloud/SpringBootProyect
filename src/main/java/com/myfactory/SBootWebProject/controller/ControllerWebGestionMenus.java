@@ -1,7 +1,11 @@
 package com.myfactory.SBootWebProject.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +17,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.expression.Lists;
 
+import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
+import com.myfactory.SBootWebProject.beanForm.BeanFormMenu;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanSubMenuN1UsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.model.Menu;
+import com.myfactory.SBootWebProject.model.MenusUsuario;
 import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
@@ -38,28 +47,37 @@ public class ControllerWebGestionMenus {
 	@GetMapping("/obtenermenuprincipal")
 	public String obtenerMenuPrincipal(Model modelo) {
 	// Carga opciones del menu principal
-	 Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
-		
-	 modelo.addAttribute("menuPrincipal", menuPrincipalAplicacion);
-		
+	  Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
+	  
+	   BeanFormMenu beanFormMenu = new BeanFormMenu();
+	  
+	   List<Menu> listMenu = StreamSupport
+			  .stream(menuPrincipalAplicacion.spliterator(), false)
+			  .collect(Collectors.toList());
+
+	 ArrayList<Menu> arrListMenu = new ArrayList<Menu>(listMenu);
+	  beanFormMenu.setBeanMenuAplicacionWeb(arrListMenu); 
+	  
+	  modelo.addAttribute("menuPrincipal", beanFormMenu);
+
 	 // Instanciar elemento menu nuevo por si da de alta uno
-	 BeanMenuAplicacionWeb elemenMenuNuevo = new BeanMenuAplicacionWeb();
+	  BeanMenuAplicacionWeb elemenMenuNuevo = new BeanMenuAplicacionWeb();
 	 	
 	  long count = StreamSupport.stream(menuPrincipalAplicacion.spliterator(), false).count();
 	  
 	  Long numRegMenuPrin = new Long(count);
 	  
-	   elemenMenuNuevo.setNumOrdenMenu(numRegMenuPrin.intValue() + 1 );
-	   elemenMenuNuevo.setIndActivo(false);
+	  elemenMenuNuevo.setNumOrdenMenu(numRegMenuPrin.intValue() + 1 );
+	  elemenMenuNuevo.setIndActivo(false);
 	 
-		modelo.addAttribute("elemenMenuNuevoWeb", elemenMenuNuevo);
+	  modelo.addAttribute("elemenMenuNuevoWeb", elemenMenuNuevo);
 
-		BeanMenuAplicacionWeb elementoEdicionMenuApli  = new BeanMenuAplicacionWeb();
-		modelo.addAttribute("elemenEditMenuApli", elementoEdicionMenuApli);
+	  BeanMenuAplicacionWeb elementoEdicionMenuApli  = new BeanMenuAplicacionWeb();
+	  modelo.addAttribute("elemenEditMenuApli", elementoEdicionMenuApli);
 
 	 // Carga el menu general
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		return "GestionMenus/GestionMenus";
+	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	  return "GestionMenus/GestionMenus";
 	}
 	
 	@RequestMapping(value = "/obtenersubmenu", method = RequestMethod.GET)
@@ -223,7 +241,8 @@ public class ControllerWebGestionMenus {
 	 
 		modelo.addAttribute("elemenMenuNuevoWeb", elemenMenuNuevo);
 
-		BeanMenuAplicacionWeb elementoEdicionMenuApli  = new BeanMenuAplicacionWeb();
+		BeanMenuAplicacionWeb elementoEdicionMenuApli  = new BeanMenuAplicacionWeb(new Integer(0), new Integer(0), "", "", false);
+		
 		modelo.addAttribute("elemenEditMenuApli", elementoEdicionMenuApli);
 
 	 // Carga el menu general
@@ -239,15 +258,45 @@ public class ControllerWebGestionMenus {
 		return "GestionMenus/VentanaModal";
 	}
 	
-	@RequestMapping("/eliminarmenu")
+	@RequestMapping(value = "/eliminarmenu", method = RequestMethod.POST)
 	public String bajaMenu(Model modelo, @RequestParam(value = "idMenu", required = true) String idMenu)  {
+		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 		
 	 // Comprobamos que el elemento de menú no está dado de alta en ningún menu usuario.
 		if (! servJPAMenusUsuarioImp.existenElementosMenuUsuario(new Integer(idMenu) ) ) 
 		   {
 		   serviciosJPAMenu.eliminarElementoMenu(new Integer(idMenu));
 		   }
+		else
+		  { 
+			datosErrorValidacion.setCodError(new Integer(11) );
+			datosErrorValidacion.setDesError( "El elemento de menu esta asignado a algun menu de un usuario de la aplicación" );
+			modelo.addAttribute("errorValidacion" , true);
+		    modelo.addAttribute("mensajeError", datosErrorValidacion.getCodError().toString() + ", " + datosErrorValidacion.getDesError() );
+		  }
 		
-		return "GestionMenus/VentanaModal";
+	// Carga el menu general
+	   modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	   		
+	  return "redirect:/gestionmenus/obtenermenuprincipal";
+	}
+	
+	@RequestMapping(value = "/actualizarNumOrden", method = RequestMethod.POST)
+	public String actualizarNumOrden(@ModelAttribute  BeanFormMenu beanFormMenu, Model modelo )  {
+		
+ // System.out.println(beanFormMenu.getBeanMenuAplicacionWeb().get(0));
+
+	 for (Menu elemenMEnu : beanFormMenu.getBeanMenuAplicacionWeb())
+	   {
+		Menu menu = serviciosJPAMenu.findIdMenu(new Integer (elemenMEnu.getIdMenu())).get() ;
+		
+		menu.setNumOrdenMenu(elemenMEnu.getNumOrdenMenu() );
+		serviciosJPAMenu.modifNumOrden( serviciosJPAMenu.findIdMenu(new Integer (elemenMEnu.getIdMenu())).get()  );
+	   }
+	   
+	// Carga el menu general
+	   modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	   		
+	  return "redirect:/gestionmenus/obtenermenuprincipal";
 	}
 }

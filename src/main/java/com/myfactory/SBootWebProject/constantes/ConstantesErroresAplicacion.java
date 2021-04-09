@@ -7,7 +7,8 @@ import java.util.List;
 public class ConstantesErroresAplicacion {
 
 	// Errores messages
-	public static final String ERROR_FORMATO_FECHA = "Ha habido un problema interno con la aplicación. Consulte con el administrador.";
+	public static final int COD_ERROR_FOR_FECHA = 10;
+	public static final String ERROR_FORMATO_FECHA = "El formato de la fecha introducida no es correcta";
 
 	
 	public static final String ERROR_ALTAEXP_VL = "El interesado tiene registros de alta en Vida Laboral. No se puede dar de alta el expediente.";

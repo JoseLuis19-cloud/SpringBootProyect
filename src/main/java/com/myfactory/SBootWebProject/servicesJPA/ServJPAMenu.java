@@ -26,4 +26,7 @@ public interface ServJPAMenu {
 	public Optional<Menu> findIdMenu(Integer idMenu);
 	
 	public void eliminarElementoMenu(Integer idMenu);
+	
+	public void modifNumOrden( Menu menu);
+	
 }

@@ -124,9 +124,8 @@
 		 });
 	
 		$('a[id^="idLinkBaja"]').click(function(event) {
-			alert("Buenas 1");
 		   var lastChar5 = getNumber(event.target.id);
-		   $("#idIdMenu").val($("#idLinkBaja" + lastChar5).val());   
+		   $("#idIdMenu").val( $("#idMenuHidden" + lastChar5).val() );
 		   $("#myModalEliminarMenu").modal();
 		 });
 		
@@ -143,7 +142,8 @@
 			  {
 			   if (validarNumOrdenOK())
 			   	  {
-			   	   document.getElementById("idCancelNumOrden").style.display = "none";
+				   document.getElementById("idCancelNumOrden").style.display = "none";   
+				   document.getElementById("idFormElementosMenu").submit();	
 			   	  }
 			   
 			  }
@@ -168,38 +168,34 @@
 	 
 	 function getNumber(objEvent)
 	 { 
-		var numero;
- 		var lastChar = objEvent.substr(objEvent.length - 1);
- 		numero = lastChar;
-	 
-		 while (true) 
-		  {
-			  var subCadena = event.target.id.substring(0, event.target.id.length - 1);
-			  alert("subCadena: " + subCadena);
-			  var lastBeforeChar = subCadena.substr(subCadena.length - 1);
-		  
-			  if ( isNaN(lastBeforeChar) ) {
-				   // break;
-				   alert ("No Es numero : " + lastBeforeChar)
-				  return numero;
-			  }  
-			 else
-			  {
-				 alert ("Es numero : " + lastBeforeChar)
-				numero.concat(lastBeforeChar);  
-			  }
-		   } 
+	   var numero = "";
+		
+	   cadena = event.target.id;
+	 		
+		while (true) 
+		{
+		 var lastBeforeChar = cadena.substr(cadena.length - 1,  cadena.length);
+		
+	     if ( isNaN(lastBeforeChar.trim() ) )
+			{
+			return numero;
+			 }  
+			else
+			{
+			numero = lastBeforeChar.trim() + numero;
+			cadena = cadena.substr(0, cadena.length - 1); 
+			}
+		  }
 	 }
-	 
-	 
+	  
 	 function validarNumOrdenOK()
 	 {
 	  var numOrdVal;
-	  var indNumOrden = 1;
+	  var indNumOrden = 0;
 	  
-	 // alert($("#idNumOrdMenu" + indNumOrden).val());
+ 
 	  
-	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++) {
+	  for (indNumOrden = 0; indNumOrden <numElemenMenu; indNumOrden++) {
 		  
 		  numOrdVal = $("#idNumOrdMenu" + indNumOrden).val();
 		  
@@ -210,12 +206,12 @@
 		}
 	  
 	 // Valida que no haya numero de orden repetidos
-	  var indNumOrdenB = 1;
-	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
+	  var indNumOrdenB = 0;
+	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
 		  {
-			  numOrdVal = $("#idNumOrdMenu" + indNumOrden).val();
+		    numOrdVal = $("#idNumOrdMenu" + indNumOrden).val();
 			  
-			  for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) {
+			  for (indNumOrdenB = 0; indNumOrdenB <= numElemenMenu; indNumOrdenB++) {
 				  
 				  if (indNumOrden != indNumOrdenB) {
 				 	 if (numOrdVal == $("#idNumOrdMenu" + indNumOrdenB).val())
@@ -230,12 +226,12 @@
 	  
 	  // Valida que no falte ningún numero secuencialmente
 	  var encuentraSecuencial = "N";
-	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
+	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
 	  	   {
 		  	numOrdVal = $("#idNumOrdMenu" + indNumOrden).val().trim();
 			encuentraSecuencial = "N";
 
-		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) { 
+		 	 for (indNumOrdenB = 0; indNumOrdenB <= numElemenMenu; indNumOrdenB++) { 
 					// Encuentra el secuencial
 		 		  if (indNumOrdenB == numOrdVal) {
 		 			  encuentraSecuencial = "S";
@@ -249,7 +245,24 @@
 		 		 }
 
 	  	 }
-	  return true;
+
+	  // Valida que no falte ningún numero secuencialmente
+	  var numCorrelativos = "N";
+	  var indNumCorrelativo = 1;
+	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
+	  	   {
+		  	numOrdVal = $("#idNumOrdMenu" + indNumOrden).val().trim();
+		  	numeroCorrelativos = "N";
+
+		 	if  (! numOrdVal == indNumCorrelativo)
+		 		{
+		 		 return true;
+		 		}
+		 	indNumCorrelativo ++;
+		 	
+	  	 }
+	  alert("No ha cambiado ningún numero de orden");
+	  return false;
 	 }
 	 
 	</script>
@@ -259,11 +272,14 @@
  <body>
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag" th:text="'Menu de la aplicación'"></div>  
 		</div>
-	
+		
+		<div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
+		 
 		<div class="row">
 			<div class="col-1"> </div>
 			<div class="col-10">
@@ -271,8 +287,9 @@
 			</div>	
 			<div class="col-1"> </div>		
 		</div>
-		
-		<div class="row" >
+
+		<form action="#" th:id="idFormElementosMenu" th:action="@{/gestionmenus/actualizarNumOrden}" th:object="${menuPrincipal}" method="post">
+		  <div class="row" >
 			<div class="col-1"> </div>
 			<div class="col-10" style="border-bottom: 2px solid #000">
      			<table class="table table-sm">
@@ -289,45 +306,41 @@
 							<th width="7%"  th:text="'Accion'"></th>
 						</tr>
 					</thead>
-					<tbody>
-					   <tr th:each="menuP:${menuPrincipal}">
-						<td th:text="${menuP.idMenu}"></td>
-						<td th:classappend="${menuP.activo}? div-desactivado">
-							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${menuP.idMenu}" th:name="'mumOrdMenu'+ ${menuP.numOrdenMenu}" th:value="${menuP.numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
+					<tbody>      
+					  <tr th:each="mPrincipal, iterStat: *{beanMenuAplicacionWeb}">
+						<td th:text="${mPrincipal.idMenu}"></td>
+						<td th:classappend="${mPrincipal.activo}? div-desactivado">
+							<div class="form-group">	
+								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${iterStat.index}" th:name="'mumOrdMenu'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
 							</div>
 						</td>
-						<td th:classappend="${menuP.activo}? div-desactivado">
+						
+						<td th:classappend="${mPrincipal.activo}? div-desactivado">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idTextoMenu'+ ${menuP.idMenu}" th:name="'textoMenu'+ ${menuP.idMenu}" th:value="${menuP.textoMenu}" th:maxlength="30" th:readonly="true" required/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idTextoMenu'+ ${mPrincipal.idMenu}" th:name="'textoMenu'+ ${mPrincipal.idMenu}" th:value="${mPrincipal.textoMenu}" th:maxlength="30" th:readonly="true" required/>											
 							</div>
 						</td>
-						<td th:classappend="${menuP.activo}? div-desactivado">
+						
+						<td th:classappend="${mPrincipal.activo}? div-desactivado">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${menuP.idMenu}" th:name="'hrefAplicacion'+ ${menuP.idMenu}" th:value="${menuP.hrefAplicacion}" th:maxlength="45" th:readonly="true"/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${mPrincipal.idMenu}" th:name="'hrefAplicacion'+ ${mPrincipal.idMenu}" th:value="${mPrincipal.hrefAplicacion}" th:maxlength="45" th:readonly="true"/>											
 							 </div>
 						</td>
-						<td th:classappend="${menuP.activo}? div-desactivado" >
+						
+						 <td th:classappend="${mPrincipal.activo}? div-desactivado">
 							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-								<input type="checkbox" th:checked="${menuP.activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${menuP.idMenu}" th:name="'activado'+ ${menuP.idMenu}" th:disabled="disabled"/>											
+								<input type="checkbox" th:checked="${mPrincipal.activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${mPrincipal.idMenu}" th:name="'activado'+ ${mPrincipal.idMenu}" th:disabled="disabled"/>											
 							</div>
-						</td>
-		
-						<td>
-							<a th:id="'idLinkEdit' + ${menuP.idMenu}" th:name="'linkEdit' + ${menuP.idMenu}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a>
-						</td>
-							
-						<td>
-							<a th:id="'idLinkCancelar' + ${menuP.idMenu}" th:name="'linkCancelar' + ${menuP.idMenu}" class="btn btn-colour-1"  role="button" th:onclick="'cancelarEditarEleMenu(' + ${menuP.idMenu} + ')' " style="visibility:hidden">cancelar</a>	
-						</td>
-							
-						<td>	
-							<a th:id="'idLinkSubMenu' + ${menuP.idMenu}" th:name="'linkSubMenu' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${menuP.idMenu} + '&nomElemMenu=' + ${menuP.textoMenu}}" style="visibility:visible">submenu</a>
-							<input type="hidden" th:id="'idMenuHidden'+ ${menuP.idMenu}" th:name="'idMenuHidden'+ ${menuP.idMenu}" th:value="${menuP.idMenu}"/>		
 						 </td>
+		
+						<td><a th:id="'idLinkEdit' + ${mPrincipal.idMenu}" th:name="'linkEdit' + ${mPrincipal.idMenu}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a></td>		
+						 <td><a th:id="'idLinkCancelar' + ${mPrincipal.idMenu}" th:name="'linkCancelar' + ${mPrincipal.idMenu}" class="btn btn-colour-1"  role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="visibility:hidden">cancelar</a></td>
+							
 						 <td>	
-							<a th:id="'idLinkBaja' + ${menuP.idMenu}" th:name="'linkBaja' + ${menuP.idMenu}"  class="btn btn-colour-1"  role="button"  style="visibility:visible">baja</a>		
-						 </td>																					 											
+							<a th:id="'idLinkSubMenu' + ${mPrincipal.idMenu}" th:name="'linkSubMenu' + ${mPrincipal.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
+							<input type="hidden" th:id="'idMenuHidden'+ ${mPrincipal.idMenu}" th:name="'idMenuHidden'+ ${mPrincipal.idMenu}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].idMenu}" />
+						 </td>
+						 <td><a th:id="'idLinkBaja' + ${mPrincipal.idMenu}" th:name="'linkBaja' + ${mPrincipal.idMenu}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a></td>																					 											
 						</tr>
 						<tr>
 							<td></td>
@@ -346,8 +359,9 @@
 				 </table>
 				</div>
 				<div class="col-1"> </div>
+			  
 			</div>
-		 
+		 </form>
 			<div class="row">
 				<div class="col-1">	</div>
 				<div class="col-1"> </div>
@@ -436,16 +450,18 @@
         <h5 class="modal-title">Eliminar este elemento de menú</h5>
       </div>
       <div class="modal-body">
+        <form action="#" th:id="idFormEliminarMenu" method="post" th:action="@{/gestionmenus/eliminarmenu}">
+            <input type="hidden" th:id="'idIdMenu'" th:name="'idMenu'" th:value="${idMenu}" /> 
     		<div class="container">
-               	 <form method="post" th:action="@{/gestionmenus/eliminarmenu}" enctype="multipart/form-data">
-               	  <input type="hidden" th:id="'idIdMenu'" th:name="'idMenu'" th:value="${idMenu}" /> 
-               	    <p th:id="'idP1'"  th:text="'El elemento de menu se eliminará si no está asignado a ningun menú de usuario'"></p>
-               	</form>
-     	   </div>
-      <div class="modal-footer">
-        <button type="button" id="idConfirmar" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
-        <button type="button" id="idCancelar" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-      </div>
+                <p th:id="'idP1'"  th:text="'El elemento de menu se eliminará si no está asignado a ningun menú de un usuario'"></p>
+     	    </div>
+     	
+      		<div class="modal-footer">
+       	 		<button type="submit" id="idConfirmar" class="btn btn-primary">Confirmar</button>
+       	 		<button type="button" id="idCancelar" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+      		</div>
+      
+       </form>
     </div>
    </div>
   </div>

@@ -64,16 +64,11 @@ h5 {
 			 // Cargar valores de empleado a usuario
 		 		$("#myModalAltaUsu").modal();
 		 	});
-			
-	//	 	$("#idLinkCambiarFoto").click(function(){
-	//	 	    $("#myModalCambiarFoto").modal();
-	//	 	});
-		 	
-		 	
+ 
 		 	$('#idSaltarPaso').click(function()
 		 	 {
-		 		document.getElementById("idFormPaginacion").submit();
-			});
+		 	  document.getElementById("idFormPaginacion").submit();
+			 });
 		 	
 		 	if (mostrarModalFoto == "S")
 			   {
@@ -139,14 +134,14 @@ h5 {
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
 							<label for="labelPais" th:text="'Pais empleado ' "></label>
-							<select th:object="${empleadoWeb}" class="form-control" name="paisEmpleado" th:id="idPaisEmpleado">
-								<option th:value="0" th:text="'Seleccionar país empleado' "></option>
+							<select class="form-control" th:name="paisEmpleado" th:id="idPaisEmpleado" th:required="true"> 
+								<option th:value="''" th:text="'Seleccionar país empleado' "></option>
 								<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
    						 			th:value="${paisEmple.idPais}"
   						  			th:text ="${paisEmple.nombrePais}"
   						  			th:selected="${paisEmple.idPais} == 73">
   								</option>
-    						</select>
+    						</select>	
 						</div>
 					</div>
 				</div>
@@ -162,19 +157,18 @@ h5 {
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-       						<input class="form-control" id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
+       						<input type="text"  class="form-control" th:id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
 							<input type="hidden" th:id="idFecAltaEmpleadoHidden" th:name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
 						</div> 
 					</div>
 					<div class="col-md-2 mb-4">
-						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
+						<label for="labelTelefAlter" th:text="'Teléfono alternativo' "></label>
 						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14">
 					</div>
 					<div class="col-md-4 mb-4">
 						<label for="labelemail" th:text="'email empleado' "></label>
-						<input type="text" class="form-control" th:id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="35" required th:classappend="${#fields.hasErrors('emailWeb')}? is-invalid">
+						<input type="text" class="form-control" th:id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="35" th:classappend="${#fields.hasErrors('emailWeb')}? is-invalid" required>
 						<p th:if="${#fields.hasErrors('emailWeb')}" th:errors="*{emailWeb}">Formato no correcto del email</p>
-						
 					</div>
 				</div>
 				
@@ -182,9 +176,9 @@ h5 {
 						<div class="col-md-3 mb-4">
 							<div class="form-group">
 								<label for="labelPuestoTrabajo" th:text="'Puesto Trabajo ' "></label>
-								<select th:object="${empleadoWeb}" class="form-control" name="puestoTrabajoEmpleado" id="idPuestoTrabajoEmpleado" required>
+								<select class="form-control" th:name="puestoTrabajoEmpleado" th:id="idPuestoTrabajoEmpleado" th:required="true">
 									<option th:value="0" th:text="'Seleccionar puesto trabajo' "></option>
-									<option th:each ="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
+									<option th:each="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
    						 				th:value="${pTrabajoEmple.idPuestoTrabajo}"
   						  				th:text ="${pTrabajoEmple.desPuestoTrabajo}">
   									</option>
@@ -202,7 +196,7 @@ h5 {
 					<input type="text" class="form-control" th:id="idNumCCWeb" th:name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24">
 				</div>
 				<div class="col-md-2 mb-4">
-					<label for="labelImpBrutoAnu" th:text="'Importe bruto anual' "></label>
+					<label for="labelImpBrutoAnu" th:text="'Sueldo bruto anual' "></label>
 					<input type="text" class="form-control" th:id="idImpBrutoAnual" th:name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10">
 				</div>
   			</div>
@@ -228,7 +222,7 @@ h5 {
       <!-- Modal content-->
       	<div class="modal-content">
 			<h5 th:text="'Datos Nuevo Usuario'"></h5>
-			<form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
+				<form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
@@ -311,8 +305,8 @@ h5 {
   </div>
 </div>
 
- 		<form th:id="idFormPaginacion" th:action="@{/gestionWeb/empleados/pagempleadosNue}"  method="post">
-      </form>
+ 	<form th:id="idFormPaginacion" th:action="@{/gestionWeb/empleados/pagempleadosNue}"  method="post">
+    </form>
 </div>	
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>

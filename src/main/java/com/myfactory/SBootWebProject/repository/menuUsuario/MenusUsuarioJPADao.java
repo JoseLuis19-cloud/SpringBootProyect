@@ -50,7 +50,8 @@ public interface MenusUsuarioJPADao extends CrudRepository<MenusUsuario, Integer
  	public Iterable <MenusUsuario> obtenerSubMenuUsuSin0(@Param("idUsuario") Long idUsuario, @Param("idMenu") Integer idMenu);
 	
 	@Query("SELECT COUNT(mu) from MenusUsuario mu "
-		 	+ "   WHERE mu.idMenu = :idMenu")
+			+ "  JOIN mu.menu me"
+		 	+ "  WHERE me.idMenu = :idMenu")
 	
  	public Number numElementosMenuUsuario(@Param("idMenu") Integer idMenu);
 
