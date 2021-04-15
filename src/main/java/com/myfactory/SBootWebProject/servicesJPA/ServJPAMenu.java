@@ -29,4 +29,10 @@ public interface ServJPAMenu {
 	
 	public void modifNumOrden( Menu menu);
 	
+	public Optional<SubMenuNivel1> findIdSubMenu(Integer idSubMenu);
+	
+	public void modifNumOrdenSubMenu( SubMenuNivel1 subMenuNivel1);
+	
+	public Iterable<Menu> obtenerMenusAplicacionSin0Todos();
+	
 }

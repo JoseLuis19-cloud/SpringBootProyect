@@ -76,4 +76,16 @@ public class ServJPAMenuImp implements ServJPAMenu {
 	public void modifNumOrden( Menu menu){
 		  menuJPARepository.save(menu);
 		}
+	
+	public Optional<SubMenuNivel1> findIdSubMenu(Integer idSubMenu){
+	   return subMenuN1NuevoJPARepository.findById(idSubMenu);
+	}
+	
+	public void modifNumOrdenSubMenu( SubMenuNivel1 subMenuNivel1) {
+		subMenuN1NuevoJPARepository.save(subMenuNivel1);
+	};
+	
+	public Iterable<Menu> obtenerMenusAplicacionSin0Todos(){
+		return menuJPARepository.obtenerMenuAplicacionTodosSin0();
+	};
 }

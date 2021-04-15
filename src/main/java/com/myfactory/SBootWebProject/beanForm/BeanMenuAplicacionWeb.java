@@ -25,7 +25,7 @@ public class BeanMenuAplicacionWeb implements Serializable, Cloneable {
 	 
 	}
 	
-	public BeanMenuAplicacionWeb(Integer idMenu, Integer numOrdenMenu, String textoMenu, String hrefAplicacion, boolean indActivo) {
+	public BeanMenuAplicacionWeb(Integer idMenu, Integer numOrdenMenu, String textoMenu, String hrefAplicacion, Boolean indActivo) {
 		this.idMenu = idMenu;
 		this.numOrdenMenu = numOrdenMenu;
 		this.textoMenu = textoMenu;
@@ -57,13 +57,6 @@ public class BeanMenuAplicacionWeb implements Serializable, Cloneable {
 		this.hrefAplicacion = hrefAplicacion;
 	}
 
-	public boolean isIndActivo() {
-		return indActivo;
-	}
-
-	public void setIndActivo(boolean indActivo) {
-		this.indActivo = indActivo;
-	}
 	public Integer getIdMenu() {
 		return idMenu;
 	}
@@ -72,6 +65,14 @@ public class BeanMenuAplicacionWeb implements Serializable, Cloneable {
 		this.idMenu = idMenu;
 	}
 
-	
+	public Boolean getIndActivo() {
+		return indActivo;
+	}
+
+	public void setIndActivo(Boolean indActivo) {
+		this.indActivo = indActivo;
+	}
+
+	 
 	
 }

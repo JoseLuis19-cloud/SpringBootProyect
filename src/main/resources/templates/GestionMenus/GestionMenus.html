@@ -62,9 +62,9 @@
   <script th:inline="javascript">
   
   /*<![CDATA[*/
-	var numElemenMenu = [[${#lists.size(menuPrincipal)}]];
+	var numElemenMenu = [[${#lists.size(menuPrincipal.beanMenuAplicacionWeb)}]];
 	var isErrorAlta = [[${errorAltaElemento}]];
-	/*]]>*/
+ /*]]>*/
 	
 	 $(document).ready(function(){
 		
@@ -73,34 +73,47 @@
 		 });
 		
 		// Evento de boton Editar
-		 
 		$('a[id^="idLinkEdit"]').click(function(event) {
+			
+			// alert (event.target.id);
+			alert("Ha pinchado El boton Edit");
 			
 			var lastChar = getNumber(event.target.id);
 			
 			if ($(this).text() == "editar") {
+				alert("Es Editar" + lastChar);
+				
 				$("a[id^='idLinkEdit']").hide(); 
-				$("a[id^='idLinkSubMenu']").hide(); 
+				$("a[id^='idLinkSubMenu']").hide();
+				$("a[id^='idLinkBaja']").hide();
+				
 			 	$("#idTextoMenu" + lastChar).prop("readonly", false);
 			 	$("#idhRefAplicacion" + lastChar).prop("readonly", false);
 			 	$("#idActivado" + lastChar).prop("disabled", false);
-				$('#idLinkCancelar' + lastChar).css('visibility', 'visible');
+			 	
+			 //	$("#idLinkCancelar" + lastChar).css("display", "block");
+			    $("#idLinkCancelar" + lastChar).show();
 				   
 				$(this).text('grabar');  
 				$(this).show();
 				}  
 		   	  else
 				{
-		   		alert("Entra antes Da error con el numero de orden" + lastChar);
+		   		alert("Es Grabar");
+		   	 // Guardar elemento menu modificado
+		   		alert("El numero de elemento: " + lastChar);
+		   	 
+		//   	arrValueCheckASupr = $('[name="idActivado[]"]:checked') ;
+		//	   	alert("  arrValueCheckASupr: " + arrValueCheckASupr);
 		   		
-				$("#idMenuHidden").val($("#idMenuHidden" + lastChar).val()) ;
-				$("#idNumOrdenHidden").val($("#idNumOrdMenu" + lastChar).val()) ;
-				$("#idTextoMenu").val($("#idTextoMenu" + lastChar).val()); 
-				$("#idHREFMenu").val($("#idhRefAplicacion" + lastChar).val()); 
+				$("#idIdMenuHidden").val($("#idMenuHidden" + lastChar).val()) ;
+				$("#idNumOrdenHidden").val($("#idNumOrdMenu" + indElemento ).val()) ;  
+				$("#idTextoMenuHiden").val($("#idTextoMenu" + lastChar).val()); 
+				$("#idHREFMenuHidden").val($("#idhRefAplicacion" + lastChar).val()); 
+				$("#idIndActivoHidden").val($("#idActivado" + lastChar).val()); 
 				
-			//	alert( document.getElementById("idIdMenuHidden").value );
-			//	alert( document.getElementById("idNumOrdenHidden").value );
-  		
+				alert ( "num. orden menu " + $("#idNumOrdMenu" + lastChar).val() + " , idIndActivoHidden " +  $("#idIndActivoHidden").val() );
+				
 			 // Submitir formulario
 				document.getElementById("idFormEditMenu").submit();
 			}	
@@ -112,16 +125,21 @@
 		 {
 		  $("a[id^='idLinkEdit']").show();
 		  $("a[id^='idLinkSubMenu']").show();
+		  $("a[id^='idLinkBaja']").show();
 
 		  var lastChar4 = getNumber(event.target.id);
 			
 	 	  $("#idTextoMenu" + lastChar4).prop("readonly", true);
 	 	  $("#idhRefAplicacion" + lastChar4).prop("readonly", true);
 	 	  $("#idActivado" + lastChar4).prop("disabled", true);
+	 	
+	//   $("#idLinkCancelar" + lastChar4).hide();
+	 	
+	 	  $("#idLinkCancelar" + lastChar4).css("display", "none");
 	 	  
-		  $("a[id^='idLinkCancelar']").hide();
 		  $('#idLinkEdit' + lastChar4).text('editar');
 		 });
+		
 	
 		$('a[id^="idLinkBaja"]').click(function(event) {
 		   var lastChar5 = getNumber(event.target.id);
@@ -168,8 +186,7 @@
 	 
 	 function getNumber(objEvent)
 	 { 
-	   var numero = "";
-		
+	   var numero = "";		
 	   cadena = event.target.id;
 	 		
 		while (true) 
@@ -192,9 +209,7 @@
 	 {
 	  var numOrdVal;
 	  var indNumOrden = 0;
-	  
- 
-	  
+
 	  for (indNumOrden = 0; indNumOrden <numElemenMenu; indNumOrden++) {
 		  
 		  numOrdVal = $("#idNumOrdMenu" + indNumOrden).val();
@@ -221,46 +236,49 @@
 					  	}
 		  			}
 			  }
-		  
 		  }
 	  
 	  // Valida que no falte ningún numero secuencialmente
 	  var encuentraSecuencial = "N";
 	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
-	  	   {
+	  	  {
 		  	numOrdVal = $("#idNumOrdMenu" + indNumOrden).val().trim();
 			encuentraSecuencial = "N";
+		    alert("recorremos el " + numOrdVal + "numElemenMenu: " + numElemenMenu);
 
-		 	 for (indNumOrdenB = 0; indNumOrdenB <= numElemenMenu; indNumOrdenB++) { 
-					// Encuentra el secuencial
-		 		  if (indNumOrdenB == numOrdVal) {
+		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++)
+		 	    { 
+			   // Encuentra el secuencial
+			      alert ("indNumOrdenB: " + indNumOrdenB + " numOrdVal : " + numOrdVal  );
+		 		  if (indNumOrdenB == numOrdVal) 
+		 		     {
+		 			  alert("Encuentra el numero en la secuencia");
 		 			  encuentraSecuencial = "S";
-		 		  }
-		 	 }
-		 	
-		 	 if  (encuentraSecuencial != "S")
-		 		 {
-		 		  alert("Falta algún numero de orden desde el primero al ultimo que ha introducido");
-		 		  return false;
-		 		 }
-
+		 			  break;
+		 		     }
+		 	    }
 	  	 }
+	  
+	  if (encuentraSecuencial != "S")
+		 {
+		  alert("Falta algún numero de orden desde el primero al ultimo que ha introducido");
+		  return false;
+		 }
 
 	  // Valida que no falte ningún numero secuencialmente
-	  var numCorrelativos = "N";
 	  var indNumCorrelativo = 1;
 	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
 	  	   {
 		  	numOrdVal = $("#idNumOrdMenu" + indNumOrden).val().trim();
-		  	numeroCorrelativos = "N";
 
-		 	if  (! numOrdVal == indNumCorrelativo)
+			alert("numOrdVal: " + numOrdVal   + " indNumCorrelativo: " + indNumCorrelativo);
+		 	if  (numOrdVal != indNumCorrelativo)
 		 		{
+		 		 alert("esta alterado el numero");
 		 		 return true;
 		 		}
-		 	indNumCorrelativo ++;
-		 	
-	  	 }
+		 	indNumCorrelativo ++; 	
+	  	   }
 	  alert("No ha cambiado ningún numero de orden");
 	  return false;
 	 }
@@ -310,11 +328,11 @@
 					  <tr th:each="mPrincipal, iterStat: *{beanMenuAplicacionWeb}">
 						<td th:text="${mPrincipal.idMenu}"></td>
 						<td th:classappend="${mPrincipal.activo}? div-desactivado">
-							<div class="form-group">	
+							<div class="form-group"> 
 								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${iterStat.index}" th:name="'mumOrdMenu'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
 							</div>
 						</td>
-						
+
 						<td th:classappend="${mPrincipal.activo}? div-desactivado">
 							<div class="form-group">
 								<input type="text" class="form-control form-control-xs"  th:id="'idTextoMenu'+ ${mPrincipal.idMenu}" th:name="'textoMenu'+ ${mPrincipal.idMenu}" th:value="${mPrincipal.textoMenu}" th:maxlength="30" th:readonly="true" required/>											
@@ -334,7 +352,7 @@
 						 </td>
 		
 						<td><a th:id="'idLinkEdit' + ${mPrincipal.idMenu}" th:name="'linkEdit' + ${mPrincipal.idMenu}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a></td>		
-						 <td><a th:id="'idLinkCancelar' + ${mPrincipal.idMenu}" th:name="'linkCancelar' + ${mPrincipal.idMenu}" class="btn btn-colour-1"  role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="visibility:hidden">cancelar</a></td>
+						<td><a th:id="'idLinkCancelar' + ${mPrincipal.idMenu}" th:name="'linkCancelar' + ${mPrincipal.idMenu}" class="btn btn-colour-1" role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="display:none;">Cancelar</a></td>
 							
 						 <td>	
 							<a th:id="'idLinkSubMenu' + ${mPrincipal.idMenu}" th:name="'linkSubMenu' + ${mPrincipal.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
@@ -373,10 +391,11 @@
 		 </div>
 		 
 		 <form th:id="idFormEditMenu" th:action="@{/gestionmenus/updateelementomenu}" 	 th:object="${elemenEditMenuApli}" method="post">
-		 	<input type="hidden" th:id="'idIdMenuHidden'" 	th:name="'idMenuHidden'" 	 th:field="*{idMenu}" />	
-		 	<input type="hidden" th:id="'idNumOrdenHidden'" th:name="'numOrdenHidden'"   th:field="*{numOrdenMenu}" />	
-		 	<input type="hidden" th:id="'idTextoMenu'" 		th:name="'textoMenu'" 		 th:field="*{textoMenu}" />		
-		 	<input type="hidden" th:id="'idHREFMenu'" 		th:name="'hREFMenu'" 		 th:field="*{hrefAplicacion}" />											
+		 	<input type="hidden" th:id="'idIdMenuHidden'" 	 th:name="'idMenuHidden'" 	 th:field="*{idMenu}" />	
+		 	<input type="hidden" th:id="'idNumOrdenHidden'"  th:name="'numOrdenHidden'"  th:field="*{numOrdenMenu}" />	
+		 	<input type="hidden" th:id="'idTextoMenuHiden'"  th:name="'textoMenu'" 		 th:field="*{textoMenu}" />		
+		 	<input type="hidden" th:id="'idHREFMenuHidden'"  th:name="'hREFMenu'" 		 th:field="*{hrefAplicacion}" />
+		 	<input type="hidden" th:id="'idIndActivoHidden'" th:name="'indActivo'" 		 th:field="*{indActivo}" />											
 		 </form> 
 
     <!-- Modal -->

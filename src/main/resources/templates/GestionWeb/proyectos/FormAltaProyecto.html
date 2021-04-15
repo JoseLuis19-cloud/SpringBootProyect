@@ -215,7 +215,7 @@ h5 {
 				<div class="form-row">
 					<div class="col-md-5 mb-3">
 						<div id="idDivEmpresasDis">
-							<div class="subtitulo-pag3">Añada Empresas a proyecto</div>
+							<div class="subtitulo-pag3">Añadir Empresa participante en el proyecto</div>
 						<div th:insert="GestionWeb/fragments/anadirEmpresaProyecto :: anadirEmprProyecto"></div>
 						</div>
 			 		</div>
@@ -242,7 +242,7 @@ h5 {
 				<div class="form-row">
 					<div class="col-md-5 mb-3">
 						<div id="idDivSubMenu1Usu">
-						<div class="subtitulo-pag3"> Añada un empleado Beigar para el proyecto</div>
+						<div class="subtitulo-pag3"> Añada un empleado Beigar al proyecto</div>
 						<div th:insert="GestionWeb/fragments/anadirEmpleadoProyecto :: anadirEmplProyecto"></div>
 						</div>
 			 		</div>
@@ -260,7 +260,7 @@ h5 {
 					
 					<div class="col-md-5 mb-3">
 						<div id="idDivEmpleadoDis">
-						 <div class="subtitulo-pag3">Empleados Beigar para el proyecto</div>
+						 <div class="subtitulo-pag3">Empleados asignados de Beigar al proyecto</div>
 							<div th:insert="GestionWeb/fragments/SeleccionEmpleadoProyecto :: SelecEmplProyecto"></div>	
 						</div>
 					</div>
@@ -274,10 +274,62 @@ h5 {
  			<div class="col-1"></div>
  			<div class="col-2"><a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
  			<div class="col-5"></div>
- 			</div>
+ 		</div>
  				
  		</form>
 	</div>
+	
+	<!-- Modal -->
+    <div id="myModalAnadirEmpresas" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+      <!-- Modal content-->
+      	<div class="modal-content">
+      		<form action="#" th:action="@{/gestionWeb/empresa/pagempresas}" method="post" th:object="${elemenMenuNuevoWeb}">
+      	
+        	<div class="row">
+				<div class="titulo-pag2">Empresas</div>
+			</div>
+
+		<div class="row">
+  			<div class="form-group mx-sm-3 mb-2">
+    			<label for="buscarEmpresa" th:text="'  Empresa:  '"></label>
+    			<input type="text" class="form-control" th:id="idBuscarEmpresa" th:name="buscarEmpresa" th:maxlength="25" th:field="*{nomEmpresa}" >
+    			<button type="submit" class="btn btn-primary">Buscar</button>    
+ 			</div>	
+  		</div> 
+	
+		<div class="row"> 
+			<div class="panel panel-default" style="border-bottom: 2px solid #000">
+				<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th th:text="'Cod. Empresa'"></th>
+							<th th:text="'Nombre Empresa'"></th>
+							<th th:text="'CIF'"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${pagGenerica.empty}">
+							<td colspan="9">No hay empresas</td>
+						</tr>
+						<tr th:each="empresa:${pagGenerica.content}">
+							<td th:text="${empresa.idEmpresa}"></td>
+							<td th:text="${empresa.nomEmpresa}"></td>
+							<td th:text="${empresa.cif}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	<div class="row">
+	 <div th:insert="Aplicacion/fragments/BotoneraPaginacion :: botonerapaginacion"></div>
+	</div>
+   </form>	
+   
+    </div>
+    </div>
+   </div>
  		
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>

@@ -48,15 +48,15 @@
   </style>
  
  
-	<script th:inline="javascript">
+  <script th:inline="javascript">
 	
  /*<![CDATA[*/
-	var numElemenMenu = [[${#lists.size(subMenuNivel1)}]];
+	var numElemenMenu = [[${#lists.size(subMenu.beanSubMenuAplicacionWeb)}]];
   
 	var isErrorAlta = [[${errorAltaElemento}]];
 	var noTieneElemSubmenus = [[${noTieneSubmenus}]];
 	
-	/*]]>*/
+ /*]]>*/
 	
 	 $(document).ready(function(){
 		
@@ -65,7 +65,6 @@
 		 });
 		
 		// Evento de boton Editar
-
 		$('a[id^="idLinkEditarSM"]').click(function(event) {
 			alert ("Salta el envento ___" + event.target.id );
 			
@@ -79,7 +78,8 @@
 			 	 $("#idTextoSubMenu" + lastChar).prop("readonly", false);
 			 	 $("#idHRefApliSubMenu" + lastChar).prop("readonly", false);
 			 	 $("#idActivadoSubMenu" + lastChar).prop("disabled", false);
-				 $('#idLinkCancelarSM' + lastChar).css('visibility', 'visible');
+				//  $('#idLinkCancelarSM' + lastChar).css('visibility', 'visible');
+				 $("#idLinkCancelarSM" + lastChar).show();
 		
 				 $(this).text('grabar');  
 				 $(this).show();
@@ -113,8 +113,8 @@
 	 	  $("#idTextoMenu" + lastChar4).prop("readonly", true);
 	 	  $("#idhRefAplicacion" + lastChar4).prop("readonly", true);
 	 	  $("#idActivado" + lastChar4).prop("disabled", true);
+	 	  $("#idLinkCancelarSM" + lastChar4).css("display", "none");
 	 	  
-		  $("a[id^='idLinkCancelarSM']").hide();
 		  $('#idLinkEditarSM' + lastChar4).text('editar');
 		 });
 		
@@ -133,6 +133,8 @@
 			  {
 			   if (validarNumOrdenOK()) {
 			   	   document.getElementById("idCancelNumOrden").style.display = "none";
+			   	   alert("Submitimos")
+			   	   document.getElementById("idFormElementosSubMenu").submit();	
 			   }
 			   
 			  }
@@ -193,12 +195,10 @@
 	 function validarNumOrdenOK()
 	 {
 	  var numOrdVal;
-	  var indNumOrden = 1;
-	  
-	 // alert($("#idNumOrdMenu" + indNumOrden).val());
-	  
-	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++) {
-	 
+	  var indNumOrden = 0;
+
+	  for (indNumOrden = 0; indNumOrden <numElemenMenu; indNumOrden++) {
+		  
 		  numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val();
 		  
 		   if ( isNaN(numOrdVal)) {
@@ -208,12 +208,12 @@
 		}
 	  
 	 // Valida que no haya numero de orden repetidos
-	  var indNumOrdenB = 1;
-	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
+	  var indNumOrdenB = 0;
+	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
 		  {
-			  numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val();
+		    numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val();
 			  
-			  for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) {
+			  for (indNumOrdenB = 0; indNumOrdenB <= numElemenMenu; indNumOrdenB++) {
 				  
 				  if (indNumOrden != indNumOrdenB) {
 				 	 if (numOrdVal == $("#idNumOrdSubMenu" + indNumOrdenB).val())
@@ -228,27 +228,49 @@
 	  
 	  // Valida que no falte ningún numero secuencialmente
 	  var encuentraSecuencial = "N";
-	  for (indNumOrden = 1; indNumOrden <= numElemenMenu; indNumOrden++)  
-	  	   {
+	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
+	  	  {
 		  	numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val().trim();
 			encuentraSecuencial = "N";
+		//    alert("recorremos el " + numOrdVal + "numElemenMenu: " + numElemenMenu);
 
-		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++) { 
-					// Encuentra el secuencial
-		 		  if (indNumOrdenB == numOrdVal) {
+		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++)
+		 	    { 
+			   // Encuentra el secuencial
+			//      alert ("indNumOrdenB: " + indNumOrdenB + " numOrdVal : " + numOrdVal  );
+		 		  if (indNumOrdenB == numOrdVal) 
+		 		     {
+		 		//	  alert("Encuentra el numero en la secuencia");
 		 			  encuentraSecuencial = "S";
-		 		  }
-		 	 }
-		 	
-		 	 if  (encuentraSecuencial != "S")
-		 		 {
-		 		  alert("Falta algún numero de orden desde el primero al ultimo que ha introducido");
-		 		  return false;
-		 		 }
-
+		 			  break;
+		 		     }
+		 	    }
 	  	 }
-	  return true;
+	  
+	  if (encuentraSecuencial != "S")
+		 {
+		  alert("Falta algún numero de orden desde el primero al ultimo que ha introducido");
+		  return false;
+		 }
+
+	  // Valida que no falte ningún numero secuencialmente
+	  var indNumCorrelativo = 1;
+	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
+	  	   {
+		  	numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val().trim();
+
+			// alert("numOrdVal: " + numOrdVal   + " indNumCorrelativo: " + indNumCorrelativo);
+		 	if  (numOrdVal != indNumCorrelativo)
+		 		{
+		 	//	 alert("esta alterado el numero");
+		 		 return true;
+		 		}
+		 	indNumCorrelativo ++; 	
+	  	   }
+	  alert("No ha cambiado ningún numero de orden");
+	  return false;
 	 }
+	 
 	</script>
 </head>
 
@@ -264,6 +286,9 @@
 			</div>
 			<div class="col-1">	</div>	
 		</div>	
+		
+		<form action="#" th:id="idFormElementosSubMenu" th:action="@{/gestionmenus/actualizarNumOrdenSubmenu}" th:object="${subMenu}" method="post">
+		
 		<div class="row" style="border-bottom: 2px solid #000">
 			<div class="col-1"></div>
 			<div class="col-10">
@@ -280,26 +305,28 @@
 						</tr>
 					</thead>
 					<tbody>
-					  <tr th:each="subMenuN1:${subMenuNivel1}">
+					 <tr th:each="subMenuN1, iterStat: *{beanSubMenuAplicacionWeb}">
 						<td th:text="${subMenuN1.idSubmenuNivel1}"></td>
 						<td>
-							<div class="form-group col-md-4">
-								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdSubMenu'+ ${subMenuN1.numOrdenMenu}" th:name="'mumOrdSubMenu'+ ${subMenuN1.numOrdenMenu}" th:value="${subMenuN1.numOrdenMenu}" th:maxlength="2" th:readonly="true"/>	
+							<div class="form-group col-md-4">                                                                               
+								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}"  th:maxlength="2" th:readonly="true"/>	
 							<!-- <p class="alert alert-danger"  th:if="${#fields.hasErrors('${menuP[__${row.index}__].numOrdenMenu}')}" th:errors="${menuP.numOrdenMenu}">	 -->	    			 
 							</div>
 						</td>
 						<td>
 							<div class="form-group col-md-20">
-								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'textoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'textoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
 							</div>
 						</td>
 							<td> 
 								<div class="form-group col-md-40" style="display: flex; justify-content: center; align-items: center;">
-									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'hRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:value="${subMenuN1.hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
+									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'hRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
 							    </div>
 							</td>
 							<td>
-								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'activadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:checked="${subMenuN1.activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>											
+								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'activadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>											
+								
+								<input type="hidden" th:id="'idSubMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:name="'subMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
 							</td>
 		
 							<td>
@@ -307,7 +334,7 @@
 							</td>
 							
 							<td>
-								<a th:id="'idLinkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' "  style="visibility:hidden" >cancelar</a>	
+								<a th:id="'idLinkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' "  style="display:none;" >cancelar</a>	
 							</td>												
 						</tr>
 						<tr>
@@ -327,6 +354,8 @@
 				</div>
 				<div class="col-1"></div>
 			  </div>
+			  
+			</form>
 			
 			<div class="row">
 				<div class="col-1"></div>	

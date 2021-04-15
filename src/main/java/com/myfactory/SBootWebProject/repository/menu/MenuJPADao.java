@@ -11,7 +11,12 @@ public interface MenuJPADao extends CrudRepository<Menu, Integer> {
 	@Query("select m from Menu m")
 	Iterable <Menu> obtenerMenuAplicacion();	 
 	
-	@Query("select m from Menu m WHERE m.idMenu > 0 ORDER BY m.numOrdenMenu")
+	// Obtener los elementos de menu activados.
+	@Query("select m from Menu m WHERE m.idMenu > 0 and m.activo = TRUE ORDER BY m.numOrdenMenu")
 	Iterable <Menu> obtenerMenuAplicacionSin0();
+	
+	// Obtener los elementos de menu activados.
+		@Query("select m from Menu m WHERE m.idMenu > 0 ORDER BY m.numOrdenMenu")
+		Iterable <Menu> obtenerMenuAplicacionTodosSin0();
 
 }

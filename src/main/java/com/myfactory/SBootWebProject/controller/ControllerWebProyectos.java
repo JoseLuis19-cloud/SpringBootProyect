@@ -408,4 +408,165 @@ public class ControllerWebProyectos {
 	
 	
 	
+	@RequestMapping("/pagempresas")
+	public String paginacionEmpresas(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
+												      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
+	 											      @RequestParam(value = "numPos", required = false) String numPos,
+	 											      @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag,
+	 											      @RequestParam(value = "empresasBus", required = false) String empresaBus,
+	 											      @ModelAttribute("objBusqueda") BeanCamposBusqueda busquedaCampo )
+	{
+	 // Con esta variable sabemos la pagina exacta, dentro de todas paginacias posibles,  de donde llega a la paginacion.
+		int numPagInt = 0;
+		int numPosInt = 0;
+		HashMap<String, Integer>  paramBotonera = null;
+		CrearBotoneraPag botoneraPag = null;
+		
+		if (numBloquePag == null)
+			{
+			numBloquePag = 0;
+			}
+
+		// La primera vez que entra
+		if (numPag == null && tpoAccion == null)
+			{
+			numPagInt = 0;
+			}
+		  else
+			//No es la primera vez que entra
+		  	{
+			// Ha pinchado o avance o retroceso serguro
+			if (tpoAccion != null)
+				{
+					if (tpoAccion.equals("avan")) {
+						numPagInt = Integer.parseInt(numPag) + 1;
+						} 
+					else 
+						{
+						numPagInt = Integer.parseInt(numPag) - 1;
+						}	
+				
+				}
+			else
+				{
+				// Ha pinchado el numero de pagina
+				numPagInt = Integer.parseInt(numPag);
+				}
+		}
+
+		if (busquedaCampo.getNomEmpresa()  == null)
+			{
+			busquedaCampo = new BeanCamposBusqueda();
+			
+			if (empresaBus == null)
+				{
+				 busquedaCampo.setNomEmpresa("");
+				}
+			  else
+				{
+				  busquedaCampo.setNomEmpresa(empresaBus);
+				}
+			}
+			else
+			{
+			 busquedaCampo.setNomEmpresa(busquedaCampo.getNomEmpresa());
+			}
+			
+		
+		modelo.addAttribute("objBusqueda", busquedaCampo);
+
+		Page<Empresa> pagEmpresas = servJPAEmpresa.pagEmpresas(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA, busquedaCampo.getNomEmpresa());
+		modelo.addAttribute("pagGenerica", pagEmpresas);
+		modelo.addAttribute("numPag", String.valueOf(numPagInt));
+		modelo.addAttribute("numRegPag", pagEmpresas.getContent().size());
+	
+		try
+		 {
+		   botoneraPag = new CrearBotoneraPag();
+		   paramBotonera = CrearBotoneraPag.calculaNumPagBotoneraNue(numPagInt, tpoAccion,  numPos, pagEmpresas.getTotalElements(), new Double(numBloquePag.intValue()) );
+		 }
+		catch (Exception exp)
+		 {
+			exp.printStackTrace();
+		 }
+		
+		String URLPag = "/gestionWeb/empresas/pagempresas?numPag=" ;
+		
+		CrearBotoneraPag.montarEnlacesBotonera(paramBotonera, modelo, numPagInt, URLPag, busquedaCampo.getNomEmpresa().trim());
+
+	 // Si ha pinchado avance o retroceso de pagina.
+		if (tpoAccion != null)
+			{
+			// Detectamoos cambio de bloque ponerlo
+			if (paramBotonera.get("numBloquePag").intValue() != numBloquePag.intValue()  )
+				{
+				if (tpoAccion.equals("avan")) {
+					numPosInt = 1;
+					}
+				else
+					{
+					numPosInt = 5;	 
+					}
+				}
+				else
+				{
+			//  Si es el mismo bloque la paginacion
+					if (paramBotonera.get("numBloquePag").intValue() == 0)
+					{
+					numPosInt = numPagInt + 1;	
+					}
+					else
+					{
+					numPosInt = numPagInt - 5 ;
+					}
+				
+				}
+			}
+		   else
+			{
+			   // Si es primera vez que entra
+			 if (numPos == null)
+				{
+				 numPosInt = 1;
+				}
+			   else
+				{	
+			   // Si ha pinchado boton pagina
+				  numPosInt = Integer.parseInt(numPos);
+				}
+			}
+
+		switch (numPosInt) {
+		case 1:
+			modelo.addAttribute("numPagAct1", "S" );
+			break;
+		case 2:
+			modelo.addAttribute("numPagAct2", "S" );
+			break;
+		case 3:
+			modelo.addAttribute("numPagAct3", "S" );
+			break;
+		case 4:
+			modelo.addAttribute("numPagAct4", "S" );
+			break;
+		case 5:
+			modelo.addAttribute("numPagAct5", "S" );
+			break;
+		}
+		
+		if (pagEmpresas.isLast()  )
+			{
+			modelo.addAttribute("indUltPag", "S");
+			}
+		else
+			{
+			modelo.addAttribute("indUltPag", "N");
+			}
+		
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+
+		return "GestionWeb/empresas/PagEmpresas";
+	}
+	
+	
 }
