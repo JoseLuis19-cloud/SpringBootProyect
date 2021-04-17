@@ -40,16 +40,24 @@ h5 {
 
 <body>
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
-	<div class="container-fluid">
-	 	<br>
-		 <br>
-		<h3>Desktop modelo de Aplicacion Piloto</h3>
-		<p>Le recordamos que tienen que enviar el parte de actividad antes de .</p>
-		 <br>
-		 <br>
-	</div>
+	
+  <header>
+  <div class="container-fluid">
+    <div class="row" 
+         style="background:transparent url('images/desktopImg1.jpg') no-repeat center center /cover">
+      <div class="col-lg-12">
+        <div class="intro-text">
+          <span class="h5">Desktop de modelo de Aplicación Piloto</span>
+          <hr class="star-light">
+          <span class="skills">Esta aplicación se realizado para cubrir la necesidades basicas de gestion de una pequeña empresa de servicios tecnólogicos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+	
 
-	<div class="container-fluid">
+	<!--   <div class="container-fluid">
 		<div class="row">
 			<div class="col">
 				<div sec:authorize="isAuthenticated()">
@@ -68,19 +76,24 @@ h5 {
 			<div class="col">
 
 			</div>
-		</div>
+		</div> -->
+		<br>
+		<br>
+		<br>
+		<br>
+		
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<h5>Avisos</h5>	
+				<h5>Avisos para el usuario : ADMIN</h5>	
 					<div class="panel-body" align="center" style="border-bottom: 2px solid #000">
 					   <table class="table table-sm">
 						<thead class="thead-light">
 						 <tr>	
 							<th th:text="'id. Aviso'"></th>
 							<th th:text="Tarea"></th>
-							<th th:text="'Fecha Creacion'"></th>
-							<th th:text="'Fecha Ultima'"></th>
+							<th th:text="'Fecha Creación'"></th>
+							<th th:text="'Fecha Límite'"></th>
 							<th th:text="'Ir Tarea'"></th>
 						 </tr>
 				 	  </thead>
@@ -93,7 +106,9 @@ h5 {
 							<td th:text="${aviso.desTarea}"></td>
 							<td th:text="${#calendars.format(aviso.fecLimiteAviso, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#calendars.format(aviso.fecCreacionAviso, 'dd/MM/yyyy')}"></td>
-							<td th:text="'envio emails'"></td>
+							<td> 
+							  <a th:id="'idLinkTarea' + ${aviso.idAviso}" th:name="'linkTarea' + ${aviso.idAviso}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${aviso.idAviso}, nomUsuario=${aviso.idAviso} )}" class="btn btn-primary btn-sm" role="button">ir</a>
+							</td> 
 						</tr>
 					</tbody>
 				  </table>
@@ -104,7 +119,7 @@ h5 {
 		<div class="row" style="border-top: 2px solid #000">
 			<div class="col-10"></div>	
 			<div class="col-2">
-				<p>© 2020</p>
+				<p>Copiright © 2020</p>
 				<p>Version Alpha 1.0<p>
 			</div>
 		</div>
