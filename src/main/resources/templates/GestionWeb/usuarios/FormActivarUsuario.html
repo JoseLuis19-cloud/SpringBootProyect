@@ -55,14 +55,14 @@ h5 {
 
 	<div class="container-fluid">
 	
-	<form action="#" th:action="@{/gestionWeb/usuarios/bajausuario}" th:object="${usuarioWeb}" method="post">
+	<form action="#" th:action="@{/gestionWeb/usuarios/activarusuario}" th:object="${usuarioWeb}" method="post">
 	
 		<input type="hidden" th:id="'idIdUsuarioHidden'" th:name="'idUsuarioHidden'"  th:field="*{idUsuarioWeb}" />	 
 	
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
-				<h3 th:text="'Datos del Usuario a dar de baja'"></h3>
+				<h3 th:text="'Datos del Usuario a activar'"></h3>
 				<br />
 			</div>
 			<div class="col-3"></div>
@@ -89,12 +89,12 @@ h5 {
 					</div>
 				</div>				
 				<div class="form-row">
-					<div class="col-md-6 mb-3">
-					    <label for="validationFecAltaUsu">Fec. Alta Usuario</label>
-       					<input type="text" class="form-control" id="idFecAltaUsu" name="fecAltaUsu"  th:value="${#calendars.format(fecAltaUsuarioWeb, 'dd/MM/yyyy')}"  th:maxlength="10" th:readonly="true" />
+					<div class="col-md-5 mb-3">
+					    <label for="validationFecBajaUsu">Fec. Baja Usuario</label>
+       					<input type="text" class="form-control" id="idFecBajaUsu" name="fecAltaUsu"  th:value="${#calendars.format(fecBajaUsuarioWeb, 'dd/MM/yyyy')}"  th:maxlength="10" th:readonly="true" />
 					</div>
 
-					<div class="col-md-3 mb-3">
+					<div class="col-md-4 mb-3">
 					 	<div class="form-check">
 						 	<br>
 						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input" th:readonly="true" />
@@ -114,13 +114,13 @@ h5 {
 				<div class="form-row">
 				<div class="col-md-4 mb-3"></div>
 				<div class="col-md-3 mb-3">
-						<label for="labelFecBajaUsuario">Fec. Baja usuario</label>
+						<label for="labelFecBajaUsuario">Fec. Activación usuario</label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecBajaUsuario" name="fecBajaUsuario" th:value="${#calendars.format(fecBajaUsuarioWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
-       						<input type="hidden" id="idFecBajaUsuarioHidden" name="fecBajaUsuarioHidden"  th:field="*{fecBajaUsuarioWeb}"/> 
+       						<input type="text"  class="form-control" id="idFecAltaUsuario" name="fecAltaUsuario" th:value="${#calendars.format(fecAltaUsuarioWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
+       						<input type="hidden" id="idFecAltaUsuarioHidden" name="fecAltaUsuarioHidden"  th:field="*{fecAlataUsuarioWeb}"/> 
 						</div> 
 			 	</div>
 			 	<div class="col-md-5 mb-3"></div>
@@ -133,7 +133,7 @@ h5 {
 		
 		<div class="row">
 			<div class="col-3"></div>
-			<div class="col-6">
+				<div class="col-6">
   		 	   	 <a th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-primary" role="button">Volver</a>	 
 			 	 <button type="submit" class="btn btn-primary">Confirmar</button>
 		   		</div>
@@ -153,7 +153,7 @@ h5 {
 
    <script th:inline="javascript">
     $(document).ready(function() {
-      var date_input=$('input[name="fecBajaUsuario"]'); //our date input has the name "date"
+      var date_input=$('input[name="fecAltaUsuario"]'); //our date input has the name "date"
       var container=$('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
         
       date_input.datepicker({
@@ -162,7 +162,7 @@ h5 {
           todayHighlight: true,
           autoclose: true,
        });
-      document.getElementById("idFecBajaUsuario").value = document.getElementById("idFecBajaUsuarioHidden").value;
+      document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuarioHidden").value;
     });
   </script>
 

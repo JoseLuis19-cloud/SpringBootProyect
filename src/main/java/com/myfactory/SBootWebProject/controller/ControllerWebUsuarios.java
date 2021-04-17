@@ -171,11 +171,12 @@ public class ControllerWebUsuarios {
 	
 	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 	 beanUsuarioWeb = cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() );
-	
+	 
+	 beanUsuarioWeb.setFecBajaUsuarioWeb(Calendar.getInstance() );
+	 
 	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 return "GestionWeb/usuarios/FormBajaUsuario";
-
  	}
 	
 	@RequestMapping(value = "/bajausuario", method = RequestMethod.POST)
@@ -249,6 +250,35 @@ public class ControllerWebUsuarios {
 
 	return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
 	}
+ 
+	
+	@RequestMapping(value = "/formactivar")
+	public String formActivarUsuario(Model modelo, @RequestParam(value = "idUsuario", required = true) Long idUsuario) { 
+	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+	 beanUsuarioWeb = cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() );
+	 
+	 beanUsuarioWeb.setFecBajaUsuarioWeb(Calendar.getInstance() );
+	 
+	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 return "GestionWeb/usuarios/FormActivarUsuario";
+ 	}
+	
+	@RequestMapping(value = "/activarusuario")
+	public String activarUsuario(Model modelo, @RequestParam(value = "idUsuario", required = true) Long idUsuario) { 
+	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+
+	 User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb() ).get() ;
+	 usuario.setEnabled(true);
+	 servJPAUsuario.modificarUsuario(usuario); ;
+	 
+	 beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance() );
+	 
+	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 return "GestionWeb/usuarios/FormActivarUsuario";
+ 	}
+	
 	
 	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole, Boolean esModificacion) {
 		

@@ -19,8 +19,10 @@ import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Proyecto;
+import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Component
 @ApplicationScope
@@ -31,7 +33,12 @@ public class CargarBeansDatos  implements Serializable {
 	@Autowired
 	ServJPAEmpleado servJPAEmpleado;
 	
+	@Autowired
+	ServJPAUsuario servJPAUsuario;
+	
 	Iterable <FormaPago>  formasPago;
+	
+	Iterable <Role>  roles;
 
 	public CargarBeansDatos() {
 	}
@@ -76,14 +83,15 @@ public class CargarBeansDatos  implements Serializable {
 		 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		 
 		 beanUsuarioWeb.setIdUsuarioWeb(usuario.getId());
-		 beanUsuarioWeb.setEmailWeb( usuario.getEmail());
-	//	 beanUsuarioWeb.setEnabled(usuario.get.isEnabledWeb());
-		// beanUsuarioWeb.setIndEmpleado(usuario.getEmpleado().G.isIndEmpleadoWeb());
+		 beanUsuarioWeb.setEmailWeb(usuario.getEmail());
+        // beanUsuarioWeb.setEnabled(usuario.isEnabled());
+		// beanUsuarioWeb.setIndEmpleado( usuario.isIndEmpleado()  );
 		 beanUsuarioWeb.setFullNameWeb(usuario.getFullName() );
 		 beanUsuarioWeb.setUsernameWeb(usuario.getUsername() );
 		 beanUsuarioWeb.setFecAltaUsuarioWeb(usuario.getFecAltaUsuario());
-		 	 
-		 beanUsuarioWeb.setIdRole( 1 ) ;		
+
+		 beanUsuarioWeb.setRolUsuarioWeb( servJPAUsuario.obtenerRoles() ); 
+		 beanUsuarioWeb.setIdRole( usuario.getRoles().iterator().next().getId()) ;		
  
 		 return beanUsuarioWeb;
 	  }
@@ -100,7 +108,7 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setNifWeb(empleado.getNif());
 		  
 		  beanEmpleadoWeb.setFecAltaEmpleladoWeb(empleado.getFecAltaEmplelado());
-		//  beanEmpleadoWeb.setFecBajaEmpleladoWeb(empleado.getFecBajaEmplelado());
+		  beanEmpleadoWeb.setFecBajaEmpleladoWeb(empleado.getFecBajaEmplelado());
 		 
 		  beanEmpleadoWeb.setTelefMovilWeb(empleado.getTelefMovil() );
 		  beanEmpleadoWeb.setTelefono2(empleado.getTelefono2() );

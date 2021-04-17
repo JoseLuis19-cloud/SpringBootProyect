@@ -75,9 +75,6 @@
 		// Evento de boton Editar
 		$('a[id^="idLinkEdit"]').click(function(event) {
 			
-			// alert (event.target.id);
-			alert("Ha pinchado El boton Edit");
-			
 			var lastChar = getNumber(event.target.id);
 			
 			if ($(this).text() == "editar") {
@@ -102,14 +99,15 @@
 		   		alert("Es Grabar");
 		   	 // Guardar elemento menu modificado
 		   		alert("El numero de elemento: " + lastChar);
-		   	 
-		//   	arrValueCheckASupr = $('[name="idActivado[]"]:checked') ;
-		//	   	alert("  arrValueCheckASupr: " + arrValueCheckASupr);
 		   		
 				$("#idIdMenuHidden").val($("#idMenuHidden" + lastChar).val()) ;
-				$("#idNumOrdenHidden").val($("#idNumOrdMenu" + indElemento ).val()) ;  
+				alert("PASO 1");
+				$("#idNumOrdenHidden").val($("#idNumOrdMenu" + lastChar ).val()) ;  
+				alert("PASO 2");
 				$("#idTextoMenuHiden").val($("#idTextoMenu" + lastChar).val()); 
+				alert("PASO 3");
 				$("#idHREFMenuHidden").val($("#idhRefAplicacion" + lastChar).val()); 
+				alert("PASO 4");
 				$("#idIndActivoHidden").val($("#idActivado" + lastChar).val()); 
 				
 				alert ( "num. orden menu " + $("#idNumOrdMenu" + lastChar).val() + " , idIndActivoHidden " +  $("#idIndActivoHidden").val() );
@@ -136,7 +134,6 @@
 	//   $("#idLinkCancelar" + lastChar4).hide();
 	 	
 	 	  $("#idLinkCancelar" + lastChar4).css("display", "none");
-	 	  
 		  $('#idLinkEdit' + lastChar4).text('editar');
 		 });
 		
@@ -175,12 +172,12 @@
  
 		if (isErrorAlta)
 	       {
-	  	 	console.log("Cargar Ventana Emergente" + isErrorAlta);
+	  	 	console.log("Cargar ventana Emergente" + isErrorAlta);
 	  	 	$('#myModal').modal('show');
 	   		}
 	   	  else
 	       {
-	  	  	console.log("NO CARGAR  ventana emergente");
+	  	  	console.log("NO CARGAR ventana emergente");
 	       }
 	});
 	 
@@ -279,7 +276,7 @@
 		 		}
 		 	indNumCorrelativo ++; 	
 	  	   }
-	  alert("No ha cambiado ningún numero de orden");
+	  alert("No ha sido cambiado ningún numero de orden");
 	  return false;
 	 }
 	 
@@ -293,7 +290,7 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="titulo-pag" th:text="'Menu de la aplicación'"></div>  
+			<div class="titulo-pag" th:text="'Elementos de Menu de la aplicación'"></div>  
 		</div>
 		
 		<div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
@@ -335,30 +332,30 @@
 
 						<td th:classappend="${mPrincipal.activo}? div-desactivado">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idTextoMenu'+ ${mPrincipal.idMenu}" th:name="'textoMenu'+ ${mPrincipal.idMenu}" th:value="${mPrincipal.textoMenu}" th:maxlength="30" th:readonly="true" required/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idTextoMenu'+ ${iterStat.index}" th:name="'textoMenu'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].textoMenu}" th:maxlength="30" th:readonly="true" required/>											
 							</div>
 						</td>
 						
 						<td th:classappend="${mPrincipal.activo}? div-desactivado">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${mPrincipal.idMenu}" th:name="'hrefAplicacion'+ ${mPrincipal.idMenu}" th:value="${mPrincipal.hrefAplicacion}" th:maxlength="45" th:readonly="true"/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${iterStat.index}" th:name="'hrefAplicacion'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacion}" th:maxlength="45" th:readonly="true"/>											
 							 </div>
 						</td>
 						
 						 <td th:classappend="${mPrincipal.activo}? div-desactivado">
-							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-								<input type="checkbox" th:checked="${mPrincipal.activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${mPrincipal.idMenu}" th:name="'activado'+ ${mPrincipal.idMenu}" th:disabled="disabled"/>											
+							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">   
+								<input type="checkbox" th:checked="*{beanMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${iterStat.index}" th:name="'activado'+ ${iterStat.index}" th:disabled="disabled"/>											
 							</div>
 						 </td>
 		
-						<td><a th:id="'idLinkEdit' + ${mPrincipal.idMenu}" th:name="'linkEdit' + ${mPrincipal.idMenu}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a></td>		
-						<td><a th:id="'idLinkCancelar' + ${mPrincipal.idMenu}" th:name="'linkCancelar' + ${mPrincipal.idMenu}" class="btn btn-colour-1" role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="display:none;">Cancelar</a></td>
+						<td><a th:id="'idLinkEdit' + ${iterStat.index}" th:name="'linkEdit' + ${iterStat.index}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a></td>		
+						<td><a th:id="'idLinkCancelar' + ${iterStat.index}" th:name="'linkCancelar' + ${iterStat.index}" class="btn btn-colour-1" role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="display:none;">Cancelar</a></td>
 							
 						 <td>	
-							<a th:id="'idLinkSubMenu' + ${mPrincipal.idMenu}" th:name="'linkSubMenu' + ${mPrincipal.idMenu}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
-							<input type="hidden" th:id="'idMenuHidden'+ ${mPrincipal.idMenu}" th:name="'idMenuHidden'+ ${mPrincipal.idMenu}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].idMenu}" />
+							<a th:id="'idLinkSubMenu' + ${iterStat.index}" th:name="'linkSubMenu'+ ${iterStat.index}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
+							<input type="hidden" th:id="'idMenuHidden'+ ${iterStat.index}" th:name="'menuHidden'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].idMenu}" />
 						 </td>
-						 <td><a th:id="'idLinkBaja' + ${mPrincipal.idMenu}" th:name="'linkBaja' + ${mPrincipal.idMenu}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a></td>																					 											
+						 <td><a th:id="'idLinkBaja'+ ${iterStat.index}" th:name="'linkBaja'+ ${iterStat.index}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a></td>																					 											
 						</tr>
 						<tr>
 							<td></td>
@@ -433,14 +430,14 @@
 								</td>
 								<td>
 									<div class="form-group">
-										<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionN" th:name="hrefAplicacionN" th:field="*{hrefAplicacion}"  placeholder="Teclee parte de url de enlace suministrada"  th:maxlength="30"/>											
+										<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionN" th:name="hrefAplicacionN" th:field="*{hrefAplicacion}"  placeholder="Teclee la URL de enlace suministrada"  th:maxlength="30"/>											
 				 	  				</div>
 								</td>
 								<td>
 									<div class="form-group">
 										<input type="checkbox" th:checked="*{indActivo}" class="form-control form-control-sm" th:id="idActivadoN" th:name="activadoN" th:field="*{indActivo}" th:readonly="false"/>											
 				 	 				</div>
-							</td>		
+								</td>		
 			  	 		</tr>
 					</tbody>
 			 	</table>

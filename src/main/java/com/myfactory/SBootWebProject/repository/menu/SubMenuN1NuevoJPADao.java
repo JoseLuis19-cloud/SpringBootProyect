@@ -17,7 +17,7 @@ public interface SubMenuN1NuevoJPADao extends CrudRepository<SubMenuNivel1, Inte
 	
 	
 	@Query("SELECT sm1 FROM SubMenuNivel1 sm1"
-			+ " JOIN sm1.menu me "
+			+ " JOIN  sm1.menu me "
 			+ " WHERE me.idMenu = :idMenu"
 			+ " AND   sm1.idSubmenuNivel1 > 0"
 			+ " ORDER BY sm1.numOrdenMenu")

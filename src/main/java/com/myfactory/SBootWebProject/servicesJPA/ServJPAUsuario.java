@@ -32,5 +32,6 @@ public interface ServJPAUsuario {
 	public Boolean findByEmail(String userEmail);
 	
 	public Boolean findByFullName(String userFullName);
-
+	
+	
 }

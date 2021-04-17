@@ -61,7 +61,12 @@
 	 $(document).ready(function(){
 		
 		$("#idBotonNuevoEleSM").click(function(){
-		 	$("#myModalNue").modal();
+		 	$("#modalSubEleNue").modal();
+		 });
+		
+		$("#idPantallaAyuda").click(function(){
+			alert("Pinchado ayuda");
+		 	$("#modalAyuda").modal();
 		 });
 		
 		// Evento de boton Editar
@@ -315,26 +320,25 @@
 						</td>
 						<td>
 							<div class="form-group col-md-20">
-								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'textoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${iterStat.index}" th:name="'textoSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
 							</div>
 						</td>
 							<td> 
 								<div class="form-group col-md-40" style="display: flex; justify-content: center; align-items: center;">
-									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'hRefApliSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
+									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${iterStat.index}" th:name="'hRefApliSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
 							    </div>
 							</td>
 							<td>
-								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:name="'activadoSubMenu'+ ${subMenuN1.idSubmenuNivel1}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>											
-								
-								<input type="hidden" th:id="'idSubMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:name="'subMenuHidden'+ ${subMenuN1.idSubmenuNivel1}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
+								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${iterStat.index}" th:name="'activadoSubMenu'+ ${iterStat.index}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>						
+								<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
 							</td>
 		
 							<td>
-								<a th:id="'idLinkEditarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkEditarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'gestionEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">editar</a>
+								<a th:id="'idLinkEditarSM' + ${iterStat.index}" th:name="'linkEditarSM' + ${iterStat.index}" class="btn btn-primary btn-sm" role="button" th:onclick="'gestionEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' ">editar</a>
 							</td>
 							
 							<td>
-								<a th:id="'idLinkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" th:name="'linkCancelarSM' + ${subMenuN1.idSubmenuNivel1}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' "  style="display:none;" >cancelar</a>	
+								<a th:id="'idLinkCancelarSM' + ${iterStat.index}" th:name="'linkCancelarSM' + ${iterStat.index}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' "  style="display:none;" >cancelar</a>	
 							</td>												
 						</tr>
 						<tr>
@@ -361,9 +365,9 @@
 				<div class="col-1"></div>	
 				<div class="col-10">
 				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">volver menus</a>
-				 	<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAyuda">Ayuda pantalla</button>
-					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
+					 
+					<a th:id="idPantallaAyuda" th:name="botonNuevoEleSM" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
+					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM" class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
 				 </div>	
 				 <div class="col-1"></div>	
 			</div>
@@ -378,7 +382,7 @@
 		 	<input type="hidden" th:id="'idActivadoSMHidden'" 	th:name="'activadoSMHidden'" 	th:field="*{indActivoSubMenu}" />												
 		 </form> 
 			
-		 <div id="myModalNue" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="modalAyuda" aria-hidden="true">
+		 <div id="modalSubEleNue" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
   			<div class="modal-dialog modal-xl">
       	<!-- Modal content-->
       		<div class="modal-content">
@@ -399,6 +403,7 @@
 						<tr th:each="elemenSumMenuNuevo:${elemenSubMenuNuevoWeb}">
 					 		<td>
 								<input type="text" class="form-control form-control-sm"  th:id="idNumOrdSubMenuN" th:name="mumOrdMenuN" th:field="*{numOrdenSubMenu}" th:maxlength="2" th:readonly="true"/>
+								<input type="hidden" th:id="'idMenuNHidden'" 	th:name="'menuNHidden'" 	th:field="*{idMenu}" />			
 							</td>
 							<td>
 								<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:field="*{textoMenuSubMenu}" th:maxlength="30"/>											
@@ -422,21 +427,23 @@
 		</div>	
 		</div>
 	</div>
- 
+
 <!-- Modal -->
-<div class="modal fade" id="#modalAyuda" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+          <div class="modal-body">
         <p>. Para ordenar los sumenus se necesita</p>
         <p>. Para editar los submenus ....</p>
         <p>. 1 Para ordenar los sumenus se necesita</p>
+      </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

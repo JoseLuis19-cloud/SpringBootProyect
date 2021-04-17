@@ -85,7 +85,7 @@ public class ControllerWebGestionMenus {
 	Boolean noTieneSubmenus;
 		  
 	Iterable <SubMenuNivel1> subMenuNivel1 = serviciosJPAMenu.obtenerSubMenuAplicacionSin0(new Integer(idMenu));
-	Iterator<SubMenuNivel1> menu = subMenuNivel1.iterator();
+	// Iterator<SubMenuNivel1> menu = subMenuNivel1.iterator();
 		
 		BeanFormSubMenu beanFormSubMenu = new BeanFormSubMenu();
 			  
@@ -99,6 +99,8 @@ public class ControllerWebGestionMenus {
 		modelo.addAttribute("subMenu", beanFormSubMenu);
 		 
 	  //  modelo.addAttribute("subMenuNivel1", subMenuNivel1);
+		
+		System.out.println(subMenuNivel1.iterator().next().getMenu().getIdMenu());
 	    
 	    modelo.addAttribute("elemenMenuPrincipal", nomEleMenu);
 
@@ -120,6 +122,8 @@ public class ControllerWebGestionMenus {
 		modelo.addAttribute("noTieneSubmenus", noTieneSubmenus);
 		modelo.addAttribute("errorAltaElemento", false);  
 		  
+		
+		elemenSubMenuNuevo.setIdMenu(new Integer(idMenu));
 		elemenSubMenuNuevo.setNumOrdenSubMenu(numRegSubMenu.intValue() + 1 );
 		elemenSubMenuNuevo.setIndActivoSubMenu(false);
 		
@@ -165,16 +169,16 @@ public class ControllerWebGestionMenus {
 		
 		Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
 		
-		 BeanFormMenu beanFormMenu = new BeanFormMenu();
+		BeanFormMenu beanFormMenu = new BeanFormMenu();
 		  
-		  List<Menu> listMenu = StreamSupport
+		List<Menu> listMenu = StreamSupport
 				  .stream(menuPrincipalAplicacion.spliterator(), false)
 				  .collect(Collectors.toList());
 
-		 ArrayList<Menu> arrListMenu = new ArrayList<Menu>(listMenu);
-		 beanFormMenu.setBeanMenuAplicacionWeb(arrListMenu); 
+		ArrayList<Menu> arrListMenu = new ArrayList<Menu>(listMenu);
+		beanFormMenu.setBeanMenuAplicacionWeb(arrListMenu); 
 		  
-		 modelo.addAttribute("menuPrincipal", beanFormMenu);
+		modelo.addAttribute("menuPrincipal", beanFormMenu);
 		
 		modelo.addAttribute("elemenMenuNuevoWeb", beanMenuAplicacionWeb);
 		
@@ -184,29 +188,30 @@ public class ControllerWebGestionMenus {
 
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		return "GestionMenus/GestionMenus";
+	//	retu rn "GestionMenus/GestionMenus";
+		return "redirect:/gestionmenus/obtenermenuprincipal";
 	}
 	
 	@RequestMapping(value = "/insertelementosubmenu", method = RequestMethod.POST)
-	public String insertElementoSubMenu(Model modelo, @ModelAttribute("beanSubMenuAplicacionWeb") BeanSubMenuAplicacionWeb beanSubMenuAplicacionWeb) 
+	public String insertElementoSubMenu(@ModelAttribute  BeanSubMenuAplicacionWeb elemenSubMenuNuevoWeb, Model modelo ) 
 	{
-		SubMenuNivel1 elemenSubMenu = new SubMenuNivel1();		
+		SubMenuNivel1 elemenSubMenu = new SubMenuNivel1();	
 	
 		Menu elemenMenu = new Menu();
-		elemenMenu.setIdMenu(beanSubMenuAplicacionWeb.getIdSubMenuN1());
+	 	elemenMenu.setIdMenu(elemenSubMenuNuevoWeb.getIdMenu());
 		elemenSubMenu.setMenu(elemenMenu) ;
-		elemenSubMenu.setNumOrdenMenu(beanSubMenuAplicacionWeb.getNumOrdenSubMenu() ) ;
-		elemenSubMenu.setTextoSubMenuN1(beanSubMenuAplicacionWeb.getTextoMenuSubMenu()  );
-		elemenSubMenu.setHrefAplicacionN1(beanSubMenuAplicacionWeb.getHrefAplicacionSubMenu());
-		elemenSubMenu.setActivo(beanSubMenuAplicacionWeb.isIndActivoSubMenu() );
+		elemenSubMenu.setNumOrdenMenu(elemenSubMenuNuevoWeb.getNumOrdenSubMenu()  ) ;
+		elemenSubMenu.setTextoSubMenuN1(elemenSubMenuNuevoWeb.getTextoMenuSubMenu()  );
+		elemenSubMenu.setHrefAplicacionN1(elemenSubMenuNuevoWeb.getHrefAplicacionSubMenu());
+		elemenSubMenu.setActivo(elemenSubMenuNuevoWeb.isIndActivoSubMenu() );
 		
-		SubMenuNivel1 elemenSubMenuNuevo = new SubMenuNivel1();		
-		elemenSubMenuNuevo  = serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
+	//	SubMenuNivel1 elemenSubMenuNuevo = new SubMenuNivel1();		
+		serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
 		
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "GestionMenus/GestionMenus";
+		return "redirect:/gestionmenus/obtenersubmenu";
 	}
 	
 	@RequestMapping(value =  "/updateelementosubmenu", method = RequestMethod.POST)

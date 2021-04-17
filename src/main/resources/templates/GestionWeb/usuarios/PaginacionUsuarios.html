@@ -30,6 +30,15 @@
   		padding:3px 15px !important;
  		margin-left:10px !important;
 		}
+		
+	.div-desactivado{
+  	color: #DEBC8B;
+  	background-color: #ECC7CD;
+  	border-color: #004E64;
+  	font: 15px Arial, sans-serif;
+ 	letter-spacing: 0.05em;
+  	border-radius: 0;
+	}
   </style>
   
   	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
@@ -73,7 +82,7 @@
 					</tr>
 
 					<tr th:each="users:${pagUsuarios}">
-						<td th:text="${users.fullName}"></td>
+						<td th:classappend="${! users.enabled}? div-desactivado" th:text="${users.fullName}"></td>
 						<td th:text="${users.username}"></td>
 						<td>
 							<div style="display: flex; justify-content: center; align-items: center;">
@@ -89,14 +98,16 @@
 					<!--	<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MMM/yyyy HH:mm')}"></td> -->
 						<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MM/yyyy')}"></td>
 						<td>
-							<div  style="display: flex; justify-content: center; align-items: center;">
+							<div style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" th:readonly="true" />
 							</div>
 						</td>
-						<td><a th:href="@{/gestionWeb/usuarios/formcambiarpass(idUsuario=${users.id})}" class="btn btn-primary" role="button">Password</a></td>
-						<td><a th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionWeb/usuarios/formeditarusuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">editar</a></td>
-						<td><a th:id="'idLinkBaja' + ${users.id}" th:name="'linkBaja' + ${users.id}" th:href="@{/gestionWeb/usuarios/formbajausuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">baja</a></td>
-						<td><a th:id="'idLinkGesMenu' + ${users.id}" th:name="'linkGesMenu' + ${users.id}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}"  class="btn btn-primary btn-sm" role="button">menus</a></td>	  
+						<td><a th:if="${users.enabled}"  th:href="@{/gestionWeb/usuarios/formcambiarpass(idUsuario=${users.id})}" class="btn btn-primary" role="button">Password</a></td>
+						<td><a th:if="${users.enabled}" th:id="'idLinkEditar' + ${users.id}" th:name="'linkEditar' + ${users.id}" th:href="@{/gestionWeb/usuarios/formeditarusuario(idUsuario=${users.id})}"  class="btn btn-primary btn-sm" role="button">editar</a></td>
+						<td><a th:if="${users.enabled}"  th:id="'idLinkBaja' + ${users.id}" th:name="'linkBaja' + ${users.id}" th:href="@{/gestionWeb/usuarios/formbajausuario(idUsuario=${users.id})}" class="btn btn-primary btn-sm" role="button">baja</a>
+							<a th:if="${! users.enabled}"  th:id="'idLinkActivar' + ${users.id}" th:name="'linkActivar' + ${users.id}" th:href="@{/gestionWeb/usuarios/formactivar(idUsuario=${users.id})}" class="btn btn-primary btn-sm" role="button">activar</a>
+						</td>
+						<td><a th:id="'idLinkGesMenu' + ${users.id}" th:name="'linkGesMenu' + ${users.id}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${users.id}, nomUsuario=${users.fullName} )}" class="btn btn-primary btn-sm" role="button">menus</a></td>	  
 					</tr>
 				</tbody>
 			</table>

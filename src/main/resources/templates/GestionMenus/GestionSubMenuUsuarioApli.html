@@ -257,8 +257,10 @@
 		<div class="row" style="border-top: 2px solid #000">
 			<div class="col-1"></div>
  			 <div class="col-10"> 
+ 			   <p th:id="'idPMensaje'"> Los cambios en la asignacion de menus se verán reflejados la próxima vez que entre el usuario a la apliciación</p>
   			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=*{beanCamposGesMenuUsu.idUsuario}, nomUsuario=${nomUsuario} )}" class="btn btn-primary" role="button">Volver</a>
  			 </div>
+ 			 
  			<div class="col-1"></div>
  		</div>
 		
@@ -280,7 +282,7 @@
       		<p th:id="'idP3'" style="display:none;"> ¿Confirmar que quiere añadir todos los elementos de submenu a este usuario?.</p>
       	</div>
      	 <div class="modal-footer">
-      	  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+      	   <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
      	   <button type="button" th:onclick="th:confirmarSubMenuUsuario()" class="btn btn-primary">Confirmar</button>
       	</div>
    	 </div>
