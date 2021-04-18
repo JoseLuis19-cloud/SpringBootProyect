@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-	
+
 <head>
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}" />
@@ -34,6 +34,136 @@ h5 {
 	padding: 3px 15px !important;
 	margin-left: 10px !important;
 }
+
+@import "compass/css3";
+
+/*
+
+RESPONSTABLE 2.0 by jordyvanraaij
+  Designed mobile first!
+
+If you like this solution, you might also want to check out the 1.0 version:
+  https://gist.github.com/jordyvanraaij/9069194
+
+*/
+
+// Default options for table style
+$table-breakpoint: 480px;
+$table-background-color: #FFF;
+$table-text-color: #024457;
+$table-outer-border: 1px solid #167F92;
+$table-cell-border: 1px solid #D9E4E6;
+
+// Extra options for table style (parse these arguments when including your mixin)
+$table-border-radius: 10px;
+$table-highlight-color: #EAF3F3;
+$table-header-background-color: #167F92;
+$table-header-text-color: #FFF;
+$table-header-border: 1px solid #FFF;
+
+// The Responstable mixin
+
+@mixin responstable(
+  $breakpoint: $table-breakpoint,
+  $background-color: $table-background-color,
+  $text-color: $table-text-color,
+  $outer-border: $table-outer-border,
+  $cell-border: $table-cell-border,
+  $border-radius: none,
+  $highlight-color: none,
+  $header-background-color: $table-background-color,
+  $header-text-color: $table-text-color,
+  $header-border: $table-cell-border) {
+  
+  .responstable {
+    margin: 1em 0;
+    width: 100%;
+    overflow: hidden;  
+    background: $background-color;
+    color: $text-color;
+    border-radius: $border-radius;
+    border: $outer-border;
+  
+    tr {
+      border: $cell-border; 
+      &:nth-child(odd) { // highlight the odd rows with a color
+        background-color: $highlight-color;
+      }  
+    }
+  
+    th {
+      display: none; // hide all the table header for mobile
+      border: $header-border;
+      background-color: $header-background-color;
+      color: $header-text-color;
+      padding: 1em;  
+      &:first-child { // show the first table header for mobile
+        display: table-cell;
+        text-align: center;
+      }
+      &:nth-child(2) { // show the second table header but replace the content with the data-th from the markup for mobile
+        display: table-cell;
+        span {display:none;}
+        &:after {content:attr(data-th);}
+      }
+      @media (min-width: $breakpoint) {
+        &:nth-child(2) { // hide the data-th and show the normal header for tablet and desktop
+          span {display: block;}
+          &:after {display: none;}
+        }
+      }
+    }
+  
+    td {
+      display: block; // display the table data as one block for mobile
+      word-wrap: break-word;
+      max-width: 7em;
+      &:first-child { 
+        display: table-cell; // display the first one as a table cell (radio button) for mobile
+        text-align: center;
+        border-right: $cell-border;
+      }
+      @media (min-width: $breakpoint) {
+        border: $cell-border;
+      }
+    }
+  
+    th, td {
+      text-align: left;
+      margin: .5em 1em;  
+      @media (min-width: $breakpoint) {
+        display: table-cell; // show the table as a normal table for tablet and desktop
+        padding: 1em;
+      }
+    }  
+  }    
+}
+
+// Include the mixin (with extra options as overrides)
+
+@include responstable(
+  $border-radius: $table-border-radius,
+  $highlight-color: $table-highlight-color,
+  $header-background-color: $table-header-background-color,
+  $header-text-color: $table-header-text-color,
+  $header-border: $table-header-border);
+
+// General styles
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: #024457;
+  background: #f2f2f2;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: #024457;
+  span {color: #167F92;}
+}
+
 </style>
 
 </head>
@@ -43,13 +173,14 @@ h5 {
 	
   <header>
   <div class="container-fluid">
-    <div class="row" 
-         style="background:transparent url('images/desktopImg1.jpg') no-repeat center center /cover">
+    <div class="row" style="height: 200px; background:transparent url('images/desktopImg1.jpg') no-repeat center center /cover">
       <div class="col-lg-12">
         <div class="intro-text">
-          <span class="h5">Desktop de modelo de Aplicación Piloto</span>
+        <div style="text-align: center;">
+          <span class="h2">Desktop de modelo de Aplicación Piloto</span>
+          </div>
           <hr class="star-light">
-          <span class="skills">Esta aplicación se realizado para cubrir la necesidades basicas de gestion de una pequeña empresa de servicios tecnólogicos</span>
+          <span class="skills">Esta aplicación se realizado para cubrir la necesidades básicas de gestión de una pequeña empresa de servicios tecnólogicos</span>
         </div>
       </div>
     </div>
@@ -87,8 +218,10 @@ h5 {
 			<div class="col-8">
 				<h5>Avisos para el usuario : ADMIN</h5>	
 					<div class="panel-body" align="center" style="border-bottom: 2px solid #000">
-					   <table class="table table-sm">
-						<thead class="thead-light">
+					
+					<table class="responstable">
+				<!--  	   <table class="table table-sm">-->
+						<thead>
 						 <tr>	
 							<th th:text="'id. Aviso'"></th>
 							<th th:text="Tarea"></th>

@@ -56,7 +56,6 @@
 	
 	 var arrValueCheck = null;
 	 var arrValueCheckASupr = null;
-	// var idMenuSelec = "";
 	 var indExp = 0;
 
 		$(document).ready(function() {
@@ -66,23 +65,46 @@
 			      return this.value;
 			    }).get();
 			     
-			  // var str = arrValueCheck.join(',');
-			  //  $('#arr').text(JSON.stringify(arr));
-			  //  $('#str').text(str);
+			    //  alert(arrValueCheck);
+			    //  alert("arrValueCheck " + arrValueCheck.length);
+			      
+			      if ( arrValueCheck.length > 9)
+			    	 {
+			    	  alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+			    	 }
+
+				//  var count = (arrValueCheck.match(/,/g) || []).length;
+				//  alert("checks: " + count);  
+			    // var str = arrValueCheck.join(',');
+			    //  $('#arr').text(JSON.stringify(arr));
+			    //  $('#str').text(str);
 			  });
 			  
 			  $('[name="checksMenuUsu[]"]').click(function() {
 				  arrValueCheckASupr = $('[name="checksMenuUsu[]"]:checked').map(function(){
 			      return this.value;
 			    }).get();
-			  
+				  
+				  if ( arrValueCheckASupr.length > 9)
+		    	    {
+		    	    alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+		    	    }
+				  
+			 //   alert(arrValueCheckASupr);
+			 //   alert("arrValueCheckASupr " + arrValueCheckASupr.length);
+			   // var count = (arrValueCheckASupr.match(/,/g) || []).length;
+			   // alert("arrValueCheckASupr: " + count);
+			    //var str = arrValueCheckASupr.join(',');
+			    // $('#arr').text(JSON.stringify(arr));
+			   //  $('#str').text(str)
+			    
 			  });
 			 
 			 $("#idLinkAnadirTodos").click(function() {
 				$("input[id^='idCheckActivado']").prop("checked", true);
 				document.getElementById("idP3").style.display = "block";
 				$("#idAccionHidden").val("anadirtodos");
-				alert("Antes de mostrar Ventana todos");
+			//	alert("Antes de mostrar Ventana todos");
 				$("#myModalConfirm").modal();
 			  });
 			 
@@ -228,6 +250,7 @@
 					<div th:insert="gestionMenus/fragments/MenusSelecUsuario :: menuselecusuario"></div>
 				</div>	
 			</div>
+			
  			<div class="col-1" style="text-align: center">
  				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  					<br/>
@@ -246,8 +269,8 @@
  			</div>
  		 
  			<div class="col-1"> </div>
+ 			<p th:id="'idPMensaje'"> Los cambios en la asignación de menús se verán reflejados la siguiente vez que entre el usuario a la apliciación</p>
 		</div>
-		<p th:id="'idPMensaje'"> Los cambios en la asignacion de menus se verán reflejados la próxima vez que entre el usuario a la apliciación</p>
 		<a th:id="'idLinkVolver'" th:name="'linkVolver'" th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-colour-1" role="button">Volver</a>
  
       	<div id="idDivSubMenu1Usu" style="visibility:visible; width:100%"> </div>

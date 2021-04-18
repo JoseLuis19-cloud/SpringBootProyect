@@ -21,7 +21,7 @@
 					<tbody class="table-striped">
 						<tr th:each="listSubMenuUsu, iterStat :${listSubMenuUsuApliWeb}">
 							<td>
-								<input type="checkbox" th:id="'idCheckMenuUsuActiva'+  ${iterStat.index}" th:name="checksMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listSubMenuUsu.idSubMenuUsuWeb}" class="btn btn-primary btn-sm" />						
+								<input type="checkbox" th:id="'idCheckMenuUsuActiva'+  ${iterStat.index}" th:name="checksSubMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listSubMenuUsu.idSubMenuUsuWeb}" class="btn btn-primary btn-sm" />						
 							</td>
 							<td th:text="${listSubMenuUsu.idSubmenuNivel1}"></td>
 							<td th:text="${listSubMenuUsu.textoSubMenuN1}"></td>

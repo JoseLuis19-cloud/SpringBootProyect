@@ -83,7 +83,7 @@
 			 	 $("#idTextoSubMenu" + lastChar).prop("readonly", false);
 			 	 $("#idHRefApliSubMenu" + lastChar).prop("readonly", false);
 			 	 $("#idActivadoSubMenu" + lastChar).prop("disabled", false);
-				//  $('#idLinkCancelarSM' + lastChar).css('visibility', 'visible');
+			 //  $('#idLinkCancelarSM' + lastChar).css('visibility', 'visible');
 				 $("#idLinkCancelarSM" + lastChar).show();
 		
 				 $(this).text('grabar');  
@@ -91,15 +91,13 @@
 				}  
 		   	  else
 				{
-		   		 alert ("Antes de submitir formulario");
-		   		 
 				 $("#idIdSubMenuHidden").val($("#idSubMenuHidden" + lastChar).val());
 				 $("#idNumOrdenSMHidden").val($("#idNumOrdSubMenu" + lastChar).val());
 				 $("#idTextoMenuSMHidden").val($("#idTextoSubMenu" + lastChar).val()); 
 				 $("#idHREFMenuSMHidden").val($("#idHRefApliSubMenu" + lastChar).val()); 
 				 $("#idActivadoSMHidden").val($("#idActivadoSubMenu" + lastChar).val()); 
-				 alert("Paso 5");
-				 alert( document.getElementById("idIdSubMenuHidden").value ) ;
+ 
+			//	 alert( document.getElementById("idIdSubMenuHidden").value ) ;
 				 
 			 // Falta el campo activado !!!!!
 			 // Submitir formulario
@@ -108,16 +106,16 @@
 		});
 		
 		// Evento de boton cancelar la edicion de un elemento de menu
-		// 
+		 
 		$('a[id^="idLinkCancelarSM"]').click(function(event) 
 		 {
 		  $("a[id^='idLinkEditarSM']").show();
 
 		  var lastChar4 = getNumber(event.target.id);
-			
-	 	  $("#idTextoMenu" + lastChar4).prop("readonly", true);
-	 	  $("#idhRefAplicacion" + lastChar4).prop("readonly", true);
-	 	  $("#idActivado" + lastChar4).prop("disabled", true);
+		  
+	 	  $("#idTextoSubMenu" + lastChar4).prop("readonly", true);
+	 	  $("#idHRefApliSubMenu" + lastChar4).prop("readonly", true);
+	 	  $("#idActivadoSubMenu" + lastChar4).prop("disabled", true);
 	 	  $("#idLinkCancelarSM" + lastChar4).css("display", "none");
 	 	  
 		  $('#idLinkEditarSM' + lastChar4).text('editar');
@@ -153,35 +151,28 @@
  
 		if (isErrorAlta)
 	       {
-	  	 	console.log("cargar ventana emergente" + isErrorAlta);
+	  	 	console.log("CARGA ventana emergente" + isErrorAlta);
 	  	 	$('#myModalNue').modal('show');
 	   		}
 	   	  else
 	       {
-	  	  	console.log("NO CARGAR  ventana emergente");
+	  	  	console.log("NO CARGA ventana emergente");
 	       }
 	});
 	 
 	 function getNumber(objEvent)
 	 { 
-		 var numero = "";
-		// var n = 1;
- 		// var lastChar = objEvent.substr(objEvent.length - 1);
- 		// numero = lastChar;
- 		// alert("Antes del while. numero: "  + numero);
- 		
- 		cadena = event.target.id;
+	  var numero = "";
+ 	  cadena = event.target.id;
  		
 		 while (true) 
 		  {
 			// var subCadena = event.target.id.substring(0, event.target.id.length - n);
-		//	  alert("event.target.id.length " + event.target.id.length )
+			// alert("event.target.id.length " + event.target.id.length )
 			  var lastBeforeChar = cadena.substr(cadena.length - 1,  cadena.length);
-		//	  alert ("lastBeforeChar " + lastBeforeChar);
 			  
 			  if ( isNaN(lastBeforeChar.trim() ) )
 			  	 {
-		//		  alert("No es numero ya devolvemos el valor obtenido. numero " + numero);
 				  return numero;
 			  	 }  
 			   else
@@ -190,10 +181,8 @@
 			    // numero.concat(lastBeforeChar); 
 			     numero = lastBeforeChar.trim() + numero;
 			     cadena = cadena.substr(0, cadena.length - 1); 
-			  //   alert("cadena: " + cadena);
 			    }
 		   }
-	//	 alert("Termina metodo y el  numero es : " + numero);
 	 }
 	 
 	 
@@ -403,7 +392,7 @@
 						<tr th:each="elemenSumMenuNuevo:${elemenSubMenuNuevoWeb}">
 					 		<td>
 								<input type="text" class="form-control form-control-sm"  th:id="idNumOrdSubMenuN" th:name="mumOrdMenuN" th:field="*{numOrdenSubMenu}" th:maxlength="2" th:readonly="true"/>
-								<input type="hidden" th:id="'idMenuNHidden'" 	th:name="'menuNHidden'" 	th:field="*{idMenu}" />			
+								<input type="hidden" th:id="'idMenuNHidden'"  th:name="'menuNHidden'" th:field="*{idMenu}" />			
 							</td>
 							<td>
 								<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:field="*{textoMenuSubMenu}" th:maxlength="30"/>											

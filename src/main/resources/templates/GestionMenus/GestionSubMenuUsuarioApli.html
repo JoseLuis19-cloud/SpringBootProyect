@@ -54,28 +54,40 @@
 	 	var idMenuSelec = "";
 
 		$(document).ready(function() {
-			  $('[name="checks[]"]').click(function() {
-			      arrValueCheck = $('[name="checks[]"]:checked').map(function(){
-			      return this.value;
-			    }).get();
+			 $('[name="checks[]"]').click(function() {
+			     arrValueCheck = $('[name="checks[]"]:checked').map(function(){
+			     return this.value;
+			 }).get();
+			      
+			  alert(arrValueCheck);
+			 if (arrValueCheck.length > 9)
+			    {
+			    alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+			    }
 			     
 			  // var str = arrValueCheck.join(',');
 			  //  $('#arr').text(JSON.stringify(arr));
 			  //  $('#str').text(str);
 			  });
 			  
-			  $('[name="checksMenuUsu[]"]').click(function() {
-				  arrValueCheckASupr = $('[name="checksMenuUsu[]"]:checked').map(function(){
+			  $('[name="checksSubMenuUsu[]"]').click(function() {
+				  arrValueCheckASupr = $('[name="checksSubMenuUsu[]"]:checked').map(function(){
 			      return this.value;
 			    }).get();
-			  
+				  
+				  
+				 alert("pinchados : " + arrValueCheckASupr);
+				  
+				  if (arrValueCheckASupr.length > 9)
+			     	{
+			    	 alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+			        }
 			  });
 			 
 			 $("#idLinkAnadirTodos").click(function() {
 				$("input[id^='idCheckActivado']").prop("checked", true);
 				document.getElementById("idP3").style.display = "block";	
 				$("#idAccionHidden").val("anadirtodos");
-				alert("Antes de mostrar Ventana todos elementos submenu");
 				$("#myModalConfirm").modal();
 			  });
 			 
@@ -104,11 +116,12 @@
 					 document.getElementById("idP1").style.display = "block";
 
 					 var ind = 0;
-					 for (var i=0; i<arrValueCheck.length; i++)
+					 for (var i=0; i < arrValueCheck.length; i++)
 				 	 	{
-					  	$("#idIdSubMenuHidden" + ind).val(arrValueCheck[i]);
+						 alert(arrValueCheck[i]);
+					  	 $("#idIdSubMenuHidden" + ind).val(arrValueCheck[i]);
 					     alert("Ha elegido: " + $("#idIdSubMenuHidden" + ind).val());
-					  	ind++;
+					  	 ind++;
 				 	 	// idMenuSelec = arrValueCheck[i];
 			   	     	}
 					 	$("#idAccionHidden").val("anadiruno");  
@@ -141,7 +154,7 @@
 					 var ind = 0;
 					 for (var i=0; i<arrValueCheckASupr.length; i++)
 				 	  { 
-					   	$("#idIdSubMenuHidden" + ind).val( arrValueCheckASupr[i]);
+					   	$("#idIdSubMenuHidden" + ind).val(arrValueCheckASupr[i]);
 					//   	alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
 					   	$("#idIdSubMenuUsuHidden" + ind).val($("#idSubMenuUsuSelHidden" + i).val());
 					   	alert("alert: " + $("#idIdSubMenuUsuHidden" + ind).val() );
@@ -257,7 +270,7 @@
 		<div class="row" style="border-top: 2px solid #000">
 			<div class="col-1"></div>
  			 <div class="col-10"> 
- 			   <p th:id="'idPMensaje'"> Los cambios en la asignacion de menus se verán reflejados la próxima vez que entre el usuario a la apliciación</p>
+ 			   <p th:id="'idPMensaje'"> Los cambios en la asignación de menus se verán reflejados la próxima vez que entre el usuario a la apliciación</p>
   			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=*{beanCamposGesMenuUsu.idUsuario}, nomUsuario=${nomUsuario} )}" class="btn btn-primary" role="button">Volver</a>
  			 </div>
  			 

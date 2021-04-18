@@ -78,7 +78,7 @@
 			var lastChar = getNumber(event.target.id);
 			
 			if ($(this).text() == "editar") {
-				alert("Es Editar" + lastChar);
+			//	alert("Es Editar" + lastChar);
 				
 				$("a[id^='idLinkEdit']").hide(); 
 				$("a[id^='idLinkSubMenu']").hide();
@@ -96,29 +96,23 @@
 				}  
 		   	  else
 				{
-		   		alert("Es Grabar");
+		   	//	alert("Es Grabar");
 		   	 // Guardar elemento menu modificado
-		   		alert("El numero de elemento: " + lastChar);
 		   		
 				$("#idIdMenuHidden").val($("#idMenuHidden" + lastChar).val()) ;
-				alert("PASO 1");
 				$("#idNumOrdenHidden").val($("#idNumOrdMenu" + lastChar ).val()) ;  
-				alert("PASO 2");
 				$("#idTextoMenuHiden").val($("#idTextoMenu" + lastChar).val()); 
-				alert("PASO 3");
 				$("#idHREFMenuHidden").val($("#idhRefAplicacion" + lastChar).val()); 
-				alert("PASO 4");
 				$("#idIndActivoHidden").val($("#idActivado" + lastChar).val()); 
 				
-				alert ( "num. orden menu " + $("#idNumOrdMenu" + lastChar).val() + " , idIndActivoHidden " +  $("#idIndActivoHidden").val() );
+			//	alert ( "num. orden menu " + $("#idNumOrdMenu" + lastChar).val() + " , idIndActivoHidden " +  $("#idIndActivoHidden").val() );
 				
 			 // Submitir formulario
 				document.getElementById("idFormEditMenu").submit();
 			}	
 		});
 		
-		// Evento de boton cancelar la edicion de un elemento de menu
-		// 
+		// Evento de boton cancelar la edicion de un elemento de menu 
 		$('a[id^="idLinkCancelar"]').click(function(event) 
 		 {
 		  $("a[id^='idLinkEdit']").show();
@@ -131,20 +125,17 @@
 	 	  $("#idhRefAplicacion" + lastChar4).prop("readonly", true);
 	 	  $("#idActivado" + lastChar4).prop("disabled", true);
 	 	
-	//   $("#idLinkCancelar" + lastChar4).hide();
-	 	
 	 	  $("#idLinkCancelar" + lastChar4).css("display", "none");
 		  $('#idLinkEdit' + lastChar4).text('editar');
 		 });
 		
-	
 		$('a[id^="idLinkBaja"]').click(function(event) {
 		   var lastChar5 = getNumber(event.target.id);
 		   $("#idIdMenu").val( $("#idMenuHidden" + lastChar5).val() );
 		   $("#myModalEliminarMenu").modal();
 		 });
 		
-		// Evento Editar numero de orden de menu
+		// Evento Editar número de orden de menu
 		$("#idEditNumOrden").click(function() {
 			if ( $("#idEditNumOrden").text() == "editar")
 			   {
@@ -271,7 +262,7 @@
 			alert("numOrdVal: " + numOrdVal   + " indNumCorrelativo: " + indNumCorrelativo);
 		 	if  (numOrdVal != indNumCorrelativo)
 		 		{
-		 		 alert("esta alterado el numero");
+		 		 alert("Esta alterado el numero");
 		 		 return true;
 		 		}
 		 	indNumCorrelativo ++; 	
