@@ -52,4 +52,9 @@ public class ServJPAProyectoImpl implements ServJPAProyecto {
 		}
 		return restulPag;
 	}
+	
+	@Override
+	public Iterable<Proyecto> listProyectos()  {
+		return proyectoJPAPagRepository.findAll();
+	}
 }

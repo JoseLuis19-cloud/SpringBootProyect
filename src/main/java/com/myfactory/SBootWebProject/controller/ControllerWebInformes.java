@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import com.myfactory.SBootWebProject.informesjasper.GeneradorJasper;
+import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAProyecto;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 import net.sf.jasperreports.engine.JRException;
@@ -36,6 +38,9 @@ public class ControllerWebInformes {
 
 	@Autowired
 	private ServJPAUsuario servJPAUsuario;
+	
+	@Autowired
+	private ServJPAProyecto servJPAProyecto;
 
 	protected static final Logger parentLogger = LogManager.getLogger();
 	
@@ -70,6 +75,27 @@ public class ControllerWebInformes {
 	     GeneradorJasper genInfoJasper = new GeneradorJasper();
 	     
 	     JasperPrint reportGenerado = genInfoJasper.generarInfomeUsuarios(iterUsuarios);
+	     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "InformeUsuarios.pdf");
+	    // JasperViewer viewer = new JasperViewer(reportGenerado);
+	    // viewer.setVisible(true);
+	    
+	    } catch (JRException ex) {
+        	parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
+        }
+
+		return "gestionWeb/informes/InformesAplicacion.html";
+	}
+	
+	@RequestMapping("/informeproyectos")
+	public String informeProyectos(Model modelo) {
+	    try
+	    {
+	    Iterable<Proyecto> proyectos = servJPAProyecto.listProyectos() ;
+		Iterator<Proyecto> iterProyecto = proyectos.iterator();
+		
+	     GeneradorJasper genInfoJasper = new GeneradorJasper();
+	     
+	     JasperPrint reportGenerado = genInfoJasper.generarInfomeUsuarios(iterProyecto);
 	     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "InformeUsuarios.pdf");
 	    // JasperViewer viewer = new JasperViewer(reportGenerado);
 	    // viewer.setVisible(true);

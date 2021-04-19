@@ -17,4 +17,6 @@ public interface ServJPAProyecto {
 	
 	public Page<Proyecto> pagProyectos(Integer numPag, Integer numRegPag, String buscarProyecto);
 	
+	public Iterable<Proyecto> listProyectos();
+	
 }

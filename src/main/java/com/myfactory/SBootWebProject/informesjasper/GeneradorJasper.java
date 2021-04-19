@@ -3,6 +3,7 @@ package com.myfactory.SBootWebProject.informesjasper;
 import java.beans.PropertyVetoException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +28,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import com.myfactory.SBootWebProject.dto.ProyectoDTO;
 import com.myfactory.SBootWebProject.dto.UserDTO;
+import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
 @PropertySource(value = "classpath:/parametrosaplicacion.properties", ignoreResourceNotFound = true)
 public class GeneradorJasper {
@@ -148,6 +151,54 @@ public class GeneradorJasper {
 			
 		// Fetching the .jrxml file from the resources folder.
 	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeUsuarios.jrxml");
+	     // Compile the Jasper report from .jrxml to .japser
+	        JasperReport report = JasperCompileManager.compileReport(stream);
+			
+	        JasperPrint reportTerminado = JasperFillManager.fillReport(report, parameters, dataSource);
+			
+	        return reportTerminado;
+			
+		} catch (Exception ex) {
+
+			parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
+		}
+		return null;
+	}
+	
+	public JasperPrint generarInfomeProyecto(Iterator<Proyecto> iterProyectos) {
+		try 
+		{
+			List<ProyectoDTO> listProyectoDTO = new ArrayList<ProyectoDTO>();
+			Proyecto proyecto;
+			
+			  while(iterProyectos.hasNext()){  
+				  proyecto = iterProyectos.next();
+				  ProyectoDTO proyectoDTO = new ProyectoDTO();
+				  
+				  proyectoDTO.setNomProyecto( proyecto.getNomProyecto()  );
+				  proyectoDTO.setImpProyecto( proyecto.getImpProyecto() );
+			
+				  listProyectoDTO.add(proyectoDTO);
+			    }
+
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listProyectoDTO, false);
+			
+		//	String path = ClassLoader.getSystemResource("/InformeUsuarios.jrxml").toURI().getPath();
+		// String path = resourceLoader.getResource("classpath:InformeUsuarios.jrxml").getURI().getPath();
+		//	JasperReport jasperReport = JasperCompileManager.compileReport(path);
+			
+			
+			// String path = resourceLoader.getResource("classpath:InformeUsuarios.jrxml").getURI().getPath();
+			// JasperReport jasperReport2 = JasperCompileManager.compileReport(path);
+			// System.out.println(jasperReport2);
+			
+			// Adding the additional parameters to the pdf.
+	        final Map<String, Object> parameters = new HashMap<>();
+	        parameters.put("createdBy", "javacodegeek.com");
+	        
+			
+		// Fetching the .jrxml file from the resources folder.
+	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeProyectos.jrxml");
 	     // Compile the Jasper report from .jrxml to .japser
 	        JasperReport report = JasperCompileManager.compileReport(stream);
 			
