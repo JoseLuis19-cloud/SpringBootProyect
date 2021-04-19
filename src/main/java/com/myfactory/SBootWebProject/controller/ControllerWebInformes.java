@@ -85,7 +85,7 @@ public class ControllerWebInformes {
 		
 	    GeneradorJasper genInfoJasper = new GeneradorJasper();
 	     
-	    JasperPrint reportGenerado = genInfoJasper.generarInfomeEmpleados(iterEmpleado);
+	    JasperPrint reportGenerado = genInfoJasper.generarInformeEmpleados(iterEmpleado);
 	    JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "InformeUsuarios.pdf");
 	    // JasperViewer viewer = new JasperViewer(reportGenerado);
 	    // viewer.setVisible(true);

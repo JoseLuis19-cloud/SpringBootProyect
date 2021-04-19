@@ -164,7 +164,7 @@ public class CargarBeansDatos  implements Serializable {
 		  datosEmpresaWeb.setTelefContacto2Web(empresa.getTelefContacto2() );
 		  datosEmpresaWeb.setEmailContacto2Web(empresa.getEmailContacto2());
 		  
-		  datosEmpresaWeb.setid.setEmailContacto2Web(empresa.g);
+		  datosEmpresaWeb.setEmailContacto2Web(empresa.getEmailContacto2());
 		  
 	 //  datosEmpresaWeb.setFecAltaEmpresaWeb( new SimpleDateFormat("dd/MM/yyyy").format(empresa.getFecAltaEmpresa()  ));
 		  

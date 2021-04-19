@@ -109,9 +109,8 @@ public class GeneradorJasper {
 			  
 			  empleadoDTO.setNombre( empleado.getNombre() );
 			  empleadoDTO.setApellidos( empleado.getApellidos());
-			  empleadoDTO.setEmail( empleado.getEmail() );
-			  
-			  empleadoDTO.setNif( empleado.getNif() );
+			  empleadoDTO.setEmail( empleado.getEmail());
+			  empleadoDTO.setNif(empleado.getNif());
 			  
 			  listEmpleadoDTO.add(empleadoDTO);
 		    }
@@ -208,7 +207,8 @@ public class GeneradorJasper {
 				  proyectoDTO.setFecIniProyecto( proyecto.getFecIniProyecto() );
 				  proyectoDTO.setFecFinProyecto( proyecto.getFecFinProyecto() );
 				  proyectoDTO.setImpProyecto( proyecto.getImpProyecto() );
-			
+				  proyectoDTO.setUbicacionProyecto( proyecto.getUbicacionProyecto());
+				  
 				  listProyectoDTO.add(proyectoDTO);
 			    }
 

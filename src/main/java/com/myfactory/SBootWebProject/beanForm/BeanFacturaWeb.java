@@ -2,10 +2,7 @@ package com.myfactory.SBootWebProject.beanForm;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
