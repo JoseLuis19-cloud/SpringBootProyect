@@ -28,8 +28,10 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import com.myfactory.SBootWebProject.dto.EmpleadoDTO;
 import com.myfactory.SBootWebProject.dto.ProyectoDTO;
 import com.myfactory.SBootWebProject.dto.UserDTO;
+import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
 @PropertySource(value = "classpath:/parametrosaplicacion.properties", ignoreResourceNotFound = true)
@@ -37,6 +39,7 @@ public class GeneradorJasper {
 	
 	private static final String REPORTE_JAPSER_EMPLEADOS = "InformeEmpleados.jasper";
 	private static final String REPORTE_JAPSER_USUARIOS = "/jasper/informes/InformeUsuarios.jasper";
+	private static final String REPORTE_JAPSER_PROYECTO = "/jasper/informes/InformeUsuarios.jasper";
 	
 	@Value("${pathMACOSdescargaficheros}")
     private String pathWindows;
@@ -91,9 +94,29 @@ public class GeneradorJasper {
 		}
 	}
 
-	public JasperPrint generarInformeEmpleados() {
+	public JasperPrint generarInformeEmpleados(Iterator<Empleado> iterEmpleados) {
+		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("usuario", "1234");
+		
+		List<EmpleadoDTO> listEmpleadoDTO = new ArrayList<EmpleadoDTO>();
+		Empleado empleado;
+		
+		  while(iterEmpleados.hasNext()){
+			  
+			  empleado = iterEmpleados.next();
+			  EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+			  
+			  empleadoDTO.setNombre( empleado.getNombre() );
+			  empleadoDTO.setApellidos( empleado.getApellidos());
+			  empleadoDTO.setEmail( empleado.getEmail() );
+			  
+			  empleadoDTO.setNif( empleado.getNif() );
+			  
+			  listEmpleadoDTO.add(empleadoDTO);
+		    }
+
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listEmpleadoDTO, false);
 
 		try {
 
@@ -101,13 +124,18 @@ public class GeneradorJasper {
 			JasperReport jasperReport = JasperCompileManager.compileReport(path);
 
 			JasperPrint reportGenerado = JasperFillManager.fillReport(jasperReport, parameters);
+			
 			return reportGenerado;
-		} catch (Exception ex) {
-			parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
-		} finally {
+			
+			} 
+		catch (Exception ex)
+			{
+				parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
+			} finally
+			{
 			// entityManager.getTransaction().commit();
 
-		}
+			}
 		return null;
 	}
 
@@ -171,11 +199,14 @@ public class GeneradorJasper {
 			List<ProyectoDTO> listProyectoDTO = new ArrayList<ProyectoDTO>();
 			Proyecto proyecto;
 			
-			  while(iterProyectos.hasNext()){  
+			  while(iterProyectos.hasNext())
+			  {  
 				  proyecto = iterProyectos.next();
 				  ProyectoDTO proyectoDTO = new ProyectoDTO();
 				  
 				  proyectoDTO.setNomProyecto( proyecto.getNomProyecto()  );
+				  proyectoDTO.setFecIniProyecto( proyecto.getFecIniProyecto() );
+				  proyectoDTO.setFecFinProyecto( proyecto.getFecFinProyecto() );
 				  proyectoDTO.setImpProyecto( proyecto.getImpProyecto() );
 			
 				  listProyectoDTO.add(proyectoDTO);
@@ -183,19 +214,9 @@ public class GeneradorJasper {
 
 			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listProyectoDTO, false);
 			
-		//	String path = ClassLoader.getSystemResource("/InformeUsuarios.jrxml").toURI().getPath();
-		// String path = resourceLoader.getResource("classpath:InformeUsuarios.jrxml").getURI().getPath();
-		//	JasperReport jasperReport = JasperCompileManager.compileReport(path);
-			
-			
-			// String path = resourceLoader.getResource("classpath:InformeUsuarios.jrxml").getURI().getPath();
-			// JasperReport jasperReport2 = JasperCompileManager.compileReport(path);
-			// System.out.println(jasperReport2);
-			
 			// Adding the additional parameters to the pdf.
 	        final Map<String, Object> parameters = new HashMap<>();
 	        parameters.put("createdBy", "javacodegeek.com");
-	        
 			
 		// Fetching the .jrxml file from the resources folder.
 	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeProyectos.jrxml");
@@ -214,7 +235,6 @@ public class GeneradorJasper {
 	}
 
 }
-	
 	
 /*	public static String generarPathExpRee(String rutaPrimaria) throws MKDIRException
 	{

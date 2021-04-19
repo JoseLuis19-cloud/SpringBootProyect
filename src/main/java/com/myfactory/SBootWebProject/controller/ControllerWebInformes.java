@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import com.myfactory.SBootWebProject.informesjasper.GeneradorJasper;
+import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAProyecto;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
@@ -41,6 +43,10 @@ public class ControllerWebInformes {
 	
 	@Autowired
 	private ServJPAProyecto servJPAProyecto;
+	
+	@Autowired
+	private ServJPAEmpleado servJPAEmpleado;
+
 
 	protected static final Logger parentLogger = LogManager.getLogger();
 	
@@ -48,34 +54,39 @@ public class ControllerWebInformes {
 	@Value("${path.MACOSGeneracionPDF}")
 	private String pathDescargaPDFMacOS;
 	
-	@RequestMapping("/informeempleados")
-	public String paginacionUsuarios(Model modelo) {
-	    try
-	    {
-	     GeneradorJasper genInfoJasper = new GeneradorJasper();
-	     JasperPrint reportGenerado = genInfoJasper.generarInformeEmpleados();
-	     JasperExportManager.exportReportToPdfFile(reportGenerado, "InformeEmpleados.pdf");
-	     JasperViewer viewer = new JasperViewer(reportGenerado);
-	     viewer.setVisible(true);
-	    
-	    } catch (JRException ex) {
-        	parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
-        }
-	 
-		return "gestionWeb/informes/InformeEmpleados.html";
-	}
-	
 	@RequestMapping("/informeusuarios")
 	public String informeUsuarios(Model modelo) {
-	    try
+	   try
 	    {
 	    Iterable<User> usuarios = servJPAUsuario.listadoUsuarios();
 		Iterator<User> iterUsuarios = usuarios.iterator();
 		
-	     GeneradorJasper genInfoJasper = new GeneradorJasper();
+	    GeneradorJasper genInfoJasper = new GeneradorJasper();
 	     
-	     JasperPrint reportGenerado = genInfoJasper.generarInfomeUsuarios(iterUsuarios);
-	     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "InformeUsuarios.pdf");
+	    JasperPrint reportGenerado = genInfoJasper.generarInfomeUsuarios(iterUsuarios);
+	    JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "InformeUsuarios.pdf");
+	    // JasperViewer viewer = new JasperViewer(reportGenerado);
+	    // viewer.setVisible(true);
+	    
+	    } catch (JRException ex) {
+        	parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
+        }
+
+		return "gestionWeb/informes/InformesAplicacion.html";
+	}
+	
+	
+	@RequestMapping("/informeempleado")
+	public String informeEmpleado(Model modelo) {
+	   try
+	    {
+	    Iterable<Empleado> empleado = servJPAEmpleado.obtenerListEmpleados();
+		Iterator<Empleado> iterEmpleado = empleado.iterator();
+		
+	    GeneradorJasper genInfoJasper = new GeneradorJasper();
+	     
+	    JasperPrint reportGenerado = genInfoJasper.generarInfomeEmpleados(iterEmpleado);
+	    JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "InformeUsuarios.pdf");
 	    // JasperViewer viewer = new JasperViewer(reportGenerado);
 	    // viewer.setVisible(true);
 	    
@@ -109,7 +120,6 @@ public class ControllerWebInformes {
 
 		return "gestionWeb/informes/InformesAplicacion.html";
 	}
-	
 	
 	@RequestMapping(value = "downloadFile", method = RequestMethod.GET)
     public StreamingResponseBody getSteamingFile(HttpServletResponse response) throws IOException {
