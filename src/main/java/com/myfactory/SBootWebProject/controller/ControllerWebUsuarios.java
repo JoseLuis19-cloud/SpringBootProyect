@@ -59,7 +59,7 @@ public class ControllerWebUsuarios {
 			}
 
 		// Page <User> pagUsuario = servJPAUsuario.paginacionUsuarios(numPagInt, RegPorPagina);
-				Iterable <User> listUsuarios =  servJPAUsuario.listadoUsuarios() ;
+		Iterable <User> listUsuarios =  servJPAUsuario.listadoUsuarios() ;
 	
 		modelo.addAttribute("numPag", String.valueOf(numPagInt));
 		// modelo.addAttribute("numRegPag", pagUsuario.getContent().size());
@@ -76,7 +76,6 @@ public class ControllerWebUsuarios {
 	public String listaUsuariosHist(Model modelo) {
 		
 	 modelo.addAttribute("pagUsuarios", servJPAUsuario.listadoUsuariosHistorico());
-	 
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
 	 return "gestionWeb/usuarios/PaginacionUsuariosHistorico";
@@ -135,8 +134,7 @@ public class ControllerWebUsuarios {
 			BindingResult resultValidacion,
 			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
 		
-	   Set <Role> setRoles = new HashSet<>(); 
-		 
+	   Set <Role> setRoles = new HashSet<>();  
 	   User usuarioNuevo = validarUsuario(beanUsuarioWeb, codRole, false);
 
 	   if ( usuarioNuevo.getPassword( ) != null )
@@ -161,8 +159,6 @@ public class ControllerWebUsuarios {
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
-		
-	// return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
 	@RequestMapping(value = "/formbajausuario")
@@ -212,14 +208,13 @@ public class ControllerWebUsuarios {
 	  User usuario ;	
 	  usuario = validarUsuario(beanUsuarioWeb, codRole, true);
 	 	
-	   if ( usuario.getPassword( ) != null )
+	   if ( usuario.getPassword() != null )
 	 	  {
 		   servJPAUsuario.modificarUsuario(usuario);
 	 	  }
 	   // Pintar el error en pantalla mensajeErrorActualizacion
 	
 		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";	
-	//	return "GestionWeb/usuarios/FormEditarUsuario";
 	}
 	
 	@RequestMapping(value = "/formcambiarpass")
@@ -238,17 +233,17 @@ public class ControllerWebUsuarios {
 	public String formCambiarPassword(Model modelo, 
 			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb) { 
 	
-	User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb() ).get() ;
+		User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb() ).get() ;
 
- // Encriptar la nueva password tecleada por el usuario
-	GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
-	String passWordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
+		// Encriptar la nueva password tecleada por el usuario
+		GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
+		String passWordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
 	
-	usuario.setPassword(passWordEncriptada);
+		usuario.setPassword(passWordEncriptada);
 	
-	servJPAUsuario.modificarUsuario(usuario); 
+		servJPAUsuario.modificarUsuario(usuario); 
 
-	return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
 	}
  
 	

@@ -18,6 +18,7 @@ public class BeanErrorValidacion  implements Serializable {
 	}
 	
 	public BeanErrorValidacion(Integer codError) {
+		this.codError = codError;
 	}
 
 	public Integer getCodError() {

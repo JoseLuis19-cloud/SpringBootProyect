@@ -52,20 +52,6 @@ h5 {
 	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-	
-	 <script th:inline="javascript">
-	 	$(document).ready(function(){
- 
-			$("#idLinkCrearUsu").click(function(){
-		 		$("#myModalAltaUsu").modal();
-		 	});
-			
-			$("#idLinkCambiarFoto").click(function(){
-		 		$("#myModalCambiarFoto").modal();
-		 	});
-	 
-	 	 });
-	</script>
 </head>
 
 <body>
@@ -76,7 +62,7 @@ h5 {
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Empleado</div>
 		</div>
-		<form th:action="@{/gestionWeb/empleados/bajaempleado}" th:object="${empleadoWeb}" method="post">
+		<form th:action="@{/gestionWeb/empleados/activarempleado}" th:object="${empleadoWeb}" method="post">
 		
 		<input type="hidden" th:id="'idIdEmpleadoWeb'" th:name="'idEmpleadoWeb'"  th:field="*{idEmpleadoWeb}" />	 
 			
@@ -84,7 +70,7 @@ h5 {
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Baja Empleado</div>
+  				<div class="subtitulo-pag2">Activar Empleado</div>
   			</div>
   			<div class="col-1"></div>
   		</div>	
@@ -143,9 +129,8 @@ h5 {
 						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14" th:readonly="true">
 					</div>
 					<div class="col-md-2 mb-4">
-						<label for="labelFecEmpleado">Fec. alta empleado</label>
-       						<input class="form-control" type="text" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" th:readonly="true" required th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" />
-							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
+						<label for="labelFecEmpleado">Fec. baja empleado</label>
+       						<input class="form-control" type="text" id="idFecBajaEmpleado" name="fecBajaEmpleado" placeholder="MM/DD/YYYY" th:readonly="true" required th:value="${#calendars.format(fecBajaEmpleladoWeb, 'dd/MM/yyyy')}" />
 					</div>
 	 
 					<div class="col-md-2 mb-4">
@@ -190,13 +175,13 @@ h5 {
 			<div class="form-row">
 				<div class="col-md-5 mb-3"></div>
 				<div class="col-md-2 mb-3">
-						<label for="labelFecEmpleado">Fec. Baja empleado</label>
+						<label for="labelFecEmpleado">Fec. Alta empleado</label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecBajaEmpleado" name="fecBajaEmpleado" th:value="${#calendars.format(fecBajaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
-       						<input type="hidden" id="idFecBajaEmpleadoHidden" name="fecBajaEmpleadoHidden"  th:field="*{fecBajaEmpleladoWeb}"/>
+       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
+       						<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecBajaEmpleladoWeb}"/>
 						</div> 
 			 	</div>
 			 	<div class="col-md-5 mb-3"></div>
@@ -221,7 +206,7 @@ h5 {
 
  <script>
     $(document).ready(function(){
-        var date_input=$('input[name="fecBajaEmpleado"]'); //our date input has the name "date"
+        var date_input=$('input[name="fecAltaEmpleado"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
             format: 'dd/mm/yyyy',
@@ -229,7 +214,7 @@ h5 {
             todayHighlight: true,
             autoclose: true,
         });
-        document.getElementById("idFecBajaEmpleado").value = document.getElementById("idFecBajaEmpleadoHidden").value;
+        document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
     });
  </script>
 

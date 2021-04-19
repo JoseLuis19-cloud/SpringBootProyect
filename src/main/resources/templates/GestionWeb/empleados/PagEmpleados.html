@@ -32,6 +32,15 @@
   		padding:3px 15px !important;
  		margin-left:10px !important;
 		}
+		
+	.div-desactivado{
+  		color: #1E1A34;
+  		background-color: #ECC7CD;
+  		border-color: #004E64;
+  		font: 16px Arial, sans-serif;
+ 		letter-spacing: 0.05em;
+  		border-radius: 0;
+	}
   </style>
 
 </head>
@@ -75,6 +84,7 @@
 							<th th:text="'telef. movil'"></th>
 							<th th:text="'importe bruto'"></th>
 							<th th:text="'Baja'"></th>
+							<th th:text="'Activar'"></th>
 							<th th:text="'Editar'"></th>
 						</tr>
 					</thead>
@@ -84,7 +94,7 @@
 						</tr>
 						<tr th:each="empleado:${pagGenerica.content}">
 							<td th:text="${empleado.idEmpleado}"></td>
-							<td th:text="${empleado.apellidos}"></td>
+							<td th:classappend="${empleado.indbajaEmpleado}? div-desactivado" th:text="${empleado.apellidos}"></td>
 							<td th:text="${empleado.nombre}"></td>
 							<td th:text="${empleado.nif}"></td>
 							<td th:text="${#calendars.format(empleado.fecAltaEmplelado, 'dd/MMM/yyyy')}"></td>
@@ -93,6 +103,7 @@
 							<td th:text="${empleado.telefMovil}"></td>
 							<td th:text="${empleado.impBrutoAnual}"></td>
 							<td><a th:href="@{/gestionWeb/empleados/formbajaempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Baja</a></td>
+							<td><a th:href="@{/gestionWeb/empleados/formactivarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Activar</a></td>
 							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>
 					</tbody>

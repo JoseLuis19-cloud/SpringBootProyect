@@ -155,8 +155,78 @@ public class ControllerWebEmpleados {
 	}
 	
 	@RequestMapping(value = "/bajaempleado", method = RequestMethod.POST)
-	public String bajaempleado(Model modelo, @Valid @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb,
-											 @Valid @ModelAttribute("fecBajaEmpleado") String fecBajaEmpleado)  { 
+	public String bajaempleado(Model modelo, @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb,
+											 @RequestParam(value = "fecBajaEmpleado", required = true) String fecBajaEmpleado)  { 
+		
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		  
+		try
+		{
+		 Calendar calendar1 = Calendar.getInstance();
+		 calendar1.setTime( dateFormat.parse(fecBajaEmpleado) );
+		
+		 empleado.get().setFecBajaEmplelado(calendar1) ;
+		 empleado.get().setIndbajaEmpleado(true); 
+		
+		 servJPAEmpleado.bajaEmpleado(empleado.get());
+		
+		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+		 }
+		catch (Exception e)
+		 {
+			
+		 }
+		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+	}
+	
+	@GetMapping("/formactivarempleado")
+	public String formularioActivarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+
+		byte[] blobBytes = null;
+		byte[] encode =null;
+		
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
+		
+		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
+		beanEmpleadoWeb = cargarBeansDatos.cargarBeanEmpleado(empleado.get());
+		
+		beanEmpleadoWeb.setFecBajaEmpleladoWeb(Calendar.getInstance()); 
+		  
+		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);
+		
+		if (empleado.get().getImagenFotoEmpleado() != null )
+			{
+			try 
+			   {
+				Blob blobImg = empleado.get().getImagenFotoEmpleado();
+				blobBytes = blobImg.getBytes(1, (int) blobImg.length());
+	        
+				modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
+				} 
+			catch (Exception e) {
+				System.out.println("Error cargar foto formulario");
+				modelo.addAttribute("imgFoto", null);	
+			 }
+			}
+			else
+			{
+			 modelo.addAttribute("imgFoto", null);	
+			}
+
+		modelo.addAttribute("empleado", empleado);
+		modelo.addAttribute("objImagen", encode);
+		
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		return "GestionWeb/empleados/FormActivarEmpleado";
+	}
+	
+	@RequestMapping(value = "/activarempleado", method = RequestMethod.POST)
+	public String activarEmpleado(Model modelo, @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb,
+											 @RequestParam(value = "fecBajaEmpleado", required = true) String fecBajaEmpleado)  { 
 		
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -220,6 +290,7 @@ public class ControllerWebEmpleados {
 		Calendar calendar1 = Calendar.getInstance();
 		Empleado empleado = null;
 		BeanErrorValidacion datosError = null;
+		Empleado empleadoNuevo = null;
 	   
 		if (! resultValidacion.hasErrors())
 			{
@@ -231,7 +302,7 @@ public class ControllerWebEmpleados {
 			 Map<String, Object> resultValEmpleado;
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
 			
-			 resultValEmpleado.put("empleadoValidado", empleado);
+			// resultValEmpleado.put("empleadoValidacion", empleado);
 			 datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
 			
 			 if (datosError.getCodError().intValue() != 0 ) 
@@ -242,7 +313,9 @@ public class ControllerWebEmpleados {
 			  else
 			    {
 				 empleado = (Empleado) resultValEmpleado.get("empleadoValidacion" );
-				 empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+				 
+			  // Dar de alta Empleado
+				 empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);	
 					
 				 modelo.addAttribute("errorValidacion" , false);
 				 modelo.addAttribute("mensajeError", "" );
@@ -253,20 +326,11 @@ public class ControllerWebEmpleados {
 			 modelo.addAttribute("errorValidacion" , true);
 			 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
 			}
-		
-			/* if (codPuestoTrabajo.equals("0") )
-			{
-				 
-			} */
-			
-		 // Dar de alta Empleado
-			Empleado empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);
 			
 			modelo.addAttribute("mostrarModalFoto", "S");	
 			BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 			modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);
-			
 			modelo.addAttribute("idEmpleadoNuevo", empleadoNuevo.getIdEmpleado());
 			
 			return "GestionWeb/empleados/FormAltaEmpleado";  
@@ -301,8 +365,6 @@ public class ControllerWebEmpleados {
 		Calendar calendar1 = Calendar.getInstance();
 		Empleado empleado = null;
 		Boolean errorValidacion = true;
-		
-		System.out.println(datosEmpleadoWeb.getTelefono2());
 
 		if (! resultValidacion.hasErrors() )
 			{
@@ -313,27 +375,25 @@ public class ControllerWebEmpleados {
  
 			 Map<String, Object> resultValEmpleado;
 			
-			 // empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-				
-			 resultValEmpleado.put("empleadoValidado", empleado);
+			
 			 BeanErrorValidacion datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
 				
-			if (datosError.getCodError().intValue() != 0 ) 
+			if (datosError.getCodError().intValue() != 0) 
 				{
-				modelo.addAttribute("errorValidacion" , true);
-				modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError()   );
+				 modelo.addAttribute("errorValidacion" , true);
+				 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError()   );
 				}
 			  else
 				{
-				modelo.addAttribute("errorValidacion" , true);
-				modelo.addAttribute("mensajeError", "" );
+				 modelo.addAttribute("errorValidacion" , false);
+				 modelo.addAttribute("mensajeError", "" );
 					
-				empleado = (Empleado) resultValEmpleado.get("empleadoValidacion" );
-				empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+				 empleado = (Empleado) resultValEmpleado.get("empleadoValidacion");
+				 empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+				 
+				 servJPAEmpleado.modifEmpleado(empleado);
 			   }
-			 
-			 servJPAEmpleado.modifEmpleado(empleado);
 			 
 			 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
 			 }
