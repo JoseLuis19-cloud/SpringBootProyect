@@ -20,13 +20,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "Empleado")
+@Table(name = "EMPLEADO")
 public class Empleado  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID_EMPLEADO")
+	@Column(name = "ID_EMPLEADO", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long idEmpleado;
 	

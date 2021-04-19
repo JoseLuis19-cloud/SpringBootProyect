@@ -44,10 +44,9 @@ public class ServJPAMenuImp implements ServJPAMenu {
 	}
 	
 	@Override
-	public String updateElementoMenu(Menu menu)
+	public void updateElementoMenu(Menu menu)
 	{	
 	menuJPARepository.save(menu);
-	return "";	
 	};
 	
 	@Override

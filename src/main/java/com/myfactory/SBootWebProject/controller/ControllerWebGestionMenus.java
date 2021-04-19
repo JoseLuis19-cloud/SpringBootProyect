@@ -243,7 +243,7 @@ public class ControllerWebGestionMenus {
 		
 		modelo.addAttribute("subMenu", beanFormSubMenu);
 		
-		// Instanciar elemento submenu nuevo por si da de alta uno
+	 // Instanciar elemento submenu nuevo por si da de alta uno
 	    BeanSubMenuAplicacionWeb elemenSubMenuNuevo = new BeanSubMenuAplicacionWeb();
 	    
 	    long count = StreamSupport.stream(subMenuNivel1.spliterator(), false).count();
@@ -261,7 +261,6 @@ public class ControllerWebGestionMenus {
 		modelo.addAttribute("noTieneSubmenus", noTieneSubmenus);
 		modelo.addAttribute("errorAltaElemento", false);  
 		  
-		
 		elemenSubMenuNuevo.setIdMenu(new Integer(beanSubMenuAplicacionWeb.getIdMenu()));
 		elemenSubMenuNuevo.setNumOrdenSubMenu(numRegSubMenu.intValue() + 1 );
 		elemenSubMenuNuevo.setIndActivoSubMenu(false);

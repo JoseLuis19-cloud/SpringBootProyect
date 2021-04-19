@@ -13,7 +13,7 @@ public interface ServJPAMenu {
 	
 	public Iterable<Menu> obtenerSubmenuN1Aplicacion(Integer idMenu) ;
 	
-	public String updateElementoMenu(Menu menu) ;
+	public void updateElementoMenu(Menu menu) ;
 	
 	public Menu insertarElementoMenu(Menu menu);
 	

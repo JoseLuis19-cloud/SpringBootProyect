@@ -32,13 +32,12 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 	@Autowired
 	PuestoTrabajoJPADao puestoTrabajoJPADao;
  
-	
 	public Empleado altaEmpleado(Empleado empleado){
 		return empleadoJPARepository.save(empleado);
 	}
 	
-	public Empleado modifEmpleado(Empleado empleado){
-		return empleadoJPARepository.save(empleado);
+	public void modifEmpleado(Empleado empleado){
+	 empleadoJPARepository.save(empleado);
 	}
 	
 	public void bajaEmpleado(Empleado empleado)

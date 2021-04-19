@@ -137,7 +137,7 @@ h5 {
 								<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
    						 			th:value="${paisEmple.idPais}"
   						  			th:text ="${paisEmple.nombrePais}"
-  						  			th:selected="${paisEmple.idPais} == ${empleadoWeb.codPaisWeb}">
+  						  			th:selected="${paisEmple.idPais} == *{idPais}">
   								</option>
     						</select>
 						</div>

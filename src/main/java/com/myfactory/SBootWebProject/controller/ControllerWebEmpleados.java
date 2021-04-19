@@ -301,8 +301,7 @@ public class ControllerWebEmpleados {
 			
 			 Map<String, Object> resultValEmpleado;
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-			
-			// resultValEmpleado.put("empleadoValidacion", empleado);
+
 			 datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
 			
 			 if (datosError.getCodError().intValue() != 0 ) 
@@ -333,9 +332,7 @@ public class ControllerWebEmpleados {
 			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);
 			modelo.addAttribute("idEmpleadoNuevo", empleadoNuevo.getIdEmpleado());
 			
-			return "GestionWeb/empleados/FormAltaEmpleado";  
-			
-			// return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";	 
+			return "GestionWeb/empleados/FormAltaEmpleado";  	 
 			}
 		  else
 			{
@@ -349,7 +346,7 @@ public class ControllerWebEmpleados {
 	  }
 
 	@RequestMapping(value = "/modifempleado", method = RequestMethod.POST)
-	public String modifEmpleado(@Valid  @ModelAttribute("empleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
+	public String modifEmpleado(@Valid @ModelAttribute("empleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb, 
 					BindingResult resultValidacion,
 				//	RedirectAttributes redirectAttrs,
 					Model modelo, 
@@ -357,29 +354,26 @@ public class ControllerWebEmpleados {
 					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo,
 					@RequestParam(value = "fecAltaEmpleado", required = true) String fecAltaEmpleado ){
 		
-		System.out.print(fecAltaEmpleado);
-		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar calendar1 = Calendar.getInstance();
-		Empleado empleado = null;
+		Empleado modifEmpleado = new Empleado();
 		Boolean errorValidacion = true;
+		Map<String, Object> resultValEmpleado;
 
 		if (! resultValidacion.hasErrors() )
 			{
 			try
 			{
-			 calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
+			 calendar1.setTime(dateFormat.parse(fecAltaEmpleado));
 			 datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1);
- 
-			 Map<String, Object> resultValEmpleado;
 			
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-			
+			 
 			 BeanErrorValidacion datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
 				
-			if (datosError.getCodError().intValue() != 0) 
+			 if (datosError.getCodError().intValue() != 0) 
 				{
 				 modelo.addAttribute("errorValidacion" , true);
 				 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError()   );
@@ -389,17 +383,15 @@ public class ControllerWebEmpleados {
 				 modelo.addAttribute("errorValidacion" , false);
 				 modelo.addAttribute("mensajeError", "" );
 					
-				 empleado = (Empleado) resultValEmpleado.get("empleadoValidacion");
-				 empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+				 modifEmpleado = (Empleado) resultValEmpleado.get("empleadoValidacion");
+				 modifEmpleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
 				 
-				 servJPAEmpleado.modifEmpleado(empleado);
+				 servJPAEmpleado.modifEmpleado(modifEmpleado);
 			   }
-			 
-			 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
 			 }
 			catch (Exception e)
 			 {
-				System.out.print(e);
+			  System.out.print(e);
 			 }
 			}
 		  else
@@ -415,7 +407,7 @@ public class ControllerWebEmpleados {
 			
 			 return "GestionWeb/empleados/FormEditarEmpleado"; 
 			}
-		return "";
+		 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
 	}
 	
 	@GetMapping("/formuploadfichero")
@@ -472,7 +464,7 @@ public class ControllerWebEmpleados {
             e.printStackTrace();
         }
 
-        // return success response
+      // return success response
       //  attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
 
         return "GestionWeb/empleados/FormAltaEmpleado";  

@@ -115,10 +115,42 @@ public class ControllerWebEmpresas {
 	@GetMapping("/formeditarempresa")
  	public String formularioEditarEmpresa(Model modelo, @RequestParam(value = "idEmpresa", required = false ) Integer idEmpresa)  {
  
-	 Empresa empresa = servJPAEmpresa.buscarIdEmpresa(idEmpresa);
-	 modelo.addAttribute("empresaWeb", cargarBeansDatos.cargarBeanEmpresa(empresa));
+	modelo.addAttribute("provinciasWeb", servJPA.getProvincia() );	
+	
+	Empresa empresa = servJPAEmpresa.buscarIdEmpresa(idEmpresa);
+	 modelo.addAttribute("datosEmpresaWeb", cargarBeansDatos.cargarBeanEmpresa(empresa));
 	 
 	return "GestionWeb/empresas/FormEditarEmpresa";
+	}
+	
+	@RequestMapping(value = "/modifempresa", method = RequestMethod.POST)
+	public String modifEmpresa(@Valid @ModelAttribute("formEmpresaWeb") BeanEmpresaWeb formEmpresaWeb, 
+				BindingResult resultValidacion,
+			//	RedirectAttributes redirectAttrs,
+				Model modelo, @RequestParam(value = "provinciaEmpresa", required = true) String codProvincia) {
+		 
+		Empresa modifEmpresa = new Empresa();
+		
+		modifEmpresa.setNomEmpresa(formEmpresaWeb.getNomEmpresaWeb());
+		modifEmpresa.setCodPostal (formEmpresaWeb.getCodPostalWeb());
+		modifEmpresa.setCodProvincia(new Integer(codProvincia));
+		modifEmpresa.setDirecion(formEmpresaWeb.getDirecionWeb());
+		
+		modifEmpresa.setEmailContacto1(formEmpresaWeb.getEmailContacto1Web());
+		modifEmpresa.setEmailContacto2(formEmpresaWeb.getEmailContacto2Web());
+		
+		modifEmpresa.setTelefContacto1(formEmpresaWeb.getTelefContacto1Web());
+		modifEmpresa.setTelefContacto2(formEmpresaWeb.getTelefContacto2Web());
+		
+		modifEmpresa.setNomContacto1(formEmpresaWeb.getNomContacto1Web() );
+		modifEmpresa.setNomContacto2(formEmpresaWeb.getNomContacto2Web() );
+		
+		modifEmpresa.setFecAltaEmpresa(  formEmpresaWeb.getFecAltaEmpresaWeb() );
+		modifEmpresa.setCif(formEmpresaWeb.getCIFWeb());
+		
+		servJPAEmpresa.modifEmpresa(modifEmpresa);
+		
+		return "redirect:/gestionWeb/empresas/" + "pagempresas";
 	}
 	
 	@RequestMapping("/pagempresas")

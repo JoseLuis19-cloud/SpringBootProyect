@@ -83,7 +83,7 @@
 							<td th:text="${empresa.cif}"></td>
 							<td th:text="${empresa.emailEmpresa}"></td>
 							<td th:text="${#calendars.format(empresa.fecAltaEmpresa, 'dd/MMM/yyyy')}"></td>
-							<td><a th:href="@{/gestionWeb/empresa/formeditarempresa(idEmpresa=${empresa.idEmpresa})}" class="btn btn-primary" role="button">Editar</a></td>
+							<td><a th:href="@{/gestionWeb/empresas/formeditarempresa(idEmpresa=${empresa.idEmpresa})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>
 					</tbody>
 				</table>
