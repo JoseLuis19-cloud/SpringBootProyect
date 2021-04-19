@@ -88,21 +88,24 @@ public class ControllerWebInformes {
 	
 	@RequestMapping("/informeproyectos")
 	public String informeProyectos(Model modelo) {
-	    try
+	   try
 	    {
-	    Iterable<Proyecto> proyectos = servJPAProyecto.listProyectos() ;
-		Iterator<Proyecto> iterProyecto = proyectos.iterator();
+	     Iterable<Proyecto> proyectos = servJPAProyecto.listProyectos() ;
+		 Iterator<Proyecto> iterProyecto = proyectos.iterator();
 		
 	     GeneradorJasper genInfoJasper = new GeneradorJasper();
 	     
-	     JasperPrint reportGenerado = genInfoJasper.generarInfomeUsuarios(iterProyecto);
+	     JasperPrint reportGenerado = genInfoJasper.generarInfomeProyectos(iterProyecto);
 	     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "InformeUsuarios.pdf");
+	     
 	    // JasperViewer viewer = new JasperViewer(reportGenerado);
 	    // viewer.setVisible(true);
 	    
-	    } catch (JRException ex) {
-        	parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
-        }
+	    } 
+	   catch (JRException ex)
+	     {
+          parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
+         }
 
 		return "gestionWeb/informes/InformesAplicacion.html";
 	}

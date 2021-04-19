@@ -165,7 +165,7 @@ public class GeneradorJasper {
 		return null;
 	}
 	
-	public JasperPrint generarInfomeProyecto(Iterator<Proyecto> iterProyectos) {
+	public JasperPrint generarInfomeProyectos(Iterator<Proyecto> iterProyectos) {
 		try 
 		{
 			List<ProyectoDTO> listProyectoDTO = new ArrayList<ProyectoDTO>();
