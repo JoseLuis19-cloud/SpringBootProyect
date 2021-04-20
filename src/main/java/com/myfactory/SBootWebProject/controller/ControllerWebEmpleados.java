@@ -123,7 +123,7 @@ public class ControllerWebEmpleados {
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
 		beanEmpleadoWeb = cargarBeansDatos.cargarBeanEmpleado(empleado.get());
 		
-		beanEmpleadoWeb.setFecBajaEmpleladoWeb(Calendar.getInstance()); 
+		beanEmpleadoWeb.setFecBajaEmpleadoWeb(Calendar.getInstance()); 
 		  
 		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);
 		
@@ -193,7 +193,7 @@ public class ControllerWebEmpleados {
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
 		beanEmpleadoWeb = cargarBeansDatos.cargarBeanEmpleado(empleado.get());
 		
-		beanEmpleadoWeb.setFecBajaEmpleladoWeb(Calendar.getInstance()); 
+		beanEmpleadoWeb.setFecBajaEmpleadoWeb(Calendar.getInstance()); 
 		  
 		modelo.addAttribute("empleadoWeb", beanEmpleadoWeb);
 		

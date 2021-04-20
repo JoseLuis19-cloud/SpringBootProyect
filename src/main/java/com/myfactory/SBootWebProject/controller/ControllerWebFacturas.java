@@ -325,8 +325,7 @@ public class ControllerWebFacturas {
 				{
 				try {
 					// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-					// String dateInString = "31-08-1982 10:20:56";
-
+					// String dateInString = "31-08-1982 10:20:56"
 					// facturaNueva.setFecFactura(new java.sql.Date((dateFormat.parse(facturaWeb.getFecFacturaWeb())).getTime()));
 					
 					  facturaNueva.setFecFactura( facturaWeb.getFecFacturaWeb() );

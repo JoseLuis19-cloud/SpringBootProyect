@@ -112,7 +112,7 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setNifWeb(empleado.getNif());
 		  
 		  beanEmpleadoWeb.setFecAltaEmpleladoWeb(empleado.getFecAltaEmplelado());
-		  beanEmpleadoWeb.setFecBajaEmpleladoWeb(empleado.getFecBajaEmplelado());
+		  beanEmpleadoWeb.setFecBajaEmpleadoWeb(empleado.getFecBajaEmplelado());
 		 
 		  beanEmpleadoWeb.setTelefMovilWeb(empleado.getTelefMovil() );
 		  beanEmpleadoWeb.setTelefono2(empleado.getTelefono2() );
