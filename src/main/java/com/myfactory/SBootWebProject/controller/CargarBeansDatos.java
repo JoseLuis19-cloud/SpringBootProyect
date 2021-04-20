@@ -37,7 +37,6 @@ public class CargarBeansDatos  implements Serializable {
 	ServJPAUsuario servJPAUsuario;
 	
 	Iterable <FormaPago>  formasPago;
-	
 	Iterable <Role>  roles;
 
 	public CargarBeansDatos() {
@@ -65,20 +64,17 @@ public class CargarBeansDatos  implements Serializable {
 		 clienteWeb.setApellidosWeb(cliente.getApellidos());
 		 clienteWeb.setNombreWeb(cliente.getNombre());
 		 clienteWeb.setDireccionWeb( cliente.getDireccion() );
-
 		 clienteWeb.setDirEmailWeb(cliente.getDirEmail() );
-		//  clienteWeb.setFecNacimientoWeb( new SimpleDateFormat("dd/MM/yyyy").format(cliente.getFecNacimiento())   );
+	//   clienteWeb.setFecNacimientoWeb( new SimpleDateFormat("dd/MM/yyyy").format(cliente.getFecNacimiento())   );
 		 
 		 clienteWeb.setFecNacimientoWeb(cliente.getFecNacimiento() );
 		 clienteWeb.setFecAltaClienteWeb(cliente.getFecAltaCliente());
 		 
-		 clienteWeb.setDNIWeb( cliente.getDNI() );
-		 clienteWeb.setTelefonoWeb( cliente.getTelefono()  );
-		 clienteWeb.setPaisWeb( cliente.getPais()  );
-		 clienteWeb.setIdTpoCliente(   cliente.getTpoCliente().getIdTpoCliente() );
-		//  facturaWeb.setFormasPago(factura.getFormaPago());
+		 clienteWeb.setDNIWeb(cliente.getDNI());
+		 clienteWeb.setTelefonoWeb(cliente.getTelefono());
+		 clienteWeb.setPaisWeb(cliente.getPais());
+		 clienteWeb.setIdTpoCliente(cliente.getTpoCliente().getIdTpoCliente());
 		  
-		 // Factura nueva=(Factura)f.clone();
 		 return clienteWeb;
 	  }
 	  
@@ -88,8 +84,8 @@ public class CargarBeansDatos  implements Serializable {
 		 
 		 beanUsuarioWeb.setIdUsuarioWeb(usuario.getId());
 		 beanUsuarioWeb.setEmailWeb(usuario.getEmail());
-        // beanUsuarioWeb.setEnabled(usuario.isEnabled());
-		// beanUsuarioWeb.setIndEmpleado( usuario.isIndEmpleado()  );
+		 beanUsuarioWeb.setEnabledWeb( usuario.isEnabled());
+		 beanUsuarioWeb.setIndEmpleadoWeb(usuario.isIndEmpleado()  );
 		 beanUsuarioWeb.setFullNameWeb(usuario.getFullName() );
 		 beanUsuarioWeb.setUsernameWeb(usuario.getUsername() );
 		 beanUsuarioWeb.setFecAltaUsuarioWeb(usuario.getFecAltaUsuario());
@@ -127,6 +123,7 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
 		  beanEmpleadoWeb.setCodPuestoTrabajoWeb(empleado.getPuestoTrabajo().getIdPuestoTrabajo());	  
 		  
+		  beanEmpleadoWeb.setCodPaisWeb( empleado.getPais().getIdPais());
 		  if (empleado.getImpBrutoAnual() != null)
 		  	 {
 			  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual().toString());
@@ -143,8 +140,8 @@ public class CargarBeansDatos  implements Serializable {
 	  {
 		  BeanProyectoWeb proyectoWeb = new BeanProyectoWeb();
 		  
-		  proyectoWeb.setIdProyectoWeb(proyecto.getIdProyecto() );
-		  proyectoWeb.setNomProyectoWeb(proyecto.getNomProyecto()  );
+		  proyectoWeb.setIdProyectoWeb(proyecto.getIdProyecto());
+		  proyectoWeb.setNomProyectoWeb(proyecto.getNomProyecto());
 		  proyectoWeb.setFecIniProyectoWeb(  new SimpleDateFormat("dd/MM/yyyy").format(proyecto.getFecIniProyecto() ));
 		  proyectoWeb.setFecFinProyectoWeb(  new SimpleDateFormat("dd/MM/yyyy").format(proyecto.getFecFinProyecto() ));
 		  return proyectoWeb;

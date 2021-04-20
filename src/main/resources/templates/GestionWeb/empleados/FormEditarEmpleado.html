@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
   
-  	 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+  	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
 	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
   	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
@@ -134,7 +134,7 @@ h5 {
 								<option th:each ="paisEmple:${empleadoWeb.paisWeb}"
    						 			th:value="${paisEmple.idPais}"
   						  			th:text ="${paisEmple.nombrePais}"
-  						  			th:selected="${paisEmple.idPais} == *{idPais}">
+  						  			th:selected="${paisEmple.idPais} == *{codPaisWeb}">
   								</option>
     						</select>
 						</div>
@@ -152,8 +152,7 @@ h5 {
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i>
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
-							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
+       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleladoWeb}"  th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
 						</div>
 					</div>
 					<div class="col-md-3 mb-4">
@@ -162,7 +161,7 @@ h5 {
 						<small class="form-text text-danger" th:if="${#fields.hasErrors('telefono2')}" th:errors="*{telefono2}"> Teléfono alternativo es obligatorio</small>
 					</div>
 					<div class="col-md-4 mb-4">
-					<label for="labelFecEmpleado">Fec. alta empleado</label>
+						<label for="labelEmailEmpleado">email empleado</label>
 						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="30" required>
 					</div>
 				</div>
