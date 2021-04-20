@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
@@ -102,6 +102,38 @@ h5 {
 				
 				<div class="form-row">
 					<div class="col-md-3 mb-3">
+						<label for="labelCP" th:text="'Codigo postal' "></label>
+						<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
+					</div>
+					
+					<div class="col-md-4 mb-3">
+						<label for="labelFecAltaEmpresa">Fec. alta empresa</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+       						 <i class="fa fa-calendar"> </i> 
+      					 	</div>
+       						<input type="text"  class="form-control" th:id="idFecAltaEmpresa" th:name="fecAltaEmpresa" th:value="${#calendars.format(fecAltaEmpresaWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
+							<input type="hidden" th:id="idFecAltaEmpresaHidden" th:name="fecAltaEmpresaHidden"  th:field="*{fecAltaEmpresaWeb}"/>
+						</div> 
+					</div>
+					
+					<div class="col-md-5 mb-3">
+						<div class="form-group">
+							<label for="labelPais" th:text="'Provincia empresa: ' "></label>
+							<select th:object="${empleadoWeb}" class="form-control" name="provinciaEmpresa" id="idProvinciaEmpresa">
+								<option th:value="0" th:text="'Seleccionar Provincia' "></option>
+								<option th:each ="provinEmpresa:${provinciasWeb}"
+   						 			th:value="${provinEmpresa.idProvincia}"
+  						  			th:text ="${provinEmpresa.provincia}"
+  						  			th:selected="${provinEmpresa.idProvincia} == ${datosEmpresaWeb.codProvinciaWeb}">
+  								</option>
+    						</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="col-md-3 mb-3">
 						<label for="validaNombreContacto1" th:text="'Nombre Contacto 1'"></label> 
 						<input type="text" class="form-control" id="nomContacto1Web" th:field="*{nomContacto1Web}" th:maxlength="25">
 					</div>
@@ -132,30 +164,6 @@ h5 {
 					</div>
 				</div>
 				
-				<div class="form-row">
-					<div class="col-md-2 mb-4">
-						<label for="labelCP" th:text="'Codigo postal' "></label>
-						<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
-					</div>
-					<div class="col-md-4 mb-4">
-						<div class="form-group">
-							<label for="labelPais" th:text="'Provincia empresa: ' "></label>
-							<select th:object="${empleadoWeb}" class="form-control" name="provinciaEmpresa" id="idProvinciaEmpresa">
-								<option th:value="0" th:text="'Seleccionar Provincia' "></option>
-								<option th:each ="provinEmpresa:${provinciasWeb}"
-   						 			th:value="${provinEmpresa.idProvincia}"
-  						  			th:text ="${provinEmpresa.provincia}"
-  						  			th:selected="${provinEmpresa.idProvincia} == *{idProvinciaWeb}">
-  								</option>
-    						</select>
-						</div>
-					</div>
-					<div class="col-md-3 mb-4">			
-					</div>
-					
-					<div class="col-md-3 mb-4">
-					</div>
-				</div>
 			 </div>
 			<div class="col-1"></div>	
 		 </div>
@@ -186,7 +194,8 @@ h5 {
             autoclose: true,
         });
         
- 
+        document.getElementById("idFecAltaEmpresa").value = document.getElementById("idFecAltaEmpresaHidden").value; 
+
     });
  </script>
 

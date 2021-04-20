@@ -3,15 +3,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
-
-<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-<!-- Inline CSS based on choices in "Settings" tab -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
 
  <style>
  
@@ -155,7 +149,7 @@ h5 {
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i>
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}"th:readonly="false" required />
+       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
 							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
 						</div>
 					</div>
@@ -190,15 +184,15 @@ h5 {
 								<input type="text" class="form-control" id="idNumSeguridaSocialWeb" th:field="*{numSeguridaSocialWeb}" th:maxlength="14" >	
 							</div>
 				 		</div>
-				<div class="col-md-3 mb-4">
-					<label for="validadNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
-					<input type="text" class="form-control" id="idNumCCWeb" name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24">
+					<div class="col-md-3 mb-4">
+						<label for="validadNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
+						<input type="text" class="form-control" id="idNumCCWeb" name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24">
+					</div>
+					<div class="col-md-2 mb-4">
+						<label for="labelImpBrutoAnu" th:text="'Sueldo bruto anual' "></label>
+						<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10">
+					</div>
 				</div>
-				<div class="col-md-2 mb-4">
-					<label for="labelImpBrutoAnu" th:text="'Sueldo bruto anual' "></label>
-					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10">
-				</div>
-			</div>
   			</div>
   			<div class="col-1"></div>
  		</div>
@@ -242,20 +236,18 @@ h5 {
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
- <script>
-    $(document).ready(function(){
-        var date_input=$('input[name="fecAltaEmpleado"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        });
-        
-        document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
+ <script th:inline="javascript">
+ 	$(function () { 	
+   	 $('#idFecAltaEmpleado').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
     });
- </script>
+</script>
 
 </body>
 </html>

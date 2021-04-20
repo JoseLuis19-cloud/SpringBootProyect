@@ -10,20 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Paises")
+@Table(name="PAIS")
 public class Pais implements Serializable {
 		
 	private static final long serialVersionUID = 1L;
 		
 	    @Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
-	    @Column(name="id",  nullable=false, unique=false)
+	    @Column(name="ID",  nullable=false, unique=false)
 	    private Integer idPais;
 	    
-	    @Column(name="iso",  nullable=false, unique=false)
+	    @Column(name="ISO",  nullable=false, unique=false)
 	    private String codISO;
 	    
-	    @Column(name="nombre",  nullable=false, unique=false)
+	    @Column(name="NOM_PAIS",  nullable=false, unique=false)
 	    private String nombrePais;
 
 		public Integer getIdPais() {

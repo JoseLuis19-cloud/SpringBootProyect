@@ -26,8 +26,10 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 	private String nomContacto2Web;
 	private String telefContacto2Web;
 	private String emailContacto2Web; 
+	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Calendar fecAltaEmpresaWeb;
+	
 	private String emailEmpresaWeb;
 
 	public BeanEmpresaWeb()

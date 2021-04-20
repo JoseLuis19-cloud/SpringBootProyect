@@ -1,5 +1,6 @@
 package com.myfactory.SBootWebProject.controller;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.validation.Valid;
@@ -25,14 +26,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 
 import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
-
+import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
 
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
-
+import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
@@ -72,7 +73,9 @@ public class ControllerWebEmpresas {
  	public String formularioAltaEmpresa(Model modelo)  {
 		
 	 BeanEmpresaWeb datosEmpresaWeb = new BeanEmpresaWeb ();
-		
+
+	 datosEmpresaWeb.setFecAltaEmpresaWeb(Calendar.getInstance());
+	  
 	 modelo.addAttribute("provinciasWeb", servJPA.getProvincia() );	
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 modelo.addAttribute("datosEmpresaWeb", datosEmpresaWeb);
@@ -115,9 +118,9 @@ public class ControllerWebEmpresas {
 	@GetMapping("/formeditarempresa")
  	public String formularioEditarEmpresa(Model modelo, @RequestParam(value = "idEmpresa", required = false ) Integer idEmpresa)  {
  
-	modelo.addAttribute("provinciasWeb", servJPA.getProvincia() );	
+	 modelo.addAttribute("provinciasWeb", servJPA.getProvincia() );	
 	
-	Empresa empresa = servJPAEmpresa.buscarIdEmpresa(idEmpresa);
+	 Empresa empresa = servJPAEmpresa.buscarIdEmpresa(idEmpresa);
 	 modelo.addAttribute("datosEmpresaWeb", cargarBeansDatos.cargarBeanEmpresa(empresa));
 	 
 	return "GestionWeb/empresas/FormEditarEmpresa";

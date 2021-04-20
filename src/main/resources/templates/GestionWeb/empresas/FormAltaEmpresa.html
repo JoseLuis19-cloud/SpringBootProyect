@@ -2,29 +2,26 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
-
-<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-<!-- Inline CSS based on choices in "Settings" tab -->
-
+  
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
+    
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+   
  <style>
  
-.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
+ .bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
 
-
-.form-control-xs {
+ .form-control-xs {
 	height: calc(1em + .375rem + 2px) !important;
 	padding: .125rem .25rem !important;
 	font-size: .75rem !important;
 	line-height: 1.5;
 	border-radius: .2rem;
-}
+   }
 
 h3 {
 	font-weight: bold !important;
@@ -48,17 +45,11 @@ h5 {
 	margin-left: 10px !important;
 }
 
-</style>
-	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-	
-	 <script th:inline="javascript">
-	 
-	</script>
+  </style>
+
 </head>
 
-<body>
+ <body>
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
@@ -99,6 +90,31 @@ h5 {
 						<input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefonoWeb}" th:maxlength="14">
 					</div>
 				</div>
+
+				<div class="form-row">
+					<div class="col-md-4 mb-4">
+						<label for="labelCP" th:text="'Codigo postal' "></label>
+						<input type="text" class="form-control" th:id="idCodPosWeb" th:name="codPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
+					</div>
+   					 
+   					<div class="col-md-4 mb-4">		
+           				  <label for="labelAltaEmpresa" th:text="'Fecha Alta Empresa' "></label>
+           				  <input type="text" class="form-control" th:id="idFecAltaEmpresa" th:name="fecAltaEmpresa" th:field="*{fecAltaEmpresaWeb}" th:value="${#calendars.format(fecAltaEmpresaWeb, 'dd/MM/yyyy')}">
+            		</div>
+            		
+					<div class="col-md-4 mb-4">
+						<div class="form-group">
+							<label for="labelPais" th:text="'Provincia empresa ' "></label>
+							<select th:object="${empleadoWeb}" class="form-control" name="provinciaEmpresa" id="idProvinciaEmpresa">
+								<option th:value="0" th:text="'Seleccionar Provincia' "></option>
+								<option th:each ="provinEmpresa:${provinciasWeb}"
+   						 			th:value="${provinEmpresa.idProvincia}"
+  						  			th:text ="${provinEmpresa.provincia}">
+  								</option>
+    						</select>
+						</div>
+					</div>
+				</div>
 				
 				<div class="form-row">
 					<div class="col-md-3 mb-3">
@@ -132,29 +148,6 @@ h5 {
 					</div>
 				</div>
 				
-				<div class="form-row">
-					<div class="col-md-2 mb-4">
-						<label for="labelCP" th:text="'Codigo postal' "></label>
-						<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
-					</div>
-					<div class="col-md-4 mb-4">
-						<div class="form-group">
-							<label for="labelPais" th:text="'Provincia empresa: ' "></label>
-							<select th:object="${empleadoWeb}" class="form-control" name="provinciaEmpresa" id="idProvinciaEmpresa">
-								<option th:value="0" th:text="'Seleccionar Provincia' "></option>
-								<option th:each ="provinEmpresa:${provinciasWeb}"
-   						 			th:value="${provinEmpresa.idProvincia}"
-  						  			th:text ="${provinEmpresa.provincia}">
-  								</option>
-    						</select>
-						</div>
-					</div>
-					<div class="col-md-3 mb-4">			
-					</div>
-					
-					<div class="col-md-3 mb-4">
-					</div>
-				</div>
 			 </div>
 			<div class="col-1"></div>	
 		 </div>
@@ -171,23 +164,20 @@ h5 {
  		</form>
  	</div>
 	
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
- <script>
-    $(document).ready(function(){
-        var date_input=$('input[name="fecAltaEmpresa"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        });
-        
+ <!-- Include Date Range Picker -->
  
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
+ <script th:inline="javascript">
+ 	$(function () { 	
+   	 $('#idFecAltaEmpresa').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
     });
- </script>
+</script>
 
 </body>
 </html>
