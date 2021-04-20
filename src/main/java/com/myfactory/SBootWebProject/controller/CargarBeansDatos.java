@@ -126,11 +126,11 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setCodPaisWeb( empleado.getPais().getIdPais());
 		  if (empleado.getImpBrutoAnual() != null)
 		  	 {
-			  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual().toString());
+			  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual());
 		  	 }
 		   else
 		    {
-			  beanEmpleadoWeb.setImpBrutoAnualWeb("0");
+			  beanEmpleadoWeb.setImpBrutoAnualWeb(0F);
 		    }
 		  
 		  return beanEmpleadoWeb;
@@ -165,7 +165,7 @@ public class CargarBeansDatos  implements Serializable {
 		  datosEmpresaWeb.setTelefContacto2Web(empresa.getTelefContacto2() );
 		  datosEmpresaWeb.setEmailContacto2Web(empresa.getEmailContacto2());
 		  
-		  datosEmpresaWeb.setEmailContacto2Web(empresa.getEmailContacto2());
+
 		  
 	      datosEmpresaWeb.setFecAltaEmpresaWeb(empresa.getFecAltaEmpresa());
 	      

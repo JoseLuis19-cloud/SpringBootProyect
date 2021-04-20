@@ -51,7 +51,7 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private Iterable<Pais> paisWeb;
 	private Integer codPuestoTrabajoWeb;
 	private Iterable<PuestoTrabajo> puestoTrabajoWeb;
-	private String impBrutoAnualWeb;
+	private Float impBrutoAnualWeb;
 	
 	public BeanEmpleadoWeb() {
 	}
@@ -211,11 +211,11 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		this.puestoTrabajoWeb = puestoTrabajoWeb;
 	}
 
-	public String getImpBrutoAnualWeb() {
+	public Float getImpBrutoAnualWeb() {
 		return impBrutoAnualWeb;
 	}
 
-	public void setImpBrutoAnualWeb(String impBrutoAnualWeb) {
+	public void setImpBrutoAnualWeb(Float impBrutoAnualWeb) {
 		this.impBrutoAnualWeb = impBrutoAnualWeb;
 	}
 

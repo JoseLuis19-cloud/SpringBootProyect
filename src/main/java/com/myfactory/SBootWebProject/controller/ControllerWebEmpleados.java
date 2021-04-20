@@ -262,7 +262,7 @@ public class ControllerWebEmpleados {
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
 		
 		beanEmpleadoWeb.setFecAltaEmpleladoWeb(Calendar.getInstance()); 
-		beanEmpleadoWeb.setImpBrutoAnualWeb("0");
+		beanEmpleadoWeb.setImpBrutoAnualWeb(0F);
 		
 		beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
 		beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
@@ -351,8 +351,7 @@ public class ControllerWebEmpleados {
 				//	RedirectAttributes redirectAttrs,
 					Model modelo, 
 					@RequestParam(value = "paisEmpleado", required = true) String codPais,
-					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo,
-					@RequestParam(value = "fecAltaEmpleado", required = true) String fecAltaEmpleado ){
+					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo){
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
@@ -366,9 +365,8 @@ public class ControllerWebEmpleados {
 			{
 			try
 			{
-			 calendar1.setTime(dateFormat.parse(fecAltaEmpleado));
-			 datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1);
-			
+			// calendar1.setTime(dateFormat.parse(fecAltaEmpleado));
+	
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
 			 
 			 BeanErrorValidacion datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
@@ -736,7 +734,11 @@ public class ControllerWebEmpleados {
 		empleado.setCodPostal(datosEmpleadoWeb.getCodPostalWeb());
 		empleado.setNif(datosEmpleadoWeb.getNifWeb());
 		empleado.setNumCuentaCorriente(datosEmpleadoWeb.getNumCuentaCorrienteWeb());
-		empleado.setNumSeguridaSocial( datosEmpleadoWeb.getNumSeguridaSocialWeb());
+		empleado.setNumSeguridaSocial(datosEmpleadoWeb.getNumSeguridaSocialWeb());
+		
+	
+		// empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb());
+		
 		 
 		if ( datosEmpleadoWeb.getFecAltaEmpleladoWeb() != null )
 		   {
@@ -751,11 +753,9 @@ public class ControllerWebEmpleados {
 			  } 
 		   }
 	 
-		if (datosEmpleadoWeb.getImpBrutoAnualWeb() != "" && datosEmpleadoWeb.getImpBrutoAnualWeb() != null)
-			{
-			empleado.setImpBrutoAnual(new Float(datosEmpleadoWeb.getImpBrutoAnualWeb()));
-			}
-		
+		 
+		 empleado.setImpBrutoAnual( datosEmpleadoWeb.getImpBrutoAnualWeb() );
+		 
 	 	pais.setIdPais(new Integer(codPais) );
       	puestoTrabajo.setIdPuestoTrabajo( new Integer(codPuestoTrabajo) );
 		

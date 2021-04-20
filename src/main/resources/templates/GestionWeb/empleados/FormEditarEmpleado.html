@@ -152,7 +152,7 @@ h5 {
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i>
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleladoWeb}"  th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
+       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleladoWeb}" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
 						</div>
 					</div>
 					<div class="col-md-3 mb-4">
@@ -192,7 +192,7 @@ h5 {
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="labelImpBrutoAnu" th:text="'Sueldo bruto anual' "></label>
-						<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10">
+						<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:value="${#numbers.formatDecimal(impBrutoAnualWeb,3,2,'COMMA')}" th:maxlength="8">
 					</div>
 				</div>
   			</div>
