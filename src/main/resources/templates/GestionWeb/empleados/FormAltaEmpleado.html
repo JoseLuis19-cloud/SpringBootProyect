@@ -2,7 +2,10 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+  
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
     
@@ -146,26 +149,10 @@ h5 {
 						<input type="text" class="form-control" th:id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
 					</div>
 					<div class="col-md-2 mb-4">
-						<label for="labelFecEmpleado">Fec. alta empleado</label>
-						<div class="input-group">
-							<div class="input-group date" data-provide="datepicker">
-       						 <i class="fa fa-calendar"> </i> 
-      					 	</div>
-       						<input type="text"  class="form-control" th:id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
-							<input type="hidden" th:id="idFecAltaEmpleadoHidden" th:name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
-						</div>
-						
-						
-						<div class="input-group date" data-provide="datepicker">
-            <input class="form-control" id="wodate1" name="date" placeholder="MM.YYYY" value="" bootstrap-datepicker="" data-date-end-date="0d">
-            <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-            </div>
-        </div>
-        
-        
-        
+						<label for="labelAltaEmpresa" th:text="'Fecha Alta Empleado' "></label>
+           				 <input type="text" class="form-control" th:id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}" th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}">
 					</div>
+					
 					<div class="col-md-2 mb-4">
 						<label for="labelTelefAlter" th:text="'Teléfono alternativo' "></label>
 						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14">
@@ -313,33 +300,22 @@ h5 {
  	<form th:id="idFormPaginacion" th:action="@{/gestionWeb/empleados/pagempleadosNue}"  method="post">
     </form>
 </div>	
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
- <script>
-    $(document).ready(function(){
-    	
-        var date_input=$('input[name="fecAltaEmpleado"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        });
-        
-        var date_input=$('input[name="fecAltaUsu"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        });
-  
-       document.getElementById("idFecAltaEmpleado").value = document.getElementById("idFecAltaEmpleadoHidden").value;
-       document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuHidden").value;
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
+  <script th:inline="javascript">
+ 	$(function () { 	
+   	 $('#idFecAltaEmpleado').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
+   	 
+   	 $('#idFecAltaUsu').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
     });
  </script>
 
