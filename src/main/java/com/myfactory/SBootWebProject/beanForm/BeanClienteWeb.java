@@ -1,6 +1,7 @@
 package com.myfactory.SBootWebProject.beanForm;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -26,11 +27,11 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
 	private String apellidosWeb;
 	
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-	private String fecNacimientoWeb;
+    private Calendar fecNacimientoWeb;
     
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-   	private String fecNacimiento2Web;
- 
+    private Calendar fecAltaClienteWeb;
+
 	private String DNIWeb;
 	
 	private String direccionWeb;
@@ -52,12 +53,12 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
 	public BeanClienteWeb() {
 	}
 		
-	public BeanClienteWeb(String nombre, String apellidos, String fecNacimiento, String dNI,
+	public BeanClienteWeb(String nombre, String apellidos, Calendar fecNacimiento, Calendar fecAltaCliente, String dNI,
 				String direccion, String pais, String dirEmail, String telefono, Integer idTpoCliente) {
 		super();
 		this.apellidosWeb = apellidos;
 		this.fecNacimientoWeb = fecNacimiento;
-		this.fecNacimiento2Web = fecNacimiento;
+		this.fecAltaClienteWeb = fecAltaCliente;
 		this.DNIWeb = dNI;
 		this.direccionWeb = direccion;
 		this.paisWeb = pais;
@@ -65,6 +66,14 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
 		this.telefonoWeb = telefono;
 		this.idTpoCliente = idTpoCliente;
 	}
+
+		public Calendar getFecNacimientoWeb() {
+		return fecNacimientoWeb;
+		}
+
+		public void setFecNacimientoWeb(Calendar fecNacimientoWeb) {
+		this.fecNacimientoWeb = fecNacimientoWeb;
+		}
 
 		public Integer getIdClienteWeb() {
 			return idClienteWeb;
@@ -88,14 +97,6 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
 
 		public void setApellidosWeb(String apellidosWeb) {
 			this.apellidosWeb = apellidosWeb;
-		}
-
-		public String getFecNacimientoWeb() {
-			return fecNacimientoWeb;
-		}
-
-		public void setFecNacimientoWeb(String fecNacimientoWeb) {
-			this.fecNacimientoWeb = fecNacimientoWeb;
 		}
 
 		public String getDNIWeb() {
@@ -154,15 +155,13 @@ public class BeanClienteWeb  implements Serializable, Cloneable {
 			this.impCliente = impCliente;
 		}
 		
-		public String getFecNacimiento2Web() {
-			return fecNacimiento2Web;
+		public Calendar getFecAltaClienteWeb() {
+			return fecAltaClienteWeb;
 		}
 
-		public void setFecNacimiento2Web(String fecNacimiento2Web) {
-			this.fecNacimiento2Web = fecNacimiento2Web;
+		public void setFecAltaClienteWeb(Calendar fecAltaClienteWeb) {
+			this.fecAltaClienteWeb = fecAltaClienteWeb;
 		}
-
-
 
 		@Override
 		protected Object clone() throws CloneNotSupportedException {

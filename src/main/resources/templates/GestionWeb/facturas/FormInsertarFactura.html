@@ -3,14 +3,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-
-<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-<!-- Inline CSS based on choices in "Settings" tab -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
+    
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 
  <style>
  
@@ -89,8 +90,6 @@ h5 {
 			<div class="col-8">
 				<form th:action="@{/gestionWeb/facturas/insertarfactura}" th:object="${facturaWeb}" method="post">
 
-					<div class="container-fluid" style="border-bottom: 2px solid #000">
-					
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationConcepto" th:text="'Concepto'"></label> 
@@ -107,34 +106,32 @@ h5 {
 					</div>
 					
 					<div class="form-row">
-					 	<div class="col-md-4 mb-3">
-							<div class="form-group">
-								<label for="idFormaPago" th:text="'Forma de pago: ' "></label>
-									<select th:object="${facturaWeb}"  name="formaPago" id="idFormaPago">
-									<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
-										<option th:each ="formPag:${formasPagoWeb}"
-   						 				th:value="${formPag.idForPago}"
-  						  				th:text ="${formPag.desForPago}">
-  						 			</option>
-    							</select>
-							</div>
-						 </div>
-
-						<div class="col-md-4 mb-3">
-							<label for="validationFecFactura">Fec. Factura</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-       							 <i class="fa fa-calendar"> </i> 
-      					 		</div>
-       							<input class="form-control" id="idFecFactura" name="fecFactura" placeholder="MM/DD/YYYY" type="text" th:readonly="true" required />
-							</div>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validaCodFatura" th:text="'Porcentaje Descuento' "></label>
-							<input type="text" class="form-control" id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
+					 <div class="col-md-4 mb-3">
+						<div class="form-group">
+							<label for="idFormaPago" th:text="'Forma de pago: ' "></label>
+								<select th:object="${facturaWeb}"  name="formaPago" id="idFormaPago">
+								<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
+									<option th:each ="formPag:${formasPagoWeb}"
+   						 			th:value="${formPag.idForPago}"
+  						  			th:text ="${formPag.desForPago}">
+  						 		</option>
+    						</select>
 						</div>
 					</div>
+					<div class="col-md-4 mb-3">
+						<label for="labelFecFactura">Fec. Factura</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+       						 <i class="fa fa-calendar"> </i> 
+      					 	</div>
+							 <input type="text" class="form-control" th:id="idFecFactura" th:name="fecFactura" th:field="*{fecFacturaWeb}" th:value="${#calendars.format(fecFacturaWeb, 'dd/MM/yyyy')}" th:maxlength="10"  placeholder="MM/DD/YYYY"  required>
+						</div>
 					</div>
+					<div class="col-md-4 mb-3">
+						<label for="validaCodFatura" th:text="'Porcentaje Descuento' "></label>
+						<input type="text" class="form-control" id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
+					</div>
+				</div>
 						
 					<div class="d-flex">
   						<div class="mr-auto p-2">
@@ -150,35 +147,21 @@ h5 {
 			<div class="col-2"></div>
 		</div>
 	</div>
+	
+ 	 <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+ 	 <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  	 <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
+  	<script th:inline="javascript">
+ 	$(function () { 	
+   	 $('#idFecFactura').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
 
-	
-	<footer class="container-fluid">
-		<div class="panel-danger">
-			<div th:if="${ErrorBBDD == '1'}">
-				<div class="alert alert-danger">Se ha producido un error en el alta de la factura</div>
-			</div>
-		</div>
-	</footer>
-	
-	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-	
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
- <script>
-    $(document).ready(function(){
-        var date_input=$('input[name="fecFactura"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
-    })
+    });
  </script>
+
 
 </body>
 </html>

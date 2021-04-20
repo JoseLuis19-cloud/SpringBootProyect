@@ -1,6 +1,7 @@
 package com.myfactory.SBootWebProject.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -61,10 +62,11 @@ public class ControllerWebFacturas {
 	@GetMapping("/formaltafactura")
 	public String formularioAltaFactura(Model modelo, @RequestParam(value = "idFactura", required = false ) String idFactura)  {
 	
-	//	Optional<Factura> factura = servicioJPA.buscarIdFactura(new Integer(Integer.parseInt(idFactura)));
+	 	BeanFacturaWeb facturaWeb = new BeanFacturaWeb ();
 		
-		BeanFacturaWeb facturaWeb = new BeanFacturaWeb (new Integer(0), "", "", "", "", new Integer(0));
-
+		Calendar calendar1 = Calendar.getInstance();
+		facturaWeb.setFecFacturaWeb(calendar1);
+		
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		modelo.addAttribute("facturaWeb", facturaWeb);
 		
@@ -325,7 +327,9 @@ public class ControllerWebFacturas {
 					// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
 					// String dateInString = "31-08-1982 10:20:56";
 
-					facturaNueva.setFecFactura(new java.sql.Date((dateFormat.parse(facturaWeb.getFecFacturaWeb())).getTime()));
+					// facturaNueva.setFecFactura(new java.sql.Date((dateFormat.parse(facturaWeb.getFecFacturaWeb())).getTime()));
+					
+					  facturaNueva.setFecFactura( facturaWeb.getFecFacturaWeb() );
 					} catch (Exception e) {
 					facturaNueva = null;
 					}

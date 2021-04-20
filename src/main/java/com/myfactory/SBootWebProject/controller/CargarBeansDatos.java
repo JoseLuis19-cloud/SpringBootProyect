@@ -51,7 +51,8 @@ public class CargarBeansDatos  implements Serializable {
 		 facturaWeb.setImpFacturaWeb(factura.getImpFactura().toString());
 		 facturaWeb.setConceptoWeb(factura.getConcepto());
 		 facturaWeb.setPorIvaWeb(factura.getPorIva().toString());
-		 facturaWeb.setFecFacturaWeb(new SimpleDateFormat("dd/MM/yyyy").format(factura.getFecFactura()));
+		 facturaWeb.setFecFacturaWeb(factura.getFecFactura());
+	//	 facturaWeb.setFecFacturaWeb(new SimpleDateFormat("dd/MM/yyyy").format(factura.getFecFactura()));
 		return facturaWeb;
 	  }
 	  
@@ -66,8 +67,11 @@ public class CargarBeansDatos  implements Serializable {
 		 clienteWeb.setDireccionWeb( cliente.getDireccion() );
 
 		 clienteWeb.setDirEmailWeb(cliente.getDirEmail() );
-		 clienteWeb.setFecNacimientoWeb( new SimpleDateFormat("dd/MM/yyyy").format(cliente.getFecNacimiento())   );
-		 clienteWeb.setFecNacimiento2Web( cliente.getFecNacimiento().toString() );
+		//  clienteWeb.setFecNacimientoWeb( new SimpleDateFormat("dd/MM/yyyy").format(cliente.getFecNacimiento())   );
+		 
+		 clienteWeb.setFecNacimientoWeb(cliente.getFecNacimiento() );
+		 clienteWeb.setFecAltaClienteWeb(cliente.getFecAltaCliente());
+		 
 		 clienteWeb.setDNIWeb( cliente.getDNI() );
 		 clienteWeb.setTelefonoWeb( cliente.getTelefono()  );
 		 clienteWeb.setPaisWeb( cliente.getPais()  );

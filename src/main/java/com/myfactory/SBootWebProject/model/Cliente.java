@@ -1,7 +1,6 @@
 package com.myfactory.SBootWebProject.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -24,7 +23,7 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	@Column(name = "ID_CLIENTE", unique = true)
 	private Integer idCliente;
 
@@ -35,7 +34,8 @@ public class Cliente implements Serializable {
 	private String apellidos;
 
 	@Column(name = "FEC_NACIMIENTO", nullable = true, unique = false)
-	private Date fecNacimiento;
+	@Temporal(TemporalType.DATE)
+	private Calendar fecNacimiento;
 
 	@Column(name = "DNI", nullable = true, unique = false)
 	private String DNI;
@@ -53,8 +53,8 @@ public class Cliente implements Serializable {
 	private String telefono;
 	
 	@Column(name = "FEC_ALTA_CLIENTE", nullable = true, unique = false)
-    @Temporal(TemporalType.DATE)
-	private Calendar fecAltaCliente;
+	@Temporal(TemporalType.DATE)
+    private Calendar fecAltaCliente;
 
 	// @Column(name="ID_TPO_CLIENTE_FK", nullable=false, unique=false)
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -106,13 +106,6 @@ public class Cliente implements Serializable {
 		this.apellidos = apellidos;
 	}
 
-	public Date getFecNacimiento() {
-		return fecNacimiento;
-	}
-
-	public void setFecNacimiento(Date fecNacimiento) {
-		this.fecNacimiento = fecNacimiento;
-	}
 
 	public String getDNI() {
 		return DNI;
@@ -152,6 +145,14 @@ public class Cliente implements Serializable {
 
 	public void setFecAltaCliente(Calendar fecAltaCliente) {
 		this.fecAltaCliente = fecAltaCliente;
+	}
+	
+	public Calendar getFecNacimiento() {
+		return fecNacimiento;
+	}
+
+	public void setFecNacimiento(Calendar fecNacimiento) {
+		this.fecNacimiento = fecNacimiento;
 	}
 	
 	public java.sql.Blob getImagenFotoCliente() {

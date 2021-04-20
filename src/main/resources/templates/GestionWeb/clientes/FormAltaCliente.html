@@ -3,14 +3,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-
-<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-<!-- Inline CSS based on choices in "Settings" tab -->
+ 
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+  	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
+    
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
  <style>
 .bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
@@ -143,21 +144,20 @@ h5 {
 					</div>
 			
 					<div class="form-row" style="border-bottom: 2px solid #000">
-						<div class="col-md-2 mb-3">
-							<label for="validationDefaultUsername">Fec. Nacimiento</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-       							 <i class="fa fa-calendar"> </i>
-      					 		</div>
-       							<input type="text" class="form-control" id="idFecNacimiento" name="fecNacimiento" placeholder="MM/DD/YYYY" th:value="${clienteWeb.fecNacimientoWeb}" th:readonly="true" required />
-							</div>
+						<div class="col-md-2 mb-4">
+							<label for="labelFecAltaCliente">Fec. Alta Cliente</label>
+							<input type="text" class="form-control" th:id="idFecAltaCliente" th:name="fecAltaCliente" th:field="*{fecAltaClienteWeb}" th:value="${#calendars.format(fecAltaClienteWeb, 'dd/MM/yyyy')}" th:maxlength="10" placeholder="DD/MM/YYYY">
 						</div>
-						<div class="col-md-5 mb-3">
+						<div class="col-md-2 mb-4">
+							<label for="labelFecNacimiento">Fec. Nacimiento</label>
+							<input type="text" class="form-control" th:id="idFecNacimiento" th:name="fecNacimiento" th:field="*{fecNacimientoWeb}" th:value="${#calendars.format(fecNacimientoWeb, 'dd/MM/yyyy')}" th:maxlength="10" placeholder="DD/MM/YYYY">
+						</div>
+						<div class="col-md-4 mb-4">
 							<label for="validationDefault04" th:text="'NIF: '"></label> <input
 								type="text" class="form-control" id="idDNICliWeb"
 								th:field="*{DNIWeb}" th:maxlength="14" required>
 						</div>
-						<div class="col-md-5 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="validationDefault05" th:text="'Pais '"></label> <input
 								type="text" class="form-control" id="idPais"
 								th:field="*{paisWeb}" th:maxlength="20" required>
@@ -186,25 +186,25 @@ h5 {
 		</div>
 	</div>
 	
-	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-	
 <!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
- <script>
-    $(document).ready(function(){
-        var date_input=$('input[name="fecNacimiento"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
-    })
- </script>
+ 
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
+ <script th:inline="javascript">
+ 	$(function () { 	
+   	 $('#idFecNacimiento').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
+   	 
+   	 $('#idFecAltaCliente').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
+    });
+</script>
 
 </body>
 </html>

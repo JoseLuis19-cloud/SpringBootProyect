@@ -77,40 +77,33 @@ public class ControllerWebClientes {
 	}
 		
 	@RequestMapping("/forminsertarcliente")
-	public String formularioInserCliente(Model modelo ) {
+	public String formularioAltaCliente(Model modelo) {
 		
-		BeanClienteWeb clienteWeb = new BeanClienteWeb ("", "", "", "", "", "", "", "", new Integer(0));
+		BeanClienteWeb clienteWeb = new BeanClienteWeb();
+		
+		Calendar calendar1 = Calendar.getInstance();
+		clienteWeb.setFecAltaClienteWeb(calendar1);
 		
 		modelo.addAttribute("clienteWeb", clienteWeb );
 		modelo.addAttribute("tpoClienteWeb", servicioJPA.getTipoCliente() );
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "GestionWeb/clientes/FormInsertarCliente";
+		return "GestionWeb/clientes/FormAltaCliente";
 	}
 	
 	@RequestMapping(value = "/insertarcliente", method = RequestMethod.POST)
 	public String altaCliente(@Valid @ModelAttribute("formClienteWeb") BeanClienteWeb formClienteWeb, 
-			BindingResult resultValidacion,
-			RedirectAttributes redirectAttrs,
+			   BindingResult resultValidacion,
+			// RedirectAttributes redirectAttrs,
 			Model modelo, @RequestParam(value = "tipoCliente", required = true) String tpoCliente) {
 		
 		   if (! resultValidacion.hasErrors()) {
 			  Cliente clienteAlta = validarDatosCliente(formClienteWeb, tpoCliente);
-			  Cliente cliente = servicioJPA.altaCliente(clienteAlta);
-
-			  	if (cliente == null) {
-			  		modelo.addAttribute("clienteWeb", formClienteWeb);
-			  		modelo.addAttribute("ErrorBBDD", "1");
-			  		}
-		 		}
-		 	   else
-		 	   {
-		  	  	modelo.addAttribute("clienteWeb", formClienteWeb );
-			  	modelo.addAttribute("tpoClienteWeb", servicioJPA.getTipoCliente() );  
-		 	   }
+			  servicioJPA.altaCliente(clienteAlta);
+		   }
 		
-		return "GestionWeb/clientes/FormInsertarCliente.html";
+	return "redirect:/gestionWeb/clientes/" + "pagclientesNue";
 	}
 	
 	@RequestMapping(value = "/modificarcliente", method = RequestMethod.POST)
@@ -119,26 +112,10 @@ public class ControllerWebClientes {
 			RedirectAttributes redirectAttrs,
 			Model modelo, @RequestParam(value = "tipoCliente", required = true) String tpoCliente) {
 		
-		//  if (! resultValidacion.hasErrors()) {
-			  Cliente clienteModif = validarDatosCliente(formClienteWeb, tpoCliente);
-			  
-			  clienteModif.setIdCliente(clienteWeb.getIdClienteWeb());
-			  
-			  Cliente cliente = servicioClienteJPA.modificarCliente(clienteModif);
-
-			  	if (cliente == null)
-			  		{
-			  		modelo.addAttribute("clienteWeb", formClienteWeb);
-			  		modelo.addAttribute("ErrorBBDD", "1");
-			  		}
-		  	//	}
-			  else
-			   {
-			  	modelo.addAttribute("clienteWeb", formClienteWeb);
-			  	modelo.addAttribute("tpoClienteWeb", servicioJPA.getTipoCliente() );  
-			   }
+		Cliente clienteModif = validarDatosCliente(formClienteWeb, tpoCliente);
+		servicioClienteJPA.modificarCliente(clienteModif);
 		
-		return "GestionWeb/clientes/FormEditarCliente.html";
+	  return "redirect:/gestionWeb/clientes/" + "pagclientesNue";
 	}
 
 	@GetMapping("/formbajacliente")
@@ -153,22 +130,14 @@ public class ControllerWebClientes {
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-	//	return "redirect:/gestionWeb/formBajaCliente/";
 		return "GestionWeb/clientes/FormBajaCliente";
 	}
-	
 	
 	@RequestMapping("/bajacliente")
 	public String bajaCliente(Model modelo,  @RequestParam(value = "idCliente", required = false ) String idCliente)  {
 
 		servicioJPA.bajaIdCliente(new Integer(Integer.parseInt(idCliente)));
-		return "personas/lista.html";
-	}
-	
-	@RequestMapping("/listaclientes")
-	public String mostrarClientes(Model modelo) {
-		modelo.addAttribute("listClientes", servicioJPA.buscarTodosClientes());
-		return "GestionWeb/clientes/listaClientes";
+		 return "redirect:/gestionWeb/clientes/" + "pagclientesNue";
 	}
 	
 	@Deprecated()
@@ -563,6 +532,8 @@ public class ControllerWebClientes {
 
 		Cliente clienteNuevo = new Cliente();
 		
+		
+		clienteNuevo.setIdCliente(clienteWeb.getIdClienteWeb()  );
 		clienteNuevo.setNombre(clienteWeb.getNombreWeb());
 		clienteNuevo.setApellidos(clienteWeb.getApellidosWeb());
 		clienteNuevo.setDireccion(clienteWeb.getDireccionWeb());
@@ -572,18 +543,17 @@ public class ControllerWebClientes {
 		
 		if ( clienteWeb.getFecNacimientoWeb() != null )
 			{
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	
+			// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	
 			try {
-				clienteNuevo.setFecNacimiento( new  Date  (   dateFormat.parse(clienteWeb.getFecNacimientoWeb()).getTime()  )  );
+			// 	clienteNuevo.setFecNacimiento( new  Date  (   dateFormat.parse(clienteWeb.getFecNacimientoWeb()).getTime()  )  );
+				
+				 clienteNuevo.setFecNacimiento(  clienteWeb.getFecNacimientoWeb());
+				 clienteNuevo.setFecAltaCliente(  clienteWeb.getFecAltaClienteWeb() );
 				} catch (Exception e) {
 				System.out.println("error validacion");
 				}
 		
 			}
-		
-		clienteNuevo.setFecNacimiento( null);
-
-		clienteNuevo.setFecAltaCliente(Calendar.getInstance() )  ;
 		 
 		clienteNuevo.setPais(clienteWeb.getPaisWeb());
 		clienteNuevo.setTelefono(clienteWeb.getTelefonoWeb());

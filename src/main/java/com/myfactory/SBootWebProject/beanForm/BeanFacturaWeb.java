@@ -1,6 +1,7 @@
 package com.myfactory.SBootWebProject.beanForm;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,11 +30,11 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	    private String conceptoWeb;
 		
 		@Size(min = 1, max = 2, message = "El porcetaje del IVA debe tener 2 numeros como máximo")
-	  //  @Pattern(regexp="(^$|[0-9]{10})", message = "El porcentaje de iva no es correcto" ) 
+	//  @Pattern(regexp="(^$|[0-9]{10})", message = "El porcentaje de iva no es correcto" ) 
 	    private String porIvaWeb;
 	    
 	    @DateTimeFormat(pattern = "dd/MM/yyyy")
-	    private String fecFacturaWeb;
+	    private Calendar fecFacturaWeb;
 	    
 	    private Integer idFormPagoWeb;
 	    
@@ -47,7 +48,7 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		}
 	    
 		public BeanFacturaWeb(Integer idFacturaWeb, String impFacturaWeb, String conceptoWeb, String porIvaWeb,
-				String fecFacturaWeb, Integer idFormPagoWeb) {
+				Calendar fecFacturaWeb, Integer idFormPagoWeb) {
 			super();
 			this.idFacturaWeb = idFacturaWeb;
 			this.impFacturaWeb = impFacturaWeb;
@@ -95,10 +96,10 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setPorIvaWeb(String porIvaWeb) {
 			this.porIvaWeb = porIvaWeb;
 		}
-		public String getFecFacturaWeb() {
+		public Calendar getFecFacturaWeb() {
 			return fecFacturaWeb;
 		}
-		public void setFecFacturaWeb(String fecFacturaWeb) {
+		public void setFecFacturaWeb(Calendar fecFacturaWeb) {
 			this.fecFacturaWeb = fecFacturaWeb;
 		}
 		
@@ -133,7 +134,4 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setCodDivisaWeb(Integer codDivisa) {
 			this.codDivisaWeb = codDivisa;
 		}
-
-
-
 }

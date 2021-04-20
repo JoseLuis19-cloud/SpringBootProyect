@@ -2,6 +2,7 @@ package com.myfactory.SBootWebProject.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity(name = "Factura")
@@ -44,7 +47,8 @@ public class Factura implements Serializable {
 	private Integer porIva;
 
 	@Column(name = "FEC_FACTURA", nullable = true, unique = false)
-	private Date fecFactura;
+    @Temporal(TemporalType.DATE)
+	private Calendar fecFactura;
 	
 	@Column(name = "COD_SITUACION", nullable = false, unique = false)
 	private Integer codSituacion;
@@ -60,11 +64,11 @@ public class Factura implements Serializable {
 	@JoinColumn(name = "ID_FOR_PAGO_FK")
 	private FormaPago  formaPago;
 
-	public Date getFecFactura() {
+	public Calendar getFecFactura() {
 		return fecFactura;
 	}
 
-	public void setFecFactura(Date fecFactura) {
+	public void setFecFactura(Calendar fecFactura) {
 		this.fecFactura = fecFactura;
 	}
 
