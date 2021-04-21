@@ -8,8 +8,11 @@ public class ConstantesAplicacion {
 	
 	// Numero de registros mostrados por paginas
 	public static final Integer REG_POR_PAGINA  = new Integer(5);
+	public static final Integer REG_POR_PAGINA_10  = new Integer(10);
 	public static final int NUM_PAGINAS_PAGINADAS  = 4;
 	public static final int NUM_PAGINAS_POR_BLOQUE  = 25;
+	
+	public static final int NUM_REG_POR_BLOQUE  = 50;
 
 	// Nombres de servicio
 	public static final String SERVICIO_PERSONA_FISICA = "repositorioDatosPersonaFisicaHost";

@@ -333,6 +333,175 @@ public class CrearBotoneraPag {
     	return paramBotoneraPag;
    } 
    
+   public static HashMap<String, Integer> calculaNumPagBotonera10(int numPagInt, String tpoAccion, String numPos, long numRegistros, Double numBloquePagAnt) throws Exception {
+   	
+   	HashMap<String, Integer> paramBotoneraPag = new HashMap<String, Integer>();
+   	
+    int numPagWebIni = 0;
+   	int numPaginaIniReal = 0;
+   	int numPosDentroPag = 0;
+   	
+   	if (numPos != null) 
+		{
+   		numPosDentroPag = Integer.valueOf(numPos).intValue();
+		}
+
+   		double numBloque = (numPagInt * 10) / ConstantesAplicacion.NUM_REG_POR_BLOQUE;
+    	double parteDecimal = numBloque % 1; // Lo que sobra de dividir al número entre 1
+     	double numBloqueEntero = numBloque - parteDecimal; // Le quitamos la parte decimal usando una resta
+   	
+   	
+   	if (numBloquePagAnt  != numBloqueEntero) {
+   		// Comprobar si ha dado avance de pagina o retroceso y cambia de bloque (5 paginas)
+   		if (tpoAccion != null) 
+   			{
+   			if (tpoAccion.equals("avan") )
+   				{
+   				numPagWebIni = numPagInt + 1;
+   				numPaginaIniReal =numPagInt;
+   				}
+   			else
+   				{
+   				numPagWebIni = numPagInt - 3 ;
+   				numPaginaIniReal = numPagWebIni - 1;
+   				}	
+   			}
+   		numBloquePagAnt  = numBloqueEntero;
+   		 
+   		}
+   		else
+   		{
+   	 // Ha pinchado un numero de boton del bloque inicial
+		  if (numPagInt == 0)
+		     {
+		      numPagWebIni = 1;
+			  numPaginaIniReal = 0; 
+		     }
+		     else
+		    	{
+		    //	double numPosicion = numPagInt / ConstantesAplicacion.REG_POR_PAGINA;
+	    	 //   double numPosDecimal = numPosicion % 1; // Lo que sobra de dividir al número entre 1
+	    	 //   double numPosEntero = numPosicion - numPosDecimal; // Le quitamos la parte decimal usando una res
+	    	    	
+		     // Ha pinchado avance o retroceso dentro del mismo bloque de pag
+		    	if (tpoAccion != null) 
+				   {
+
+	    	    	if (numBloquePagAnt == 0) {
+	    	    		numPagWebIni =  1;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    		}
+	    	    	
+	    	    	if (numBloquePagAnt == 1) {
+	    	    		numPagWebIni =  11;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    		}
+	    	    	
+	    	    	if (numBloquePagAnt == 2) {
+	    	    		numPagWebIni =  21;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    		}
+	    	    	
+	    	    	if (numBloquePagAnt == 3 ) {
+	    	    		numPagWebIni =  31;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    		}
+	    	    	
+	    	    	if (numBloquePagAnt == 4 ) {
+	    	    		numPagWebIni =  41;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    		}
+	    	    	
+				  }
+		    	 else
+		    	// Ha pinchado número de pagina directamente pero  no sabemos que bloque es
+		    	  {
+		    		if (numBloquePagAnt == 0) {
+		    			numPagWebIni =  1;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    		}
+		    	    if (numBloquePagAnt == 1) {
+		    	    	numPagWebIni =  11;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    			}
+		    	    if (numBloquePagAnt == 2) {
+		    	    	numPagWebIni =  21;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    			}
+		    	    if (numBloquePagAnt == 3) {
+		    	    	numPagWebIni =  31;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    			}
+		    	    if (numBloquePagAnt == 4 ) {
+	    	    		numPagWebIni =  41;
+		    	    	numPaginaIniReal = numPagWebIni - 1; 
+		    		}
+		    	    
+		    		}
+		         }
+		    	 
+   		}
+   
+   		Long numPagVisibles ;
+   	
+		if (numPagInt > 4)
+			{
+			 numPagVisibles = (numRegistros -  new Long(50));
+			}
+		   else
+			{
+			 if (numPagInt > 9)
+				{
+				 numPagVisibles = (numRegistros -  new Long(100));
+				}
+				else
+				{
+				 if (numPagInt > 14)
+					{
+					numPagVisibles = (numRegistros -  new Long(150));
+					}
+					else
+					{
+						if (numPagInt > 19) 
+						{
+							numPagVisibles = (numRegistros -  new Long(200));
+							}
+							else
+							{	
+							numPagVisibles = numRegistros; 
+							}
+					}
+				}
+			}	
+
+		paramBotoneraPag.put("numPagVisibles", new Integer(numPagVisibles.intValue()));
+   	
+   		paramBotoneraPag.put("numPagWeb1", numPagWebIni);
+   		paramBotoneraPag.put("numPagWeb2", numPagWebIni + 1);
+   		paramBotoneraPag.put("numPagWeb3", numPagWebIni + 2);
+   		paramBotoneraPag.put("numPagWeb4", numPagWebIni + 3);
+   		paramBotoneraPag.put("numPagWeb5", numPagWebIni + 4);
+   		
+   		List<Integer> listnumPag = new ArrayList<Integer>();
+   			
+   		listnumPag.add(new Integer(numPaginaIniReal));
+   		listnumPag.add(new Integer(numPaginaIniReal + 1));
+   		listnumPag.add(new Integer(numPaginaIniReal + 2));
+   		listnumPag.add(new Integer(numPaginaIniReal + 3));
+   		listnumPag.add(new Integer(numPaginaIniReal + 4));
+
+   		paramBotoneraPag.put("numPaginaReal1", 	(Integer) listnumPag.get(0));
+   		paramBotoneraPag.put("numPaginaReal2", 	(Integer) listnumPag.get(1));
+   		paramBotoneraPag.put("numPaginaReal3",	(Integer) listnumPag.get(2));	
+   		paramBotoneraPag.put("numPaginaReal4",  (Integer) listnumPag.get(3));
+   		paramBotoneraPag.put("numPaginaReal5",  (Integer) listnumPag.get(4));	
+   	 
+   		paramBotoneraPag.put("numBloquePag",  new Integer( numBloquePagAnt.intValue() )) ;	
+   		
+   	return paramBotoneraPag;
+  } 
+   
+   
    public static void montarEnlacesBotonera(HashMap<String, Integer>  paramBotonera, Model modelo, int numPagInt, String URLPag, String empresaBusqueda)  {
 	   
 	    modelo.addAttribute("numPagVisibles", paramBotonera.get("numPagVisibles") );
@@ -359,5 +528,33 @@ public class CrearBotoneraPag {
 	
 	   
    }
+   
+   
+   public static void montarEnlacesBotonera10(HashMap<String, Integer>  paramBotonera, Model modelo, int numPagInt, String URLPag, String empresaBusqueda)  {
+	   
+	    modelo.addAttribute("numPagVisibles", paramBotonera.get("numPagVisibles") );
+		
+		modelo.addAttribute("numPagWeb1", paramBotonera.get("numPagWeb1") );
+		modelo.addAttribute("numPagWeb2", paramBotonera.get("numPagWeb2") );
+		modelo.addAttribute("numPagWeb3", paramBotonera.get("numPagWeb3") );
+		modelo.addAttribute("numPagWeb4", paramBotonera.get("numPagWeb4") );
+		modelo.addAttribute("numPagWeb5", paramBotonera.get("numPagWeb5") );
+
+		modelo.addAttribute("linkBotonAnt",  URLPag + numPagInt + "&tpoAccion=ant" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
+		modelo.addAttribute("linkBoton1",    URLPag + paramBotonera.get("numPaginaReal1") + "&numPos=1" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton2",    URLPag + paramBotonera.get("numPaginaReal2") + "&numPos=2" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton3", 	 URLPag + paramBotonera.get("numPaginaReal3") + "&numPos=3" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton4", 	 URLPag + paramBotonera.get("numPaginaReal4") + "&numPos=4" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBoton5", 	 URLPag + paramBotonera.get("numPaginaReal5") + "&numPos=5" + "&numBloquePag=" + paramBotonera.get("numBloquePag") + "&apellidosBus=" + empresaBusqueda);
+		modelo.addAttribute("linkBotonAvan", URLPag + numPagInt + "&tpoAccion=avan" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
+		
+		modelo.addAttribute("numPagAct1", "N" );
+		modelo.addAttribute("numPagAct2", "N" );
+		modelo.addAttribute("numPagAct3", "N");
+		modelo.addAttribute("numPagAct4", "N" );
+		modelo.addAttribute("numPagAct5", "N" );
+	
+	   
+  }
    
 }
