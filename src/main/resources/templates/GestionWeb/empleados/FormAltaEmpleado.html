@@ -189,7 +189,7 @@ h5 {
 				</div>
 				<div class="col-md-2 mb-4">
 					<label for="labelImpBrutoAnu" th:text="'Sueldo bruto anual' "></label>
-					<input type="text" class="form-control" th:id="idImpBrutoAnual" th:name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10">
+						<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:value="${#numbers.formatDecimal(impBrutoAnualWeb,3,2,'COMMA')}" th:maxlength="8">
 				</div>
   			</div>
  		 </div>

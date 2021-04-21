@@ -95,7 +95,8 @@ public class ControllerWebProyectos {
 	 
 	 lPrueba1.add(prueba1);
 
-	 modelo.addAttribute("lprueba", lPrueba1);
+	// modelo.addAttribute("lprueba", lPrueba1);
+	
 	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
 	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
 	 

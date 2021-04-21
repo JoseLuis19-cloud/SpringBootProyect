@@ -44,7 +44,7 @@ public class Proyecto implements Serializable {
 	
 	@Column(name = "IMP_PROYECTO")
 	private Long impProyecto;
-	
+
 	@Column(name = "UBICACION_PROYECTO")
 	private String ubicacionProyecto;
 
