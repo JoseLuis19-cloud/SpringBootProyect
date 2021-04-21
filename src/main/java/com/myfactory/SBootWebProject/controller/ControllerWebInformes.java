@@ -82,7 +82,6 @@ public class ControllerWebInformes {
 		return "gestionWeb/informes/InformesAplicacion.html";
 	}
 	
-	
 	@RequestMapping("/informeempleado")
 	public String informeEmpleado(Model modelo) {
 	   try
