@@ -54,6 +54,13 @@ public class ControllerWebInformes {
 	@Value("${path.MACOSGeneracionPDF}")
 	private String pathDescargaPDFMacOS;
 	
+	@RequestMapping("/forminformeusuarios")
+	public String formInformeUsuarios(Model modelo) {
+		
+	  modelo.addAttribute("datosInformes", "1");
+	 return "GestionWeb/informes/FormInformeUsuarios.html";
+	}
+ 
 	@RequestMapping("/informeusuarios")
 	public String informeUsuarios(Model modelo) {
 	   try
