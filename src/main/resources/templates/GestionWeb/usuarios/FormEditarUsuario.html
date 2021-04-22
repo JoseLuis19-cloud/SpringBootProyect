@@ -55,6 +55,8 @@ h5 {
 
 	<div class="container-fluid">
 	
+	 <div class="alert alert-danger"  th:if="${errorValidacion}" th:text="'Cod. Error: ' + ${mensajeError}"></div>
+	
 	<form action="#" th:action="@{/gestionWeb/usuarios/modificarusuario}" th:object="${usuarioWeb}" method="post">
 	
 		<input type="hidden" th:id="'idIdUsuarioHidden'" th:name="'idUsuarioHidden'"  th:field="*{idUsuarioWeb}" />	 

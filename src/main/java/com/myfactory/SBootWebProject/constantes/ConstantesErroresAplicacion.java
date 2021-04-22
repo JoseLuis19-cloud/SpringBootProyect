@@ -1,6 +1,5 @@
 package com.myfactory.SBootWebProject.constantes;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,21 +8,17 @@ public class ConstantesErroresAplicacion {
 	// Errores messages
 	public static final int COD_ERROR_FOR_FECHA = 10;
 	public static final String ERROR_FORMATO_FECHA = "El formato de la fecha introducida no es correcta";
-
 	
-	public static final String ERROR_ALTAEXP_VL = "El interesado tiene registros de alta en Vida Laboral. No se puede dar de alta el expediente.";
-
+	public static final int COD_ERROR_USUARIO_DUPLICADO = 20;
+	public static final String ERROR_USUARIO_DUPLICADO = "Error username del Usuario esta es duplicado";
 	
-	public static final String ERROR_GENDOC_GUARDAR_ANEXO = "No es posible generar un documento de tipo Anexo.";
+	public static final int COD_ERROR_FULLNAME_DUPLICADO = 21;
+	public static final String ERROR_FULLNAME_DUPLICADO = "Error fullname del Usuario esta es duplicado";
+	
+	public static final int COD_ERROR_EMAIL_DUPLICADO = 30;
+	public static final String ERROR_EMAIL_DUPLICADO = "El email ya esta asignado a otro usuario";
 
-
-	public static final String MODALIDAD_COTIZACION_0 ="2 - SISTEMA POR JORNADAS REALES (613)1";
 	public static final List<Integer> TR_VL_EMPLEO = Arrays.asList(new Integer[] { 60, 61, 62, 63, 64 });
-
-	 
-
-	public static final Boolean FLUJO_RETRY_XML = true;
-
 	// Tipos Expediente
 	// Control de extensiones
 	public static String[] EXTENSIONES_NO_PERMITIDAS = { "ade", "adp",

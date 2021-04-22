@@ -90,31 +90,31 @@ h5 {
 					</div>
 				</div>				
 				<div class="form-row">
-					<div class="col-md-6 mb-3">
-					    <label for="validationFecAltaUsu">Fec. Alta Usuario</label>
-       					<input type="text" class="form-control" id="idFecAltaUsu" name="fecAltaUsu"  th:value="${#calendars.format(fecAltaUsuarioWeb, 'dd/MM/yyyy')}"  th:maxlength="10" th:readonly="true" />
+					<div class="col-md-2 mb-3">
+					    <label for="labelFecAltaUsu">Fec. Alta Usuario</label>
+       					<input type="text" class="form-control" id="idFecAltaUsu" name="fecAltaUsu" th:field="*{fecAltaUsuarioWeb}" th:value="${#calendars.format(fecAltaUsuarioWeb, 'dd/MM/yyyy')}"  th:readonly="true" />
 					</div>
 
-					<div class="col-md-3 mb-3">
+					<div class="col-md-5 mb-3">
 					 	<div class="form-check">
 						 	<br>
-						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input" th:readonly="true" />
-							<label for="validationIndActivadoWeb" th:text="'Activar Usuario:' " class="form-check-label"></label>					
+						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input" th:readonly="true" th:disabled="disabled"/>
+							<label for="validationIndActivadoWeb" th:text="'Usuario activado:' " class="form-check-label"></label>					
 						</div>
 					</div>
 					
-					<div class="col-md-3 mb-3">
+					<div class="col-md-5 mb-3">
 						<br>
 						<div class="form-check">
-							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input" th:readonly="true" />
-							<label for="validationIndEmpleadoWeb" th:text="'Es empleado?:' " class="form-check-label"></label>	
+							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input" th:readonly="true" th:disabled="disabled" />
+							<label for="validationIndEmpleadoWeb" th:text="'Es empleado:' " class="form-check-label"></label>	
 						</div>
 					</div>
 				</div>
 				
 				<div class="form-row">
-				<div class="col-md-4 mb-3"></div>
-				<div class="col-md-3 mb-3">
+				<div class="col-md-5 mb-3"></div>
+				<div class="col-md-2 mb-3">
 						<label for="labelFecBajaUsuario">Fec. Baja usuario</label>
 						<div class="input-group">
 							<div class="input-group-addon">
@@ -144,9 +144,10 @@ h5 {
 	
 	</div>
 	
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-  	<script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
-  	<script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
  
   <script th:inline="javascript">
  	$(function () { 	

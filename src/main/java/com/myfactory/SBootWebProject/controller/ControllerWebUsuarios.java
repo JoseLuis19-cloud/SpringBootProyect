@@ -2,7 +2,9 @@ package com.myfactory.SBootWebProject.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -15,8 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
+import com.myfactory.SBootWebProject.constantes.ConstantesErroresAplicacion;
+import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.security.GeneradorEncriptacion;
@@ -134,10 +140,35 @@ public class ControllerWebUsuarios {
 			BindingResult resultValidacion,
 			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
 		
-	   Set <Role> setRoles = new HashSet<>();  
-	   User usuarioNuevo = validarUsuario(beanUsuarioWeb, codRole, false);
+		 BeanErrorValidacion datosError = null;
+		// Set <Role> setRoles = new HashSet<>();  
+		 Map<String, Object> resultValUsuario;
+		 User usuario ;
+		 
+		 resultValUsuario = validarUsuario(beanUsuarioWeb, codRole, false);
 
-	   if ( usuarioNuevo.getPassword( ) != null )
+		 datosError = (BeanErrorValidacion) resultValUsuario.get("errorValidacion");
+		
+		 if (datosError.getCodError().intValue() != 0 ) 
+		    {
+			 modelo.addAttribute("errorValidacion" , true);
+			 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+			 
+			 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+			 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+			 return "GestionWeb/usuarios/FormInsertarUsuario";    
+		    }
+		  else
+		    {
+			 usuario = (User) resultValUsuario.get("empleadoValidacion");	 
+		  // Dar de alta Usuario
+			 usuario = servJPAUsuario.insertarUsuario(usuario);	
+				
+			 return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+		    }
+		 
+
+	/*   if ( usuarioNuevo.getPassword( ) != null )
 	 	  {
 		   usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb());
 		   usuarioNuevo.setEmail(beanUsuarioWeb.getEmailWeb());
@@ -153,12 +184,14 @@ public class ControllerWebUsuarios {
 		   usuarioNuevo.setRoles(setRoles);
 
 		   servJPAUsuario.insertarUsuario(usuarioNuevo);
+		   
+		   return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
 	 	  }
-		
-		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
-		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+	   else
+	   	 {
+		   modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		   return "GestionWeb/usuarios/FormInsertarUsuario"; 
+	   	 } */
 	}
 	
 	@RequestMapping(value = "/formbajausuario")
@@ -204,17 +237,35 @@ public class ControllerWebUsuarios {
 			@Valid @ModelAttribute("formUsuarioWeb") BeanUsuarioWeb beanUsuarioWeb, 
 			BindingResult resultValidacion,
 			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
+		
+		
+		    BeanErrorValidacion datosError = null;
+			// Set <Role> setRoles = new HashSet<>();  
+			 Map<String, Object> resultValUsuario;
+			 User usuario ;
+			 
+			 resultValUsuario = validarUsuario(beanUsuarioWeb, codRole, false);
 
-	  User usuario ;	
-	  usuario = validarUsuario(beanUsuarioWeb, codRole, true);
-	 	
-	   if ( usuario.getPassword() != null )
-	 	  {
-		   servJPAUsuario.modificarUsuario(usuario);
-	 	  }
-	   // Pintar el error en pantalla mensajeErrorActualizacion
-	
-		return "redirect:/gestionWeb/usuarios/" + "pagusuarios";	
+			 datosError = (BeanErrorValidacion) resultValUsuario.get("errorValidacion");
+			
+			 if (datosError.getCodError().intValue() != 0 ) 
+			    {
+				 modelo.addAttribute("errorValidacion" , true);
+				 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+				 
+				 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+				 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+				 return "GestionWeb/usuarios/FormEditarUsuario";    
+			    }
+			  else
+			    {
+				 usuario = (User) resultValUsuario.get("empleadoValidacion");	 
+			  // Dar de alta Usuario
+				 servJPAUsuario.modificarUsuario(usuario);
+					
+				 return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
+			    }
+ 
 	}
 	
 	@RequestMapping(value = "/formcambiarpass")
@@ -275,73 +326,73 @@ public class ControllerWebUsuarios {
  	}
 	
 	
-	public User validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole, Boolean esModificacion) {
+	public Map<String, Object> validarUsuario(BeanUsuarioWeb beanUsuarioWeb, String codRole, Boolean esModificacion) {
 		
 	Boolean userError = new Boolean(false);
 	User usuarioNuevo = new User();
 	Set <Role> setRoles = new HashSet<>(); 
-		 
+	Map<String, Object> resultadoValidacion = new HashMap<>();
+	BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
+ 
 	mensajeErrorActualizacion = "";
 		 
 	if (! esModificacion ) 
 		{
-			if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
-				System.out.println("Error username del Usuario esta es duplicado");
-				mensajeErrorActualizacion= "Error username del Usuario esta es duplicado";
-				userError = true;
+		if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim() )){
+			datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_FULLNAME_DUPLICADO);
+			datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_FULLNAME_DUPLICADO );
+			userError = true;
 			}
 		
 			if (! userError) {
-				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
-					System.out.println("Error el email esta duplicado");
-					mensajeErrorActualizacion= "Error el email esta duplicado";
+				if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
+					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_USUARIO_DUPLICADO);
+					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_USUARIO_DUPLICADO);
 					userError = true;
 				}
-				}
-		
+			}
+			
 			if (! userError) {
-				if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim() )){
-					System.out.println("Error fullname del Usuario esta duplicado");
-					mensajeErrorActualizacion= "Error fullname del Usuario esta duplicado";
+				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
+					System.out.println("Error el email esta duplicado");
+					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_EMAIL_DUPLICADO);
+					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_EMAIL_DUPLICADO);
 					userError = true;
 					}
 				}
 		}
 	else
 	{	
-		
 		usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb() ) ;	
-		
 		User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get();
 		
 		if ( ! beanUsuarioWeb.getUsernameWeb().trim().equals( usuario.getUsername() )  ) {
 			
-			if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
-				System.out.println("Error username del Usuario esta es duplicado");
-				mensajeErrorActualizacion= "Error username del Usuario esta es duplicado";
-				userError = true;
-			}
- 
-		}
-	
-		if (! userError) {
-			if ( ! beanUsuarioWeb.getEmailWeb().trim().equals( usuario.getEmail() ) ) {
-				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
-					System.out.println("Error el email esta duplicado");
-					mensajeErrorActualizacion= "Error el email esta duplicado";
-					userError = true;
-				}
-			}
-		}
-	
-		if (! userError) {
 			if ( ! beanUsuarioWeb.getFullNameWeb().trim().equals( usuario.getFullName() ) ) {
 				if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim() )){
-					System.out.println("Error fullname del Usuario esta duplicado");
-					mensajeErrorActualizacion= "Error fullname del Usuario esta duplicado";
+					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_FULLNAME_DUPLICADO);
+					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_FULLNAME_DUPLICADO );
 					userError = true;
 					}
 				}
+		}
+
+		if (! userError) {
+			if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
+				datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_USUARIO_DUPLICADO);
+				datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_USUARIO_DUPLICADO);
+				userError = true;
+			}
+		}
+		
+		if (! userError) {
+			if ( ! beanUsuarioWeb.getEmailWeb().trim().equals( usuario.getEmail() ) ) {
+				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
+					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_EMAIL_DUPLICADO);
+					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_EMAIL_DUPLICADO);
+					userError = true;
+				}
+			}
 		}
 	} // Fin if principal
 		 
@@ -365,6 +416,10 @@ public class ControllerWebUsuarios {
 		
 		usuarioNuevo.setRoles(setRoles);
 		}
-		return usuarioNuevo;
+	
+		resultadoValidacion.put("empleadoValidacion", usuarioNuevo);
+		resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
+
+		return resultadoValidacion;
 	}
 }

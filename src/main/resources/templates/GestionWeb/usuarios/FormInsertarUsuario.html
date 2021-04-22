@@ -50,10 +50,11 @@ h5 {
 </head>
 
 <body>
-
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 
 	<div class="container-fluid">
+	
+	 <div class="alert alert-danger"  th:if="${errorValidacion}" th:text="'Cod. Error: ' + ${mensajeError}"></div>
 	
 	 <form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
 	
@@ -82,7 +83,7 @@ h5 {
 						<div class="col-md-4 mb-3">
 							<label for="validationPasswordWeb" th:text="'Password:' "></label>
 							<input type="text" class="form-control" id="idPasswordWeb"
-								th:field="*{passwordWeb}" th:maxlength="25" required>
+								th:field="*{passwordWeb}" th:maxlength="10" required>
 						</div>
 					</div>				
 					<div class="form-row">
@@ -97,7 +98,6 @@ h5 {
 						 	<br>
 						 		<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input"/>
 								<label for="validationIndActivadoWeb" th:text="'Activar Usuario:' " class="form-check-label"></label>
-								
 							</div>
 						</div>
 						<div class="col-md-3 mb-3">
