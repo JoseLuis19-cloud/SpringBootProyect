@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
+import com.myfactory.SBootWebProject.beanForm.BeanFacturacionProyectoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanPrueba1;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
@@ -39,9 +40,11 @@ import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Empresa;
+import com.myfactory.SBootWebProject.model.FacturacionProyecto;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAFacturacionProyecto;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAProyecto;
@@ -52,13 +55,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 public class ControllerWebProyectos {
 	
 	@Autowired
-	ServJPAMenusUsuario servJPAMenusUsuario;
-	
-	@Autowired
-	ServJPAUsuario servJPAUsuario;
-
-	@Autowired
-	ServJPAMenu servJPAMenu;
+	ServJPAFacturacionProyecto servJPAFacturacionProyecto;
 	
 	@Autowired
 	public BeanUsuarioSession beanUsuarioSession;
@@ -119,6 +116,57 @@ public class ControllerWebProyectos {
 		servJPAProyecto.altaProyecto(nuevoProyecto);
 		
 		return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
+	}
+	
+	
+	@GetMapping("/formeditarproyecto")
+ 	public String formEditarProyecto(Model modelo)  {
+		
+	 BeanProyectoWeb datosProyectoWeb = new BeanProyectoWeb ();
+			
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 
+	 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
+	 obtenerEmpresasDisponibles(listEmpresasDisponibles);
+	 
+	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
+	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
+	 
+	 BeanPrueba1 prueba1 = new BeanPrueba1();
+	 prueba1.setApellidosWeb("1");
+	 prueba1.setNombreWeb("2");
+	 
+	 lPrueba1.add(prueba1);
+
+	// modelo.addAttribute("lprueba", lPrueba1);
+	
+	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
+	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
+	 
+	 modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
+	 
+	 return "GestionWeb/proyectos/FormAltaProyecto";
+	}
+	
+	@GetMapping("/formfacturacionproyecto")
+ 	public String formFacturacionProyecto(Model modelo)  {
+		
+	 BeanFacturacionProyectoWeb datosFacturacionProyectoWeb = new BeanFacturacionProyectoWeb();
+	 
+	 Integer idFacturaProyecto = new Integer(1);
+	 FacturacionProyecto facturacionProyecto = servJPAFacturacionProyecto.buscarIdProyectoFacturacion(idFacturaProyecto).get();
+ 
+			
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 
+	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
+	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
+	 
+	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
+	 
+	 modelo.addAttribute("datosFacturacionProyecto", facturacionProyecto);
+	 
+	 return "GestionWeb/proyectos/FormFacturacionProyecto";
 	}
 	
 	@RequestMapping("/pagproyectos")

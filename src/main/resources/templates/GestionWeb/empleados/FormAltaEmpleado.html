@@ -147,23 +147,31 @@ h5 {
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-4 mb-4">
+					<div class="col-md-3 mb-5">
 						<label for="labelNIF" th:text="'NIF' "></label>
 						<input type="text" class="form-control" th:id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
 					</div>
-					<div class="col-md-2 mb-4">
-						<label for="labelAltaEmpresa" th:text="'Fecha Alta Empleado' "></label>
-           				 <input type="text" class="form-control" th:id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}" th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}">
+					<div class="col-md-2 mb-5">
+						<label for="labelFecEmpleado">Fec. alta empleado</label>
+						<div class="input-group">
+							<div class="input-group-addon">
+       						 <i class="fa fa-calendar"> </i>
+      					 	</div>
+       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleladoWeb}" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
+						</div>
 					</div>
-					
-					<div class="col-md-2 mb-4">
+					<div class="col-md-2 mb-5">
 						<label for="labelTelefAlter" th:text="'Teléfono alternativo' "></label>
 						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14">
 					</div>
-					<div class="col-md-4 mb-4">
-						<label for="labelemail" th:text="'email empleado' "></label>
+					<div class="col-md-3 mb-5">
+						<label for="labelEmail" th:text="'email empleado' "></label>
 						<input type="text" class="form-control" th:id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="35" th:classappend="${#fields.hasErrors('emailWeb')}? is-invalid" required>
 						<p th:if="${#fields.hasErrors('emailWeb')}" th:errors="*{emailWeb}">Formato no correcto del email</p>
+					</div>
+					<div class="col-md-2 mb-5">
+						<label for="labelImpFacturadoMes">Imp Factura Mes</label>
+						<input type="text" class="form-control" id="impFacturadoMes" th:field="*{impFacturadoMes}" th:value="${#numbers.formatDecimal(impFacturadoMes,3,2,'COMMA')}" th:maxlength="8">
 					</div>
 				</div>
 				
@@ -248,7 +256,7 @@ h5 {
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i> 
       					 		</div>
-       							<input type="text" class="form-control" th:id="idFecAltaUsuario" name="fecAltaUsuario"  th:maxlength="10" th:readonly="true" required />
+       							<input type="text" class="form-control" th:id="idFecAltaUsuario" th:name="fecAltaUsuario"  th:maxlength="10" th:readonly="true" required />
 							</div>
 						</div>
 						<div class="col-md-5 mb-3">

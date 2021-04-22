@@ -142,11 +142,11 @@ h5 {
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-3 mb-4">
+					<div class="col-md-3 mb-5">
 						<label for="labelNIF" th:text="'NIF' "></label>
 						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
 					</div>
-					<div class="col-md-2 mb-4">
+					<div class="col-md-2 mb-5">
 						<label for="labelFecEmpleado">Fec. alta empleado</label>
 						<div class="input-group">
 							<div class="input-group-addon">
@@ -155,14 +155,18 @@ h5 {
        						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleladoWeb}" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
 						</div>
 					</div>
-					<div class="col-md-3 mb-4">
+					<div class="col-md-2 mb-5">
 						<label for="validaTelefAlter" th:text="'Teléfono alternativo' "></label>
 						<input type="text" class="form-control" id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14" th:classappend="${#fields.hasErrors('telefono2')}? is-invalid">
 						<small class="form-text text-danger" th:if="${#fields.hasErrors('telefono2')}" th:errors="*{telefono2}"> Teléfono alternativo es obligatorio</small>
 					</div>
-					<div class="col-md-4 mb-4">
+					<div class="col-md-3 mb-5">
 						<label for="labelEmailEmpleado">email empleado</label>
 						<input type="text" class="form-control" id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="30" required>
+					</div>
+					<div class="col-md-2 mb-5">
+						<label for="labelImpFacturadoMes">Imp Factura Mes</label>
+						<input type="text" class="form-control" id="impFacturadoMes" th:field="*{impFacturadoMes}" th:value="${#numbers.formatDecimal(impFacturadoMes,3,2,'COMMA')}" th:maxlength="8">
 					</div>
 				</div>
 				

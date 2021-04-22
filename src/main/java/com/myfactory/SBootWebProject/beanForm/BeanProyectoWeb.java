@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
 
 @Component
-@SessionScope
+@RequestScope
 public class BeanProyectoWeb  implements Serializable , Cloneable{
 	
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,11 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 	private Long impProyectoWeb;
 	
 	private String  ubicacionProyectoWeb;
-	 
+	
+	private String  nomGerenteProyectoWeb;
+
+	private String  infoComplementariaWeb;
+
 	public BeanProyectoWeb() {
 	}
 	    
@@ -80,6 +85,22 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 
 	public void setFecFinProyectoWeb(String fecFinProyectoWeb) {
 		this.fecFinProyectoWeb = fecFinProyectoWeb;
+	}
+	
+	public String getInfoComplementariaWeb() {
+		return infoComplementariaWeb;
+	}
+
+	public void setInfoComplementariaWeb(String infoComplementariaWeb) {
+		this.infoComplementariaWeb = infoComplementariaWeb;
+	}
+
+	public String getNomGerenteProyectoWeb() {
+		return nomGerenteProyectoWeb;
+	}
+
+	public void setNomGerenteProyectoWeb(String nomGerenteProyecto) {
+		this.nomGerenteProyectoWeb= nomGerenteProyecto;
 	}
 
 

@@ -93,8 +93,11 @@ public class Empleado  implements Serializable {
 	
 	@Column(name = "IMP_BRUTO_ANUAL", nullable = true)
 	private Float impBrutoAnual;
-	
 
+	// Sin IVA
+	@Column(name = "IMP_FACTURADO_MES", nullable = true)
+	private Float impFacturadoMes;
+	
 	public Long getIdEmpleado() {
 		return idEmpleado;
 	}
@@ -224,5 +227,12 @@ public class Empleado  implements Serializable {
 	}
 	public void setImpBrutoAnual(Float impBrutoAnual) {
 		this.impBrutoAnual = impBrutoAnual;
+	}
+	
+	public Float getImpFacturadoMes() {
+		return impFacturadoMes;
+	}
+	public void setImpFacturadoMes(Float impFacturadoMes) {
+		this.impFacturadoMes = impFacturadoMes;
 	}
 }

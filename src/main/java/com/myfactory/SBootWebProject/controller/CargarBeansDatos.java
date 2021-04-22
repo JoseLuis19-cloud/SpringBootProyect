@@ -124,14 +124,9 @@ public class CargarBeansDatos  implements Serializable {
 		  beanEmpleadoWeb.setCodPuestoTrabajoWeb(empleado.getPuestoTrabajo().getIdPuestoTrabajo());	  
 		  
 		  beanEmpleadoWeb.setCodPaisWeb( empleado.getPais().getIdPais());
-		  if (empleado.getImpBrutoAnual() != null)
-		  	 {
-			  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual());
-		  	 }
-		   else
-		    {
-			  beanEmpleadoWeb.setImpBrutoAnualWeb(0F);
-		    }
+	
+		  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual());
+		  beanEmpleadoWeb.setImpFacturadoMes( empleado.getImpFacturadoMes());
 		  
 		  return beanEmpleadoWeb;
 	  }

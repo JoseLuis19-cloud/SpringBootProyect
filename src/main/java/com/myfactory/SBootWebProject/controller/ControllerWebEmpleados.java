@@ -234,7 +234,7 @@ public class ControllerWebEmpleados {
 		try
 		{
 		 Calendar calendar1 = Calendar.getInstance();
-		 calendar1.setTime( dateFormat.parse(fecBajaEmpleado) );
+		 calendar1.setTime(dateFormat.parse(fecBajaEmpleado));
 		
 		 empleado.get().setFecBajaEmplelado(calendar1) ;
 		 empleado.get().setIndbajaEmpleado(true); 
@@ -263,6 +263,7 @@ public class ControllerWebEmpleados {
 		
 		beanEmpleadoWeb.setFecAltaEmpleladoWeb(Calendar.getInstance()); 
 		beanEmpleadoWeb.setImpBrutoAnualWeb(0F);
+		beanEmpleadoWeb.setImpFacturadoMes(0F);
 		
 		beanEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
 		beanEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
@@ -895,6 +896,7 @@ public class ControllerWebEmpleados {
 		empleado.setNumCuentaCorriente(datosEmpleadoWeb.getNumCuentaCorrienteWeb());
 		empleado.setNumSeguridaSocial(datosEmpleadoWeb.getNumSeguridaSocialWeb());
 		
+		empleado.setImpFacturadoMes(datosEmpleadoWeb.getImpFacturadoMes() );
 	
 		// empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb());
 		

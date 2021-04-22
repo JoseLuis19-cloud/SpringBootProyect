@@ -70,6 +70,7 @@
 							<th th:text="'Fec. Inicio Proyecto'"></th>
 							<th th:text="'Fec. Fin Proyecto'"></th>
 							<th th:text="'Editar'"></th>
+							<th th:text="'Facturacion'"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -81,7 +82,8 @@
 							<td th:text="${proyecto.nomProyecto}"></td>
 							<td th:text="${#calendars.format(proyecto.fecIniProyecto, 'dd/MMM/yyyy')}"></td>
 							<td th:text="${#calendars.format(proyecto.fecFinProyecto, 'dd/MMM/yyyy')}"></td>
-							<td><a th:href="@{/gestionWeb/proyecto/formeditarproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Editar</a></td>
+							<td><a th:href="@{/gestionWeb/proyectos/formeditarproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Editar</a></td>
+							<td><a th:href="@{/gestionWeb/proyectos/formfacturacionproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Facturación</a></td>
 						</tr>
 					</tbody>
 				</table>
