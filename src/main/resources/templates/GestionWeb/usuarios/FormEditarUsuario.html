@@ -85,9 +85,6 @@ h5 {
 								th:field="*{usernameWeb}" th:maxlength="25" required>
 					</div>
 					<div class="col-md-4 mb-3">
-						<label for="validationPasswordWeb" th:text="'Password:' "></label>
-						<input type="text" class="form-control" id="idPasswordWeb"
-								th:field="*{passwordWeb}" th:maxlength="25" required>
 					</div>
 				</div>				
 				<div class="form-row">
@@ -100,15 +97,15 @@ h5 {
 					<div class="col-md-3 mb-3">
 					 	<div class="form-check">
 						 	<br>
-						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input"/>
-							<label for="validationIndActivadoWeb" th:text="'Activar Usuario:' " class="form-check-label"></label>					
+						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input" th:disabled="disabled"/>
+							<label for="validationIndActivadoWeb" th:text="'Usuario activado:' " class="form-check-label"></label>					
 						</div>
 					</div>
 					<div class="col-md-3 mb-3">
 						<br>
 						<div class="form-check">
 							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input"/>
-							<label for="validationIndEmpleadoWeb" th:text="'Empleado:' " class="form-check-label"></label>	
+							<label for="validationIndEmpleadoWeb" th:text="'Es empleado:' " class="form-check-label"></label>	
 						</div>
 					</div>
 					</div>

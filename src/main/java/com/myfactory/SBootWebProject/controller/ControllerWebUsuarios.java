@@ -238,13 +238,13 @@ public class ControllerWebUsuarios {
 			BindingResult resultValidacion,
 			@RequestParam(value = "rolAplicacion", required = true) String codRole) {
 		
-		
+		    boolean esModificacion = true;
 		    BeanErrorValidacion datosError = null;
 			// Set <Role> setRoles = new HashSet<>();  
 			 Map<String, Object> resultValUsuario;
 			 User usuario ;
 			 
-			 resultValUsuario = validarUsuario(beanUsuarioWeb, codRole, false);
+			 resultValUsuario = validarUsuario(beanUsuarioWeb, codRole, esModificacion);
 
 			 datosError = (BeanErrorValidacion) resultValUsuario.get("errorValidacion");
 			
@@ -333,7 +333,8 @@ public class ControllerWebUsuarios {
 	Set <Role> setRoles = new HashSet<>(); 
 	Map<String, Object> resultadoValidacion = new HashMap<>();
 	BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
- 
+	User usuario = null;
+	
 	mensajeErrorActualizacion = "";
 		 
 	if (! esModificacion ) 
@@ -364,7 +365,8 @@ public class ControllerWebUsuarios {
 	else
 	{	
 		usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb() ) ;	
-		User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get();
+		 usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get();
+		// Si cambia algun campo importante los buscamos si  ya existe y no esta duplicado.
 		
 		if ( ! beanUsuarioWeb.getUsernameWeb().trim().equals( usuario.getUsername() )  ) {
 			
@@ -378,15 +380,18 @@ public class ControllerWebUsuarios {
 		}
 
 		if (! userError) {
-			if (servJPAUsuario.findByName(beanUsuarioWeb.getUsernameWeb().trim()) ) {
-				datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_USUARIO_DUPLICADO);
-				datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_USUARIO_DUPLICADO);
-				userError = true;
+			if (! usuario.getUsername().equals(beanUsuarioWeb.getUsernameWeb().trim()) ) {
+				if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim()) )
+					{
+					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_USUARIO_DUPLICADO);
+					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_USUARIO_DUPLICADO);
+					userError = true;
+					}
 			}
 		}
 		
 		if (! userError) {
-			if ( ! beanUsuarioWeb.getEmailWeb().trim().equals( usuario.getEmail() ) ) {
+			if ( ! usuario.getEmail().equals(beanUsuarioWeb.getEmailWeb().trim() ) ) {
 				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
 					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_EMAIL_DUPLICADO);
 					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_EMAIL_DUPLICADO);
@@ -396,27 +401,33 @@ public class ControllerWebUsuarios {
 		}
 	} // Fin if principal
 		 
-	if (! userError )
+	if (! userError && ! esModificacion )
 	 	{
 	 // Encriptar password tecleado por el usuario
 		GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
 		String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
 			
 		usuarioNuevo.setPassword(passordEncriptada); 	
+
+		}
+	
+	if (! userError)
+	  {
 		usuarioNuevo.setEmail(beanUsuarioWeb.getEmailWeb());
-		usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
+		usuarioNuevo.setEnabled(usuario.isEnabled());
 		usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
 		usuarioNuevo.setFullName(beanUsuarioWeb.getFullNameWeb());
 		usuarioNuevo.setUsername(beanUsuarioWeb.getUsernameWeb());
 		usuarioNuevo.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
+		
+		usuarioNuevo.setPassword(usuario.getPassword());
 			
 		Role role = new Role();
 		role.setId(new Integer(codRole.trim()));
 		setRoles.add(role);
 		
 		usuarioNuevo.setRoles(setRoles);
-		}
-	
+	  }	
 		resultadoValidacion.put("empleadoValidacion", usuarioNuevo);
 		resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
 
