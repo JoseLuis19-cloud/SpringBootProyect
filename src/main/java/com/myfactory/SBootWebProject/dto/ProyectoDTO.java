@@ -1,63 +1,57 @@
 package com.myfactory.SBootWebProject.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import java.sql.Date;
  
+
 public class ProyectoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Integer idProyecto;
-	private String nomProyecto;
-	private Calendar fecIniProyecto;
-	private Calendar fecFinProyecto;
-	private Long impProyecto;
+	private Integer ID_PROYECTO;
+	private String NOM_PROYECTO;
+	private Date FEC_INI_PROYECTO;
+	private Date FEC_FIN_PROYECTO;
+	private Float IMP_PROYECTO;
+	private String UBICACION_PROYECTO;
 	
-	public Integer getIdProyecto() {
-		return idProyecto;
+	
+	public Integer getID_PROYECTO() {
+		return ID_PROYECTO;
 	}
-	public void setIdProyecto(Integer idProyecto) {
-		this.idProyecto = idProyecto;
+	public void setID_PROYECTO(Integer iD_PROYECTO) {
+		ID_PROYECTO = iD_PROYECTO;
 	}
-	public String getNomProyecto() {
-		return nomProyecto;
+	public String getNOM_PROYECTO() {
+		return NOM_PROYECTO;
 	}
-	public void setNomProyecto(String nomProyecto) {
-		this.nomProyecto = nomProyecto;
+	public void setNOM_PROYECTO(String nOM_PROYECTO) {
+		NOM_PROYECTO = nOM_PROYECTO;
 	}
-	public Calendar getFecIniProyecto() {
-		return fecIniProyecto;
+	public Date getFEC_INI_PROYECTO() {
+		return FEC_INI_PROYECTO;
 	}
-	public void setFecIniProyecto(Calendar fecIniProyecto) {
-		this.fecIniProyecto = fecIniProyecto;
+	public void setFEC_INI_PROYECTO(Date fEC_INI_PROYECTO) {
+		FEC_INI_PROYECTO = fEC_INI_PROYECTO;
 	}
-	public Calendar getFecFinProyecto() {
-		return fecFinProyecto;
+	public Date getFEC_FIN_PROYECTO() {
+		return FEC_FIN_PROYECTO;
 	}
-	public void setFecFinProyecto(Calendar fecFinProyecto) {
-		this.fecFinProyecto = fecFinProyecto;
+	public void setFEC_FIN_PROYECTO(Date fEC_FIN_PROYECTO) {
+		FEC_FIN_PROYECTO = fEC_FIN_PROYECTO;
 	}
-	public Long getImpProyecto() {
-		return impProyecto;
+	public Float getIMP_PROYECTO() {
+		return IMP_PROYECTO;
 	}
-	public void setImpProyecto(Long impProyecto) {
-		this.impProyecto = impProyecto;
+	public void setIMP_PROYECTO(Float iMP_PROYECTO) {
+		IMP_PROYECTO = iMP_PROYECTO;
 	}
-	public String getUbicacionProyecto() {
-		return ubicacionProyecto;
+	public String getUBICACION_PROYECTO() {
+		return UBICACION_PROYECTO;
 	}
-	public void setUbicacionProyecto(String ubicacionProyecto) {
-		this.ubicacionProyecto = ubicacionProyecto;
+	public void setUBICACION_PROYECTO(String uBICACION_PROYECTO) {
+		UBICACION_PROYECTO = uBICACION_PROYECTO;
 	}
-	private String ubicacionProyecto;
 	
 	
 }

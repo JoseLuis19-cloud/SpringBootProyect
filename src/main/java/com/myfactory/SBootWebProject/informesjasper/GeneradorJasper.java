@@ -4,6 +4,7 @@ import java.beans.PropertyVetoException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -96,9 +97,6 @@ public class GeneradorJasper {
 
 	public JasperPrint generarInformeEmpleados(Iterator<Empleado> iterEmpleados) {
 		
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("usuario", "1234");
-		
 		List<EmpleadoDTO> listEmpleadoDTO = new ArrayList<EmpleadoDTO>();
 		Empleado empleado;
 		
@@ -121,9 +119,19 @@ public class GeneradorJasper {
 
 			String path = resourceLoader.getResource("classpath:" + REPORTE_JAPSER_EMPLEADOS).getURI().getPath();
 			JasperReport jasperReport = JasperCompileManager.compileReport(path);
-
-			JasperPrint reportGenerado = JasperFillManager.fillReport(jasperReport, parameters);
 			
+			// Adding the additional parameters to the pdf.
+	        final Map<String, Object> parameters = new HashMap<>();
+	        parameters.put("createdBy", "javacodegeek.com");
+
+			// Fetching the .jrxml file from the resources folder.
+	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeProyectos.jrxml");
+	     // Compile the Jasper report from .jrxml to .japser
+	        JasperReport report = JasperCompileManager.compileReport(stream);
+			
+			// JasperPrint reportGenerado = JasperFillManager.fillReport(jasperReport, parameters);
+			 JasperPrint reportGenerado = JasperFillManager.fillReport(report, parameters, dataSource);
+			 
 			return reportGenerado;
 			
 			} 
@@ -203,11 +211,13 @@ public class GeneradorJasper {
 				  proyecto = iterProyectos.next();
 				  ProyectoDTO proyectoDTO = new ProyectoDTO();
 				  
-				  proyectoDTO.setNomProyecto( proyecto.getNomProyecto()  );
-				  proyectoDTO.setFecIniProyecto( proyecto.getFecIniProyecto() );
-				  proyectoDTO.setFecFinProyecto( proyecto.getFecFinProyecto() );
-				  proyectoDTO.setImpProyecto( proyecto.getImpProyecto() );
-				  proyectoDTO.setUbicacionProyecto( proyecto.getUbicacionProyecto());
+				  proyectoDTO.setID_PROYECTO(proyecto.getIdProyecto());
+				  proyectoDTO.setNOM_PROYECTO(proyecto.getNomProyecto());
+
+			 	  proyectoDTO.setFEC_INI_PROYECTO( new java.sql.Date( proyecto.getFecIniProyecto().getTimeInMillis() ) );
+			 	  proyectoDTO.setFEC_FIN_PROYECTO( new java.sql.Date( proyecto.getFecFinProyecto().getTimeInMillis() ) );
+				  proyectoDTO.setIMP_PROYECTO(proyecto.getImpProyecto());
+				  proyectoDTO.setUBICACION_PROYECTO( proyecto.getUbicacionProyecto());
 				  
 				  listProyectoDTO.add(proyectoDTO);
 			    }
@@ -217,6 +227,9 @@ public class GeneradorJasper {
 			// Adding the additional parameters to the pdf.
 	        final Map<String, Object> parameters = new HashMap<>();
 	        parameters.put("createdBy", "javacodegeek.com");
+	    //    parameters.put("ROOT_DIR", "");
+	    //    parameters.put("IMAGE_DIR", "");
+	       
 			
 		// Fetching the .jrxml file from the resources folder.
 	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeProyectos.jrxml");

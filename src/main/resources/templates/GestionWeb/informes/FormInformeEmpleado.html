@@ -68,17 +68,22 @@ h5 {
   			<div class="col-1"></div>
   		</div>
   		
-		<div class="row">
-			<div class="col-1"></div>
-  			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
-  				
-			 </div>
-			<div class="col-1"></div>	
-		 </div>
-		 
+  		<div class="row">
+  			<div class="form-group">
+			<label for="labelFacturacionMes" th:text="'Empleados activos ' "></label>
+				<select class="form-control" th:name="empleados" th:id="iEempleados">
+						<option th:value="0" th:text="'Seleccionar Empleados activos' "></option>
+					<!--	<option th:each="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
+   						 			th:value="${pTrabajoEmple.idPuestoTrabajo}"
+  						  			th:text ="${pTrabajoEmple.desPuestoTrabajo}">
+  						</option>--> 
+    				</select>
+			</div>
+		</div>
+  	
  		<div class="row">
  			<div class="col-1"></div>
- 			<div class="col-2"><a th:href="@{/}" class="btn btn-primary" role="button">Volver</a></div>
+ 			<div class="col-2"></div>
  			<div class="col-5"></div>
  			<div class="col-3">	
 				<button type="submit" class="btn btn-primary">Generar Informe</button>

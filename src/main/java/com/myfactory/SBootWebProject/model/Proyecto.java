@@ -43,7 +43,7 @@ public class Proyecto implements Serializable {
 	private Calendar fecFinProyecto;
 	
 	@Column(name = "IMP_PROYECTO")
-	private Long impProyecto;
+	private Float impProyecto;
 
 	@Column(name = "UBICACION_PROYECTO")
 	private String ubicacionProyecto;
@@ -122,11 +122,11 @@ public class Proyecto implements Serializable {
 		this.fecFinProyecto = fecFinProyecto;
 	}
 	
-	public Long getImpProyecto() {
+	public Float getImpProyecto() {
 		return impProyecto;
 	}
 
-	public void setImpProyecto(Long impProyecto) {
+	public void setImpProyecto(Float impProyecto) {
 		this.impProyecto = impProyecto;
 	}
 

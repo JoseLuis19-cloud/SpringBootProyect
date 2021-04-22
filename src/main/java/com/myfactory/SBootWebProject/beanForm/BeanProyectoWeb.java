@@ -23,7 +23,7 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String fecFinProyectoWeb;
 
-	private Long impProyectoWeb;
+	private Float impProyectoWeb;
 	
 	private String  ubicacionProyectoWeb;
 	
@@ -55,11 +55,11 @@ public class BeanProyectoWeb  implements Serializable , Cloneable{
 		this.nomProyectoWeb = nomProyectoWeb;
 	}
 
-	public Long getImpProyectoWeb() {
+	public Float getImpProyectoWeb() {
 		return impProyectoWeb;
 	}
 
-	public void setImpProyectoWeb(Long impProyectoWeb) {
+	public void setImpProyectoWeb(Float impProyectoWeb) {
 		this.impProyectoWeb = impProyectoWeb;
 	}
 
