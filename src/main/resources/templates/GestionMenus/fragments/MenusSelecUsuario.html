@@ -19,20 +19,21 @@
 						</tr>
 					</thead>
 					<tbody class="table-striped">
-						<tr th:each="listMenuUsuApli, iterStat :${listMenuUsuApliWeb}">
+				  
+						<tr th:each="elemenMenuApli, iterStat :${listMenuUsuApliWeb}">
 						 	<td>
 						 		<div style="display: flex; justify-content: center; align-items: center;"> 
-								 <input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${iterStat.index}" th:name="checksMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listMenuUsuApli.idMenuWeb}" class="btn btn-primary btn-sm" />						
+								 <input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${iterStat.index}" th:name="checksMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${elemenMenuApli.idMenuUsuWeb}" class="btn btn-primary btn-sm" />						
 								</div>
 							</td>
-							<td th:text="${listMenuUsuApli.idMenuWeb}"></td>
-							<td th:text="${listMenuUsuApli.elementoMenu}"></td>
+							<td th:text="${elemenMenuApli.idMenuWeb}"></td>
+							<td th:text="${elemenMenuApli.elementoMenu}"></td>
 							<td>
-								<div th:id="'idDivMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" style="visibility:visible">
-							  		<a th:id="'idLinkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:name="'linkMostrarSubMenu' + ${listMenuUsuApli.idMenuWeb}" th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${listMenuUsuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
+								<div th:id="'idDivMostrarSubMenu' + ${iterStat.index}" style="visibility:visible">
+							  		<a th:id="'idLinkMostrarSubMenu' + ${iterStat.index}" th:name="'linkMostrarSubMenu' + ${iterStat.index}" th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${elemenMenuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
 							 	</div>
-							 	<input type="hidden" th:id="'idMenuHidden'+ ${listMenuUsuApli.idMenuWeb}" th:name="'menuHidden'+ ${iterStat.index}" th:value="${listMenuUsuApli.idMenuWeb}"/>
-								<input type="hidden" th:id="'idMenuUsuHidden'+ ${iterStat.index}" th:name="'menuUsuHidden'+ ${iterStat.index}" th:value="${listMenuUsuApli.idMenuUsuWeb}"/>
+							 	<input type="hidden" th:id="'idMenuHidden'+ ${iterStat.index}" th:name="'menuHidden'+ ${iterStat.index}" th:value="${elemenMenuApli.idMenuWeb}"/>
+								<input type="hidden" th:id="'idMenuUsuHidden'+ ${iterStat.index}" th:name="'menuUsuHidden'+ ${iterStat.index}" th:value="${elemenMenuApli.idMenuUsuWeb}"/>
 							</td>	
 						</tr>
 					</tbody>

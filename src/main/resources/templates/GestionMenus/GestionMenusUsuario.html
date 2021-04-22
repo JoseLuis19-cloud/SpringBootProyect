@@ -85,12 +85,13 @@
 			      return this.value;
 			    }).get();
 				  
-				  if ( arrValueCheckASupr.length > 9)
-		    	    {
-		    	    alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
-		    	    }
+				  if (arrValueCheckASupr.length > 9)
+		    	     {
+		    	      alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+		    	     }
 				  
-			 //   alert(arrValueCheckASupr);
+			       alert(arrValueCheckASupr);
+			       
 			 //   alert("arrValueCheckASupr " + arrValueCheckASupr.length);
 			   // var count = (arrValueCheckASupr.match(/,/g) || []).length;
 			   // alert("arrValueCheckASupr: " + count);
@@ -153,7 +154,8 @@
 				 alert("Debe seleccionar al menos un elemento a suprimir"); 
 				}
 			 else
-			  {
+			   {
+	 
 				if (arrValueCheckASupr.length == 0)
 					{
 					 alert("Debe seleccionar al menos un elemento a suprimir");
@@ -161,13 +163,14 @@
 				   else
 					{
 					 document.getElementById("idP2").style.display = "block";
-					 
 					 var ind = 0;
-					 for (var i=0; i<arrValueCheckASupr.length; i++)
-				 	  { 
+					 alert("valores del arrValueCheckASupr: "+ arrValueCheckASupr);
+					 for (var i=0; i < arrValueCheckASupr.length; i++)
+				 	  {
+						alert("arrValueCheckASupr[i]): " + arrValueCheckASupr[i] );
 					   	$("#idIdMenuHidden" + ind).val( arrValueCheckASupr[i]);
-					//  alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
-					   	$("#idIdMenuUsuHidden" + ind).val($("#idMenuUsuHidden" + i).val());
+					  // 	$("#idIdMenuUsuHidden" + ind).val($("#idMenuUsuHidden" + i).val());
+					   	alert("El valor que recogera el controler para actualizar: " + $("#idIdMenuUsuHidden" + ind).val() );
 					  	ind++;
 				 	 // idMenuSelec = arrValueCheck[i];
 			   	      }
@@ -181,19 +184,21 @@
 		function anadirElemento(objElemen, ind)
 	  	 {  
 		  alert(objElemen.checked);
+		  alert("el valor del check " + objElemen.value);
 		  alert(ind);
+		  
 		  if (objElemen.checked)
 			 {
-			 document.getElementById("idIdMenuUsuHidden"+indExp).value = document.getElementById("idMenuUsuHidden"+ind).value;
-		//	 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
-			 indExp = indExp + 1;
+			  alert("indExp: " + indExp);
+			  document.getElementById("idIdMenuUsuHidden"+indExp).value = objElemen.value;
+			  indExp = indExp + 1;
 			 }
 			else
-			{
-			 document.getElementById("idIdMenuUsuHidden"+indExp).value = "";
-		//	 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
-			 iindExp = indExp - 1;
-			}
+			 { 
+			  alert("indExp: " + indExp);
+			  document.getElementById("idIdMenuUsuHidden"+indExp).value = "";
+			  indExp = indExp - 1;
+			 }
 	  	 }
 		
 		function confirmarMenuUsuario()
@@ -256,9 +261,9 @@
  					<br/>
  					<br/>
  					<br/>
-				 	<a th:id="'idLinkAnadir'"      th:name="'linkAnadir'"  th:onclick="th:anadirElemenMenuUsuario()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
+				 	<a th:id="'idLinkAnadir'"      th:name="'linkAnadir'"  th:onclick="anadirElemenMenuUsuario()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
 					<br/>
-					<a th:id="'idLinkSuprimir'"    th:name="'linkSuprimir'" th:onclick="th:eliminarElemenMenuUsuario()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
+					<a th:id="'idLinkSuprimir'"    th:name="'linkSuprimir'" th:onclick="eliminarElemenMenuUsuario()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
 					<br/>
 					<a th:id="'idLinkAnadirTodos'" th:name="'linkAnadirTodos'" class="btn btn-colour-1" role="button">&#8920; Añadir todos</a>
 				</div> 
@@ -269,7 +274,7 @@
  			</div>
  		 
  			<div class="col-1"> </div>
- 			<p th:id="'idPMensaje'"> Los cambios en la asignación de menús se verán reflejados la siguiente vez que entre el usuario a la apliciación</p>
+ 			<p th:id="'idPMensaje'">Los cambios en la asignación de menús se verán reflejados la siguiente vez que entre el usuario a la apliciación</p>
 		</div>
 		<a th:id="'idLinkVolver'" th:name="'linkVolver'" th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-colour-1" role="button">Volver</a>
  
@@ -293,7 +298,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-        <button type="button" th:onclick="th:confirmarMenuUsuario()" class="btn btn-primary">Confirmar</button>
+        <button type="button" th:onclick="confirmarMenuUsuario()" class="btn btn-primary">Confirmar</button>
       </div>
     </div>
   </div>

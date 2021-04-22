@@ -3,11 +3,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
+   <link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+  	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
+    
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 <style>
 .navbar .dropdown-toggle, .navbar .dropdown-menu a {
 	cursor: pointer;
@@ -81,48 +84,46 @@
 
 <body>
 	<header th:fragment="menucabecera">
-	 <script th:inline="javascript">
-	function logoutSys()
-	{
-	 document.getElementById("idFormLogout").submit();		
-	}
-	 </script>
-		<div class="navbar navbar-expand-md navbar-dark bg-dark mb-4"
-			role="navigation">
+	
+	<script th:inline="javascript">
+	 function logoutSys()
+	  {
+	   document.getElementById("idFormLogout").submit();		
+	  }
+	</script>
+	
+	<div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
 			
-		 
-			<a class="navbar-brand" th:href="@{/}">Beigar</a>
+		<a class="navbar-brand" th:href="@{/}">Beigar</a>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarCollapse" aria-controls="navbarCollapse"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<ul class="navbar-nav mr-auto">
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
 
-					<li class="nav-item dropdown" th:each="elemenMenuPrincipal : ${opcionesMenuUsuario}">
-					<a class="nav-link dropdown-toggle" th:id="'dropdown'+ ${elemenMenuPrincipal.idMenuSesion}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${elemenMenuPrincipal.textoMenuSesion}"></a>
+			<li class="nav-item dropdown" th:each="elemenMenuPrincipal : ${opcionesMenuUsuario}">
+				<a class="nav-link dropdown-toggle" th:id="'dropdown'+ ${elemenMenuPrincipal.idMenuSesion}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${elemenMenuPrincipal.textoMenuSesion}"></a>
 
-						<ul class="dropdown-menu" th:aria-labelledby="'dropdown'+ ${elemenMenuPrincipal.idMenuSesion}" th:if="${not #lists.isEmpty(elemenMenuPrincipal.listBeanSubMenuN1UsuSession)}">
-							<th:block th:each="eleSubMenuN1 : ${elemenMenuPrincipal.listBeanSubMenuN1UsuSession}">
-								<li class="dropdown-item"><a th:href="${eleSubMenuN1.hrefAplicacionN1Session}" th:text="${eleSubMenuN1.textoSubMenuN1Session}"></a></li>
-							</th:block>
-						</ul>
-					</li>
-				</ul>
-        		<div class="navbar-brand" sec:authorize="isAuthenticated()">
-					<img src="/images/botonOff2.png" width="40" height="40" th:alt="desconectar" th:onclick="logoutSys();"></img>
-					<b><span>Usuario: </span><span sec:authentication="name"></span></b>
-						<form th:id="idFormLogout" th:action="@{/logout}" method="post">
-						<!-- 	<input type="submit" value="Logout" />  -->
-						</form>
-				</div>
+					<ul class="dropdown-menu" th:aria-labelledby="'dropdown'+ ${elemenMenuPrincipal.idMenuSesion}" th:if="${not #lists.isEmpty(elemenMenuPrincipal.listBeanSubMenuN1UsuSession)}">
+						<th:block th:each="eleSubMenuN1 : ${elemenMenuPrincipal.listBeanSubMenuN1UsuSession}">
+							<li class="dropdown-item"><a th:href="${eleSubMenuN1.hrefAplicacionN1Session}" th:text="${eleSubMenuN1.textoSubMenuN1Session}"></a></li>
+						</th:block>
+					</ul>
+				</li>
+			</ul>
+        	<div class="navbar-brand" sec:authorize="isAuthenticated()">
+				<img src="/images/botonOff2.png" width="40" height="40" th:alt="desconectar" th:onclick="logoutSys();"></img>
+				<b><span>Usuario: </span><span sec:authentication="name"></span></b>
+					<form th:id="idFormLogout" th:action="@{/logout}" method="post">
+				<!-- 	<input type="submit" value="Logout" />  -->
+					</form>
 			</div>
 		</div>
-		</header>
-		
-
+	</div>
+	</header>
 </body>
 </html>

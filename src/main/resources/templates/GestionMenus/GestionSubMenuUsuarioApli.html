@@ -59,7 +59,6 @@
 			     return this.value;
 			 }).get();
 			      
-			  alert(arrValueCheck);
 			 if (arrValueCheck.length > 9)
 			    {
 			    alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
@@ -74,10 +73,7 @@
 				  arrValueCheckASupr = $('[name="checksSubMenuUsu[]"]:checked').map(function(){
 			      return this.value;
 			    }).get();
-				  
-				  
-				 alert("pinchados : " + arrValueCheckASupr);
-				  
+	
 				  if (arrValueCheckASupr.length > 9)
 			     	{
 			    	 alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
@@ -119,10 +115,9 @@
 					 for (var i=0; i < arrValueCheck.length; i++)
 				 	 	{
 						 alert(arrValueCheck[i]);
-					  	 $("#idIdSubMenuHidden" + ind).val(arrValueCheck[i]);
-					     alert("Ha elegido: " + $("#idIdSubMenuHidden" + ind).val());
+					  	 $("#idIdSubMenuHidden" + ind).val(arrValueCheck[i]);	
+					  //   alert("Ha elegido: " + $("#idIdSubMenuHidden" + ind).val());
 					  	 ind++;
-				 	 	// idMenuSelec = arrValueCheck[i];
 			   	     	}
 					 	$("#idAccionHidden").val("anadiruno");  
 						$("#myModalConfirm").modal();
@@ -154,9 +149,35 @@
 					 var ind = 0;
 					 for (var i=0; i<arrValueCheckASupr.length; i++)
 				 	  { 
-					   	$("#idIdSubMenuHidden" + ind).val(arrValueCheckASupr[i]);
-					//   	alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
-					   	$("#idIdSubMenuUsuHidden" + ind).val($("#idSubMenuUsuSelHidden" + i).val());
+					   	$("#idIdSubMenuUsuHidden" + ind).val(arrValueCheckASupr[i]);
+					   	
+					   	alert("alert menu id"+  $("#idSubMenuHidden" + i).val() );
+					 //  	$("#idIdSubMenuHidden" + ind).val( $("#idSubMenuHidden" + i).val() );
+					   	
+					   	for (var i2=0; i2<9; i2++)
+					   	{ 
+					   		if ( $("#idCheckMenuUsuActiva" + i2).val() != null )
+					   			{
+					   			 if ( $("#idCheckMenuUsuActiva" + i2).val() == $("#idIdSubMenuUsuHidden" + ind).val() ) 
+					   				 {
+					   				  alert("lo encuentra el los input check");
+					   				  $("#idIdSubMenuHidden" + ind).val( $("#idSubMenuHidden" + i2).val() );
+					   				  
+					   				 
+					   				  alert( $("#idIdSubMenuHidden" + ind).val() );
+					   				 }
+					   			}
+					   		else
+					   			{
+					   			 break;
+					   			}	
+					   	}
+					 // No sabemos el indice del check seleccionado en la tabla pintada. Tenemos los numero des submenu en el array pero no la posición real.
+					   
+					 // alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
+					 //	$("#idIdSubMenuUsuHidden" + ind).val($("#idSubMenuUsuSelHidden" + i).val());
+					 //	$("#idIdSubMenuHidden" + ind).val( arrValueCheckASupr[i]);
+					 	
 					   	alert("alert: " + $("#idIdSubMenuUsuHidden" + ind).val() );
 					  	ind++;
 				 	 // idMenuSelec = arrValueCheck[i];
@@ -164,10 +185,6 @@
 					$("#idAccionHidden").val("suprimiruno");  
 					$("#myModalConfirm").modal();
 					}
-			    	//	for (var i=0; i<arrValueCheckASupr.length; i++)
-					// {
-					//	idMenuSelecSuprimir = arrValueCheckASupr[i];
-			   	 	// }
 	  			}
 		}
 
@@ -179,7 +196,7 @@
 		  
 		  if (objElemen.checked)
 			 {
-			 document.getElementById("idIdSubMenuUsuHidden"+indExp).value = document.getElementById("idSubMenuUsuSelHidden"+ind).value;
+			 document.getElementById("idIdSubMenuUsuHidden"+indExp).value = objElemen.value;
 		//	 alert(document.getElementById("idIdMenuUsuHidden"+indExp).value);
 			 indExp = indExp + 1;
 			 }

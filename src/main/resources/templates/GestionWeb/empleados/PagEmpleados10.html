@@ -41,14 +41,20 @@
  		letter-spacing: 0.05em;
   		border-radius: 0;
 	}
+	
 	.table-condensed{
   	font-size: 15px;
 	}
+	
 	.margenDivPrincipal{
   	 margin-top: 2px;!important;
 	}
-	 
-
+	
+	.container-fluid {
+		margin-top: 0px;
+    	padding-right: 0px;
+    	padding-left: 0px;
+	}
   </style>
 
 </head>
@@ -56,20 +62,18 @@
 <body>
 	<!-- <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div> -->
 	
-	<div class="container-fluid">
-	<!-- 	<div class="row">
+	 <div class="container-fluid" style="margin-top:0px;" >
+	 aaaa
+	 	<div class="row">
 			<div class="titulo-pag2 margenDivPrincipal">Gestión de Empleados</div>
-		</div>-->
+		</div>
 	
 		<div class="row">
-  			<form class="form-inline" th:action="@{/gestionWeb/empleados/pagempleados10}" th:object="${objBusqueda}" method="post">
-  				
-  				 
- 				  <div class="col-sm-3"><label for="buscarApellidos" th:text="'  Apellidos:    '"></label></div>
-  				<div class="col-sm-6"><input type="text" class="form-control" th:id="idBuscarApelEmpleado" th:name="buscarApelEmpleado" th:maxlength="30" th:field="*{apellidosBusqueda}" ></div>
-				 <div class="col-sm-2"><button type="submit" class="btn btn-primary">Buscar</button></div>
-				 <div class="col-sm-1"></div>
-				 
+  			<form class="form-inline" th:action="@{/gestionWeb/empleados/pagempleados10}" th:object="${objBusqueda}" method="post"> 
+ 				<div class="col-sm-3"><label for="buscarApellidos" th:text="'  Apellidos:    '"></label></div>
+  				<div class="col-sm-6"><input type="text" class="form-control" th:id="idBuscarApelEmpleado" th:name="buscarApelEmpleado" th:maxlength="30" th:field="*{apellidosBusqueda}"></div>
+				<div class="col-sm-2"><button type="submit" class="btn btn-primary">Buscar</button></div>
+				<div class="col-sm-1"></div>
 
   				 <!--  <div class="form-group mx-sm-3 mb-2">
     				<label for="buscarApellidos" th:text="'  Apellidos:    '"></label>
@@ -80,7 +84,6 @@
 			</form>
   		</div>
 
-	
 	<div class="row">
   		<div class="col-sm-12">
 			<div class="panel panel-default" style="border-bottom: 2px solid #000">
@@ -126,22 +129,22 @@
 		<div class="col-sm-1"></div>
 	</div>
 		
-		<div class="row">
-  			<div class="col-sm-12">
-				<div th:insert="Aplicacion/fragments/BotoneraPaginacion10 :: botonerapaginacion"></div>
-			</div>
+	<div class="row">
+  		<div class="col-sm-12">
+			<div th:insert="Aplicacion/fragments/BotoneraPaginacion10 :: botonerapaginacion"></div>
 		</div>
+	</div>
 			
-		<div class="row">
-  			<div class="col-sm-10">
-  				<div class="d-flex">
-  					<div class="p-2">
-						<a th:href="@{/gestionWeb/empleados/formaltaempleado}" class="btn btn-primary" role="button">Nuevo</a>
-					</div>
+	<div class="row">
+  		<div class="col-sm-10">
+  			<div class="d-flex">
+  				<div class="p-2">
+					<a th:href="@{/gestionWeb/empleados/formaltaempleado}" class="btn btn-primary" role="button">Nuevo</a>
 				</div>
-  			</div>
-		</div>
-	 </div>
+			</div>
+  		</div>
+	</div>
+   </div>
 
 </body>
 </html>

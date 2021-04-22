@@ -66,6 +66,7 @@ public class ControllerWebGestionMenus {
 	 	
 	  long count = StreamSupport.stream(menuPrincipalAplicacion.spliterator(), false).count();
 	  
+	
 	  Long numRegMenuPrin = new Long(count);
 	  elemenMenuNuevo.setNumOrdenMenu(numRegMenuPrin.intValue() + 1 );
 	  modelo.addAttribute("elemenMenuNuevoWeb", elemenMenuNuevo); 
@@ -268,7 +269,7 @@ public class ControllerWebGestionMenus {
 		modelo.addAttribute("elemenSubMenuNuevoWeb", elemenSubMenuNuevo);
 		
 		BeanSubMenuAplicacionWeb elementoEdicionSubMenuApli  = new BeanSubMenuAplicacionWeb();
-		elementoEdicionSubMenuApli.setIdMenu(beanSubMenuAplicacionWeb.getIdMenu() );
+		elementoEdicionSubMenuApli.setIdMenu(beanSubMenuAplicacionWeb.getIdMenu());
 		modelo.addAttribute("elemenEditSubMenuApli", elementoEdicionSubMenuApli);
 		 
 		// Carga el menu general

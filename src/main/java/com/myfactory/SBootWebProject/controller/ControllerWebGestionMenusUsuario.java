@@ -84,6 +84,7 @@ public class ControllerWebGestionMenusUsuario {
    
 			if (encontradoEnMenuAplicacion)
 				{
+				
 				menuUsuApliWeb = new BeanMenuUsuarioWeb(idMenuUsuario, menuApliIter.getIdMenu(), menuApliIter.getTextoMenu(), new Boolean(encontradoEnMenuAplicacion));
 				listMenuUsuWeb.add(menuUsuApliWeb);
 				}
