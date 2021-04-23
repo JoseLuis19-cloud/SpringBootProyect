@@ -30,7 +30,7 @@ public class Empleado  implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long idEmpleado;
 	
-	@OneToOne(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@OneToOne(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private User usuario;
 

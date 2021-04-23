@@ -242,8 +242,8 @@ public class ControllerWebUsuarios {
 		    boolean esModificacion = true;
 		    BeanErrorValidacion datosError = null;
 			// Set <Role> setRoles = new HashSet<>();  
-			 Map<String, Object> resultValUsuario;
-			 User usuario ;
+			Map<String, Object> resultValUsuario;
+			User usuario;
 			 
 			 resultValUsuario = validarUsuario(beanUsuarioWeb, codRole, esModificacion);
 
@@ -261,7 +261,7 @@ public class ControllerWebUsuarios {
 			  else
 			    {
 				 usuario = (User) resultValUsuario.get("empleadoValidacion");	 
-			  // Dar de alta Usuario
+			  // Modficar un Usuario
 				 servJPAUsuario.modificarUsuario(usuario);
 					
 				 return "redirect:/gestionWeb/usuarios/" + "pagusuarios";

@@ -31,15 +31,19 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 	
 	@Autowired
 	PuestoTrabajoJPADao puestoTrabajoJPADao;
- 
+	
+	
+	@Override
 	public Empleado altaEmpleado(Empleado empleado){
 		return empleadoJPARepository.save(empleado);
 	}
 	
+	@Override
 	public void modifEmpleado(Empleado empleado){
 	 empleadoJPARepository.save(empleado);
 	}
 	
+	@Override
 	public void bajaEmpleado(Empleado empleado)
 	{
 	   empleadoJPARepository.save(empleado);
@@ -92,8 +96,9 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 	@Override
 	public Iterable<PuestoTrabajo> obtenerPuestoTrabajo(){
 		return puestoTrabajoJPADao.findAll();
-	}	
+	}
 	
+	@Override
 	public Iterable<Empleado> listEmpleadosProyecto() {
 		return empleadoJPARepository.findAll();
 	}	

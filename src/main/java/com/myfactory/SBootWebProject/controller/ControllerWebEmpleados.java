@@ -47,6 +47,7 @@ import com.myfactory.SBootWebProject.constantes.ConstantesErroresAplicacion;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Pais;
 import com.myfactory.SBootWebProject.model.PuestoTrabajo;
+import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
@@ -288,20 +289,20 @@ public class ControllerWebEmpleados {
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	  
-		Calendar calendar1 = Calendar.getInstance();
+		// Calendar calendar1 = Calendar.getInstance();
 		Empleado empleado = null;
 		BeanErrorValidacion datosError = null;
 		Empleado empleadoNuevo = null;
+		boolean esModif = false;
 	   
 		if (! resultValidacion.hasErrors())
 			{
 			try
 			{
-			 calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
-			 datosEmpleadoWeb.setFecAltaEmpleladoWeb(calendar1)  ;
+			// calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
 			
 			 Map<String, Object> resultValEmpleado;
-			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
+			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo, esModif);
 
 			 datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
 			
@@ -356,47 +357,41 @@ public class ControllerWebEmpleados {
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar calendar1 = Calendar.getInstance();
-		Empleado modifEmpleado = new Empleado();
+		Empleado modifEmpleado;
 		Boolean errorValidacion = true;
 		Map<String, Object> resultValEmpleado;
+		boolean esModif = true;
+		BeanErrorValidacion datosError = null;
 
 		if (! resultValidacion.hasErrors() )
 			{
-			try
-			{
-			// calendar1.setTime(dateFormat.parse(fecAltaEmpleado));
-	
-			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo );
-			 
-			 BeanErrorValidacion datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
+			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo, esModif);
+			 datosError = (BeanErrorValidacion) resultValEmpleado.get("errorValidacion");
 				
 			 if (datosError.getCodError().intValue() != 0) 
 				{
 				 modelo.addAttribute("errorValidacion" , true);
 				 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError()   );
+				
+				 return "GestionWeb/empleados/FormEditarEmpleado"; 
 				}
 			  else
 				{
 				 modelo.addAttribute("errorValidacion" , false);
 				 modelo.addAttribute("mensajeError", "" );
-					
+				 // Modificar un Empleado
 				 modifEmpleado = (Empleado) resultValEmpleado.get("empleadoValidacion");
-				 modifEmpleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
 				 
 				 servJPAEmpleado.modifEmpleado(modifEmpleado);
+				 return "redirect:/gestionWeb/empleados/" + "pagempleados10";
 			   }
-			 }
-			catch (Exception e)
-			 {
-			  System.out.print(e);
-			 }
+			 
 			}
 		  else
 			{
-		//	 List<FieldError> listError = resultValidacion.getFieldErrors();
-			 errorValidacion = true;
+		  // List<FieldError> listError = resultValidacion.getFieldErrors();
+		  // Este es un error de validacion automatica de Spring por lo que ponemos false a nuestra variable de error.
+			 errorValidacion = false;
 			  
 			 modelo.addAttribute("errorValidacion", errorValidacion);
 			 modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);	
@@ -406,7 +401,6 @@ public class ControllerWebEmpleados {
 			
 			 return "GestionWeb/empleados/FormEditarEmpleado"; 
 			}
-		 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
 	}
 	
 	@GetMapping("/formuploadfichero")
@@ -878,14 +872,19 @@ public class ControllerWebEmpleados {
 	}
 	
 	 
-	private Map<String, Object> validarDatosEmpleado(BeanEmpleadoWeb datosEmpleadoWeb, String codPais, String codPuestoTrabajo) {
+	private Map<String, Object> validarDatosEmpleado(BeanEmpleadoWeb datosEmpleadoWeb, String codPais, String codPuestoTrabajo, boolean esModificacion) {
 		
 		Map<String, Object> resultadoValidacion = new HashMap<>();
 		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 		
-		Empleado empleado = null;
+		Empleado empleado = new Empleado();
 		Pais pais = new Pais();
 		PuestoTrabajo  puestoTrabajo = new PuestoTrabajo();
+		
+		if (esModificacion)
+			{
+			empleado.setIdEmpleado(datosEmpleadoWeb.getIdEmpleadoWeb());
+			}
 		 
 		empleado.setApellidos(datosEmpleadoWeb.getApellidosWeb()); 
 		empleado.setNombre(datosEmpleadoWeb.getNombreWeb());
@@ -895,29 +894,17 @@ public class ControllerWebEmpleados {
 		empleado.setNif(datosEmpleadoWeb.getNifWeb());
 		empleado.setNumCuentaCorriente(datosEmpleadoWeb.getNumCuentaCorrienteWeb());
 		empleado.setNumSeguridaSocial(datosEmpleadoWeb.getNumSeguridaSocialWeb());
+		empleado.setImpFacturadoMes(datosEmpleadoWeb.getImpFacturadoMes());
+		empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb()) ;
+		empleado.setImpBrutoAnual( datosEmpleadoWeb.getImpBrutoAnualWeb());
 		
-		empleado.setImpFacturadoMes(datosEmpleadoWeb.getImpFacturadoMes() );
-	
-		// empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb());
+		empleado.setTelefMovil(datosEmpleadoWeb.getTelefMovilWeb());
+		empleado.setTelefono2(datosEmpleadoWeb.getTelefono2());
 		
-		 
-		if ( datosEmpleadoWeb.getFecAltaEmpleladoWeb() != null )
-		   {
-			try 
-			  { 
-				empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb()) ;
-			  } 
-			catch (Exception e)
-			  {
-				datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_FOR_FECHA);
-				datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_FORMATO_FECHA + " Empleado" );
-			  } 
-		   }
-	 
-		 
-		 empleado.setImpBrutoAnual( datosEmpleadoWeb.getImpBrutoAnualWeb() );
-		 
-	 	pais.setIdPais(new Integer(codPais) );
+	//	User usuario = new User();
+	//	empleado.setUsuario(usuario);
+ 
+	 	pais.setIdPais(new Integer(codPais));
       	puestoTrabajo.setIdPuestoTrabajo( new Integer(codPuestoTrabajo) );
 		
 		empleado.setPais(pais);
