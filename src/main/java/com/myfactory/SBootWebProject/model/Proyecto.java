@@ -34,10 +34,9 @@ public class Proyecto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProyecto;
 	
-	@OneToMany(mappedBy="proyecto", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="proyecto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
  	private Set<ProyectoFacturacionMes> proyectoFacturacionMes = new HashSet<>();
 
-	
 	@Column(name = "NOM_PROYECTO")
 	private String nomProyecto;
  

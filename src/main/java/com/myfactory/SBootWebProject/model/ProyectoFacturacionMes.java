@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,6 +32,7 @@ public class ProyectoFacturacionMes implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProyectoFacMes;
 
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PROYECTO_FK", nullable = false, updatable = false)
 	private Proyecto proyecto;
 	

@@ -6,11 +6,10 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
 	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
   	
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
     
-     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
  <style>
@@ -49,25 +48,6 @@ h5 {
    }
 
 </style>
-	
-	 <script th:inline="javascript">
-	 
-	 /*<![CDATA[*/
-		// var empDispoPro = [[${lprueba}]];
-		 // console.log("a");
-		// console.log(empDispoPro);
-
-	/*]]>*/	
-	
-	// 	function anadirEmpresaAjax()
-	//    {
-	//     alert("Buenas");
-	// 	 var urlAjax = '/gestionWeb/proyectos/anadirEmpresajax';
-	// 	 urlAjax = urlAjax + '/'  + '1';
-	// 	 alert(urlAjax);
-	// 	 $("#idDivEmpresasUTE").load(urlAjax);
-	 //   }
-	</script>
 	
 </head>
 
@@ -113,9 +93,10 @@ h5 {
 			<div class="col-1"></div>
   			<div class="col-10">
   			 <div class="tab-content" id="myTabContent">
+  			 
   			  <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="home-tab">
-  			
-  			  <div class="form-row">
+
+  			  	<div class="form-row">
 					<div class="col-md-3 mb-5">
 						<label for="validationProyecto" th:text="'Nombre Proyecto'"></label> 
 						<input type="text" class="form-control" id="idNombreProyecto" th:field="*{nomProyectoWeb}" th:maxlength="30" required>

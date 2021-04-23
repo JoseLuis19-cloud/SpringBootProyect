@@ -6,17 +6,13 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
 	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
   	
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
     
-     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
  <style>
- 
-.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
-
 
 .form-control-xs {
 	height: calc(1em + .375rem + 2px) !important;
@@ -26,48 +22,10 @@
 	border-radius: .2rem;
 }
 
-h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
-   }
-
 </style>
 	
-	 <script th:inline="javascript">
-	 
-	 /*<![CDATA[*/
-		// var empDispoPro = [[${lprueba}]];
-		 // console.log("a");
-		// console.log(empDispoPro);
-
-	/*]]>*/	
-	
-	// 	function anadirEmpresaAjax()
-	//    {
-	//     alert("Buenas");
-	// 	 var urlAjax = '/gestionWeb/proyectos/anadirEmpresajax';
-	// 	 urlAjax = urlAjax + '/'  + '1';
-	// 	 alert(urlAjax);
-	// 	 $("#idDivEmpresasUTE").load(urlAjax);
-	 //   }
-	</script>
+  <script th:inline="javascript">
+  </script>
 	
 </head>
 
@@ -83,7 +41,7 @@ h5 {
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Proceso Facturacion Proyecto</div>
+  				<div class="subtitulo-pag2">Proceso Facturacion Proyecto ____</div>
   			</div>
   			<div class="col-1"></div>
   		</div>
@@ -93,17 +51,17 @@ h5 {
 			 <div class="col-1"></div>
   			 <div class="col-10">
   			 <!-- 3 Pestañas  de Pantalla -->
-  			  <ul class="nav nav-tabs" id="myTab" role="tablist">
-  			   <li class="nav-item">
-  			     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#informacion" role="tab" aria-controls="contact" aria-selected="false">Información</a>
-  			   </li>
-  			   <li class="nav-item">
-    			 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#simulacion" role="tab" aria-controls="home" aria-selected="true">Simulacion</a>
-  			   </li>
-  			   <li class="nav-item">
-    		 	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#ejecucion" role="tab" aria-controls="profile" aria-selected="false">Ejecucion</a>
-  			  </li>
-		     </ul>
+  			  	<ul class="nav nav-tabs" id="myTab" role="tablist">
+  			   		<li class="nav-item">
+  			    		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#informacion" role="tab" aria-controls="home" aria-selected="true">Información</a>
+  			   		</li>
+  			   		<li class="nav-item">
+    				 	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#simulacion" role="tab" aria-controls="profile" aria-selected="false">Simulacion</a>
+  			  		 </li>
+  			   		<li class="nav-item">
+    		 			<a class="nav-link" id="contact-tab" data-toggle="tab" href="#ejecucion" role="tab" aria-controls="contact" aria-selected="false">Ejecucion</a>
+  			 		</li>
+		     	</ul>
   			 </div>
   			<div class="col-1"></div>
   		</div>
@@ -113,84 +71,39 @@ h5 {
 			<div class="col-1"></div>
   			<div class="col-10">
   			 <div class="tab-content" id="myTabContent">
-  			  <div class="tab-pane fade show active" id="informacion" role="tabpanel" aria-labelledby="home-tab">
-  			
+  			 
+  			 	<div class="tab-pane fade show active" id="informacion" role="tabpanel" aria-labelledby="home-tab">
+  			 
+  			 	<div class="form-row">
+					<div class="col-md-12 mb-1">
+    					<label for="labelNomGerenteProyecto1">Nombre del Gerente1</label>
+    					 
+  					</div>
+  				</div>
+	
+  				</div>
+  				<div class="tab-pane fade" id="simulacion" role="tabpanel" aria-labelledby="profile-tab">
+  			 	
+					 <div class="form-row">
+					<div class="col-md-12 mb-1">
+    					<label for="labelNomGerenteProyecto2">Nombre del Gerente2</label>
+    					 
+  					</div>
+  				</div>
+  			  
+  						
+  				</div>
+  				<div class="tab-pane fade" id="ejecucion" role="tabpanel" aria-labelledby="contact-tab">
   			  <div class="form-row">
-					<div class="col-md-3 mb-5">
-						<label for="labelNomProyecto" th:text="'Nombre Proyecto'"></label> 
-						<input type="text" class="form-control" id="idNombreProyecto" th:field="*{nomProyecto}" th:maxlength="30" th:readonly="true">
-					</div>
-						
-					<div class="col-md-3 mb-5">
-						<label for="validationUbiProyecto" th:text="'Ubicacion Proyecto'"></label> 
-						<input type="text" class="form-control" id="idUbicacionProyecto" th:field="*{ubicacionProyecto}" th:maxlength="30" th:readonly="true">
-					</div>
-						
-					<div class="col-md-2 mb-5">
-						<label for="labelImpBrutoAnu" th:text="'Importe Proyecto' "></label>
-						<input type="text" class="form-control" id="idImpProyecto" name="impProyecto" th:field="*{impProyecto}" th:value="${#numbers.formatDecimal(impProyectoWeb,3,2,'COMMA')}" th:readonly="true" >
-					</div>
-						
-					<div class="col-md-2 mb-5">
-						<label for="labelFecIniProyecto" th:text="'Fecha Inicio del proyecto' "></label>
-       					<input type="text" class="form-control" th:id="idFecIniProyecto" th:name="fecIniProyecto" th:field="*{fecIniProyecto}" th:value="${#calendars.format(fecIniProyecto, 'dd/MM/yyyy')}" th:readonly="true">
-					</div>
-						
-					<div class="col-md-2 mb-5">
-					   <label for="labelFecFinProyecto" th:text="'Fecha Fin del proyecto' "></label>
-					   <input type="text" class="form-control" th:id="idFecFinProyecto" th:name="fecFinProyecto" th:field="*{fecFinProyecto}" th:value="${#calendars.format(fecFinProyecto, 'dd/MM/yyyy')}" th:readonly="true">
-					</div>
-				</div>
+					<div class="col-md-12 mb-1">
+    					<label for="labelNomGerenteProyecto3">Nombre del Gerente3</label>
+    					 
+  					</div>
+  				</div>
+  			  
 				
-				<div class="form-row">
-					<div class="col-md-12 mb-1">
-    					<label for="labelNomGerenteProyecto">Nombre del Gerente</label>
-    					<input type="text" class="form-control" th:id="idNomGerente" th:name="nomGerente" th:field="*{nomGerenteProyecto}" th:maxlength="35" th:readonly="true">
-  					</div>
-  				</div>
-				 
-				<div class="form-row">
-					<div class="col-md-12 mb-1">
-    				 	<label for="labelInformacionComplementaria">Información Complementaria del proyecto</label>
-    					<textarea class="form-control" th:id="idInfoComplementaria" th:name="infoComplementaria" th:field="*{infoComplementaria}" rows="3"></textarea>
-  					</div>
-  				</div>
-				<br><br><br><br><br>
-  			</div>
-  			
-  			 <div class="tab-pane fade show active" id="simulacion" role="tabpanel" aria-labelledby="home-tab">
-				<br>
-  				<table class="table table-sm">
-					<thead class="thead-light">
-						<tr>
-							<th th:text="'Seleccionar'"></th>
-							<th th:text="'Id. proc'"></th>
-							<th th:text="'Año Mes proceso'"></th>
-							<th th:text="'Accion'"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="elemenProyFactuPendientes, iterStat :${proyFactuPendientes}">
-							<td><input type="checkbox" th:checked="false" class="btn btn-primary btn-sm" th:id="'idProyProMes'+ ${iterStat.index}" th:name="'proyProMes' + ${iterStat.index}"/></td>	 
-							<td th:text="${elemenProyFactuPendientes.numAnyo}"></td>
-							<td th:text="${elemenProyFactuPendientes.numMes}"></td>
-							<td><a th:id="'idLinkSimulacion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-colour-1" role="button">Simulación</a></td>	
-					</tbody>
-				</table>			
-  			</div>
-  			
-  			 <div class="tab-pane fade show active" id="ejecucion" role="tabpanel" aria-labelledby="home-tab">
-				
-				<div class="form-row">
-					<div class="col-md-12 mb-1">
-    					<label for="labelNomGerenteProyecto">Nombre del Gerente</label>
-    					<input type="text" class="form-control" th:id="idNomGerente" th:name="nomGerente" th:field="*{nomGerenteProyecto}" th:maxlength="30">
-  					</div>
-  				</div>
-
-				<br><br><br>
-  			</div>
-  		</div>
+  			 	</div>
+  			 </div>
   			</div>
   			<div class="col-1"></div>
 		</div>
@@ -204,27 +117,6 @@ h5 {
  				
  		</form>
 	</div>
- 		
- <!-- Include Date Range Picker -->
  
-  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
- 
- <script th:inline="javascript">
- 
- 	$(function () { 	
-   	 $('#idFecIniProyecto').datepicker({
-    	 format: "dd/mm/yyyy",
-    	 language: 'es'
-    	});
-   	 
-   	 $('#idFecFinProyecto').datepicker({
-    	 format: "dd/mm/yyyy",
-    	 language: 'es'
-    	});
-    });
-</script>
-
 </body>
 </html>

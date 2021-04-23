@@ -26,7 +26,7 @@ public class Menu implements Serializable {
 	private Integer idMenu;
 	
 	@OneToMany(mappedBy="menu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
- 	private Set<SubMenuNivel1> subMenuNivel1 = new HashSet<>(); ;
+ 	private Set<SubMenuNivel1> subMenuNivel1 = new HashSet<>();
 	
 //	@NotNull(message = "Debe introducir un valor numerico!")
 //	@Pattern(regexp="^(0|[1-9][0-9]*)$", message = "Debe introducir un valor numerico entre 1 y 99!")
