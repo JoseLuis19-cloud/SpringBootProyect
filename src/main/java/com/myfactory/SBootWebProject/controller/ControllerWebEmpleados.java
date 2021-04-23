@@ -883,7 +883,7 @@ public class ControllerWebEmpleados {
 		Map<String, Object> resultadoValidacion = new HashMap<>();
 		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 		
-		Empleado empleado = new Empleado();
+		Empleado empleado = null;
 		Pais pais = new Pais();
 		PuestoTrabajo  puestoTrabajo = new PuestoTrabajo();
 		 

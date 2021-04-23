@@ -84,14 +84,16 @@ public class CargarBeansDatos  implements Serializable {
 		 
 		 beanUsuarioWeb.setIdUsuarioWeb(usuario.getId());
 		 beanUsuarioWeb.setEmailWeb(usuario.getEmail());
-		 beanUsuarioWeb.setEnabledWeb( usuario.isEnabled());
-		 beanUsuarioWeb.setIndEmpleadoWeb(usuario.isIndEmpleado()  );
-		 beanUsuarioWeb.setFullNameWeb(usuario.getFullName() );
-		 beanUsuarioWeb.setUsernameWeb(usuario.getUsername() );
+		 beanUsuarioWeb.setEnabledWeb(usuario.isEnabled());
+		 beanUsuarioWeb.setIndEmpleadoWeb(usuario.isIndEmpleado() );
+		 beanUsuarioWeb.setFullNameWeb(usuario.getFullName());
+		 beanUsuarioWeb.setUsernameWeb(usuario.getUsername());
+		 
 		 beanUsuarioWeb.setFecAltaUsuarioWeb(usuario.getFecAltaUsuario());
+		 beanUsuarioWeb.setFecBajaUsuarioWeb(usuario.getFecBajaUsuario());
 
-		 beanUsuarioWeb.setRolUsuarioWeb( servJPAUsuario.obtenerRoles() ); 
-		 beanUsuarioWeb.setIdRole( usuario.getRoles().iterator().next().getId()) ;		
+		 beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles() ); 
+		 beanUsuarioWeb.setIdRole(usuario.getRoles().iterator().next().getId()) ;		
  
 		 return beanUsuarioWeb;
 	  }

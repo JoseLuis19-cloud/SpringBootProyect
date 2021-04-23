@@ -47,6 +47,11 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	}
 	
 	@Override
+	public Iterable<User> listaUsuariosOrdenByName() {
+		return usuarioJPABaseRepository.listUsuariosOrderByName();
+	}
+	
+	@Override
 	public Iterable<User> listadoUsuariosHistorico() {
 		return usuarioJPABaseRepository.listaUsuariosHistorico() ;
 	}

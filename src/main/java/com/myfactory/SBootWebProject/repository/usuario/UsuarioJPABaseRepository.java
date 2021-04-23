@@ -27,5 +27,8 @@ import com.myfactory.SBootWebProject.model.User;
 		
 		@Query("SELECT u FROM User u WHERE u.enabled = FALSE")
 	    public Iterable<User>  listaUsuariosHistorico();
+	 
+		@Query("SELECT u FROM User u ORDER BY u.username")
+	    public Iterable<User>  listUsuariosOrderByName();
 
 	}

@@ -3,14 +3,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-
-<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-<!-- Inline CSS based on choices in "Settings" tab -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
+    
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
  <style>
 .bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
@@ -55,15 +55,15 @@ h5 {
 
 	<div class="container-fluid">
 	
-	<form action="#" th:action="@{/gestionWeb/usuarios/activarusuario}" th:object="${usuarioWeb}" method="post">
+		<form action="#" th:action="@{/gestionWeb/usuarios/activarusuario}" th:object="${usuarioWeb}" method="post">
 	
-		<input type="hidden" th:id="'idIdUsuarioHidden'" th:name="'idUsuarioHidden'"  th:field="*{idUsuarioWeb}" />	 
+			<input type="hidden" th:id="'idIdUsuarioHidden'" th:name="'idUsuarioHidden'"  th:field="*{idUsuarioWeb}" />	 
 	
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
 				<h3 th:text="'Datos del Usuario a activar'"></h3>
-				<br />
+				<br>
 			</div>
 			<div class="col-3"></div>
 		</div>
@@ -73,60 +73,50 @@ h5 {
 			<div class="col-6" style="border-bottom: 2px solid #000">
 				<div class="form-row">
 					<div class="col-md-4 mb-3">
-						<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
-						 <input type="text" class="form-control" id="idfullNameWeb"
-								th:field="*{fullNameWeb}" th:maxlength="25" th:readonly="true">
+						<label for="labelFullNameWeb" th:text="'Nombre completo'"></label>
+						 <input type="text" class="form-control" th:id="idFullNameWeb" th:name="fullNameWeb" th:field="*{fullNameWeb}" th:maxlength="25" th:readonly="true">
 					</div>
 					<div class="col-md-4 mb-3">
-						<label for="validationUserNameWeb" th:text="'Nombre Usuario:' "></label>
-						<input type="text" class="form-control" id="idApelliCliWeb"
-								th:field="*{usernameWeb}" th:maxlength="25" th:readonly="true">
+						<label for="labelUserNameWeb" th:text="'Nombre Usuario' "></label>
+						<input type="text" class="form-control" th:id="idApelliCliWeb" th:name="apelliCliWeb" th:field="*{usernameWeb}" th:maxlength="25" th:readonly="true">
 					</div>
 					<div class="col-md-4 mb-3">
-						<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
-							type="text" class="form-control" id="idDirCliWeb"
-							th:field="*{emailWeb}" th:maxlength="35" th:readonly="true">
+						<label for="labelEmailWeb" th:text="'email aplicación'"></label>
+						 <input type="text" class="form-control" th:id="idDirCliWeb" th:name="dirCliWeb" th:field="*{emailWeb}" th:maxlength="35" th:readonly="true">
 					</div>
 				</div>				
 				<div class="form-row">
-					<div class="col-md-5 mb-3">
-					    <label for="validationFecBajaUsu">Fec. Baja Usuario</label>
-       					<input type="text" class="form-control" id="idFecBajaUsu" name="fecAltaUsu"  th:value="${#calendars.format(fecBajaUsuarioWeb, 'dd/MM/yyyy')}"  th:maxlength="10" th:readonly="true" />
+					<div class="col-md-3 mb-3">
+					    <label for="labelFecBajaUsu" th:text="'Fec. Baja Usuario'"></label>
+       					<input type="text" class="form-control" th:id="idFecBajaUsu" th:name="fecFajaUsu" th:field="*{fecBajaUsuarioWeb}" th:value="${#calendars.format(fecBajaUsuarioWeb, 'dd/MM/yyyy')}" th:maxlength="10" th:readonly="true" />
 					</div>
-
-					<div class="col-md-4 mb-3">
-					 	<div class="form-check">
-						 	<br>
-						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input" th:readonly="true" />
-							<label for="validationIndActivadoWeb" th:text="'Activar Usuario:' " class="form-check-label"></label>					
-						</div>
-					</div>
-					
 					<div class="col-md-3 mb-3">
 						<br>
 						<div class="form-check">
-							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input" th:readonly="true" />
-							<label for="validationIndEmpleadoWeb" th:text="'Es empleado?:' " class="form-check-label"></label>	
+							<input type="checkbox" th:id="'idIndEmpleado'" th:name="'indEmpleado'" th:checked="*{indEmpleadoWeb}" class="form-check-input" th:disabled="disabled" />
+							<label for="labelIndEmpleadoWeb" th:text="'Es empleado:' " class="form-check-label"></label>	
 						</div>
 					</div>
+					
+					<div class="col-md-6 mb-3">
+					</div>
+					
 				</div>
 				
 				<div class="form-row">
-				<div class="col-md-4 mb-3"></div>
-				<div class="col-md-3 mb-3">
+					<div class="col-md-4 mb-3"></div>
+					<div class="col-md-3 mb-3">
 						<label for="labelFecBajaUsuario">Fec. Activación usuario</label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecAltaUsuario" name="fecAltaUsuario" th:value="${#calendars.format(fecAltaUsuarioWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
-       						<input type="hidden" id="idFecAltaUsuarioHidden" name="fecAltaUsuarioHidden"  th:field="*{fecAltaUsuarioWeb}"/> 
+       						<input type="text" class="form-control" id="idFecAltaUsuario" name="fecAltaUsuario" th:field="*{fecAltaUsuarioWeb}" th:value="${#calendars.format(fecAltaUsuarioWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" required/>
 						</div> 
-			 	</div>
+			 		</div>
 			 	<div class="col-md-5 mb-3"></div>
 			  </div>
-				 					
-				
+
 			</div>
 			<div class="col-3"></div>
 		</div>
@@ -144,27 +134,18 @@ h5 {
 	
 	</div>
 	
-	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-	
-	<!-- Include Date Range Picker -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
-   <script th:inline="javascript">
-    $(document).ready(function() {
-      var date_input=$('input[name="fecAltaUsuario"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-        
-      date_input.datepicker({
-          format: 'dd/mm/yyyy',
-          container: container,
-          todayHighlight: true,
-          autoclose: true,
-       });
-      document.getElementById("idFecAltaUsuario").value = document.getElementById("idFecAltaUsuarioHidden").value;
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
+ <script th:inline="javascript">
+ 	$(function () { 	
+   	 $('#idFecAltaUsuario').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
     });
-  </script>
+</script>
 
  </body>
 </html>

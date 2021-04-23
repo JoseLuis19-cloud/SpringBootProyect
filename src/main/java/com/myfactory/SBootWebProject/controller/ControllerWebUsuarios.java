@@ -22,7 +22,6 @@ import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.constantes.ConstantesErroresAplicacion;
-import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.security.GeneradorEncriptacion;
@@ -64,8 +63,8 @@ public class ControllerWebUsuarios {
 				}
 			}
 
-		// Page <User> pagUsuario = servJPAUsuario.paginacionUsuarios(numPagInt, RegPorPagina);
-		Iterable <User> listUsuarios =  servJPAUsuario.listadoUsuarios() ;
+	 // Page <User> pagUsuario = servJPAUsuario.paginacionUsuarios(numPagInt, RegPorPagina);
+		Iterable <User> listUsuarios =  servJPAUsuario.listaUsuariosOrdenByName();
 	
 		modelo.addAttribute("numPag", String.valueOf(numPagInt));
 		// modelo.addAttribute("numRegPag", pagUsuario.getContent().size());
@@ -76,7 +75,6 @@ public class ControllerWebUsuarios {
 		
 		return "gestionWeb/usuarios/PaginacionUsuarios";
 	}
-	
 	
 	@RequestMapping("/listausuarioshist")
 	public String listaUsuariosHist(Model modelo) {
@@ -201,7 +199,7 @@ public class ControllerWebUsuarios {
 	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 	 beanUsuarioWeb = cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() );
 	 
-	 beanUsuarioWeb.setFecBajaUsuarioWeb(Calendar.getInstance() );
+	 beanUsuarioWeb.setFecBajaUsuarioWeb(Calendar.getInstance());
 	 
 	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -214,18 +212,21 @@ public class ControllerWebUsuarios {
 	
 	User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb() ).get() ;
 	usuario.setEnabled(false);
+	usuario.setFecBajaUsuario(beanUsuarioWeb.getFecBajaUsuarioWeb() );
 	
 	servJPAUsuario.modificarUsuario(usuario); 
 
 	return "redirect:/gestionWeb/usuarios/" + "pagusuarios";
 	}
 	
-	@RequestMapping(value = "/reactivarusuario", method = RequestMethod.POST)
-	public String reactivarUsuario(Model modelo, 
-			@RequestParam(value = "usuarioHisHidden", required = true)  String idUsuario ) { 
+	@RequestMapping(value = "/activarusuario", method = RequestMethod.POST)
+	public String reactivarUsuario(Model modelo,
+			@Valid @ModelAttribute("usuarioWeb") BeanUsuarioWeb beanUsuarioWeb) { 
 	
-	User usuario = servJPAUsuario.findIdUsuario(new Long(idUsuario) ).get() ;
+	User usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get() ;
+ // Activar Usuario
 	usuario.setEnabled(true);
+	usuario.setFecAltaUsuario( beanUsuarioWeb.getFecAltaUsuarioWeb() );
 	
 	servJPAUsuario.modificarUsuario(usuario); 
 
@@ -301,9 +302,10 @@ public class ControllerWebUsuarios {
 	@RequestMapping(value = "/formactivar")
 	public String formActivarUsuario(Model modelo, @RequestParam(value = "idUsuario", required = true) Long idUsuario) { 
 	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+	 
 	 beanUsuarioWeb = cargarBeansDatos.cargarBeanUsuario(servJPAUsuario.findIdUsuario(new Long(idUsuario)).get() );
 	 
-	 beanUsuarioWeb.setFecBajaUsuarioWeb(Calendar.getInstance() );
+	 beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance() );
 	 
 	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -362,10 +364,9 @@ public class ControllerWebUsuarios {
 					}
 				}
 		}
-	else
-	{	
-		usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb() ) ;	
-		 usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get();
+	   else
+		{	
+		usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get();
 		// Si cambia algun campo importante los buscamos si  ya existe y no esta duplicado.
 		
 		if ( ! beanUsuarioWeb.getUsernameWeb().trim().equals( usuario.getUsername() )  ) {
@@ -400,34 +401,36 @@ public class ControllerWebUsuarios {
 			}
 		}
 	} // Fin if principal
-		 
-	if (! userError && ! esModificacion )
-	 	{
-	 // Encriptar password tecleado por el usuario
-		GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
-		String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
-			
-		usuarioNuevo.setPassword(passordEncriptada); 	
-
-		}
 	
-	if (! userError)
-	  {
+	if (! userError) 
+		{
 		usuarioNuevo.setEmail(beanUsuarioWeb.getEmailWeb());
-		usuarioNuevo.setEnabled(usuario.isEnabled());
+		usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
 		usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
 		usuarioNuevo.setFullName(beanUsuarioWeb.getFullNameWeb());
 		usuarioNuevo.setUsername(beanUsuarioWeb.getUsernameWeb());
 		usuarioNuevo.setFecAltaUsuario(beanUsuarioWeb.getFecAltaUsuarioWeb());
 		
-		usuarioNuevo.setPassword(usuario.getPassword());
-			
 		Role role = new Role();
 		role.setId(new Integer(codRole.trim()));
 		setRoles.add(role);
 		
 		usuarioNuevo.setRoles(setRoles);
-	  }	
+		 
+		if (! esModificacion)
+	 		{
+	 	 // Encriptar password tecleado por el usuario
+			GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
+			String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
+			
+			usuarioNuevo.setPassword(passordEncriptada); 	
+	 		}
+		else
+			{
+			usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb());	
+			usuarioNuevo.setPassword(usuario.getPassword());
+			}
+		}
 		resultadoValidacion.put("empleadoValidacion", usuarioNuevo);
 		resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
 
