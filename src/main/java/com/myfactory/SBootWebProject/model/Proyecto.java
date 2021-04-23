@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +33,11 @@ public class Proyecto implements Serializable {
 	@Column(name = "ID_PROYECTO")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProyecto;
+	
+	@OneToMany(mappedBy="proyecto", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+ 	private Set<ProyectoFacturacionMes> proyectoFacturacionMes = new HashSet<>();
 
+	
 	@Column(name = "NOM_PROYECTO")
 	private String nomProyecto;
  
@@ -47,7 +54,17 @@ public class Proyecto implements Serializable {
 
 	@Column(name = "UBICACION_PROYECTO")
 	private String ubicacionProyecto;
-
+	
+	@Column(name = "IND_FIN_PROYECTO")
+	private boolean indFinProyecto;
+	
+	@Column(name = "NOM_GERENTE_PROYECTO")
+	private String nomGerenteProyecto;
+	
+	@Column(name = "INFO_COMPLEMENTARIA")
+	private String infoComplementaria;
+	
+	
 //	@ManyToMany(fetch = FetchType.EAGER)
 	//	@JoinTable(
 	//			name = "REL_PROYECTO_EMPRESAS",
@@ -81,6 +98,30 @@ public class Proyecto implements Serializable {
 //	public void setEmpleados(Set<Empleado> empleados) {
 //		this.empleados = empleados;
 //	}
+
+	public String getNomGerenteProyecto() {
+		return nomGerenteProyecto;
+	}
+
+	public void setNomGerenteProyecto(String nomGerenteProyecto) {
+		this.nomGerenteProyecto = nomGerenteProyecto;
+	}
+
+	public String getInfoComplementaria() {
+		return infoComplementaria;
+	}
+
+	public void setInfoComplementaria(String infoComplementaria) {
+		this.infoComplementaria = infoComplementaria;
+	}
+
+	public boolean isIndFinProyecto() {
+		return indFinProyecto;
+	}
+
+	public void setIndFinProyecto(boolean indFinProyecto) {
+		this.indFinProyecto = indFinProyecto;
+	}
 
 	public String getUbicacionProyecto() {
 		return ubicacionProyecto;
@@ -128,6 +169,14 @@ public class Proyecto implements Serializable {
 
 	public void setImpProyecto(Float impProyecto) {
 		this.impProyecto = impProyecto;
+	}
+	
+	public Set<ProyectoFacturacionMes> getProyectoFacturacionMes() {
+		return proyectoFacturacionMes;
+	}
+
+	public void setProyectoFacturacionMes(Set<ProyectoFacturacionMes> proyectoFacturacionMes) {
+		this.proyectoFacturacionMes = proyectoFacturacionMes;
 	}
 
 	 }

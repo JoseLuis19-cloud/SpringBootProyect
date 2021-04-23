@@ -69,13 +69,15 @@
 							<th th:text="'Proyecto'"></th>
 							<th th:text="'Fec. Inicio Proyecto'"></th>
 							<th th:text="'Fec. Fin Proyecto'"></th>
-							<th th:text="'Editar'"></th>
+							<th th:text="'Proyecto'"></th>
 							<th th:text="'Facturacion'"></th>
+							<th th:text="'Facturacion'"></th>
+							<th th:text="'Proyecto'"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${pagGenerica.empty}">
-							<td colspan="9">No hay Proyectos</td>
+							<td colspan="7">No hay Proyectos</td>
 						</tr>
 						<tr th:each="proyecto:${pagGenerica.content}">
 							<td th:text="${proyecto.idProyecto}"></td>
@@ -83,7 +85,9 @@
 							<td th:text="${#calendars.format(proyecto.fecIniProyecto, 'dd/MMM/yyyy')}"></td>
 							<td th:text="${#calendars.format(proyecto.fecFinProyecto, 'dd/MMM/yyyy')}"></td>
 							<td><a th:href="@{/gestionWeb/proyectos/formeditarproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Editar</a></td>
-							<td><a th:href="@{/gestionWeb/proyectos/formfacturacionproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Facturación</a></td>
+							<td><a th:href="@{/gestionWeb/proyectos/formfacturacionproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Consulta</a></td>
+							<td><a th:href="@{/gestionWeb/proyectos/formgenerarfacproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Generar</a></td>
+							<td><a th:href="@{/gestionWeb/proyectos/formfinproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Finalizar</a></td>
 						</tr>
 					</tbody>
 				</table>

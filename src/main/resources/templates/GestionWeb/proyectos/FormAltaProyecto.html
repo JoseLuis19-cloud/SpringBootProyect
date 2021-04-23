@@ -88,58 +88,74 @@ h5 {
   			<div class="col-1"></div>
   		</div>
   		
-  		<ul class="nav nav-tabs" id="myTab" role="tablist">
-  			<li class="nav-item">
-    			<a class="nav-link active" id="home-tab" data-toggle="tab" href="#general" role="tab" aria-controls="home" aria-selected="true">Generar</a>
-  			</li>
-  			<li class="nav-item">
+  		<div class="row">
+			<br>
+			 <div class="col-1"></div>
+  			 <div class="col-10">
+  			 <!-- 3 Pestañas  de Pantalla -->
+  			 <ul class="nav nav-tabs" id="myTab" role="tablist">
+  			  <li class="nav-item">
+    			<a class="nav-link active" id="home-tab" data-toggle="tab" href="#general" role="tab" aria-controls="home" aria-selected="true">General</a>
+  			  </li>
+  			  <li class="nav-item">
     			<a class="nav-link" id="profile-tab" data-toggle="tab" href="#empresas" role="tab" aria-controls="profile" aria-selected="false">Empresas</a>
-  			</li>
+  			 </li>
  			 <li class="nav-item">
   			  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#empleados" role="tab" aria-controls="contact" aria-selected="false">Empleados</a>
   			</li>
-		</ul>
-		<div class="tab-content" id="myTabContent">
-  			<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="home-tab">
+		   </ul>
+  			 </div>
+  			<div class="col-1"></div>
+  		</div>
+
+		<div class="row">
+			<br>
+			<div class="col-1"></div>
+  			<div class="col-10">
+  			 <div class="tab-content" id="myTabContent">
+  			  <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="home-tab">
   			
-  			<div class="form-row">
-						<div class="col-md-3 mb-5">
-							<label for="validationProyecto" th:text="'Nombre Proyecto'"></label> 
-							<input type="text" class="form-control" id="idNombreProyecto" th:field="*{nomProyectoWeb}" th:maxlength="30" required>
-						</div>
+  			  <div class="form-row">
+					<div class="col-md-3 mb-5">
+						<label for="validationProyecto" th:text="'Nombre Proyecto'"></label> 
+						<input type="text" class="form-control" id="idNombreProyecto" th:field="*{nomProyectoWeb}" th:maxlength="30" required>
+					</div>
 						
-						<div class="col-md-3 mb-5">
-							<label for="validationUbiProyecto" th:text="'Ubicacion Proyecto'"></label> 
-							<input type="text" class="form-control" id="idUbicacionProyecto" th:field="*{ubicacionProyectoWeb}" th:maxlength="30" required>
-						</div>
+					<div class="col-md-3 mb-5">
+						<label for="validationUbiProyecto" th:text="'Ubicacion Proyecto'"></label> 
+						<input type="text" class="form-control" id="idUbicacionProyecto" th:field="*{ubicacionProyectoWeb}" th:maxlength="30" required>
+					</div>
 						
-						<div class="col-md-2 mb-5">
-							<label for="labelImpBrutoAnu" th:text="'Importe Proyecto' "></label>
-							<input type="text" class="form-control" id="idImpProyecto" name="impProyecto" th:field="*{impProyectoWeb}" th:value="${#numbers.formatDecimal(impProyectoWeb,3,2,'COMMA')}" th:maxlength="8">
-						</div>
+					<div class="col-md-2 mb-5">
+						<label for="labelImpBrutoAnu" th:text="'Importe Proyecto' "></label>
+						<input type="text" class="form-control" id="idImpProyecto" name="impProyecto" th:field="*{impProyectoWeb}" th:value="${#numbers.formatDecimal(impProyectoWeb,3,2,'COMMA')}" th:maxlength="8">
+					</div>
 						
-						<div class="col-md-2 mb-5">
-							<label for="labelFecIniProyecto" th:text="'Fecha Inicio del proyecto' "></label>
-       						<input type="text" class="form-control" th:id="idFecIniProyecto" th:name="fecIniProyecto" th:field="*{fecIniProyectoWeb}" th:value="${#calendars.format(fecIniProyectoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY">
-						</div>
+					<div class="col-md-2 mb-5">
+						<label for="labelFecIniProyecto" th:text="'Fecha Inicio del proyecto' "></label>
+       					<input type="text" class="form-control" th:id="idFecIniProyecto" th:name="fecIniProyecto" th:field="*{fecIniProyectoWeb}" th:value="${#calendars.format(fecIniProyectoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY">
+					</div>
 						
-						<div class="col-md-2 mb-5">
-						   <label for="labelFecFinProyecto" th:text="'Fecha Fin del proyecto' "></label>
-						   <input type="text" class="form-control" th:id="idFecFinProyecto" th:name="fecFinProyecto" th:field="*{fecFinProyectoWeb}" th:value="${#calendars.format(fecFinProyectoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY">
-						</div>
+					<div class="col-md-2 mb-5">
+					   <label for="labelFecFinProyecto" th:text="'Fecha Fin del proyecto' "></label>
+					   <input type="text" class="form-control" th:id="idFecFinProyecto" th:name="fecFinProyecto" th:field="*{fecFinProyectoWeb}" th:value="${#calendars.format(fecFinProyectoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY">
+					</div>
 				</div>
 				
 				<div class="form-row">
-    				<label for="labelNomGerenteProyecto">Nombre del Gerente</label>
-    				<input type="text" class="form-control" th:id="idNomGerente" th:name="nomGerente" th:field="*{nomGerenteProyectoWeb}" th:maxlength="30">
+					<div class="col-md-12 mb-1">
+    					<label for="labelNomGerenteProyecto">Nombre del Gerente</label>
+    					<input type="text" class="form-control" th:id="idNomGerente" th:name="nomGerente" th:field="*{nomGerenteProyectoWeb}" th:maxlength="30">
+  					</div>
   				</div>
-				
+				 
 				<div class="form-row">
-    				<label for="labelInformacionComplementaria">Información Complementara del proyecto</label>
-    				<textarea class="form-control" th:id="idInfoComplementaria" th:name="infoComplementaria" th:field="*{infoComplementariaWeb}" rows="3"></textarea>
+					<div class="col-md-12 mb-1">
+    				 	<label for="labelInformacionComplementaria">Información Complementaria del proyecto</label>
+    					<textarea class="form-control" th:id="idInfoComplementaria" th:name="infoComplementaria" th:field="*{infoComplementariaWeb}" rows="3"></textarea>
+  					</div>
   				</div>
-				<br><br><br><br><br><br>
-  			
+				<br><br><br><br><br>
   			</div>
   			
   			<div class="tab-pane fade" id="empresas" role="tabpanel" aria-labelledby="profile-tab">
@@ -210,11 +226,14 @@ h5 {
 				</div>
 
 			</div>
-		</div>
-  		 
+		</div>	 
+  		    </div>
+  		  <div class="col-1"></div>
+  		</div>
+		
  		<div class="row">
  			<div class="col-4"></div>
- 			<div class="col-2"><a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Volver</a></div>
+ 			<div class="col-2"><a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Cancelar</a></div>
  			<div class="col-2"><button type="submit" class="btn btn-colour-1">Crear</button></div>
  			<div class="col-4"></div>
  		</div>

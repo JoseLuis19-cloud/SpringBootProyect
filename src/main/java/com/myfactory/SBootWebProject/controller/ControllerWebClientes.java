@@ -6,8 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Blob;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -42,7 +40,7 @@ import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
-
+ 
 @Controller
 @RequestMapping("/gestionWeb/clientes")
 @PropertySource("classpath:parametrosaplicacion.properties")

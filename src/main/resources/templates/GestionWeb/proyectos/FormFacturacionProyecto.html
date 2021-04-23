@@ -78,36 +78,28 @@ h5 {
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Proyectos</div>
 		</div>
+		
 		<form th:action="@{/gestionWeb/proyectos/modifproyecto}" th:object="${datosFacturacinProyectoWeb}" method="post">
+		
 		<div class="row">
-			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Facturación Proyecto FF</div>
+  				<div class="subtitulo-pag2">Resumen de la Facturación Proyecto FF</div>
   			</div>
-  			
   			<div class="col-1"></div>
   		</div>
   		
-  		<div class="row">
-			<br>
-			<div class="col-1"></div>
-  			<div class="col-10" >
-  				<div class="subtitulo-pag2">Facturación Proyecto FF</div>
-  			</div>
-  			<div class="col-1"></div>
-  		</div>
+
   		
   		<div class="row">
   			<div class="form-group">
-			<label for="labelFacturacionMes" th:text="'Facturacion  Proyecto ' "></label>
-				<select class="form-control" th:name="mesFacturacionEmpleado" th:id="idMesFacturacionEmpleado">
-						<option th:value="0" th:text="'Seleccionar mes facturacion' "></option>
-					<!--	<option th:each="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
-   						 			th:value="${pTrabajoEmple.idPuestoTrabajo}"
-  						  			th:text ="${pTrabajoEmple.desPuestoTrabajo}">
-  						</option>--> 
-    				</select>
+			<label for="labelFacturacionMes" th:text="'Facturacion Proyecto'"></label>
+				<select class="form-control" th:name="mesFacturacionProyecto" th:id="idMesFacturacionProyecto">
+						<option th:value="0" th:text="'Todo el periodo del proyecto'"></option>
+						<option th:value="1" th:text="'Seleccionar 2021 Enero'"></option>
+						<option th:value="2" th:text="'Seleccionar 2021 Febrero'"></option>
+						<option th:value="3" th:text="'Seleccionar 2021 Marazo'"></option>
+    			</select>
 			</div>
 		</div>
 		
@@ -116,13 +108,13 @@ h5 {
 					<thead class="thead-light">
 						<tr>
 							<th th:text="'Empleado'"></th>
-							<th th:text="'Importe Facturado'"></th>
-							 
+							<th th:text="'Importe Facturado'"></th> 
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${pagGenerica.empty}">
-							<td colspan="9">No hay Proyectos</td>
+						<tr>
+							<td th:text="'2021/Febrero'"></td>
+							<td th:text="'__'"></td>
 						</tr>
 						<tr>
 							<td th:text="Pedro"></td>
@@ -136,7 +128,18 @@ h5 {
 							<td th:text="Ramon"></td>
 							<td th:text="3.000"></td>
 						</tr>
-						
+						<tr>
+							<td th:text="'2021/Marzo'"></td>
+							<td th:text="'__'"></td>
+						</tr>
+						<tr>
+							<td th:text="Pedro"></td>
+							<td th:text="3.000"></td>
+						</tr>
+						<tr>
+							<td th:text="Luis"></td>
+							<td th:text="3.100"></td>
+						</tr>
 					</tbody>
 				</table>
 		</div>
@@ -144,7 +147,6 @@ h5 {
  		<div class="row">
  			<div class="col-4"></div>
  			<div class="col-2"><a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Volver</a></div>
- 			<div class="col-2"><button type="submit" class="btn btn-colour-1">Crear</button></div>
  			<div class="col-4"></div>
  		</div>
  				

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -42,6 +45,8 @@ import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.model.FacturacionProyecto;
 import com.myfactory.SBootWebProject.model.Proyecto;
+import com.myfactory.SBootWebProject.model.ProyectoFacturacionMes;
+import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAFacturacionProyecto;
@@ -71,12 +76,14 @@ public class ControllerWebProyectos {
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
 	
-	public  List<BeanPrueba1> lPrueba1 = new ArrayList<BeanPrueba1>();
+	public List<BeanPrueba1> lPrueba1 = new ArrayList<BeanPrueba1>();
 
 	@GetMapping("/formaltaproyecto")
  	public String formularioAltaEmpresa(Model modelo)  {
 		
 	 BeanProyectoWeb datosProyectoWeb = new BeanProyectoWeb ();
+	 
+	 datosProyectoWeb.setImpProyectoWeb(0F);
 			
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
@@ -91,7 +98,6 @@ public class ControllerWebProyectos {
 	 prueba1.setNombreWeb("2");
 	 
 	 lPrueba1.add(prueba1);
-
 	// modelo.addAttribute("lprueba", lPrueba1);
 	
 	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
@@ -107,11 +113,12 @@ public class ControllerWebProyectos {
 				BindingResult resultValidacion,
 				RedirectAttributes redirectAttrs,
 				Model modelo, @RequestParam(value = "provinciaEmpresa", required = false) String codProvincia) {
-		
+		boolean noFinProyecto = false;
 		Proyecto nuevoProyecto = new Proyecto();
 		
 		// nuevoProyecto.setNomProyecto(formProyectoWeb.getNomProyecto() );
 		nuevoProyecto.setImpProyecto( formProyectoWeb.getImpProyectoWeb());
+		nuevoProyecto.setIndFinProyecto(noFinProyecto);
 		
 		servJPAProyecto.altaProyecto(nuevoProyecto);
 		
@@ -149,24 +156,100 @@ public class ControllerWebProyectos {
 	}
 	
 	@GetMapping("/formfacturacionproyecto")
- 	public String formFacturacionProyecto(Model modelo)  {
+ 	public String formFacturacionProyecto(Model modelo,  @RequestParam(value = "idProyecto", required = true ) Integer idProyecto)  {
 		
-	 BeanFacturacionProyectoWeb datosFacturacionProyectoWeb = new BeanFacturacionProyectoWeb();
+	// BeanFacturacionProyectoWeb datosFacturacionProyectoWeb = new BeanFacturacionProyectoWeb();
 	 
+	 Proyecto datosProyecto = servJPAProyecto.buscarIdProyecto(idProyecto).get();
+	 
+	 // Set<ProyectoFacturacionMes> proyectFactuMes =  datosProyecto.getProyectoFacturacionMes();
+	 
+	 Iterable <ProyectoFacturacionMes> proyectFactuMes = datosProyecto.getProyectoFacturacionMes();
+	 
+	 List<ProyectoFacturacionMes> listFactuProyectoMes = StreamSupport
+				  .stream(proyectFactuMes.spliterator(), false)
+				  .collect(Collectors.toList());
+	 
+	 List<ProyectoFacturacionMes> proyecFactuMesPendientes = listFactuProyectoMes
+			  .stream()
+			  .filter(c -> c.getCodEstado() == 1)
+			  .collect(Collectors.toList());
+
+    // result.forEach(System.out::println);  
+
+	 modelo.addAttribute("proyFactuPendientes", proyecFactuMesPendientes );
+	 modelo.addAttribute("datosProyecto", proyectFactuMes );
+	 
+	 // Listar Procesos Pendiente. Hasta el mes en curso
 	 Integer idFacturaProyecto = new Integer(1);
 	 FacturacionProyecto facturacionProyecto = servJPAFacturacionProyecto.buscarIdProyectoFacturacion(idFacturaProyecto).get();
- 
-			
+	
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
 	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
 	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
 	 
 	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
-	 
+	
 	 modelo.addAttribute("datosFacturacionProyecto", facturacionProyecto);
 	 
 	 return "GestionWeb/proyectos/FormFacturacionProyecto";
+	}
+	
+	@GetMapping("/formgenerarfacproyecto")
+ 	public String formGenerarFacturacionProyecto(Model modelo, @RequestParam(value = "idProyecto", required = true ) Integer idProyecto )  {
+	 Integer idFacturaProyecto = new Integer(1);
+	 FacturacionProyecto facturacionProyecto = servJPAFacturacionProyecto.buscarIdProyectoFacturacion(idFacturaProyecto).get();
+	 modelo.addAttribute("datosFacturacionProyecto", facturacionProyecto);
+	 
+	 Proyecto datosProyecto = servJPAProyecto.buscarIdProyecto(idProyecto).get();
+	 modelo.addAttribute("datosProyecto", datosProyecto);
+	 
+	 Iterable <ProyectoFacturacionMes> proyectFactuMes = datosProyecto.getProyectoFacturacionMes();
+	 
+	 List<ProyectoFacturacionMes> listFactuProyectoMes = StreamSupport
+				  .stream(proyectFactuMes.spliterator(), false)
+				  .collect(Collectors.toList());
+	 
+	 List<ProyectoFacturacionMes> proyecFactuMesPendientes = listFactuProyectoMes
+			  .stream()
+			  .filter(c -> c.getCodEstado() == 1)
+			  .collect(Collectors.toList());
+	 
+	 modelo.addAttribute("proyFactuPendientes", proyecFactuMesPendientes );
+	 
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 
+	 return "GestionWeb/proyectos/FormGenFacturacionProyecto";
+	}
+	
+	@GetMapping("/formfinproyecto")
+ 	public String formFinProyecto(Model modelo)  {
+		
+	 BeanProyectoWeb datosProyectoWeb = new BeanProyectoWeb ();
+			
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 
+	 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
+	 obtenerEmpresasDisponibles(listEmpresasDisponibles);
+	 
+	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
+	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
+	 
+	// BeanPrueba1 prueba1 = new BeanPrueba1();
+	// prueba1.setApellidosWeb("1");
+	// prueba1.setNombreWeb("2");
+	 
+	// lPrueba1.add(prueba1);
+
+	// modelo.addAttribute("lprueba", lPrueba1);
+	
+//	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
+//	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
+	 
+	 modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
+	 
+	 return "GestionWeb/proyectos/FormFinProyecto";
 	}
 	
 	@RequestMapping("/pagproyectos")
