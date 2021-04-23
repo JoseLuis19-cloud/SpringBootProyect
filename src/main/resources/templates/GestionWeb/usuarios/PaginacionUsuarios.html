@@ -68,8 +68,8 @@
 			<table class="table table-sm">
 				<thead class="thead-light">
 					<tr>
-						<th th:text="'Nombre/Alias'"></th>
 						<th th:text="'Usuario'"></th>
+						<th th:text="'Nombre/Alias'"></th>
 						<th th:text="'empleado'"></th>
 						<th th:text="'roles'"></th>
 						<th th:text="'email'"></th>
@@ -88,8 +88,8 @@
 					</tr>
 
 					<tr th:each="users:${pagUsuarios}">
-						<td th:classappend="${! users.enabled}? div-desactivado" th:text="${users.fullName}"></td>
 						<td th:text="${users.username}"></td>
+						<td th:classappend="${! users.enabled}? div-desactivado" th:text="${users.fullName}"></td>
 						<td>
 							<div style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:checked="${users.indEmpleado}" class="btn btn-primary btn-sm" th:id="'idUserEmpleado'+ ${users.id}" th:name="'userEmpleado'+ ${users.id}" disabled="true"/>

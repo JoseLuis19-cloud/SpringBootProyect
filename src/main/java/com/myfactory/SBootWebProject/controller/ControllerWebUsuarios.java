@@ -357,7 +357,6 @@ public class ControllerWebUsuarios {
 			
 			if (! userError) {
 				if (servJPAUsuario.findByEmail(beanUsuarioWeb.getEmailWeb().trim()) ) {
-					System.out.println("Error el email esta duplicado");
 					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_EMAIL_DUPLICADO);
 					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_EMAIL_DUPLICADO);
 					userError = true;
@@ -369,8 +368,6 @@ public class ControllerWebUsuarios {
 		usuario = servJPAUsuario.findIdUsuario(beanUsuarioWeb.getIdUsuarioWeb()).get();
 		// Si cambia algun campo importante los buscamos si  ya existe y no esta duplicado.
 		
-		if ( ! beanUsuarioWeb.getUsernameWeb().trim().equals( usuario.getUsername() )  ) {
-			
 			if ( ! beanUsuarioWeb.getFullNameWeb().trim().equals( usuario.getFullName() ) ) {
 				if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim() )){
 					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_FULLNAME_DUPLICADO);
@@ -382,7 +379,7 @@ public class ControllerWebUsuarios {
 
 		if (! userError) {
 			if (! usuario.getUsername().equals(beanUsuarioWeb.getUsernameWeb().trim()) ) {
-				if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim()) )
+				if ( servJPAUsuario.findByName( beanUsuarioWeb.getUsernameWeb().trim()) )
 					{
 					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_USUARIO_DUPLICADO);
 					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_USUARIO_DUPLICADO);
@@ -400,12 +397,10 @@ public class ControllerWebUsuarios {
 				}
 			}
 		}
-	} // Fin if principal
 	
 	if (! userError) 
 		{
 		usuarioNuevo.setEmail(beanUsuarioWeb.getEmailWeb());
-		usuarioNuevo.setEnabled(beanUsuarioWeb.isEnabledWeb());
 		usuarioNuevo.setIndEmpleado(beanUsuarioWeb.isIndEmpleadoWeb());
 		usuarioNuevo.setFullName(beanUsuarioWeb.getFullNameWeb());
 		usuarioNuevo.setUsername(beanUsuarioWeb.getUsernameWeb());
@@ -422,11 +417,12 @@ public class ControllerWebUsuarios {
 	 	 // Encriptar password tecleado por el usuario
 			GeneradorEncriptacion generadorEncriptacion = new GeneradorEncriptacion();
 			String passordEncriptada = generadorEncriptacion.generarPasswordEncrip(beanUsuarioWeb.getPasswordWeb().trim());
-			
+			usuarioNuevo.setEnabled(true);
 			usuarioNuevo.setPassword(passordEncriptada); 	
 	 		}
 		else
 			{
+			usuarioNuevo.setEnabled(true);
 			usuarioNuevo.setId(beanUsuarioWeb.getIdUsuarioWeb());	
 			usuarioNuevo.setPassword(usuario.getPassword());
 			}

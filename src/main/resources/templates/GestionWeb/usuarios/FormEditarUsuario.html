@@ -75,43 +75,40 @@ h5 {
 			<div class="col-6" style="border-bottom: 2px solid #000">
 				<div class="form-row">
 					<div class="col-md-4 mb-3">
-						<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
-						 <input type="text" class="form-control" id="idfullNameWeb"
-								th:field="*{fullNameWeb}" th:maxlength="25" required>
+						<label for="labelFullNameWeb" th:text="'Nombre completo'"></label>
+						 <input type="text" class="form-control" th:id="idfullNameWeb" th:name="'fullNameWeb'" th:field="*{fullNameWeb}" th:maxlength="25" required>
 					</div>
 					<div class="col-md-4 mb-3">
-						<label for="validationUserNameWeb" th:text="'Nombre Usuario:' "></label>
-						<input type="text" class="form-control" id="idApelliCliWeb"
-								th:field="*{usernameWeb}" th:maxlength="25" required>
+						<label for="labelUserNameWeb" th:text="'Nombre Usuario:' "></label>
+						<input type="text" class="form-control" th:id="idNomUsuWeb" th:name="'nomUsuWeb'" th:field="*{usernameWeb}" th:maxlength="25" required>
 					</div>
 					<div class="col-md-4 mb-3">
 					</div>
 				</div>				
 				<div class="form-row">
 					<div class="col-md-6 mb-3">
-						<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
-							type="text" class="form-control" id="idDirCliWeb"
-							th:field="*{emailWeb}" th:maxlength="35" required>
+						<label for="labelEmailWeb" th:text="'email aplicación:'"></label> <input
+							type="text" class="form-control" th:id="idDirCliWeb" th:name="'dirCliWeb'" th:field="*{emailWeb}" th:maxlength="35" required>
 					</div>
 
 					<div class="col-md-3 mb-3">
 					 	<div class="form-check">
 						 	<br>
 						 	<input type="checkbox" th:checked="*{enabledWeb}" th:id="'idIndActivado'" th:name="'indActivado'" class="form-check-input" th:disabled="disabled"/>
-							<label for="validationIndActivadoWeb" th:text="'Usuario activado:' " class="form-check-label"></label>					
+							<label for="labelIndActivadoWeb" th:text="'Usuario activado:' " class="form-check-label"></label>					
 						</div>
 					</div>
 					<div class="col-md-3 mb-3">
 						<br>
 						<div class="form-check">
 							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input"/>
-							<label for="validationIndEmpleadoWeb" th:text="'Es empleado:' " class="form-check-label"></label>	
+							<label for="labelIndEmpleadoWeb" th:text="'Es empleado:' " class="form-check-label"></label>	
 						</div>
 					</div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-4 mb-2">
-							<label for="validationFecAltaUsu">Fec. Alta Usuario</label>
+							<label for="labelFecAltaUsu">Fec. Alta Usuario</label>
 							<div class="input-group">
 								<div class="input-group-addon">
        							  <i class="fa fa-calendar"> </i> 
