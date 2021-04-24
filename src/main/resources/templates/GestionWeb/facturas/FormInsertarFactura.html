@@ -132,16 +132,20 @@ h5 {
 						<input type="text" class="form-control" id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
 					</div>
 				</div>
-						
-					<div class="d-flex">
-  						<div class="mr-auto p-2">
-  							<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
-  						</div>
+	
+  				<div id="idDivLinFacturas">
+					<div th:insert="gestionFacturas/fragments/LineasFactua :: lineafactura"></div>
+				</div>	
+			 	
+				<div class="d-flex">
+  					<div class="mr-auto p-2">
+  						<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
+  					</div>
   			 
-  						<div class="p-2">
-						 <button type="submit" class="btn btn-primary">Crear factura</button>
-						</div>
+  					<div class="p-2">
+					 <button type="submit" class="btn btn-primary">Crear factura</button>
 					</div>
+				</div>
 				</form>
 			</div>
 			<div class="col-2"></div>

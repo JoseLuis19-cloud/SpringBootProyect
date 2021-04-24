@@ -2,6 +2,7 @@ package com.myfactory.SBootWebProject.beanForm;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,7 +44,9 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		private Float porDescuentoWeb;
 		
 		private Integer codDivisaWeb;
-	       
+		
+		private List<BeanFacturaLineas> beanFacturaLineas;
+
 		public BeanFacturaWeb() {
 		}
 	    
@@ -133,5 +136,13 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 
 		public void setCodDivisaWeb(Integer codDivisa) {
 			this.codDivisaWeb = codDivisa;
+		}
+		
+		public List<BeanFacturaLineas> getBeanFacturaLineas() {
+			return beanFacturaLineas;
+		}
+
+		public void setBeanFacturaLineas(List<BeanFacturaLineas> beanFacturaLineas) {
+			this.beanFacturaLineas = beanFacturaLineas;
 		}
 }

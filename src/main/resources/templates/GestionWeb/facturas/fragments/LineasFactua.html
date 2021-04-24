@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+
+  	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+  	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+  	
+  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  
+  <style>  
+   .form-control-xs {
+    height: calc(1em + .375rem + 2px) !important;
+    padding: .125rem .25rem !important;
+    font-size: .75rem !important;
+    line-height: 1.5;
+    border-radius: .2rem;
+	}
+		
+	#container {
+  	position: relative;
+	}
+
+	#idNuevoElemMenu {
+     position: absolute;
+     top:300;
+     left:0;
+     z-index:10;
+     max-width:100%;
+     overflow:hidden;
+	}
+
+	#idDivSubMenu1 {
+      position: absolute;
+     top:300;
+     left:0;
+     z-index:1;
+     max-width:100%;
+     overflow:hidden;
+}
+
+  </style>
+  
+	<script th:inline="javascript">
+	 
+	function mostrarSubMenuAjax(idMenu)
+    {
+		alert("Entra");
+		
+		var url = '/gestionmenususuario/obtenersubmenuajax';
+		url = url + '/' + $('#idMenuHidden' + idMenu).val() ',' $('#idUserHidden').val()  ;
+	
+		alert(url);
+		  
+		$("#idDivSubMenu1").load(url);
+    }
+	</script>
+</head>
+
+  <body>
+  
+    <div th:fragment="lineafactura" class="results-block">
+    
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+   				<h5 th:text="'Linea de factura'"></h5>
+			</div>		
+		</div>	
+		<div class="row" style="border-bottom: 2px solid #000">
+			<div class="col-6">
+     			<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th th:text="'Cantidad'"></th>
+							<th th:text="'Concepto'"></th>
+							<th th:text="'% IVA'"></th>
+							<th th:text="'Importe'"></th>
+				
+						</tr>
+					</thead>
+					<tbody>      
+					  <tr th:each="mPrincipal, iterStat: *{beanLineaFactura}">
+						<td th:text="${mPrincipal.idMenu}"></td>
+						<td>
+							<div class="form-group"> 
+								<input type="text" class="form-control form-control-xs"  th:id="'idCantidad'+ ${iterStat.index}" th:name="'cantidad'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="2" th:readonly="false" required/>				 
+							</div>
+						</td>
+						
+						<td>
+							<div class="form-group"> 
+								<input type="text" class="form-control form-control-xs"  th:id="'idConcepto'+ ${iterStat.index}" th:name="'Concepto'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="40" th:readonly="false" required/>				 
+							</div>
+						</td>
+						
+						<td>
+							<div class="form-group"> 
+								<input type="text" class="form-control form-control-xs"  th:id="'idPorIva'+ ${iterStat.index}" th:name="'porIva'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="2" th:readonly="false" required/>				 
+							</div>
+						</td>
+						
+
+						<td>
+							<div class="form-group"> 
+								<input type="text" class="form-control form-control-xs"  th:id="'idImporteLinea'+ ${iterStat.index}" th:name="'importeLinea'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="6" th:readonly="false" required/>				 
+							</div>
+						</td>
+					</tr>
+					</tbody>
+				 </table>
+			</div>
+				
+			</div>	
+		</div>
+	</div>		 	
+	</body>
+</html>

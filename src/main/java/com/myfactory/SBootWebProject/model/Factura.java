@@ -58,6 +58,9 @@ public class Factura implements Serializable {
 	
 	@Column(name = "COD_DIVISA", nullable = true, unique = false)
 	private Integer codDivisa;
+	
+	@Column(name = "COD_USARIO", nullable = true, unique = false)
+	private Long codUsuario;
 
 
 	@ManyToOne(fetch = FetchType.LAZY)

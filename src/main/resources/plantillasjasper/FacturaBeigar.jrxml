@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturaBeigar" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb864cec-94e8-451d-80cf-d5e1de7acc30">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SpringBootAdapter"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<image>
+				<reportElement x="4" y="7" width="50" height="50" uuid="e82670cd-20aa-442f-9c2a-77c4621fb4a0"/>
+				<imageExpression><![CDATA["/Users/UsuarioJoseLuis/Downloads/SBootWebProject/src/main/resources/plantillasjasper/images/LogoBeigar.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="60" y="10" width="20" height="12" uuid="691aff35-9f15-494d-9294-ae796c39bb08"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIF.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="24" width="142" height="12" uuid="3c6488eb-5444-41b0-b502-32f7e24ce72f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Calle Maria de Molina, 54]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="39" width="120" height="12" uuid="9e14d54a-c33d-4eec-9bd3-6c053dcb0894"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[28006 , Madrid]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="10" width="80" height="12" uuid="f2c4ffa8-2e1c-4805-9749-10d32162fb46"/>
+				<text><![CDATA[NUM. FACTURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="15" width="50" height="14" uuid="3054809c-97b7-4a78-8e8a-ffc60dafcd0a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="32" width="42" height="20" uuid="528cfb1f-d24b-4311-b742-fa6fbae5c424"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="55" width="42" height="14" uuid="c64da479-1cf6-4822-b5b8-ca82af510ae3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="39" width="82" height="12" uuid="56eeb0d0-cf5a-4d9a-bd33-d53ebc8efb2e"/>
+				<text><![CDATA[Fecha Factura]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="84" y="10" width="60" height="12" uuid="54ea00ed-f1a6-4960-b133-62e0ce567a14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[B87884680]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="11" width="64" height="15" uuid="db7b1b07-4319-4758-9100-2db50a240c05"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2020/0104]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="15" width="80" height="12" uuid="b2ff92ac-84f2-489a-bbdd-72885c408640"/>
+				<text><![CDATA[Aldebaran]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="32" width="70" height="12" uuid="a3ae0e12-90ee-43a1-9f43-32b11134e079"/>
+				<textFieldExpression><![CDATA[1024422244F]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="288" y="37" width="70" height="16" uuid="9a61eed9-5920-4b67-a051-0a25a7340c34"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[14/04/2021]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="74" width="548" height="1" uuid="f1b44dd2-c252-43b9-bb32-0b34b5fd0fba"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="100" height="18" uuid="17ed59da-8e2b-420c-866a-329aba4c9774"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="7" width="100" height="18" uuid="b734107e-2ffb-4556-bedd-28ccd1193227"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="6" width="100" height="20" uuid="63cd11f3-9ce3-4e27-ac37-f333cbeb9674"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[%  IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="9" width="100" height="18" uuid="7b03d674-e862-4dd6-8a43-8e8a986b88d5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="28" width="550" height="1" uuid="710f963d-0de9-4ae7-a23d-36b6b3ccb3a1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="49" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="480" y="6" width="26" height="14" uuid="c3db1a71-4d0e-4663-bed7-4fdd36a97629"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="520" y="6" width="32" height="14" uuid="62f0daf9-fe00-4f7a-85d5-38fe579ff2c5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="509" y="7" width="12" height="12" uuid="27af2bbd-743c-4aaf-98d5-f932e5a131ec"/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="310" y="11" width="100" height="16" uuid="79062f7f-e03c-4ec6-98e3-5573113b312a"/>
+				<text><![CDATA[Total IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="30" width="100" height="16" uuid="4ccf5378-efb7-4bd4-9048-8797de37e79b"/>
+				<text><![CDATA[Total Factura]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="550" height="1" uuid="d734a415-52cd-4f79-9a57-bd033559ffa7"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
