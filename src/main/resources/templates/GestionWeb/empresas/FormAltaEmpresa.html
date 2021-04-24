@@ -93,17 +93,17 @@ h5 {
 				</div>
 
 				<div class="form-row">
-					<div class="col-md-4 mb-4">
+					<div class="col-md-2 mb-4">
 						<label for="labelCP" th:text="'Codigo postal' "></label>
 						<input type="text" class="form-control" th:id="idCodPosWeb" th:name="codPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
 					</div>
    					 
-   					<div class="col-md-4 mb-4">		
+   					<div class="col-md-3 mb-4">		
            				  <label for="labelAltaEmpresa" th:text="'Fecha Alta Empresa' "></label>
            				  <input type="text" class="form-control" th:id="idFecAltaEmpresa" th:name="fecAltaEmpresa" th:field="*{fecAltaEmpresaWeb}" th:value="${#calendars.format(fecAltaEmpresaWeb, 'dd/MM/yyyy')}">
             		</div>
             		
-					<div class="col-md-4 mb-4">
+					<div class="col-md-3 mb-4">
 						<div class="form-group">
 							<label for="labelPais" th:text="'Provincia empresa ' "></label>
 							<select th:object="${empleadoWeb}" class="form-control" name="provinciaEmpresa" id="idProvinciaEmpresa">
@@ -115,6 +115,12 @@ h5 {
     						</select>
 						</div>
 					</div>
+					
+					<div class="col-md-4 mb-4">
+						<label for="labelEmailEmpresa" th:text="'Email empresa' "></label>
+						<input type="text" class="form-control" th:id="idEMailEmpresaWeb" th:field="*{emailEmpresaWeb}" th:maxlength="35">
+					</div>
+					
 				</div>
 				
 				<div class="form-row">

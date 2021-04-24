@@ -174,6 +174,57 @@
  				
  		</form>
 	</div>
+	
+	<div id="myModalSimulacion" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+      <!-- Modal content-->
+      	<div class="modal-content">
+      		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
+      	
+       	 <div class="container-fluid">
+        	<div class="subtitulo-pag" th:text="'Simulación en Verde Mes'"></div>
+
+			<div class="row">
+			<!-- Meter div con scroll -->
+				<div class="col-12"> 
+					<table class="table table-sm">
+						<thead class="thead-light">
+							<tr>
+								<th th:text="'Empleado"></th>
+								<th th:text="'Importe facturado mes'"></th>
+								<th th:text="'Accion"></th>
+								 
+							</tr>
+						</thead>
+						<tbody>
+						<tr th:if="${pagGenerica.empty}">
+							<td colspan="7">No hay empleados asignados a este Periodo del proyecto</td>
+						</tr>
+						<tr>
+							<td th:text="Pedro Ruiz"></td>
+							<td th:text="10000"></td>
+							<td><a th:href="@{/gestionWeb/proyectos/formgenerarfacproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Modificar</a></td>
+						</tr>
+						<tr>
+							<td th:text="Silvia García Rodríguez"></td>
+							<td th:text="10000"></td>
+							<td><a th:href="@{/gestionWeb/proyectos/formgenerarfacproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Modificar</a></td>
+						</tr>
+					</tbody>
+			 	</table>
+		
+			 </div>
+			 
+			</div>
+			</div>	
+        	<div class="modal-footer">  
+       			  <button type="button" class="btn btn-colour-1"  data-dismiss="modal">volver</button>
+        	</div>
+          </form>	
+      </div>
+      
+    </div>
+  </div>
  
 </body>
 </html>

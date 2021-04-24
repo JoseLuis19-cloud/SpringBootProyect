@@ -17,6 +17,8 @@ public interface ServJPAProyecto {
 	
 	public Page<Proyecto> pagProyectos(Integer numPag, Integer numRegPag, String buscarProyecto);
 	
+//	public Optional<Proyecto> listaEmpleAFacturarMes(Integer idProyecto) ;
+	 
 	public Iterable<Proyecto> listProyectos();
 	
 }

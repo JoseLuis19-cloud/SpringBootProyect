@@ -108,6 +108,9 @@ public class ControllerWebEmpresas {
 		nuevaEmpresa.setFecAltaEmpresa(  formEmpresaWeb.getFecAltaEmpresaWeb() );
 		nuevaEmpresa.setCif(formEmpresaWeb.getCIFWeb());
 		
+		nuevaEmpresa.setTelefono(formEmpresaWeb.getTelefonoWeb());
+		nuevaEmpresa.setEmailEmpresa(formEmpresaWeb.getEmailEmpresaWeb());
+		
 		servJPAEmpresa.altaEmpresa(nuevaEmpresa);
 		
 		return "redirect:/gestionWeb/empresas/" + "pagempresas";
@@ -134,10 +137,16 @@ public class ControllerWebEmpresas {
 		 
 		Empresa modifEmpresa = new Empresa();
 		
+		// Meter metodo Validar
+		
+		modifEmpresa.setIdEmpresa(formEmpresaWeb.getIdEmpresaWeb() );
+		
 		modifEmpresa.setNomEmpresa(formEmpresaWeb.getNomEmpresaWeb());
 		modifEmpresa.setCodPostal (formEmpresaWeb.getCodPostalWeb());
 		modifEmpresa.setCodProvincia(new Integer(codProvincia));
 		modifEmpresa.setDirecion(formEmpresaWeb.getDirecionWeb());
+		modifEmpresa.setEmailEmpresa(formEmpresaWeb.getEmailEmpresaWeb());
+		modifEmpresa.setTelefono( formEmpresaWeb.getTelefonoWeb());
 		
 		modifEmpresa.setEmailContacto1(formEmpresaWeb.getEmailContacto1Web());
 		modifEmpresa.setEmailContacto2(formEmpresaWeb.getEmailContacto2Web());
@@ -145,10 +154,10 @@ public class ControllerWebEmpresas {
 		modifEmpresa.setTelefContacto1(formEmpresaWeb.getTelefContacto1Web());
 		modifEmpresa.setTelefContacto2(formEmpresaWeb.getTelefContacto2Web());
 		
-		modifEmpresa.setNomContacto1(formEmpresaWeb.getNomContacto1Web() );
-		modifEmpresa.setNomContacto2(formEmpresaWeb.getNomContacto2Web() );
+		modifEmpresa.setNomContacto1(formEmpresaWeb.getNomContacto1Web());
+		modifEmpresa.setNomContacto2(formEmpresaWeb.getNomContacto2Web());
 		
-		modifEmpresa.setFecAltaEmpresa(  formEmpresaWeb.getFecAltaEmpresaWeb() );
+		modifEmpresa.setFecAltaEmpresa(formEmpresaWeb.getFecAltaEmpresaWeb() );
 		modifEmpresa.setCif(formEmpresaWeb.getCIFWeb());
 		
 		servJPAEmpresa.modifEmpresa(modifEmpresa);

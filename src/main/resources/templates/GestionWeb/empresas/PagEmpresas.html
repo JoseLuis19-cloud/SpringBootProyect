@@ -47,7 +47,7 @@
 	<div class="row">
 		<div class="col-sm-1"></div>   
   		<div class="col-sm-10">
-  			<form class="form-inline" action="#" th:action="@{/gestionWeb/empresa/pagempresas}" th:object="${objBusqueda}" method="post">
+  			<form class="form-inline" action="#" th:action="@{/gestionWeb/empresas/pagempresas}" th:object="${objBusqueda}" method="post">
   				<div class="form-group mx-sm-3 mb-2">
     				<label for="buscarEmpresa" th:text="'  Empresa:  '"></label>
     				<input type="text" class="form-control" th:id="idBuscarEmpresa" th:name="buscarEmpresa" th:maxlength="25" th:field="*{nomEmpresa}" >
@@ -66,22 +66,24 @@
 					<thead class="thead-light">
 						<tr>
 							<th th:text="'Cod. Empresa'"></th>
-							<th th:text="'Nombre Empresa'"></th>
+							<th th:text="'Empresa'"></th>
 							<th th:text="'CIF'"></th>
 							<th th:text="'email'"></th>
-							<th th:text="'Fecha Alta'"></th>
+							<th th:text="'telefono'"></th>
+							<th th:text="'Fecha alta'"></th>
 							<th th:text="'Editar'"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${pagGenerica.empty}">
-							<td colspan="9">No hay empresas</td>
+							<td colspan="7">No hay empresas</td>
 						</tr>
 						<tr th:each="empresa:${pagGenerica.content}">
 							<td th:text="${empresa.idEmpresa}"></td>
 							<td th:text="${empresa.nomEmpresa}"></td>
 							<td th:text="${empresa.cif}"></td>
 							<td th:text="${empresa.emailEmpresa}"></td>
+							<td th:text="${empresa.telefono}"></td>
 							<td th:text="${#calendars.format(empresa.fecAltaEmpresa, 'dd/MMM/yyyy')}"></td>
 							<td><a th:href="@{/gestionWeb/empresas/formeditarempresa(idEmpresa=${empresa.idEmpresa})}" class="btn btn-primary" role="button">Editar</a></td>
 						</tr>

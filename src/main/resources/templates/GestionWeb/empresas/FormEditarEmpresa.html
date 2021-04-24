@@ -75,48 +75,49 @@ h5 {
   			<div class="col-1"></div>
   		</div>
   		
+  		<input type="hidden" th:id="'idIdEmpresaWeb'" th:name="'idEmpresaWeb'"  th:field="*{idEmpresaWeb}" />	 
+  		
 		<div class="row">
 			<div class="col-1"></div>
   			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
 					<div class="col-md-3 mb-4">
 						<label for="validationNombreEmpresa" th:text="'Nombre Empresa'"></label> 
-						<input type="text" class="form-control" id="idNombreWeb" th:field="*{nomEmpresaWeb}" th:maxlength="25" required>
+						<input type="text" class="form-control" th:id="idNombreWeb" th:field="*{nomEmpresaWeb}" th:maxlength="25" required>
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="validaCIF" th:text="'CIF' "></label>
-						<input type="text" class="form-control" id="idCIFEmpresaWeb" th:field="*{CIFWeb}" th:maxlength="25">
+						<input type="text" class="form-control" th:id="idCIFEmpresaWeb" th:field="*{CIFWeb}" th:maxlength="14">
 					</div>
 						
 					<div class="col-md-5 mb-4">
 						<label for="labelDireccion" th:text="'Dirección'"></label> 
-						<input type="text" class="form-control" id="idDireccionWeb" th:field="*{direcionWeb}" th:maxlength="25">
+						<input type="text" class="form-control" th:id="idDireccionWeb" th:field="*{direcionWeb}" th:maxlength="25">
 					</div>
 					
 					<div class="col-md-2 mb-4">
 						<label for="labelDireccion" th:text="'Teléfono'"></label> 
-						<input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefonoWeb}" th:maxlength="14">
+						<input type="text" class="form-control" th:id="idTelefMovilWeb" th:field="*{telefonoWeb}" th:maxlength="14">
 					</div>
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-3 mb-3">
+					<div class="col-md-2 mb-4">
 						<label for="labelCP" th:text="'Codigo postal' "></label>
-						<input type="text" class="form-control" id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
+						<input type="text" class="form-control" th:id="idCodPosWeb" th:field="*{codPostalWeb}" th:maxlength="5" >
 					</div>
 					
-					<div class="col-md-4 mb-3">
-						<label for="labelFecAltaEmpresa">Fec. alta empresa</label>
+					<div class="col-md-3 mb-4">
+						<label for="labelFecAltaEmpresa" th:text="'Fec. alta empresa'"></label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-       						<input type="text"  class="form-control" th:id="idFecAltaEmpresa" th:name="fecAltaEmpresa" th:value="${#calendars.format(fecAltaEmpresaWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
-							<input type="hidden" th:id="idFecAltaEmpresaHidden" th:name="fecAltaEmpresaHidden"  th:field="*{fecAltaEmpresaWeb}"/>
+       						<input type="text" class="form-control" th:id="idFecAltaEmpresa" th:name="fecAltaEmpresa" th:field="*{fecAltaEmpresaWeb}" th:value="${#calendars.format(fecAltaEmpresaWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" th:readonly="true" required />
 						</div> 
 					</div>
 					
-					<div class="col-md-5 mb-3">
+					<div class="col-md-3 mb-4">
 						<div class="form-group">
 							<label for="labelPais" th:text="'Provincia empresa: ' "></label>
 							<select th:object="${empleadoWeb}" class="form-control" name="provinciaEmpresa" id="idProvinciaEmpresa">
@@ -129,37 +130,44 @@ h5 {
     						</select>
 						</div>
 					</div>
+					
+					<div class="col-md-4 mb-4">
+						<label for="labelEmailEmpresa" th:text="'Email empresa' "></label>
+						<input type="text" class="form-control" th:id="idEMailEmpresaWeb" th:field="*{emailEmpresaWeb}" th:maxlength="35">
+					</div>
+					
+					
 				</div>
 				
 				<div class="form-row">
 					<div class="col-md-3 mb-3">
 						<label for="validaNombreContacto1" th:text="'Nombre Contacto 1'"></label> 
-						<input type="text" class="form-control" id="nomContacto1Web" th:field="*{nomContacto1Web}" th:maxlength="25">
+						<input type="text" class="form-control" th:id="nomContacto1Web" th:field="*{nomContacto1Web}" th:maxlength="25">
 					</div>
 					<div class="col-md-2 mb-3">
 						<label for="validaEmailContacto1" th:text="'Email Contacto 1' "></label>
-						<input type="text" class="form-control" id="idEMailContacto1Web" th:field="*{emailContacto1Web}" th:maxlength="35">
+						<input type="text" class="form-control" th:id="idEMailContacto1Web" th:field="*{emailContacto1Web}" th:maxlength="35">
 					</div>
 						
 					<div class="col-md-5 mb-3">
 						<label for="validaTelefContacto1" th:text="'Telefono Contacto 1'"></label> 
-						<input type="text" class="form-control" id="idDireccionWeb" th:field="*{telefContacto1Web}" th:maxlength="14">
+						<input type="text" class="form-control" th:id="idDireccionWeb" th:field="*{telefContacto1Web}" th:maxlength="14">
 					</div>
 				</div>
 				
 				<div class="form-row">
 					<div class="col-md-3 mb-3">
 						<label for="validaNombreContacto2" th:text="'Nombre Contacto 2'"></label> 
-						<input type="text" class="form-control" id="nomContacto1Web" th:field="*{nomContacto2Web}" th:maxlength="25" >
+						<input type="text" class="form-control" th:id="nomContacto1Web" th:field="*{nomContacto2Web}" th:maxlength="25" >
 					</div>
 					<div class="col-md-2 mb-3">
 						<label for="validaEmailContacto2" th:text="'Email Contacto 2' "></label>
-						<input type="text" class="form-control" id="idEMailContacto1Web" th:field="*{emailContacto2Web}" th:maxlength="35" >
+						<input type="text" class="form-control" th:id="idEMailContacto1Web" th:field="*{emailContacto2Web}" th:maxlength="35" >
 					</div>
 						
 					<div class="col-md-5 mb-3">
 						<label for="validaTelefContacto2" th:text="'Telefono Contacto 2'"></label> 
-						<input type="text" class="form-control" id="idTelefonoWeb" th:field="*{telefContacto2Web}" th:maxlength="14">
+						<input type="text" class="form-control" th:id="idTelefonoWeb" th:field="*{telefContacto2Web}" th:maxlength="14">
 					</div>
 				</div>
 				
@@ -178,11 +186,7 @@ h5 {
 		</div>
  		</form>
  	</div>
-	
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
- <script>
  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>

@@ -19,6 +19,7 @@ public class BeanEmpresaWeb  implements Serializable , Cloneable
 	private String CIFWeb;
 	private Integer codProvinciaWeb;
 	private String codPostalWeb;
+
 	private String telefonoWeb;
 	private String nomContacto1Web;
 	private String telefContacto1Web;

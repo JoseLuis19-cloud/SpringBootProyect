@@ -25,5 +25,6 @@ import com.myfactory.SBootWebProject.model.User;
 
 		@Query("SELECT u FROM User u WHERE u.fullName = :fullName")
 		public Optional<User> findByFullName(@Param("fullName") String fullName);
+		
 
 	}

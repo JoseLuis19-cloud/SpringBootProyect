@@ -220,6 +220,12 @@ public class ControllerWebProyectos {
 	 
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
+	// if activadoModalSimulacion
+	 	{
+	 //	Proyecto datosProyectos = servJPAProyecto.listaEmpleAFacturarMes(idProyecto).get();
+	 	}
+	 
+	 
 	 return "GestionWeb/proyectos/FormGenFacturacionProyecto";
 	}
 	

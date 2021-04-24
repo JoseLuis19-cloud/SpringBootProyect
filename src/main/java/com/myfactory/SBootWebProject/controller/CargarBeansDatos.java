@@ -153,6 +153,10 @@ public class CargarBeansDatos  implements Serializable {
 		  datosEmpresaWeb.setCodPostalWeb(empresa.getCodPostal());
 		  datosEmpresaWeb.setDirecionWeb(empresa.getDirecion());
 		  datosEmpresaWeb.setTelefonoWeb(empresa.getTelefono());
+		  datosEmpresaWeb.setEmailEmpresaWeb(empresa.getEmailEmpresa());
+		  datosEmpresaWeb.setCIFWeb( empresa.getCif());
+		  
+		  datosEmpresaWeb.setFecAltaEmpresaWeb( empresa.getFecAltaEmpresa());
 		  
 		  datosEmpresaWeb.setNomContacto1Web(empresa.getNomContacto1());
 		  datosEmpresaWeb.setTelefContacto1Web(empresa.getTelefContacto1() );
@@ -161,11 +165,8 @@ public class CargarBeansDatos  implements Serializable {
 		  datosEmpresaWeb.setNomContacto2Web( empresa.getNomContacto2());
 		  datosEmpresaWeb.setTelefContacto2Web(empresa.getTelefContacto2() );
 		  datosEmpresaWeb.setEmailContacto2Web(empresa.getEmailContacto2());
-		  
 
-		  
 	      datosEmpresaWeb.setFecAltaEmpresaWeb(empresa.getFecAltaEmpresa());
-	      
 	      datosEmpresaWeb.setCodProvinciaWeb( empresa.getCodProvincia());
 		  
 		  return datosEmpresaWeb;
