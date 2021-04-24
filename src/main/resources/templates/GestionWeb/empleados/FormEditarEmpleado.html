@@ -147,12 +147,12 @@ h5 {
 						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
 					</div>
 					<div class="col-md-2 mb-5">
-						<label for="labelFecEmpleado">Fec. alta empleado</label>
+						<label for="labelFecAltaEmpleado" th:text="'Fec. alta empleado' "></label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i>
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleladoWeb}" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
+       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}" th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
 						</div>
 					</div>
 					<div class="col-md-2 mb-5">

@@ -130,7 +130,7 @@ h5 {
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="labelFecEmpleado">Fec. alta empleado</label>
-       						<input class="form-control" type="text" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" th:readonly="true" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" required/>
+       						<input class="form-control" type="text" th:id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}"  th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}" th:readonly="true"/>
 					</div>
 	 
 					<div class="col-md-2 mb-4">

@@ -2,8 +2,8 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-	<link th:rel="stylesheet" href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" />
+  
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
   	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
@@ -13,39 +13,18 @@
  
 	.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
 
-
 	.form-control-xs {
-	height: calc(1em + .375rem + 2px) !important;
-	padding: .125rem .25rem !important;
-	font-size: .75rem !important;
-	line-height: 1.5;
-	border-radius: .2rem;
+		height: calc(1em + .375rem + 2px) !important;
+		padding: .125rem .25rem !important;
+		font-size: .75rem !important;
+		line-height: 1.5;
+		border-radius: .2rem;
 	}
 
-	h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-	h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
-}
-
 </style>
- 
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 </head>
 
 <body>
@@ -56,9 +35,10 @@
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Empleado</div>
 		</div>
+		
 		<form th:action="@{/gestionWeb/empleados/activarempleado}" th:object="${empleadoWeb}" method="post">
 		
-		<input type="hidden" th:id="'idIdEmpleadoWeb'" th:name="'idEmpleadoWeb'"  th:field="*{idEmpleadoWeb}" />	 
+			<input type="hidden" th:id="'idIdEmpleadoWeb'" th:name="'idEmpleadoWeb'"  th:field="*{idEmpleadoWeb}" />	 
 			
 		<div class="row">
 			<br>
@@ -80,15 +60,15 @@
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
 						<div class="col-md-5 mb-3">
-							<label for="validationNombre" th:text="'Nombre'"></label> 
+							<label for="labelNombre" th:text="'Nombre'"></label> 
 							<input type="text" class="form-control" id="idNombreWeb" th:field="*{nombreWeb}" th:maxlength="25" th:readonly="true">
 						</div>
 						<div class="col-md-5 mb-3">
-							<label for="validaApellidos" th:text="'Apellidos' "></label>
+							<label for="labelApellidos" th:text="'Apellidos' "></label>
 							<input type="text" class="form-control" id="idApellidosWeb" th:field="*{apellidosWeb}" th:maxlength="25" th:readonly="true">
 						</div>
 						<div class="col-md-2 mb-3">
-							<label for="validaTelefMovil" th:text="'Teléfono móvil' "></label>
+							<label for="labelTelefMovil" th:text="'Teléfono móvil' "></label>
 							<input type="text" class="form-control" id="idTelefMovilWeb" th:field="*{telefMovilWeb}" th:maxlength="14" th:readonly="true">
 						</div>
 				</div>
@@ -132,7 +112,7 @@
 						<input type="text" class="form-control" th:id="idTelefAlterWeb" th:field="*{telefono2}" th:maxlength="14" th:readonly="true">
 					</div>
 					<div class="col-md-4 mb-4">
-						<label for="labelemail" th:text="'email empleado' "></label>
+						<label for="labelEmail" th:text="'email empleado' "></label>
 						<input type="text" class="form-control" th:id="idEmailWeb" th:field="*{emailWeb}" th:maxlength="25" th:readonly="true">
 					</div>
 				</div>
@@ -153,24 +133,29 @@
 					</div>
 				 		<div class="col-md-4 mb-4">
 							<div class="form-group">
-								<label for="idNumSegSocial" th:text="'Número Seguridad Social: ' "></label>
-								<input type="text" class="form-control" id="idNumSeguridaSocialWeb" th:field="*{numSeguridaSocialWeb}" th:maxlength="14" th:readonly="true">	
+								<label for="labelNumSegSocial" th:text="'Número Seguridad Social: ' "></label>
+								<input type="text" class="form-control" th:id="idNumSeguridaSocialWeb" th:field="*{numSeguridaSocialWeb}" th:maxlength="14" th:readonly="true">	
 							</div>
 				 		</div>
 				<div class="col-md-3 mb-4">
-					<label for="validadNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
-					<input type="text" class="form-control" id="idNumCCWeb" name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24" th:readonly="true">
+					<label for="labelNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
+					<input type="text" class="form-control" th:id="idNumCCWeb" th:name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24" th:readonly="true">
 				</div>
 				<div class="col-md-2 mb-4">
 					<label for="labelImpBrutoAnu" th:text="'Importe bruto anual' "></label>
-					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10" th:readonly="true">
+					<input type="text" class="form-control" th:id="idImpBrutoAnual" th:name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10" th:readonly="true">
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="col-md-5 mb-3"></div>
 				<div class="col-md-2 mb-3">
-					<label for="labelFecEmpleado" th:text="'Fec. Alta empleado' "></label> 
-       				<input type="text" class="form-control" th:id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}" th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" required />
+					<label for="labelFecAltaEmpleado" th:text="'Fec. alta empleado'"></label>
+					<div class="input-group">
+						 <div class="input-group-addon">
+       					   <i class="fa fa-calendar"> </i>
+      					 </div>
+       					<input type="text" class="form-control" th:id="idFecAltaEmpleado" th:name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}" th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}" th:maxlength="10" th:readonly="false" />
+					</div>
 			 	</div>
 			 	<div class="col-md-5 mb-3"></div>
 			  </div>	
@@ -181,12 +166,10 @@
  			<div class="col-1"></div>
  			<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a></div>
  			<div class="col-5"></div>
- 			<div class="col-3">	
-				<button type="submit" class="btn btn-primary">Confirmar</button>
- 			</div>
+ 			<div class="col-3"><button type="submit" class="btn btn-primary">Confirmar</button></div>
  			<div class="col-1"></div>
 		</div>
- 		</form>
+ 	  </form>
  	</div>
 	
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>

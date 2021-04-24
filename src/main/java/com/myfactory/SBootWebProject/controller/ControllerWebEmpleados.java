@@ -216,17 +216,17 @@ public class ControllerWebEmpleados {
 	@RequestMapping(value = "/activarempleado", method = RequestMethod.POST)
 	public String activarEmpleado(Model modelo, @ModelAttribute("empleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb)  { 
 		
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
+	 Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
 	//	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		  		 		
 	 empleado.get().setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleadoWeb()) ;
-	 empleado.get().setIndbajaEmpleado(true); 
+	 empleado.get().setIndbajaEmpleado(false); 
 		
-		 servJPAEmpleado.bajaEmpleado(empleado.get());
+	 servJPAEmpleado.bajaEmpleado(empleado.get());
 		
-		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		 return "redirect:/gestionWeb/empleados/" + "pagempleados10";
+	 return "redirect:/gestionWeb/empleados/" + "pagempleados10";
 	}
 	
 	@GetMapping("/formaltaempleado")
@@ -355,7 +355,8 @@ public class ControllerWebEmpleados {
 				{
 				 modelo.addAttribute("errorValidacion" , false);
 				 modelo.addAttribute("mensajeError", "" );
-				 // Modificar un Empleado
+				 
+			  // Modificar un Empleado
 				 modifEmpleado = (Empleado) resultValEmpleado.get("empleadoValidacion");
 				 
 				 servJPAEmpleado.modifEmpleado(modifEmpleado);
