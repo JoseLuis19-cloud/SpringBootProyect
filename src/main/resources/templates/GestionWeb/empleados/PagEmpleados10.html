@@ -109,7 +109,7 @@
 							<td colspan="12">No se han creado empleados en Beigar todavía</td>
 						</tr>
 						<tr th:classappend="${empleado.indbajaEmpleado}? div-desactivado" th:each="empleado:${pagGenerica.content}">
-							<td th:text="${empleado.idEmpleado}"></td>
+							<td th:classappend="${empleado.indbajaEmpleado}? div-desactivado" th:text="${empleado.idEmpleado}"></td>
 							<td th:text="${empleado.apellidos}"></td>
 							<td th:text="${empleado.nombre}"></td>
 							<td th:text="${empleado.nif}"></td>
@@ -118,8 +118,8 @@
 							<td th:text="${empleado.email}"></td>
 							<td th:text="${empleado.telefMovil}"></td>
 							<td th:text="${empleado.impBrutoAnual}"></td>
-							<td><a th:href="@{/gestionWeb/empleados/formbajaempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Baja</a></td>
-							<td><a th:href="@{/gestionWeb/empleados/formactivarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Activar</a></td>
+							<td><a th:if="${! empleado.indbajaEmpleado}" th:href="@{/gestionWeb/empleados/formbajaempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Baja</a></td>
+							<td><a th:if="${ empleado.indbajaEmpleado}"  th:href="@{/gestionWeb/empleados/formactivarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Activar</a></td>
 							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Editar</a></td>
 						</tr>
 					</tbody>

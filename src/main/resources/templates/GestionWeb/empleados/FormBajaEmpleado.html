@@ -130,8 +130,7 @@ h5 {
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="labelFecEmpleado">Fec. alta empleado</label>
-       						<input class="form-control" type="text" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" th:readonly="true" required th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" />
-							<input type="hidden" id="idFecAltaEmpleadoHidden" name="fecAltaEmpleadoHidden"  th:field="*{fecAltaEmpleladoWeb}"/>
+       						<input class="form-control" type="text" id="idFecAltaEmpleado" name="fecAltaEmpleado" placeholder="MM/DD/YYYY" th:readonly="true" th:value="${#calendars.format(fecAltaEmpleladoWeb, 'dd/MM/yyyy')}" required/>
 					</div>
 	 
 					<div class="col-md-2 mb-4">
@@ -182,7 +181,6 @@ h5 {
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
        						<input type="text" class="form-control" th:id="idFecBajaEmpleado" th:name="fecBajaEmpleado" th:field="*{fecBajaEmpleadoWeb}" th:value="${#calendars.format(fecBajaEmpleadoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" required>
-       				
 						</div> 
 			 	</div>
 			 	<div class="col-md-5 mb-3"></div>

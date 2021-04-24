@@ -156,31 +156,19 @@ public class ControllerWebEmpleados {
 	}
 	
 	@RequestMapping(value = "/bajaempleado", method = RequestMethod.POST)
-	public String bajaempleado(Model modelo, @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb,
-											 @RequestParam(value = "fecBajaEmpleado", required = true) String fecBajaEmpleado)  { 
+	public String bajaempleado(Model modelo, @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb)  { 
 		
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		  
-		try
-		{
-		 Calendar calendar1 = Calendar.getInstance();
-		 calendar1.setTime( dateFormat.parse(fecBajaEmpleado) );
-		
-		 empleado.get().setFecBajaEmplelado(calendar1) ;
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( datosEmpleadoWeb.getIdEmpleadoWeb() );
+		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	 
+		 empleado.get().setFecBajaEmplelado(datosEmpleadoWeb.getFecBajaEmpleadoWeb()) ;
 		 empleado.get().setIndbajaEmpleado(true); 
 		
 		 servJPAEmpleado.bajaEmpleado(empleado.get());
 		
 		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
-		 }
-		catch (Exception e)
-		 {
-			
-		 }
-		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+		 return "redirect:/gestionWeb/empleados/" + "pagempleados10";
 	}
 	
 	@GetMapping("/formactivarempleado")
@@ -226,31 +214,19 @@ public class ControllerWebEmpleados {
 	}
 	
 	@RequestMapping(value = "/activarempleado", method = RequestMethod.POST)
-	public String activarEmpleado(Model modelo, @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb,
-											 @RequestParam(value = "fecBajaEmpleado", required = true) String fecBajaEmpleado)  { 
+	public String activarEmpleado(Model modelo, @ModelAttribute("empleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb)  { 
 		
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		  
-		try
-		{
-		 Calendar calendar1 = Calendar.getInstance();
-		 calendar1.setTime(dateFormat.parse(fecBajaEmpleado));
-		
-		 empleado.get().setFecBajaEmplelado(calendar1) ;
-		 empleado.get().setIndbajaEmpleado(true); 
+	//	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		  		 		
+	 empleado.get().setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleadoWeb()) ;
+	 empleado.get().setIndbajaEmpleado(true); 
 		
 		 servJPAEmpleado.bajaEmpleado(empleado.get());
 		
 		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		 return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
-		 }
-		catch (Exception e)
-		 {
-			
-		 }
-		return "redirect:/gestionWeb/empleados/" + "pagempleadosNue";
+		 return "redirect:/gestionWeb/empleados/" + "pagempleados10";
 	}
 	
 	@GetMapping("/formaltaempleado")
@@ -262,7 +238,7 @@ public class ControllerWebEmpleados {
 		
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
 		
-		beanEmpleadoWeb.setFecAltaEmpleladoWeb(Calendar.getInstance()); 
+		beanEmpleadoWeb.setFecAltaEmpleadoWeb(Calendar.getInstance()); 
 		beanEmpleadoWeb.setImpBrutoAnualWeb(0F);
 		beanEmpleadoWeb.setImpFacturadoMes(0F);
 		
@@ -895,7 +871,7 @@ public class ControllerWebEmpleados {
 		empleado.setNumCuentaCorriente(datosEmpleadoWeb.getNumCuentaCorrienteWeb());
 		empleado.setNumSeguridaSocial(datosEmpleadoWeb.getNumSeguridaSocialWeb());
 		empleado.setImpFacturadoMes(datosEmpleadoWeb.getImpFacturadoMes());
-		empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleladoWeb()) ;
+		empleado.setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleadoWeb()) ;
 		empleado.setImpBrutoAnual( datosEmpleadoWeb.getImpBrutoAnualWeb());
 		
 		empleado.setTelefMovil(datosEmpleadoWeb.getTelefMovilWeb());

@@ -26,7 +26,7 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private String nifWeb;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Calendar fecAltaEmpleladoWeb;
+    private Calendar fecAltaEmpleadoWeb;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Calendar fecBajaEmpleadoWeb;
@@ -232,12 +232,12 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 		return codPuestoTrabajoWeb;
 	}
 	
-	public Calendar getFecAltaEmpleladoWeb() {
-		return fecAltaEmpleladoWeb;
+	public Calendar getFecAltaEmpleadoWeb() {
+		return fecAltaEmpleadoWeb;
 	}
 
-	public void setFecAltaEmpleladoWeb(Calendar fecAltaEmpleladoWeb) {
-		this.fecAltaEmpleladoWeb = fecAltaEmpleladoWeb;
+	public void setFecAltaEmpleadoWeb(Calendar fecAltaEmpleadoWeb) {
+		this.fecAltaEmpleadoWeb = fecAltaEmpleadoWeb;
 	}
 
 	@Override
