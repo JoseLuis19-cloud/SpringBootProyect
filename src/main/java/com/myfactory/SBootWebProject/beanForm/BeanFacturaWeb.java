@@ -21,7 +21,7 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private Float impFacturaWeb;
 	    
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Calendar fecFacturaWeb;
+	private Calendar fecAltaFacturaWeb;
 	    
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Calendar fecFacturaEmisionWeb;
@@ -73,7 +73,7 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 			super();
 			this.idFacturaWeb = idFacturaWeb;
 			this.impFacturaWeb = impFacturaWeb;
-			this.fecFacturaWeb = fecFacturaWeb;
+			this.fecAltaFacturaWeb = fecFacturaWeb;
 			this.idFormPagoWeb =  idFormPagoWeb;
 			this.codSituacionWeb = new Integer(1);
 			this.porDescuentoWeb = new Float(0);
@@ -95,11 +95,11 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 			this.idFacturaWeb = idFacturaWeb;
 		}
 		
-		public Calendar getFecFacturaWeb() {
-			return fecFacturaWeb;
+		public Calendar getFecAltaFacturaWeb() {
+			return fecAltaFacturaWeb;
 		}
-		public void setFecFacturaWeb(Calendar fecFacturaWeb) {
-			this.fecFacturaWeb = fecFacturaWeb;
+		public void setFecAltaFacturaWeb(Calendar fecAltaFacturaWeb) {
+			this.fecAltaFacturaWeb = fecAltaFacturaWeb;
 		}
 		
 		public String getNumFactura() {

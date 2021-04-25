@@ -9,6 +9,8 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
 
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
  <style>
 
@@ -58,15 +60,15 @@
   						  					th:text ="${formPag.desForPago}">
   						 		</option>
     						</select>
-						</div> 
-						</div>
-						<div class="col-md-2 mb-4">
-							<label for="validaImpFatura" th:text="'Importe factura' "></label>
-							<input type="text" class="form-control" id="idImpFacturaWeb" th:field="*{impFacturaWeb}" th:readonly="true" >
+							</div> 
 						</div>
 						<div class="col-md-2 mb-4">
 							<label for="validaCodFatura" th:text="'Cod. divisa' "></label>
 							<input type="text" class="form-control" id="idCodDivisaWeb" th:field="*{codDivisaWeb}" th:maxlength="3" th:readonly="true">
+						</div>
+						<div class="col-md-2 mb-4">
+							<label for="validaImpFatura" th:text="'Importe factura' "></label>
+							<input type="text" class="form-control" id="idImpFacturaWeb" th:field="*{impFacturaWeb}" th:readonly="true" >
 						</div>
 					</div>
 					
@@ -84,17 +86,17 @@
 						</div>
 					</div>
 					<div class="col-md-3 mb-4">
-						<label for="labelFecFactura">Fec. Factura</label>
+						<label for="labelFecFactura">Fec. Alta Factura</label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
       					 	</div>
-							 <input type="text" class="form-control" th:id="idFecAltaFactura" th:name="fecAltaFactura" th:field="*{fecFacturaWeb}" th:value="${#calendars.format(fecFacturaWeb, 'dd/MM/yyyy')}" th:maxlength="10"  placeholder="MM/DD/YYYY"  required>
+							 <input type="text" class="form-control" th:id="idFecAltaFactura" th:name="fecAltaFactura" th:field="*{fecAltaFacturaWeb}" th:value="${#calendars.format(fecFacturaWeb, 'dd/MM/yyyy')}" th:maxlength="10"  placeholder="MM/DD/YYYY"  required>
 						</div>
 					</div>
 					<div class="col-md-2 mb-4">
 						<label for="labelPorDescuento" th:text="'Porcentaje Descuento' "></label>
-						<input type="text" class="form-control" th:id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
+						<input type="text" class="form-control" th:id="idPorDecuentoWeb" th:name="porDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
 					</div>
 					
 					<div class="col-md-3 mb-4">
@@ -104,7 +106,7 @@
 								<option th:value="0" th:text="'Seleccionar cliente' "></option>
 								<option th:each ="clienteFactu:${clienteFactuWeb}"
    						 				th:value="${clienteFactu.idCliente}"
-  						  				th:text ="${clienteFactu.nombre}">
+  						  				th:text ="${clienteFactu.apellidos}">
   						 		</option>
     						</select>
 						</div> 

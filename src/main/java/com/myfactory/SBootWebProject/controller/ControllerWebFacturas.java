@@ -1,5 +1,6 @@
 package com.myfactory.SBootWebProject.controller;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,14 +81,14 @@ public class ControllerWebFacturas {
 	public String formAltaFactura(Model modelo)  {
 	
 	 	BeanFacturaWeb facturaWeb = new BeanFacturaWeb ();
-	 	
+	 
 	 	BeanFacturaLineas beanFacturaLineas = new BeanFacturaLineas();
 	 	
 		List<BeanFacturaLineas> lineasFactura = new ArrayList<BeanFacturaLineas>();
 		lineasFactura.add(beanFacturaLineas);
 		facturaWeb.setBeanFacturaLineas(lineasFactura);
 	 	
-		facturaWeb.setFecFacturaWeb(Calendar.getInstance());
+		facturaWeb.setFecAltaFacturaWeb(Calendar.getInstance());
 		facturaWeb.setCodFactura("");
 		facturaWeb.setNotaFactura("");
 		facturaWeb.setPorDescuentoWeb(0F);
@@ -118,7 +119,7 @@ public class ControllerWebFacturas {
 
 	 	if (! resultValidacion.hasErrors()) {
 	
-	 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
+	 	//	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		
 	 		Map<String, Object> resultValFactura;
 	 		resultValFactura = validarDatosFactura(datosFacturaWeb, formaPago, sitFactura, clienteFactura );
@@ -150,6 +151,7 @@ public class ControllerWebFacturas {
 					 else
 					 	{
 						FacturaLineas factuLinea = (FacturaLineas) resultValLineaFactura.get("facturaLineaValidacion" );
+						factuLinea.setFactura( (Factura) resultValFactura.get("facturaValidacion"));
 						lineasFactu.add(factuLinea); 
 					 	}
 					 
@@ -160,7 +162,7 @@ public class ControllerWebFacturas {
 	 		     // Dar de alta en cascada 
 	 				
 	 			// Si ya existe la factura
-	 				if (datosFacturaWeb.getIdFacturaWeb() != null )
+	 				if (datosFacturaWeb.getIdFacturaWeb() == null )
 	 					{
 	 					factura.setCodFactura(servJPAFactura.asignarNumFactura(ConstantesAplicacion.FACTURAS_SECUENCIAL) );
 	 					factura = servJPAFactura.altaFactura(factura);
@@ -423,7 +425,7 @@ public class ControllerWebFacturas {
 			Factura factura = new Factura();
 			
 			factura.setImpFactura(datosFacturaWeb.getImpFacturaWeb() );
-			factura.setFecFactura(datosFacturaWeb.getFecFacturaWeb() );
+			factura.setFecFactura(datosFacturaWeb.getFecAltaFacturaWeb() );
 			
 			FormaPago forPagoNueva = new FormaPago();
 			forPagoNueva.setIdForPago(Integer.parseInt(formaPago));
@@ -437,7 +439,7 @@ public class ControllerWebFacturas {
 			facturaSit.setCodSitFactura( new Integer(sitFactura));
 			factura.setFacturaSituacion(facturaSit);
 
-			resultadoValidacion.put("lineaFacturaValidacion", factura);
+			resultadoValidacion.put("facturaValidacion", factura);
 			resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
 
 			return resultadoValidacion;	
@@ -455,6 +457,9 @@ public class ControllerWebFacturas {
 			 factuLinea.setPorIva(lineaFacturaWeb.getPorIva());
 			 factuLinea.setImpLinFactura(lineaFacturaWeb.getImpLinFactura());
 			 
+			 factuLinea.setFecactualizacion(new Date (Calendar.getInstance().getTimeInMillis() ) );
+			 factuLinea.setPorDescuento(lineaFacturaWeb.getPorDescuento());
+	
 			resultadoValidacion.put("facturaLineaValidacion", factuLinea);
 			resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
 

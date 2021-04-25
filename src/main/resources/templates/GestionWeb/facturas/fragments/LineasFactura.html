@@ -13,6 +13,7 @@
 							<th th:text="'Cantidad'"></th>
 							<th th:text="'Concepto'"></th>
 							<th th:text="'% IVA'"></th>
+							<th th:text="'% Descuento'"></th>
 							<th th:text="'Importe'"></th>
 						</tr>
 					</thead>
@@ -20,18 +21,21 @@
 					  	<tr th:each="linFactu, iterStat: *{beanFacturaLineas}">
 							<td colspan="4"> 
 								<div class="form-row">
-									<div class="col-md-1 mb-4">
+									<div class="col-md-1 mb-5">
 										<input type="hidden" th:id="'idLinFactu'+ ${iterStat.index}" th:name="'linFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].idLinFactura}"/>	
 										<input type="text" class="form-control form-control-xs"  th:id="'idCantidad'+ ${iterStat.index}" th:name="'cantidad'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].cantidad}" th:maxlength="2" th:readonly="false" required/>	
 									</div>
-									<div class="col-md-8 mb-4">
+									<div class="col-md-5 mb-5">
 										<input type="text" class="form-control form-control-xs"  th:id="'idConcepto'+ ${iterStat.index}" th:name="'Concepto'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].concepto}" th:maxlength="40" th:readonly="false" required/>
 									</div>
-									<div class="col-md-1 mb-4">
+									<div class="col-md-2 mb-5">
 										<input type="text" class="form-control form-control-xs"  th:id="'idPorIva'+ ${iterStat.index}" th:name="'porIva'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porIva}" th:maxlength="2" th:readonly="false" required/>
 									</div>
-									<div class="col-md-2 mb-4">
-										<input type="text" class="form-control form-control-xs"  th:id="'idImporteLinea'+ ${iterStat.index}" th:name="'importeLinea'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].impFactura}" th:maxlength="6" th:readonly="false" required/>				 
+									<div class="col-md-2 mb-5">
+										<input type="text" class="form-control form-control-xs"  th:id="'idPorDescuento'+ ${iterStat.index}" th:name="'porDescuento'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porDescuento}" th:maxlength="2" th:readonly="false" required/>
+									</div>
+									<div class="col-md-2 mb-5">
+										<input type="text" class="form-control form-control-xs"  th:id="'idImpLineaFactu'+ ${iterStat.index}" th:name="'impLineaFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].impLinFactura}" th:maxlength="7" th:readonly="false" required/>				 
 									</div>
 								</div>
 							</td>
