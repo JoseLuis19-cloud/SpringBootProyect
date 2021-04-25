@@ -23,4 +23,20 @@ public class FacturaSituacion implements Serializable {
 	    @Column(name="NOM_SIT_FACTURA",  nullable=false, unique=true)
 	    private String nomSitFactura;
 
+		public Integer getCodSitFactura() {
+			return codSitFactura;
+		}
+
+		public void setCodSitFactura(Integer codSitFactura) {
+			this.codSitFactura = codSitFactura;
+		}
+
+		public String getNomSitFactura() {
+			return nomSitFactura;
+		}
+
+		public void setNomSitFactura(String nomSitFactura) {
+			this.nomSitFactura = nomSitFactura;
+		}
+
 }

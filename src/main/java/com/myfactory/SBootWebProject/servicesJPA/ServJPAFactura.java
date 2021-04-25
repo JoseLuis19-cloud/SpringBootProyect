@@ -23,5 +23,7 @@ public interface ServJPAFactura {
 	public Page<Factura> paginacionFacturas(Integer numPag, Integer numRegPag);
 	
 	public Iterable<FormaPago> getFormasPago();
+	
+	public String  asignarNumFactura(Integer idSecuencial);
 
 }

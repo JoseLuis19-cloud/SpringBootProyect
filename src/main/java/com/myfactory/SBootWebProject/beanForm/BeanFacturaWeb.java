@@ -35,7 +35,17 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private Integer codDivisaWeb;
 	
 	private String codFactura;
+	
+	private String notaFactura;
 		
+	public String getNotaFactura() {
+		return notaFactura;
+	}
+
+	public void setNotaFactura(String notaFactura) {
+		this.notaFactura = notaFactura;
+	}
+
 	private List<BeanFacturaLineas> beanFacturaLineas;
 
 

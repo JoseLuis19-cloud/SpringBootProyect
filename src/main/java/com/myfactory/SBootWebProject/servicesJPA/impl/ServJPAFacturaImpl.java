@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
+import com.myfactory.SBootWebProject.model.Secuenciales;
 import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPARepository;
 import com.myfactory.SBootWebProject.repository.FormaPagoJPARepository;
+import com.myfactory.SBootWebProject.repository.comunes.SecuencialesJPADao;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAFactura;
 
 @Service
@@ -28,6 +30,9 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 	
 	@Autowired
 	FormaPagoJPARepository reposSDataFormaPago;
+	
+	@Autowired 
+	SecuencialesJPADao secuencialesJPADao;
 
 	@Override
 	public Iterable<Factura> buscarTodasFacturas() {
@@ -85,5 +90,16 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 	public Iterable<FormaPago> getFormasPago() {
 		return reposSDataFormaPago.findAll();
 	}
+	
+	@Override
+	public String asignarNumFactura(Integer idSecuencial) {
+		String codFactura;
+		Optional<Secuenciales> datosSecFactu = secuencialesJPADao.findById(idSecuencial);
+		
+		codFactura = datosSecFactu.get().getAnyoCurso() + "/" + datosSecFactu.get().getIdentificadorUnico();
+	return codFactura;
+	}
+	
+ 
 	
 }

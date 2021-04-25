@@ -1,64 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-
-  	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-  	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
-  	
-  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-  
-  <style>  
-   .form-control-xs {
-    height: calc(1em + .375rem + 2px) !important;
-    padding: .125rem .25rem !important;
-    font-size: .75rem !important;
-    line-height: 1.5;
-    border-radius: .2rem;
-	}
-		
-	#container {
-  	position: relative;
-	}
-
-	#idNuevoElemMenu {
-     position: absolute;
-     top:300;
-     left:0;
-     z-index:10;
-     max-width:100%;
-     overflow:hidden;
-	}
-
-	#idDivSubMenu1 {
-      position: absolute;
-     top:300;
-     left:0;
-     z-index:1;
-     max-width:100%;
-     overflow:hidden;
-}
-
-  </style>
-  
-	<script th:inline="javascript">
-	 
-	function mostrarSubMenuAjax(idMenu)
-    {
-		alert("Entra");
-		
-		var url = '/gestionmenususuario/obtenersubmenuajax';
-		url = url + '/' + $('#idMenuHidden' + idMenu).val() ',' $('#idUserHidden').val()  ;
-	
-		alert(url);
-		  
-		$("#idDivSubMenu1").load(url);
-    }
-	</script>
-</head>
-
+ 
   <body>
   
     <div th:fragment="lineafactura" class="results-block">

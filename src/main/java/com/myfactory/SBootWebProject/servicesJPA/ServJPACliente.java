@@ -24,5 +24,7 @@ public interface ServJPACliente {
 	public boolean bajaIdCliente(Integer idCliente);
 
 	public Iterable<TpoCliente> getTipoCliente();
+	
+	public Iterable<Cliente> getClientes();
  
 }

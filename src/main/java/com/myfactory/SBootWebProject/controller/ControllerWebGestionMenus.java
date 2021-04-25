@@ -1,7 +1,6 @@
 package com.myfactory.SBootWebProject.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -17,17 +16,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.expression.Lists;
 
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanFormMenu;
 import com.myfactory.SBootWebProject.beanForm.BeanFormSubMenu;
 import com.myfactory.SBootWebProject.beanForm.BeanMenuAplicacionWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanSubMenuAplicacionWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanSubMenuN1UsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.model.Menu;
-import com.myfactory.SBootWebProject.model.MenusUsuario;
+
 import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;

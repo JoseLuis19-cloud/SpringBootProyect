@@ -25,7 +25,7 @@ public class BeanFacturaLineas  implements Serializable , Cloneable{
 	private Long porIva;
 	
 	@NotNull(message = "Debe introducir un importe de factura")
-	private Float impFactura;
+	private Float impLinFactura;
 
 	@Size(min = 1, max = 99, message = "El porcentaje de descuento debe estar entre  1 y  99")
 	private Long porDescuento;
@@ -62,12 +62,12 @@ public class BeanFacturaLineas  implements Serializable , Cloneable{
 		this.porIva = porIva;
 	}
 
-	public Float getImpFactura() {
-		return impFactura;
+	public Float getImpLinFactura() {
+		return impLinFactura;
 	}
 
-	public void setImpFactura(Float impFactura) {
-		this.impFactura = impFactura;
+	public void setImpLinFactura(Float impLinFactura) {
+		this.impLinFactura = impLinFactura;
 	}
 
 	public Long getPorDescuento() {

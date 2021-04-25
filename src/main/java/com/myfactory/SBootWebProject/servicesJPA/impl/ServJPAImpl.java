@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Factura;
+import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Provincia;
 import com.myfactory.SBootWebProject.model.TpoCliente;
@@ -16,6 +17,7 @@ import com.myfactory.SBootWebProject.repository.ClienteJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.ClienteJPARepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPARepository;
+import com.myfactory.SBootWebProject.repository.comunes.FacturaSituacionJPADao;
 import com.myfactory.SBootWebProject.repository.FormaPagoJPARepository;
 import com.myfactory.SBootWebProject.repository.TipoClienteJPARepository;
 import com.myfactory.SBootWebProject.repository.comunes.ProvinciaJPADao;
@@ -47,6 +49,9 @@ public class ServJPAImpl implements ServJPA{
 	
 	@Autowired
 	ProvinciaJPADao provinciaJPADao;
+	
+	@Autowired
+	FacturaSituacionJPADao facturaSituacionJPADao;
 
 	@Override
 	public Iterable<Cliente> buscarTodosClientes() {
@@ -150,6 +155,11 @@ public class ServJPAImpl implements ServJPA{
 	@Override
 	public Iterable<Provincia> getProvincia(){
 		return provinciaJPADao.findAll();
+	}
+	
+	@Override
+	public Iterable<FacturaSituacion> getSituacionesFactura() {
+		return facturaSituacionJPADao.findAll();
 	}
 	
 

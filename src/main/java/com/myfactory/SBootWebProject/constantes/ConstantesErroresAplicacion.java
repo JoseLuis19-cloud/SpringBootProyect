@@ -32,11 +32,4 @@ public class ConstantesErroresAplicacion {
 		"pif", "plg", "prf", "prg", "pst", "reg", "scf", "scr",
 		"sct", "shb", "shs", "tmp", "url", "vb", "vbe", "vbs",
 		"vsmacros", "vsw", "ws", "wsc", "wsf", "wsh" };
-	
-	public static final int COD_CATALOGO_CONF_REEM = 1286;
-
-	public static final String COD_CATALOGO_MODELO_U020 = "U020-Solicitud de Reembolso";
-
-	//Query para borrar asuntos únicos
-	public static final String SQL_BORRAR_REL_PERSONA_DOC = "delete from RRCC_REL_EXP_PERSONA where ID_EXPEDIENTE_FK = ? and ID_PERSONA_FK = ?";
 }

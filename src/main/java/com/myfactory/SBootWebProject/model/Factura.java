@@ -31,6 +31,9 @@ public class Factura implements Serializable {
 	// @GenericGenerator(name = "native", strategy = "native")
 	@Column(name = "ID_FACTURA", nullable = false, unique = true)
 	private Integer idFactura;
+	
+	@Column(name = "COD_FACTURA", nullable = false, unique = true)
+	private String codFactura;
 
 	// @Column(name="ID_CLIENTE_FK", nullable=false, unique=false)
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -54,9 +57,6 @@ public class Factura implements Serializable {
     @Temporal(TemporalType.DATE)
 	private Calendar fecEmisionFactura;
 	
-	@Column(name = "COD_SITUACION", nullable = false, unique = false)
-	private Integer codSituacion;
-	
 	@Column(name = "POR_DESCUENTO", nullable = true, unique = false)
 	private Float porDescuento;
 	
@@ -76,6 +76,9 @@ public class Factura implements Serializable {
 	
 	@OneToMany(mappedBy="factura", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
  	private Set<FacturaLineas> facturaLineas = new HashSet<>();
+	
+	@Column(name = "NOTA_FACTURA", nullable = true, unique = false)
+	private String notaFactura;
 	
 	public Calendar getFecEmisionFactura() {
 		return fecEmisionFactura;
@@ -156,14 +159,7 @@ public class Factura implements Serializable {
 	public void setFormaPago(FormaPago formaPago) {
 		this.formaPago = formaPago;
 	}
-	
-	public Integer getCodSituacion() {
-		return codSituacion;
-	}
 
-	public void setCodSituacion(Integer codSituacion) {
-		this.codSituacion = codSituacion;
-	}
 
 	public Float getPorDescuento() {
 		return porDescuento;
@@ -187,6 +183,14 @@ public class Factura implements Serializable {
 
 	public void setFacturaLineas(Set<FacturaLineas> facturaLineas) {
 		this.facturaLineas = facturaLineas;
+	}
+	
+	public String getCodFactura() {
+		return codFactura;
+	}
+
+	public void setCodFactura(String codFactura) {
+		this.codFactura = codFactura;
 	}
 
 }

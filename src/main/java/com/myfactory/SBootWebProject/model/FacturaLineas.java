@@ -40,13 +40,77 @@ public class FacturaLineas implements Serializable {
 	private Long porIva;
 	
 	@Column(name = "IMP_LIN_FACTURA", nullable = false, unique = false)
-	private Float impFactura;
+	private Float impLinFactura;
 
 	@Column(name = "POR_DESCUENTO", nullable = false, unique = false)
 	private Long porDescuento;
 	
 	@Column(name = "FEC_ACTUALIZACION", nullable = false, unique = false)
-	private Date fecactualizacion;;
+	private Date fecactualizacion;
+
+	public Integer getIdLinFactura() {
+		return idLinFactura;
+	}
+
+	public void setIdLinFactura(Integer idLinFactura) {
+		this.idLinFactura = idLinFactura;
+	}
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+
+	public Long getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Long cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public String getConcepto() {
+		return concepto;
+	}
+
+	public void setConcepto(String concepto) {
+		this.concepto = concepto;
+	}
+
+	public Long getPorIva() {
+		return porIva;
+	}
+
+	public void setPorIva(Long porIva) {
+		this.porIva = porIva;
+	}
+
+	public Float getImpLinFactura() {
+		return impLinFactura;
+	}
+
+	public void setImpLinFactura(Float impLinFactura) {
+		this.impLinFactura = impLinFactura;
+	}
+
+	public Long getPorDescuento() {
+		return porDescuento;
+	}
+
+	public void setPorDescuento(Long porDescuento) {
+		this.porDescuento = porDescuento;
+	}
+
+	public Date getFecactualizacion() {
+		return fecactualizacion;
+	}
+
+	public void setFecactualizacion(Date fecactualizacion) {
+		this.fecactualizacion = fecactualizacion;
+	};
 	
 	
 	

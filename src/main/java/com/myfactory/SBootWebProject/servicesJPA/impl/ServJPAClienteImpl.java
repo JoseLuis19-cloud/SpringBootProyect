@@ -99,6 +99,13 @@ public class ServJPAClienteImpl implements ServJPACliente {
 
 		return reposSDataCliente.save(cliente);
 	}
+	
+	
+	@Override
+	public Iterable <Cliente> getClientes( ) {
+		return reposSDataCliente.findAll();
+	}
+	 
 
 	
 }
