@@ -1,9 +1,11 @@
 package com.myfactory.SBootWebProject.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,12 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-@Entity(name = "Factura")
+@Entity(name = "factura")
 @Table(name = "FACTURA")
 public class Factura implements Serializable {
 
@@ -40,15 +43,16 @@ public class Factura implements Serializable {
 	@Column(name = "IMP_FACTURA", nullable = false, unique = false)
 	private Float impFactura;
 
-	@Column(name = "CONCEPTO", nullable = false, unique = false)
-	private String concepto;
-
 	@Column(name = "POR_IVA", nullable = false, unique = false)
 	private Integer porIva;
 
-	@Column(name = "FEC_FACTURA", nullable = true, unique = false)
+	@Column(name = "FEC_FACTURA", nullable = false, unique = false)
     @Temporal(TemporalType.DATE)
 	private Calendar fecFactura;
+	
+	@Column(name = "FEC_EMISION_FACTURA", nullable = true, unique = false)
+    @Temporal(TemporalType.DATE)
+	private Calendar fecEmisionFactura;
 	
 	@Column(name = "COD_SITUACION", nullable = false, unique = false)
 	private Integer codSituacion;
@@ -59,13 +63,43 @@ public class Factura implements Serializable {
 	@Column(name = "COD_DIVISA", nullable = true, unique = false)
 	private Integer codDivisa;
 	
-	@Column(name = "COD_USARIO", nullable = true, unique = false)
-	private Long codUsuario;
-
-
+	@Column(name = "COD_USARIO", nullable = false, unique = false)
+	private Integer codUsuario;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_FOR_PAGO_FK")
 	private FormaPago  formaPago;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "COD_SIT_FACTURA_FK")
+	private FacturaSituacion facturaSituacion;
+	
+	@OneToMany(mappedBy="factura", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+ 	private Set<FacturaLineas> facturaLineas = new HashSet<>();
+	
+	public Calendar getFecEmisionFactura() {
+		return fecEmisionFactura;
+	}
+
+	public void setFecEmisionFactura(Calendar fecEmisionFactura) {
+		this.fecEmisionFactura = fecEmisionFactura;
+	}
+
+	public Integer getCodUsuario() {
+		return codUsuario;
+	}
+
+	public void setCodUsuario(Integer codUsuario) {
+		this.codUsuario = codUsuario;
+	}
+
+	public FacturaSituacion getFacturaSituacion() {
+		return facturaSituacion;
+	}
+
+	public void setFacturaSituacion(FacturaSituacion facturaSituacion) {
+		this.facturaSituacion = facturaSituacion;
+	}
 
 	public Calendar getFecFactura() {
 		return fecFactura;
@@ -89,14 +123,6 @@ public class Factura implements Serializable {
 
 	public void setImpFactura(Float impFactura) {
 		this.impFactura = impFactura;
-	}
-
-	public String getConcepto() {
-		return concepto;
-	}
-
-	public void setConcepto(String concepto) {
-		this.concepto = concepto;
 	}
 
 	public Integer getPorIva() {
@@ -153,6 +179,14 @@ public class Factura implements Serializable {
 
 	public void setCodDivisa(Integer codDivisa) {
 		this.codDivisa = codDivisa;
+	}
+	
+	public Set<FacturaLineas> getFacturaLineas() {
+		return facturaLineas;
+	}
+
+	public void setFacturaLineas(Set<FacturaLineas> facturaLineas) {
+		this.facturaLineas = facturaLineas;
 	}
 
 }

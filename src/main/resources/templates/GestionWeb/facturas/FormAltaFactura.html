@@ -75,12 +75,15 @@ h5 {
 <body>
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
 
 	<div class="container-fluid">
+		<form th:action="@{/gestionWeb/facturas/insertarfactura}" th:object="${datosFacturaWeb}" method="post">
+		
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8" style="border-bottom: 2px solid #000">
-				<h3 th:text="'Datos Nueva Factura'"></h3>
+				<h3 th:text="'Datos Nueva Factura' ${formPag.idForPago} "></h3>
 				<br />
 			</div>
 			<div class="col-2"></div>
@@ -88,12 +91,18 @@ h5 {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<form th:action="@{/gestionWeb/facturas/insertarfactura}" th:object="${facturaWeb}" method="post">
-
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
-							<label for="validationConcepto" th:text="'Concepto'"></label> 
-							<input type="text" class="form-control" id="idConceptoWeb" th:field="*{conceptoWeb}" th:maxlength="50" required>
+							<div class="form-group">
+							<label for="labelSitFactura" th:text="'Situacion Factura' "></label>
+								<select th:object="${facturaWeb}"  name="formaPago" id="idFormaPago">
+								<option th:value="0" th:text="'Seleccionar una situacion factura' "></option>
+									<option th:each ="formPag:${formasPagoWeb}"
+   						 			th:value="${formPag.idForPago}"
+  						  			th:text ="${formPag.desForPago}">
+  						 		</option>
+    						</select>
+						</div> 
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="validaImpFatura" th:text="'Importe factura' "></label>
@@ -134,7 +143,7 @@ h5 {
 				</div>
 	
   				<div id="idDivLinFacturas">
-					<div th:insert="gestionFacturas/fragments/LineasFactua :: lineafactura"></div>
+					<div th:insert="gestionWeb/facturas/fragments/LineasFactua :: lineafactura"></div>
 				</div>	
 			 	
 				<div class="d-flex">

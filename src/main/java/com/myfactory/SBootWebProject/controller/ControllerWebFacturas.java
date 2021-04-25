@@ -1,9 +1,14 @@
 package com.myfactory.SBootWebProject.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -20,13 +25,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
+import com.myfactory.SBootWebProject.beanForm.BeanFacturaLineas;
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Cliente;
+import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Factura;
+import com.myfactory.SBootWebProject.model.FacturaLineas;
 import com.myfactory.SBootWebProject.model.FormaPago;
+import com.myfactory.SBootWebProject.model.Menu;
+import com.myfactory.SBootWebProject.model.Pais;
+import com.myfactory.SBootWebProject.model.PuestoTrabajo;
+import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAFactura;
 
@@ -60,47 +73,84 @@ public class ControllerWebFacturas {
 	}
 
 	@GetMapping("/formaltafactura")
-	public String formularioAltaFactura(Model modelo, @RequestParam(value = "idFactura", required = false ) String idFactura)  {
+	public String formAltaFactura(Model modelo)  {
 	
 	 	BeanFacturaWeb facturaWeb = new BeanFacturaWeb ();
-		
-		Calendar calendar1 = Calendar.getInstance();
-		facturaWeb.setFecFacturaWeb(calendar1);
+	 	
+	 	BeanFacturaLineas beanFacturaLineas = new BeanFacturaLineas();
+		List<BeanFacturaLineas> lineasFactura = new ArrayList<BeanFacturaLineas>();
+		lineasFactura.add(beanFacturaLineas);
+		facturaWeb.setBeanFacturaLineas(lineasFactura);
+	 	
+		facturaWeb.setFecFacturaWeb(Calendar.getInstance());
 		
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-		modelo.addAttribute("facturaWeb", facturaWeb);
+		
+		modelo.addAttribute("datosFacturaWeb", facturaWeb);
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "gestionWeb/facturas/FormInsertarFactura";
+		return "gestionWeb/facturas/FormAltaFactura";
 	}
 
 	@RequestMapping(value = "/insertarfactura", method = RequestMethod.POST)
-	public String altaFactura(@ModelAttribute("facturaWeb") @Valid BeanFacturaWeb facturaWeb,
+	public String altaFactura(@ModelAttribute("datosFacturaWeb") @Valid BeanFacturaWeb datosFacturaWeb,
 		BindingResult resultValidacion, 
 		Model modelo, @RequestParam(value = "formaPago", required = true) String formaPago) {
+		
+		Factura factura = new Factura();
+		BeanErrorValidacion datosError = null;
+		BeanErrorValidacion datosErrorLinea  = null;
+		 
+		Set<FacturaLineas> lineasFactu = new HashSet<FacturaLineas>();
 
-	 	if (resultValidacion.hasErrors()) {
-			modelo.addAttribute("facturaWeb", facturaWeb);
-			modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-			modelo.addAttribute("CODERROR", "1");
-
-			return "gestionWeb/facturas/FormInsertarFactura.html";
-	 	}
-
-		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-		Factura factura = validarDatosFactura(facturaWeb, formaPago);
-
+	 	if (! resultValidacion.hasErrors()) {
+	
+	 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
+		
+	 		Map<String, Object> resultValFactura;
+	 		resultValFactura = validarDatosFactura(datosFacturaWeb, formaPago);
+		
+	 		datosError = (BeanErrorValidacion) resultValFactura.get("errorValidacion");
+			
+	 		if (datosError.getCodError().intValue() != 0 ) 
+	 			{
+	 			modelo.addAttribute("errorValidacion" , true);
+	 			modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+	 			}
+	 		else
+	 			{
+		
+			  for (BeanFacturaLineas elemenLinFactura : datosFacturaWeb.getBeanFacturaLineas())
+	   				{
+				  	FacturaLineas lineasFactura = new FacturaLineas();
+				  	Map<String, Object> resultValLineaFactura;
+				  	resultValLineaFactura = validarLineasFactura(elemenLinFactura);
+			 
+				  	datosErrorLinea = (BeanErrorValidacion) resultValFactura.get("errorValidacion");
+					
+					 if (datosErrorLinea.getCodError().intValue() != 0 ) 
+					 	{
+						 modelo.addAttribute("errorValidacion" , true);
+						 modelo.addAttribute("mensajeError", datosErrorLinea.getCodError().toString() + ", " + datosErrorLinea.getDesError() );
+						 break;
+					 	}
+					 else
+					 	{
+						FacturaLineas factuLinea = (FacturaLineas) resultValLineaFactura.get("facturaLineaValidacion" );
+						lineasFactu.add(factuLinea);  
+					 	}
+					 
+	   			}
+		    }
+		
+		// factura.setSituacionFactura(situacionFactura);
+		factura.setFacturaLineas(lineasFactu);
+      // Dar de alta en cascada
+		
 		factura = servJPAFactura.altaFactura(factura);
-
-		if (factura == null) {
-			modelo.addAttribute("facturaWeb", facturaWeb);
-			modelo.addAttribute("CODERROR", "2");
-		} else {
-			modelo.addAttribute("facturaWeb", facturaWeb);
-			modelo.addAttribute("CODERROR", "0");
-		}
-
+		
+	 	}
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	//	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
 
@@ -108,42 +158,68 @@ public class ControllerWebFacturas {
 	}
 	
 	@RequestMapping(value = "/modiffactura", method = RequestMethod.POST)
-	public String modifFactura(@ModelAttribute("facturaWeb") @Valid BeanFacturaWeb facturaWeb,
+	public String modifFactura(@ModelAttribute("datosFacturaWeb") @Valid BeanFacturaWeb datosFacturaWeb,
 			BindingResult resultValidacion, 
 			 Model modelo, @RequestParam(value = "formaPago", required = true) String formaPago) {
 
-	 	if (resultValidacion.hasErrors()) {
-			modelo.addAttribute("facturaWeb", facturaWeb);
-			modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-			modelo.addAttribute("CODERROR", "1");
+		Factura factura = new Factura();
+		BeanErrorValidacion datosError = null;
+		BeanErrorValidacion datosErrorLinea  = null;
+	
+		Set<FacturaLineas> lineasFactu = new HashSet<FacturaLineas>();
 
-			return "gestionWeb/facturas/FormEditarFactura";
-	 	}
-
-		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-		Factura factura = validarDatosFactura(facturaWeb, formaPago);
+	 	if (! resultValidacion.hasErrors()) {
+	
+	 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		
-		factura.setIdFactura( facturaWeb.getIdFacturaWeb() );
-		factura.setCodSituacion( 1); 
-
+	 		Map<String, Object> resultValFactura;
+	 		resultValFactura = validarDatosFactura(datosFacturaWeb, formaPago);
+		
+	 		datosError = (BeanErrorValidacion) resultValFactura.get("errorValidacion");
+			
+	 		if (datosError.getCodError().intValue() != 0 ) 
+	 			{
+	 			modelo.addAttribute("errorValidacion" , true);
+	 			modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+	 			}
+	 		else
+	 			{
+		
+			  for (BeanFacturaLineas elemenLinFactura : datosFacturaWeb.getBeanFacturaLineas())
+	   				{
+				  	FacturaLineas lineasFactura = new FacturaLineas();
+				  	Map<String, Object> resultValLineaFactura;
+				  	resultValLineaFactura = validarLineasFactura(elemenLinFactura);
+			 
+				  	datosErrorLinea = (BeanErrorValidacion) resultValFactura.get("errorValidacion");
+					
+					 if (datosErrorLinea.getCodError().intValue() != 0 ) 
+					 	{
+						 modelo.addAttribute("errorValidacion" , true);
+						 modelo.addAttribute("mensajeError", datosErrorLinea.getCodError().toString() + ", " + datosErrorLinea.getDesError() );
+						 break;
+					 	}
+					 else
+					 	{
+						FacturaLineas factuLinea = (FacturaLineas) resultValLineaFactura.get("facturaLineaValidacion" );
+						lineasFactu.add(factuLinea);  
+					 	}
+	   			}
+		    }
+		
+		// factura.setSituacionFactura(situacionFactura);
+		factura.setFacturaLineas(lineasFactu);
+		
+      // Dar de alta en cascada
+		
 		factura = servJPAFactura.modifFactura(factura);
-
-		if (factura == null) {
-			modelo.addAttribute("facturaWeb", facturaWeb);
-			modelo.addAttribute("CODERROR", "2");
-		} else {
-			modelo.addAttribute("facturaWeb", facturaWeb);
-			modelo.addAttribute("CODERROR", "0");
-		}
-
+	 	}
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
 	//	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
 
 		return "gestionWeb/facturas/FormEditarFactura";
 	}
 		
-
 	@RequestMapping("/pagfacturasnue")
 	public String paginacionFacturasNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
 													      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
@@ -304,40 +380,50 @@ public class ControllerWebFacturas {
 			return "gestionWeb/facturas/paginacionFacturas.html";
 		}
 
-		private Factura validarDatosFactura(BeanFacturaWeb facturaWeb, String formaPago) {
+	private Map<String, Object>  validarDatosFactura(BeanFacturaWeb datosFacturaWeb, String formaPago) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Map<String, Object> resultadoValidacion = new HashMap<>();
+			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 
 			Factura facturaNueva = new Factura();
 			FormaPago forPagoNueva = new FormaPago();
-			
-			facturaWeb.setPorIvaWeb("21");
+	
 
 			facturaNueva.setNumFactura("2020/00" + String.valueOf(numFac + 1));
-			facturaNueva.setPorIva(Integer.valueOf(facturaWeb.getPorIvaWeb().trim()));
-			facturaNueva.setConcepto(facturaWeb.getConceptoWeb());
-			facturaNueva.setImpFactura(new Float(facturaWeb.getImpFacturaWeb()));
+			// facturaNueva.setImpFactura(facturaWeb.getImpFacturaWeb());
 			forPagoNueva.setIdForPago(Integer.parseInt(formaPago));
 			facturaNueva.setFormaPago(forPagoNueva);
 			
-			facturaNueva.setCodDivisa( facturaWeb.getCodDivisaWeb());
+			facturaNueva.setCodDivisa( facturaWeb );
 
-			if (facturaWeb.getFecFacturaWeb() != null)
-				{
-				try {
-					// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-					// String dateInString = "31-08-1982 10:20:56"
-					// facturaNueva.setFecFactura(new java.sql.Date((dateFormat.parse(facturaWeb.getFecFacturaWeb())).getTime()));
-					
-					  facturaNueva.setFecFactura( facturaWeb.getFecFacturaWeb() );
-					} catch (Exception e) {
-					facturaNueva = null;
-					}
-				}
 
-				Optional<Cliente> OptCliente = servicioJPA.buscarIdCliente(new Integer(1));
-				facturaNueva.setCliente(OptCliente.get());
+			Optional<Cliente> OptCliente = servicioJPA.buscarIdCliente(new Integer(1));
+			facturaNueva.setCliente(OptCliente.get());
 
-			return facturaNueva;
+			resultadoValidacion.put("lineaFacturaValidacion", facturaNueva);
+			resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
+
+			return resultadoValidacion;	
+		}
+		
+		private Map<String, Object> validarLineasFactura(BeanFacturaLineas lineaFacturaWeb) {
+			// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		
+			Map<String, Object> resultadoValidacion = new HashMap<>();
+			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
+
+			FacturaLineas lineaFactura = new FacturaLineas();
+			
+			//lineaFacturaWeb.getIdLinFactura()
+			//lineaFacturaWeb.getCantidad()
+			//lineaFacturaWeb.getConcepto()
+			//lineaFacturaWeb.getPorIva()
+			//lineaFacturaWeb.getImpFactura()
+			
+			resultadoValidacion.put("facturaLineaValidacion", lineaFactura);
+			resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
+
+			return resultadoValidacion;	
 		}
 	
 }

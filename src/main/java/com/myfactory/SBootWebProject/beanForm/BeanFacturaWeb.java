@@ -4,15 +4,12 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Component
-@SessionScope
+@RequestScope
 public class BeanFacturaWeb  implements Serializable , Cloneable{
 	
 	private static final long serialVersionUID = 1L;
@@ -20,51 +17,57 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private Integer idFacturaWeb;
 	    
 	private String numFactura;
+
+	private Float impFacturaWeb;
 	    
-		@NotNull(message = "Debe introducir un importe ")
-	//	@Min(1)
-	//	@Pattern(regexp="(^$|[0-9]{10})", message = "El formato de importe no es correcto" ) 
-		@Size(min = 1, max = 10, message = "El importe de la factura debe tener 10 numeros como máximo")
-		private String impFacturaWeb;
-		
-		@NotNull(message = "Debe introducir un concepto de la factura")
-	    private String conceptoWeb;
-		
-		@Size(min = 1, max = 2, message = "El porcetaje del IVA debe tener 2 numeros como máximo")
-	//  @Pattern(regexp="(^$|[0-9]{10})", message = "El porcentaje de iva no es correcto" ) 
-	    private String porIvaWeb;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Calendar fecFacturaWeb;
 	    
-	    @DateTimeFormat(pattern = "dd/MM/yyyy")
-	    private Calendar fecFacturaWeb;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Calendar fecFacturaEmisionWeb;
 	    
-	    private Integer idFormPagoWeb;
+	private Integer idFormPagoWeb;
 	    
-		private Integer codSituacionWeb;
+	private Integer codSituacionWeb;
 		
-		private Float porDescuentoWeb;
+	private Float porDescuentoWeb;
 		
-		private Integer codDivisaWeb;
+	private Integer codDivisaWeb;
+	
+	private String codFactura;
 		
-		private List<BeanFacturaLineas> beanFacturaLineas;
+	private List<BeanFacturaLineas> beanFacturaLineas;
+
+
+	public Float getImpFacturaWeb() {
+		return impFacturaWeb;
+	}
+
+	public void setImpFacturaWeb(Float impFacturaWeb) {
+		this.impFacturaWeb = impFacturaWeb;
+	}
+
+	public Calendar getFecFacturaEmisionWeb() {
+		return fecFacturaEmisionWeb;
+	}
+
+	public void setFecFacturaEmisionWeb(Calendar fecFacturaEmisionWeb) {
+		this.fecFacturaEmisionWeb = fecFacturaEmisionWeb;
+	}
 
 		public BeanFacturaWeb() {
 		}
 	    
-		public BeanFacturaWeb(Integer idFacturaWeb, String impFacturaWeb, String conceptoWeb, String porIvaWeb,
+		public BeanFacturaWeb(Integer idFacturaWeb, Float impFacturaWeb,
 				Calendar fecFacturaWeb, Integer idFormPagoWeb) {
 			super();
 			this.idFacturaWeb = idFacturaWeb;
 			this.impFacturaWeb = impFacturaWeb;
-			this.conceptoWeb = conceptoWeb;
-			this.porIvaWeb = porIvaWeb;
 			this.fecFacturaWeb = fecFacturaWeb;
 			this.idFormPagoWeb =  idFormPagoWeb;
-			
 			this.codSituacionWeb = new Integer(1);
-			
 			this.porDescuentoWeb = new Float(0);
-			
-			this.codDivisaWeb = new Integer(0);;
+			this.codDivisaWeb = new Integer(978);;
 		}
 
 		public Integer getIdFormPagoWeb() {
@@ -81,24 +84,7 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setIdFacturaWeb(Integer idFacturaWeb) {
 			this.idFacturaWeb = idFacturaWeb;
 		}
-		public String getImpFacturaWeb() {
-			return impFacturaWeb;
-		}
-		public void setImpFacturaWeb(String impFacturaWeb) {
-			this.impFacturaWeb = impFacturaWeb;
-		}
-		public String getConceptoWeb() {
-			return conceptoWeb;
-		}
-		public void setConceptoWeb(String conceptoWeb) {
-			this.conceptoWeb = conceptoWeb;
-		}
-		public String getPorIvaWeb() {
-			return porIvaWeb;
-		}
-		public void setPorIvaWeb(String porIvaWeb) {
-			this.porIvaWeb = porIvaWeb;
-		}
+		
 		public Calendar getFecFacturaWeb() {
 			return fecFacturaWeb;
 		}
@@ -145,4 +131,13 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setBeanFacturaLineas(List<BeanFacturaLineas> beanFacturaLineas) {
 			this.beanFacturaLineas = beanFacturaLineas;
 		}
+		
+		public String getCodFactura() {
+			return codFactura;
+		}
+
+		public void setCodFactura(String codFactura) {
+			this.codFactura = codFactura;
+		}
+
 }
