@@ -20,7 +20,7 @@ public class Secuenciales implements Serializable {
 	    @Column(name="ID_SECUENCIAL",  nullable=false, unique=false)
 	    private Integer idSecuencial;
 	    
-	    @Column(name="FACTURA",  nullable=false, unique=false)
+	    @Column(name="NOM_TABLA",  nullable=false, unique=false)
 	    private String nomSecuecial;
 	    
 	    @Column(name="ANYO_CURSO",  nullable=false, unique=false)
