@@ -70,7 +70,7 @@ public class ControllerWebEmpleados {
 	private String pathMacOS;
 
 	@GetMapping("/formeditarempleado")
-	public String formularioEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
@@ -112,7 +112,7 @@ public class ControllerWebEmpleados {
 	}
 	
 	@GetMapping("/formbajaempleado")
-	public String formularioBajaEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formBajaEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
@@ -150,7 +150,7 @@ public class ControllerWebEmpleados {
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "GestionWeb/empleados/FormBajaEmpleado";
+	return "GestionWeb/empleados/FormBajaEmpleado";
 	}
 	
 	@RequestMapping(value = "/bajaempleado", method = RequestMethod.POST)
@@ -170,7 +170,7 @@ public class ControllerWebEmpleados {
 	}
 	
 	@GetMapping("/formactivarempleado")
-	public String formularioActivarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formActivarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
@@ -228,7 +228,7 @@ public class ControllerWebEmpleados {
 	}
 	
 	@GetMapping("/formaltaempleado")
-	public String formularioaltaEmpleado(Model modelo)  {
+	public String formAltaEmpleado(Model modelo)  {
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		
 		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
