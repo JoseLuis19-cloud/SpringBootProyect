@@ -45,6 +45,9 @@ public class CargarBeansDatos  implements Serializable {
 	@Autowired
 	ServJPAUsuario servJPAUsuario;
 	
+	@Autowired
+	BeanFacturaWeb facturaWeb;
+	
 	Iterable <FormaPago>  formasPago;
 	Iterable <Role>  roles;
 
@@ -53,7 +56,7 @@ public class CargarBeansDatos  implements Serializable {
 
 	public BeanFacturaWeb cargarBeanFactura (Factura factura)
 	  {
-		 BeanFacturaWeb facturaWeb = new BeanFacturaWeb();
+	//	 BeanFacturaWeb facturaWeb = new BeanFacturaWeb();
 		 
 		 facturaWeb.setIdFacturaWeb(factura.getIdFactura());
 		 facturaWeb.setCodFactura(factura.getCodFactura());
@@ -86,7 +89,6 @@ public class CargarBeansDatos  implements Serializable {
 		 clienteWeb.setNombreWeb(cliente.getNombre());
 		 clienteWeb.setDireccionWeb( cliente.getDireccion() );
 		 clienteWeb.setDirEmailWeb(cliente.getDirEmail() );
-	//   clienteWeb.setFecNacimientoWeb( new SimpleDateFormat("dd/MM/yyyy").format(cliente.getFecNacimiento())   );
 		 
 		 clienteWeb.setFecNacimientoWeb(cliente.getFecNacimiento() );
 		 clienteWeb.setFecAltaClienteWeb(cliente.getFecAltaCliente());

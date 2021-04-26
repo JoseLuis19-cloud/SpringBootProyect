@@ -17,9 +17,7 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private static final long serialVersionUID = 1L;
 
 	private Integer idFacturaWeb;
-	    
-	private String numFactura;
-
+	   
 	private Float impFacturaWeb;
 	    
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -94,14 +92,6 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		}
 		public void setFecAltaFacturaWeb(Calendar fecAltaFacturaWeb) {
 			this.fecAltaFacturaWeb = fecAltaFacturaWeb;
-		}
-		
-		public String getNumFactura() {
-			return numFactura;
-		}
-
-		public void setNumFactura(String numFactura) {
-			this.numFactura = numFactura;
 		}
 		
 		public Integer getCodSitFacturaWeb() {

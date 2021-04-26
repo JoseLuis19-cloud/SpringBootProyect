@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
-
 @Component
 @RequestScope
 public class BeanSubMenuAplicacionWeb implements Serializable, Cloneable {

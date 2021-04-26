@@ -6,7 +6,6 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
  
-
 @Component
 @RequestScope
 public class BeanFacturaLineas  implements Serializable , Cloneable{
