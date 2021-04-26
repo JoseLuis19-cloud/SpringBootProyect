@@ -375,12 +375,6 @@ public class ControllerWebFacturas {
 	 			 numPosInt = Integer.parseInt(numPos);
 					}
 				}
-		
-		/*	modelo.addAttribute("numPagAct1", "N" );
-			modelo.addAttribute("numPagAct2", "N" );
-			modelo.addAttribute("numPagAct3", "N");
-			modelo.addAttribute("numPagAct4", "N" );
-			modelo.addAttribute("numPagAct5", "N" ); */
 			
 			switch (numPosInt) {
 			case 1:
@@ -414,7 +408,7 @@ public class ControllerWebFacturas {
 			return "gestionWeb/facturas/paginacionFacturas.html";
 		}
 
-	private Map<String, Object>  validarDatosFactura(BeanFacturaWeb datosFacturaWeb, String formaPago, String sitFactura, String clienteFactura) {
+	private Map<String, Object> validarDatosFactura(BeanFacturaWeb datosFacturaWeb, String formaPago, String sitFactura, String clienteFactura) {
 
 			Map<String, Object> resultadoValidacion = new HashMap<>();
 			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
@@ -449,15 +443,15 @@ public class ControllerWebFacturas {
 			Map<String, Object> resultadoValidacion = new HashMap<>();
 			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 
-			 FacturaLineas factuLinea = new FacturaLineas();
+			FacturaLineas factuLinea = new FacturaLineas();
 			
-			 factuLinea.setCantidad(lineaFacturaWeb.getCantidad() ); 
-			 factuLinea.setConcepto(lineaFacturaWeb.getConcepto() ); 
-			 factuLinea.setPorIva(lineaFacturaWeb.getPorIva());
-			 factuLinea.setImpLinFactura(lineaFacturaWeb.getImpLinFactura());
+			factuLinea.setCantidad(lineaFacturaWeb.getCantidad() ); 
+			factuLinea.setConcepto(lineaFacturaWeb.getConcepto() ); 
+			factuLinea.setPorIva(lineaFacturaWeb.getPorIva());
+			factuLinea.setImpLinFactura(lineaFacturaWeb.getImpLinFactura());
 			 
-			 factuLinea.setFecactualizacion(new Date (Calendar.getInstance().getTimeInMillis() ) );
-			 factuLinea.setPorDescuento(lineaFacturaWeb.getPorDescuento());
+			factuLinea.setFecactualizacion(new Date (Calendar.getInstance().getTimeInMillis() ) );
+			factuLinea.setPorDescuento(lineaFacturaWeb.getPorDescuento());
 	
 			resultadoValidacion.put("facturaLineaValidacion", factuLinea);
 			resultadoValidacion.put("errorValidacion" , datosErrorValidacion);

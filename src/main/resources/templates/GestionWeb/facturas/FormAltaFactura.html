@@ -29,6 +29,12 @@
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 
 	<div class="container-fluid">
+	 	<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
+	 
+		<div class="row">
+			<div class="titulo-pag2">Factura</div>
+		</div>
+		
 		<form th:action="@{/gestionWeb/facturas/insertarfactura}" th:object="${datosFacturaWeb}" method="post">
 		
 		 <input type="hidden" th:id="'idFacturaWeb'" th:name="'idFacturaWeb'"  th:field="*{idFacturaWeb}" />
@@ -36,8 +42,7 @@
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8" style="border-bottom: 2px solid #000">
-				<h3 th:text="'Datos Nueva Factura ' "></h3>
-				<br />
+				<div class="subtitulo-pag" th:text="'Datos Nueva Factura'"></div>
 			</div>
 			<div class="col-2"></div>
 		</div>
