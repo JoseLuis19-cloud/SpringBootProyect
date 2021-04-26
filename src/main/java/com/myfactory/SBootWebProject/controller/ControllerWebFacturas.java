@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
 
@@ -92,8 +94,16 @@ public class ControllerWebFacturas {
 		facturaWeb.setNotaFactura("");
 		facturaWeb.setPorDescuentoWeb(0F);
 		
+		Iterable <FacturaSituacion> iterFacturaSitu = servicioJPA.getSituacionesFactura();
+		 
+		List<FacturaSituacion> listFactuSituacion = StreamSupport
+					  .stream(iterFacturaSitu.spliterator(), false)
+					  .collect(Collectors.toList());
+		 
+		 facturaWeb.setSituacionesFactura(listFactuSituacion);
+		
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-		modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura());
+	//	modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura());
 		modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );
 		
 		modelo.addAttribute("datosFacturaWeb", facturaWeb);
@@ -133,7 +143,6 @@ public class ControllerWebFacturas {
 		
 	 			  for (BeanFacturaLineas elemenLinFactura : datosFacturaWeb.getBeanFacturaLineas())
 	   				  {
-	 				//  FacturaLineas lineasFactura = new FacturaLineas();
 	 				  Map<String, Object> resultValLineaFactura;
 	 				  resultValLineaFactura = validarLineasFactura(elemenLinFactura);
 			 

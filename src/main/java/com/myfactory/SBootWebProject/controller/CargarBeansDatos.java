@@ -2,6 +2,9 @@ package com.myfactory.SBootWebProject.controller;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,10 +20,13 @@ import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.model.Factura;
+import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Proyecto;
+import com.myfactory.SBootWebProject.model.ProyectoFacturacionMes;
 import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
@@ -34,6 +40,9 @@ public class CargarBeansDatos  implements Serializable {
 	ServJPAEmpleado servJPAEmpleado;
 	
 	@Autowired
+	ServJPA servJPA;
+	
+	@Autowired
 	ServJPAUsuario servJPAUsuario;
 	
 	Iterable <FormaPago>  formasPago;
@@ -45,11 +54,25 @@ public class CargarBeansDatos  implements Serializable {
 	public BeanFacturaWeb cargarBeanFactura (Factura factura)
 	  {
 		 BeanFacturaWeb facturaWeb = new BeanFacturaWeb();
+		 
 		 facturaWeb.setIdFacturaWeb(factura.getIdFactura());
-		 facturaWeb.setNumFactura(factura.getNumFactura());
+		 facturaWeb.setCodFactura(factura.getCodFactura());
+		//  facturaWeb.setNumFactura(factura.getNumFactura());
 		 facturaWeb.setImpFacturaWeb(factura.getImpFactura());
 		 facturaWeb.setFecAltaFacturaWeb(factura.getFecFactura());
-	//	 facturaWeb.setFecFacturaWeb(new SimpleDateFormat("dd/MM/yyyy").format(factura.getFecFactura()));
+		 facturaWeb.setNotaFactura(factura.getNotaFactura());
+		 facturaWeb.setCodDivisaWeb(factura.getCodDivisa());
+		 facturaWeb.setFecAltaFacturaWeb( factura.getFecFactura());
+	
+		 Iterable <FacturaSituacion> facturaSitu = servJPA.getSituacionesFactura();
+		 
+		 List<FacturaSituacion> listFactuSituacion = StreamSupport
+					  .stream(facturaSitu.spliterator(), false)
+					  .collect(Collectors.toList());
+		 
+		 facturaWeb.setSituacionesFactura(listFactuSituacion);
+		 
+		 facturaWeb.setCodSituacionWeb(factura.getFacturaSituacion().getCodSitFactura() );
 		return facturaWeb;
 	  }
 	  

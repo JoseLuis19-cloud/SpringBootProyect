@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
+import com.myfactory.SBootWebProject.model.FacturaSituacion;
+
 @Component
 @RequestScope
 public class BeanFacturaWeb  implements Serializable , Cloneable{
@@ -28,7 +30,7 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	    
 	private Integer idFormPagoWeb;
 	    
-	private Integer codSituacionWeb;
+	private Integer codSitFacturaWeb;
 		
 	private Float porDescuentoWeb;
 		
@@ -37,17 +39,10 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private String codFactura;
 	
 	private String notaFactura;
-		
-	public String getNotaFactura() {
-		return notaFactura;
-	}
-
-	public void setNotaFactura(String notaFactura) {
-		this.notaFactura = notaFactura;
-	}
 
 	private List<BeanFacturaLineas> beanFacturaLineas;
-
+	
+	private List<FacturaSituacion> situacionesFactura;
 
 	public Float getImpFacturaWeb() {
 		return impFacturaWeb;
@@ -68,17 +63,16 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public BeanFacturaWeb() {
 		}
 	    
-		public BeanFacturaWeb(Integer idFacturaWeb, Float impFacturaWeb,
-				Calendar fecFacturaWeb, Integer idFormPagoWeb) {
-			super();
-			this.idFacturaWeb = idFacturaWeb;
-			this.impFacturaWeb = impFacturaWeb;
-			this.fecAltaFacturaWeb = fecFacturaWeb;
-			this.idFormPagoWeb =  idFormPagoWeb;
-			this.codSituacionWeb = new Integer(1);
-			this.porDescuentoWeb = new Float(0);
-			this.codDivisaWeb = new Integer(978);;
-		}
+	//	public BeanFacturaWeb( ) {
+	//		super();
+		//	this.idFacturaWeb = idFacturaWeb;
+			//	this.impFacturaWeb = impFacturaWeb;
+			//	this.fecAltaFacturaWeb = fecFacturaWeb;
+			//	this.idFormPagoWeb =  idFormPagoWeb;
+			//	this.codSitFacturaWeb = new Integer(1);
+			//	this.porDescuentoWeb = new Float(0);
+			//	this.codDivisaWeb = new Integer(978);;
+	//	}
 
 		public Integer getIdFormPagoWeb() {
 			return idFormPagoWeb;
@@ -110,12 +104,12 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 			this.numFactura = numFactura;
 		}
 		
-		public Integer getCodSituacionWeb() {
-			return codSituacionWeb;
+		public Integer getCodSitFacturaWeb() {
+			return codSitFacturaWeb;
 		}
 
-		public void setCodSituacionWeb(Integer codSituacion) {
-			this.codSituacionWeb = codSituacion;
+		public void setCodSituacionWeb(Integer codSitFacturaWeb) {
+			this.codSitFacturaWeb = codSitFacturaWeb;
 		}
 
 		public Float getPorDescuentoWeb() {
@@ -149,5 +143,22 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setCodFactura(String codFactura) {
 			this.codFactura = codFactura;
 		}
+		
+		public List<FacturaSituacion> getSituacionesFactura() {
+			return situacionesFactura;
+		}
+
+		public void setSituacionesFactura(List<FacturaSituacion> situacionesFactura) {
+			this.situacionesFactura = situacionesFactura;
+		}
+		
+		public String getNotaFactura() {
+			return notaFactura;
+		}
+
+		public void setNotaFactura(String notaFactura) {
+			this.notaFactura = notaFactura;
+		}
+	
 
 }

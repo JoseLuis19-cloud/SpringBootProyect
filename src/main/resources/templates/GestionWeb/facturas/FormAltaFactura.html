@@ -53,7 +53,7 @@
 						<div class="col-md-4 mb-4">
 							<div class="form-group">
 							<label for="labelFormaPago" th:text="'Forma de pago ' "></label>
-								<select th:object="${facturaWeb}" class="form-control"  th:name="formaPago" th:id="idFormaPago">
+								<select th:object="${datosFacturaWeb}" class="form-control"  th:name="formaPago" th:id="idFormaPago">
 								<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
 									<option th:each = "formPag:${formasPagoWeb}"
    						 					th:value="${formPag.idForPago}"
@@ -76,9 +76,9 @@
 					 <div class="col-md-4 mb-4">
 						<div class="form-group">
 							<label for="labelSitFactura" th:text="'Situacion Factura' "></label>
-								<select th:object="${facturaWeb}" class="form-control" th:id="idSitFactura" th:name="sitFactura">
+								<select th:object="${datosFacturaWeb}" class="form-control" th:id="idSitFactura" th:name="sitFactura">
 								<option th:value="0" th:text="'Seleccionar situación factura' "></option>
-								<option th:each ="sitFactu:${situacionFactuWeb}"
+								<option th:each ="sitFactu:${datosFacturaWeb.situacionesFactura}"
    						 				th:value="${sitFactu.codSitFactura}"
   						  				th:text ="${sitFactu.nomSitFactura}">
   						 		</option>
@@ -102,7 +102,7 @@
 					<div class="col-md-3 mb-4">
 						<div class="form-group">
 							<label for="labelEmpresaFactura" th:text="'Seleccione Cliente' "></label>
-								<select th:object="${facturaWeb}" class="form-control" th:id="idClienteFactura" th:name="clienteFactura">
+								<select th:object="${datosFacturaWeb}" class="form-control" th:id="idClienteFactura" th:name="clienteFactura">
 								<option th:value="0" th:text="'Seleccionar cliente' "></option>
 								<option th:each ="clienteFactu:${empresaFactuWeb}"
    						 				th:value="${clienteFactu.idEmpresa}"
@@ -113,12 +113,16 @@
 					</div>
 					
 				</div>
-	
-  				<div id="idDivLinFacturas">
-					<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura"></div>
-				</div>
-				</div>		
-			   <div class="col-2"></div>	
+			 </div>		
+			 <div class="col-2"></div>
+			</div>
+			
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+				<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura"></div>
+				</div>	
+				<div class="col-2"></div>
 			</div>
 			
 			<div class="row">
