@@ -29,6 +29,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaLineas;
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanIdUsuario;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
@@ -62,6 +63,9 @@ public class ControllerWebFacturas {
 	CargarBeansDatos cargarBeansDatos;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
+	@Autowired
+	BeanIdUsuario beanIdUsuario;
+	
 	
 	private static final int numFac = 22;
 	
@@ -118,8 +122,6 @@ public class ControllerWebFacturas {
 		Set<FacturaLineas> lineasFactu = new HashSet<FacturaLineas>();
 
 	 	if (! resultValidacion.hasErrors()) {
-	
-	 	//	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		
 	 		Map<String, Object> resultValFactura;
 	 		resultValFactura = validarDatosFactura(datosFacturaWeb, formaPago, sitFactura, clienteFactura );
@@ -154,27 +156,23 @@ public class ControllerWebFacturas {
 						factuLinea.setFactura( (Factura) resultValFactura.get("facturaValidacion"));
 						lineasFactu.add(factuLinea); 
 					 	}
-					 
 	   			}
 	 			  
-	 			// factura.setSituacionFactura(situacionFactura);
-	 				factura.setFacturaLineas(lineasFactu);
-	 		     // Dar de alta en cascada 
+
+	 			factura.setFacturaLineas(lineasFactu);
 	 				
-	 			// Si ya existe la factura
-	 				if (datosFacturaWeb.getIdFacturaWeb() == null )
-	 					{
-	 					factura.setCodFactura(servJPAFactura.asignarNumFactura(ConstantesAplicacion.FACTURAS_SECUENCIAL) );
-	 					factura = servJPAFactura.altaFactura(factura);
-	 					}
-	 				  else
-	 					{
-	 					factura = servJPAFactura.modifFactura(factura);	
-	 					}
-	 				// datosFacturaWeb.setBeanFacturaLineas().;
-	 			//	lineasFactu.add(new BeanFacturaLineas()); 
-	 			  
-	 			
+	 			// Si no existe la factura todavía
+	 			if (datosFacturaWeb.getIdFacturaWeb() == null )
+	 				{
+	 				factura.setCodFactura(servJPAFactura.asignarNumFactura(ConstantesAplicacion.FACTURAS_SECUENCIAL) );
+	 			 // Dar de alta en cascada 
+	 				factura = servJPAFactura.altaFactura(factura);
+	 				servJPAFactura.incrementarNumFactura("2021", ConstantesAplicacion.FACTURAS_SECUENCIAL); 
+	 				}
+	 			  else
+	 				{
+	 				factura = servJPAFactura.modifFactura(factura);	
+	 				}
 		    }
 		
 		}
@@ -195,8 +193,8 @@ public class ControllerWebFacturas {
 			BindingResult resultValidacion, 
 			Model  modelo,
 			@RequestParam(value = "formaPago", required = true) String formaPago,
-			  @RequestParam(value = "sitFactura", required = true) String sitFactura,
-			  @RequestParam(value = "clienteFactura", required = true) String clienteFactura) {
+			@RequestParam(value = "sitFactura", required = true) String sitFactura,
+			@RequestParam(value = "clienteFactura", required = true) String clienteFactura) {
 
 		Factura factura = new Factura();
 		BeanErrorValidacion datosError = null;
@@ -424,8 +422,10 @@ public class ControllerWebFacturas {
 
 			Factura factura = new Factura();
 			
-			factura.setImpFactura(datosFacturaWeb.getImpFacturaWeb() );
+		//	factura.setImpFactura(datosFacturaWeb.getImpFacturaWeb() );
 			factura.setFecFactura(datosFacturaWeb.getFecAltaFacturaWeb() );
+			
+			factura.setCodUsuario(beanIdUsuario.getIdUsuario());
 			
 			FormaPago forPagoNueva = new FormaPago();
 			forPagoNueva.setIdForPago(Integer.parseInt(formaPago));

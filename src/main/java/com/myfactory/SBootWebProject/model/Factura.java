@@ -64,7 +64,7 @@ public class Factura implements Serializable {
 	private Integer codDivisa;
 	
 	@Column(name = "COD_USARIO", nullable = false, unique = false)
-	private Integer codUsuario;
+	private Long codUsuario;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_FOR_PAGO_FK")
@@ -88,11 +88,11 @@ public class Factura implements Serializable {
 		this.fecEmisionFactura = fecEmisionFactura;
 	}
 
-	public Integer getCodUsuario() {
+	public Long getCodUsuario() {
 		return codUsuario;
 	}
 
-	public void setCodUsuario(Integer codUsuario) {
+	public void setCodUsuario(Long codUsuario) {
 		this.codUsuario = codUsuario;
 	}
 

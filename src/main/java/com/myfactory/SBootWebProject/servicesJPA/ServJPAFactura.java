@@ -25,5 +25,7 @@ public interface ServJPAFactura {
 	public Iterable<FormaPago> getFormasPago();
 	
 	public String  asignarNumFactura(Integer idSecuencial);
+	
+	public void  incrementarNumFactura(String anyoCurso, Integer numAsignado );
 
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Secuenciales;
@@ -99,7 +100,17 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 		codFactura = datosSecFactu.get().getAnyoCurso() + "/" + datosSecFactu.get().getIdentificadorUnico();
 	return codFactura;
 	}
-	
+
+	@Override
+	public void incrementarNumFactura(String anyoCurso, Integer numAsignado ) {
+		Secuenciales secuenciales = new Secuenciales();
+		secuenciales.setNomSecuecial("FACTURA");
+		secuenciales.setIdSecuencial(ConstantesAplicacion.FACTURAS_SECUENCIAL);
+		secuenciales.setAnyoCurso(anyoCurso);
+		secuenciales.setIdSecuencial(numAsignado + 1);
+		secuencialesJPADao.save(secuenciales);
+	}
+	  
  
 	
 }
