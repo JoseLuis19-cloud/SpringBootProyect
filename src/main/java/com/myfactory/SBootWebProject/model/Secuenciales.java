@@ -15,8 +15,8 @@ public class Secuenciales implements Serializable {
 		
 	private static final long serialVersionUID = 1L;
 		
-	    @Id
-	    @GeneratedValue(strategy=GenerationType.AUTO)
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name="ID_SECUENCIAL",  nullable=false, unique=false)
 	    private Integer idSecuencial;
 	    

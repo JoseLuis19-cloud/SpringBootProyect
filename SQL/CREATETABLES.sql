@@ -9,3 +9,49 @@ CREATE TABLE PROYECTO_FACTURACION_MES (
 
 ALTER TABLE PROYECTO_FACTURACION_MES
    ADD CONSTRAINT FK_AVISO_ID_PROYECTO FOREIGN KEY(ID_PROYECTO_FK) REFERENCES PROYECTO(ID_PROYECTO);
+   
+   
+   
+   CREATE TABLE FACTURA (
+  ID_FACTURA int(11) NOT NULL PRIMARY KEY COMMENT 'Identificador unico de factura',
+  NUM_FACTURA varchar(10) NOT NULL COMMENT 'Codigo legal de que se muestra en la factura',
+  ID_EMPRESA_FK int(11) NOT NULL COMMENT 'Identificador de la empresa que se la hace la factura',
+  IMP_FACTURA float NOT NULL COMMENT 'Importe neto de la factura',
+  POR_IVA int(11) NOT NULL COMMENT 'Porcentaje IVA que se aplica a la factura',
+  FEC_ALTA_FACTURA date NOT NULL COMMENT 'Fecha de alta de la factura',
+  ID_FOR_PAGO_FK int(1) NOT NULL COMMENT 'Forma de pago de la factura',
+  POR_DESCUENTO float NOT NULL COMMENT 'Porcentaje de descuento que se aplica a la factura',
+  COD_DIVISA int(11) NOT NULL COMMENT 'Codigo ISO divisa en la que se genera la factura',
+  COD_SIT_FACTURA_FK int(11) NOT NULL COMMENT 'Codigo se situacion de  una factura',
+  FEC_EMISION_FACTURA date DEFAULT NULL COMMENT 'Fecha de emision de la factura',
+  COD_USUARIO int(11) NOT NULL COMMENT 'Control de usuario de creacion de facturas',
+  NOTA_FACTURA varchar(255) DEFAULT NULL COMMENT 'Nota aclaratoria sobre la factura'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE FACTURA
+  ADD CONSTRAINT FK_FACTU_SIT_FACTU FOREIGN KEY (COD_SIT_FACTURA_FK) REFERENCES FACTURA_SITUACION (COD_SIT_FACTURA);
+
+ALTER TABLE FACTURA
+  ADD CONSTRAINT FK_FACTU_ID_EMPRESA FOREIGN KEY (ID_EMPRESA_FK) REFERENCES EMPRESA (ID_EMPRESA);
+  
+ ALTER TABLE FACTURA
+  ADD CONSTRAINT FK_FACTU_ID_FORMA_PAGO FOREIGN KEY (ID_FOR_PAGO_FK) REFERENCES FORMA_PAGO (ID_FOR_PAGO);
+  
+  
+  
+  
+CREATE TABLE FACTURA_LINEA(
+  ID_LIN_FACTURA int(11) NOT NULL PRIMARY KEY COMMENT 'Indice unico de una linea de factura',
+  ID_FACTURA_FK int(11) NOT NULL COMMENT 'Relacion con tabla Factura',
+  CANTIDAD float NOT NULL COMMENT 'Cantidad',
+  CONCEPTO varchar(150) NOT NULL COMMENT 'Concepto',
+  POR_IVA float NOT NULL COMMENT 'Porcentaje de IVA que se aplica a la line de factura',
+  IMP_LIN_FACTURA float NOT NULL COMMENT 'Importe de la linea de factura sin IVA',
+  FEC_ACTUALIZACION date NOT NULL COMMENT 'Fecha de actualizacion',
+  POR_DESCUENTO float NOT NULL COMMENT 'Porcentaje de descuento que se aplica a la lina de factura'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE FACTURA_LINEA
+  ADD CONSTRAINT FK_FAC_LIN_ID_FACTU FOREIGN KEY (ID_FACTURA_FK) REFERENCES FACTURA (ID_FACTURA);
+  
+  

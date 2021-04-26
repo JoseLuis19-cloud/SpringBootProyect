@@ -59,8 +59,7 @@ public class CargarBeansDatos  implements Serializable {
 	//	 BeanFacturaWeb facturaWeb = new BeanFacturaWeb();
 		 
 		 facturaWeb.setIdFacturaWeb(factura.getIdFactura());
-		 facturaWeb.setCodFactura(factura.getCodFactura());
-		//  facturaWeb.setNumFactura(factura.getNumFactura());
+		 facturaWeb.setCodFactura(factura.getNumFactura());
 		 facturaWeb.setImpFacturaWeb(factura.getImpFactura());
 		 facturaWeb.setFecAltaFacturaWeb(factura.getFecFactura());
 		 facturaWeb.setNotaFactura(factura.getNotaFactura());

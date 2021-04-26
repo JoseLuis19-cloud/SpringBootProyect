@@ -37,7 +37,7 @@ import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Factura;
-import com.myfactory.SBootWebProject.model.FacturaLineas;
+import com.myfactory.SBootWebProject.model.FacturaLinea;
 import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
@@ -92,8 +92,11 @@ public class ControllerWebFacturas {
 		facturaWeb.setFecAltaFacturaWeb(Calendar.getInstance());
 		facturaWeb.setCodFactura("");
 		facturaWeb.setNotaFactura("");
-		facturaWeb.setPorDescuentoWeb(0F);
-		
+		facturaWeb.setCodDivisaWeb(876);
+		facturaWeb.setPorDescuentoWeb(10F);
+		 
+		facturaWeb.setImpFacturaWeb(1222F);
+	 
 		Iterable <FacturaSituacion> iterFacturaSitu = servicioJPA.getSituacionesFactura();
 		 
 		List<FacturaSituacion> listFactuSituacion = StreamSupport
@@ -104,6 +107,7 @@ public class ControllerWebFacturas {
 		
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 	//	modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura());
+
 		modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );
 		
 		modelo.addAttribute("datosFacturaWeb", facturaWeb);
@@ -120,11 +124,11 @@ public class ControllerWebFacturas {
 					  @RequestParam(value = "sitFactura", required = true) String sitFactura,
 					  @RequestParam(value = "clienteFactura", required = true) String clienteFactura) {
 		
-		Factura factura = new Factura();
+		Factura factura; // = new Factura();
 		BeanErrorValidacion datosError = null;
 		BeanErrorValidacion datosErrorLinea  = null;
 		 
-		Set<FacturaLineas> lineasFactu = new HashSet<FacturaLineas>();
+		Set<FacturaLinea> lineasFactu = new HashSet<FacturaLinea>();
 
 	 	if (! resultValidacion.hasErrors()) {
 		
@@ -156,26 +160,28 @@ public class ControllerWebFacturas {
 					 	}
 					 else
 					 	{
-						FacturaLineas factuLinea = (FacturaLineas) resultValLineaFactura.get("facturaLineaValidacion" );
+						FacturaLinea factuLinea = (FacturaLinea) resultValLineaFactura.get("facturaLineaValidacion" );
 						factuLinea.setFactura( (Factura) resultValFactura.get("facturaValidacion"));
 						lineasFactu.add(factuLinea); 
 					 	}
 	   			}
 	 			  
-
+	 			factura = (Factura) resultValFactura.get("facturaValidacion");
+	 			
 	 			factura.setFacturaLineas(lineasFactu);
 	 				
 	 			// Si no existe la factura todavía
 	 			if (datosFacturaWeb.getIdFacturaWeb() == null )
 	 				{
-	 				factura.setCodFactura(servJPAFactura.asignarNumFactura(ConstantesAplicacion.FACTURAS_SECUENCIAL) );
+	 				factura.setPorIva(21);
+	 				factura.setNumFactura(servJPAFactura.asignarNumFactura(ConstantesAplicacion.FACTURAS_SECUENCIAL) );
 	 			 // Dar de alta en cascada 
-	 				factura = servJPAFactura.altaFactura(factura);
+	 				servJPAFactura.altaFactura(factura);
 	 				servJPAFactura.incrementarNumFactura("2021", ConstantesAplicacion.FACTURAS_SECUENCIAL); 
 	 				}
 	 			  else
 	 				{
-	 				factura = servJPAFactura.modifFactura(factura);	
+	 			     servJPAFactura.modifFactura(factura);	
 	 				}
 		    }
 		
@@ -204,7 +210,7 @@ public class ControllerWebFacturas {
 		BeanErrorValidacion datosError = null;
 		BeanErrorValidacion datosErrorLinea  = null;
 	
-		Set<FacturaLineas> lineasFactu = new HashSet<FacturaLineas>();
+		Set<FacturaLinea> lineasFactu = new HashSet<FacturaLinea>();
 
 	 	if (! resultValidacion.hasErrors()) {
 	
@@ -225,7 +231,7 @@ public class ControllerWebFacturas {
 		
 			  for (BeanFacturaLineas elemenLinFactura : datosFacturaWeb.getBeanFacturaLineas())
 	   				{
-				  	FacturaLineas lineasFactura = new FacturaLineas();
+				  	FacturaLinea lineasFactura = new FacturaLinea();
 				  	Map<String, Object> resultValLineaFactura;
 				  	resultValLineaFactura = validarLineasFactura(elemenLinFactura);
 			 
@@ -239,7 +245,7 @@ public class ControllerWebFacturas {
 					 	}
 					 else
 					 	{
-						FacturaLineas factuLinea = (FacturaLineas) resultValLineaFactura.get("facturaLineaValidacion" );
+						FacturaLinea factuLinea = (FacturaLinea) resultValLineaFactura.get("facturaLineaValidacion" );
 						lineasFactu.add(factuLinea);  
 					 	}
 	   			}
@@ -415,11 +421,13 @@ public class ControllerWebFacturas {
 
 			Factura factura = new Factura();
 			
-		//	factura.setImpFactura(datosFacturaWeb.getImpFacturaWeb() );
+		 	factura.setImpFactura(datosFacturaWeb.getImpFacturaWeb() );
 			factura.setFecFactura(datosFacturaWeb.getFecAltaFacturaWeb() );
+			factura.setCodDivisa(datosFacturaWeb.getCodDivisaWeb());
+			factura.setNotaFactura(datosFacturaWeb.getNotaFactura());
 			
 			factura.setCodUsuario(beanIdUsuario.getIdUsuario());
-			
+			factura.setPorDescuento(datosFacturaWeb.getPorDescuentoWeb() );
 			FormaPago forPagoNueva = new FormaPago();
 			forPagoNueva.setIdForPago(Integer.parseInt(formaPago));
 			factura.setFormaPago(forPagoNueva);
@@ -443,7 +451,7 @@ public class ControllerWebFacturas {
 			Map<String, Object> resultadoValidacion = new HashMap<>();
 			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 
-			FacturaLineas factuLinea = new FacturaLineas();
+			FacturaLinea factuLinea = new FacturaLinea();
 			
 			factuLinea.setCantidad(lineaFacturaWeb.getCantidad() ); 
 			factuLinea.setConcepto(lineaFacturaWeb.getConcepto() ); 

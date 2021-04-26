@@ -107,7 +107,9 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 		secuenciales.setNomSecuecial("FACTURA");
 		secuenciales.setIdSecuencial(ConstantesAplicacion.FACTURAS_SECUENCIAL);
 		secuenciales.setAnyoCurso(anyoCurso);
-		secuenciales.setIdSecuencial(numAsignado + 1);
+		
+		Integer numA = numAsignado.intValue() + 1;
+		secuenciales.setIdentificadorUnico(numA.toString());
 		secuencialesJPADao.save(secuenciales);
 	}
 	  

@@ -15,9 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
-@Entity(name = "FacturaLineas")
-@Table(name = "FACTURA_LINEAS")
-public class FacturaLineas implements Serializable {
+@Entity(name = "facturaLinea")
+@Table(name = "FACTURA_LINEA")
+public class FacturaLinea implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class FacturaLineas implements Serializable {
 	private Integer idLinFactura;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
- 	@JoinColumn(name = "ID_FACTURA_FK", nullable = false, updatable = false)
+ 	@JoinColumn(name = "ID_FACTURA_FK", nullable = false, updatable = true)
  	private Factura factura;
 	 
 	@Column(name = "CANTIDAD", nullable = false, unique = false)
@@ -41,12 +41,13 @@ public class FacturaLineas implements Serializable {
 	
 	@Column(name = "IMP_LIN_FACTURA", nullable = false, unique = false)
 	private Float impLinFactura;
-
-	@Column(name = "POR_DESCUENTO", nullable = false, unique = false)
-	private Long porDescuento;
 	
 	@Column(name = "FEC_ACTUALIZACION", nullable = false, unique = false)
 	private Date fecactualizacion;
+	
+	@Column(name = "POR_DESCUENTO", nullable = false, unique = false)
+	private Long porDescuento;
+
 
 	public Integer getIdLinFactura() {
 		return idLinFactura;
