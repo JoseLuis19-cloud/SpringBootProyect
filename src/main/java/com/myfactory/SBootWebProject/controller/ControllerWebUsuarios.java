@@ -40,9 +40,6 @@ public class ControllerWebUsuarios {
 	@Autowired
 	public BeanUsuarioSession beanUsuarioSession;
 	
-	private static final Integer RegPorPagina  = new Integer(5);
-	private  String mensajeErrorActualizacion  = "";
-	
 	@RequestMapping("/pagusuarios")
 	public String paginacionUsuarios(Model modelo,  @RequestParam(value = "numPag", required = false) String numPag, 
 													@RequestParam(value = "tpoAccion", required = false) String tpoAccion) {
@@ -336,9 +333,7 @@ public class ControllerWebUsuarios {
 	Map<String, Object> resultadoValidacion = new HashMap<>();
 	BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 	User usuario = null;
-	
-	mensajeErrorActualizacion = "";
-		 
+
 	if (! esModificacion ) 
 		{
 		if ( servJPAUsuario.findByFullName(beanUsuarioWeb.getFullNameWeb().trim() )){

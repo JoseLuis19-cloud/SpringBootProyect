@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Blob;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 
@@ -15,7 +14,6 @@ import javax.validation.Valid;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;

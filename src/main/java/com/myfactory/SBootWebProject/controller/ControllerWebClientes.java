@@ -57,12 +57,12 @@ public class ControllerWebClientes {
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
 	
-	// private final String UPLOAD_DIR = "./uploads/";
+ // private final String UPLOAD_DIR = "./uploads/";
 	@Value("${path.MACOSDescargaFicheros}")
 	private String pathMacOS;
 
 	@GetMapping("/formeditarcliente")
-	public String formularioEditarCliente(Model modelo,  @RequestParam(value = "idCliente", required = false ) String idCliente)  {
+	public String formEditarCliente(Model modelo,  @RequestParam(value = "idCliente", required = false ) String idCliente)  {
 	
 		Iterable <TpoCliente> tipoCliente = servicioJPA.getTipoCliente();
 		
@@ -75,7 +75,7 @@ public class ControllerWebClientes {
 	}
 		
 	@RequestMapping("/forminsertarcliente")
-	public String formularioAltaCliente(Model modelo) {
+	public String formAltaCliente(Model modelo) {
 		
 		BeanClienteWeb clienteWeb = new BeanClienteWeb();
 		
@@ -117,7 +117,7 @@ public class ControllerWebClientes {
 	}
 
 	@GetMapping("/formbajacliente")
-	public String formularioBajaCliente(Model modelo,  @RequestParam(value = "idCliente", required = false ) String idCliente)  {
+	public String formBajaCliente(Model modelo,  @RequestParam(value = "idCliente", required = false ) String idCliente)  {
 	
 		Iterable <TpoCliente> tipoCliente = servicioJPA.getTipoCliente();
 		
@@ -319,7 +319,7 @@ public class ControllerWebClientes {
 			}
 			else
 			{
-				busquedaCampo.setApellidosBusqueda(busquedaCampo.getApellidosBusqueda());
+			busquedaCampo.setApellidosBusqueda(busquedaCampo.getApellidosBusqueda());
 			}
 			
 		
@@ -329,8 +329,6 @@ public class ControllerWebClientes {
 		modelo.addAttribute("pagGenerica", pagCliente);
 		modelo.addAttribute("numPag", String.valueOf(numPagInt));
 		modelo.addAttribute("numRegPag", pagCliente.getContent().size());
-		
-	// 	modelo.addAttribute("numTotalReg", pagCliente.getTotalElements());
 	
 		try
 		 {
@@ -345,22 +343,6 @@ public class ControllerWebClientes {
 		String URLPag = "/gestionWeb/clientes/pagclientesNue?numPag=" ;
 		
 		CrearBotoneraPag.montarEnlacesBotonera(paramBotonera, modelo, numPagInt, URLPag, busquedaCampo.getApellidosBusqueda().trim());
-	
-		/* modelo.addAttribute("numPagVisibles", paramBotonera.get("numPagVisibles") );
-		
-		modelo.addAttribute("numPagWeb1", paramBotonera.get("numPagWeb1") );
-		modelo.addAttribute("numPagWeb2", paramBotonera.get("numPagWeb2") );
-		modelo.addAttribute("numPagWeb3", paramBotonera.get("numPagWeb3") );
-		modelo.addAttribute("numPagWeb4", paramBotonera.get("numPagWeb4") );
-		modelo.addAttribute("numPagWeb5", paramBotonera.get("numPagWeb5") );
-
-		modelo.addAttribute("linkBotonAnt",  "/gestionWeb/clientes/pagclientesNue?numPag=" + numPagInt + "&tpoAccion=ant" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
-		modelo.addAttribute("linkBoton1",    "/gestionWeb/clientes/pagclientesNue?numPag=" + paramBotonera.get("numPaginaReal1") + "&numPos=1" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
-		modelo.addAttribute("linkBoton2",    "/gestionWeb/clientes/pagclientesNue?numPag=" + paramBotonera.get("numPaginaReal2") + "&numPos=2" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
-		modelo.addAttribute("linkBoton3", 	 "/gestionWeb/clientes/pagclientesNue?numPag=" + paramBotonera.get("numPaginaReal3") + "&numPos=3" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
-		modelo.addAttribute("linkBoton4", 	 "/gestionWeb/clientes/pagclientesNue?numPag=" + paramBotonera.get("numPaginaReal4") + "&numPos=4" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
-		modelo.addAttribute("linkBoton5", 	 "/gestionWeb/clientes/pagclientesNue?numPag=" + paramBotonera.get("numPaginaReal5") + "&numPos=5" + "&numBloquePag=" + paramBotonera.get("numBloquePag"));
-		modelo.addAttribute("linkBotonAvan", "/gestionWeb/clientes/pagclientesNue?numPag=" + numPagInt + "&tpoAccion=avan" + "&numBloquePag=" + paramBotonera.get("numBloquePag")); */
 		
 	 // Si ha pinchado avance o retroceso de pagina.
 		if (tpoAccion != null)
@@ -404,12 +386,6 @@ public class ControllerWebClientes {
 				}
 			}
 	
-	/*	modelo.addAttribute("numPagAct1", "N" );
-		modelo.addAttribute("numPagAct2", "N" );
-		modelo.addAttribute("numPagAct3", "N");
-		modelo.addAttribute("numPagAct4", "N" );
-		modelo.addAttribute("numPagAct5", "N" ); */
-		
 		switch (numPosInt) {
 		case 1:
 			modelo.addAttribute("numPagAct1", "S" );
@@ -427,7 +403,6 @@ public class ControllerWebClientes {
 			modelo.addAttribute("numPagAct5", "S" );
 			break;
 		}
-		
 
 		if ( pagCliente.isLast()  )
 			{
@@ -513,9 +488,10 @@ public class ControllerWebClientes {
 	        
 	        modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
 			} 
-		catch (Exception e) {
+		catch (Exception e)
+			{
 			System.out.println("error validacion");
-		}
+			}
 	
 		modelo.addAttribute("cliente", cliente);
 		modelo.addAttribute("objImagen", encode);
@@ -529,8 +505,7 @@ public class ControllerWebClientes {
 	private Cliente validarDatosCliente(BeanClienteWeb clienteWeb, String tpoCliente) {
 
 		Cliente clienteNuevo = new Cliente();
-		
-		
+	
 		clienteNuevo.setIdCliente(clienteWeb.getIdClienteWeb()  );
 		clienteNuevo.setNombre(clienteWeb.getNombreWeb());
 		clienteNuevo.setApellidos(clienteWeb.getApellidosWeb());
@@ -541,16 +516,8 @@ public class ControllerWebClientes {
 		
 		if ( clienteWeb.getFecNacimientoWeb() != null )
 			{
-			// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	
-			try {
-			// 	clienteNuevo.setFecNacimiento( new  Date  (   dateFormat.parse(clienteWeb.getFecNacimientoWeb()).getTime()  )  );
-				
-				 clienteNuevo.setFecNacimiento(  clienteWeb.getFecNacimientoWeb());
-				 clienteNuevo.setFecAltaCliente(  clienteWeb.getFecAltaClienteWeb() );
-				} catch (Exception e) {
-				System.out.println("error validacion");
-				}
-		
+			 clienteNuevo.setFecNacimiento(clienteWeb.getFecNacimientoWeb());
+			 clienteNuevo.setFecAltaCliente(clienteWeb.getFecAltaClienteWeb());
 			}
 		 
 		clienteNuevo.setPais(clienteWeb.getPaisWeb());

@@ -31,8 +31,6 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
- 
 
 @Controller
 @RequestMapping("/informes")

@@ -1,11 +1,9 @@
 package com.myfactory.SBootWebProject.beanForm;
 
 import java.io.Serializable;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.context.annotation.SessionScope;
 
 @Component
 @RequestScope
