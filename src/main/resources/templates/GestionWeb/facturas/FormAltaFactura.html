@@ -104,9 +104,9 @@
 							<label for="labelEmpresaFactura" th:text="'Seleccione Cliente' "></label>
 								<select th:object="${facturaWeb}" class="form-control" th:id="idClienteFactura" th:name="clienteFactura">
 								<option th:value="0" th:text="'Seleccionar cliente' "></option>
-								<option th:each ="clienteFactu:${clienteFactuWeb}"
-   						 				th:value="${clienteFactu.idCliente}"
-  						  				th:text ="${clienteFactu.apellidos}">
+								<option th:each ="clienteFactu:${empresaFactuWeb}"
+   						 				th:value="${clienteFactu.idEmpresa}"
+  						  				th:text ="${clienteFactu.nomEmpresa}">
   						 		</option>
     						</select>
 						</div> 

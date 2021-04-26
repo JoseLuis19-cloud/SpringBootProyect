@@ -1,7 +1,6 @@
 package com.myfactory.SBootWebProject.controller;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -39,12 +38,9 @@ import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FacturaLineas;
 import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
-import com.myfactory.SBootWebProject.model.Menu;
-import com.myfactory.SBootWebProject.model.Pais;
-import com.myfactory.SBootWebProject.model.PuestoTrabajo;
-import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAFactura;
 
 @Controller
@@ -58,6 +54,8 @@ public class ControllerWebFacturas {
 	@Autowired
 	ServJPACliente servJPACliente;
 	@Autowired
+	ServJPAEmpresa servJPAEmpresa;
+	@Autowired
 	BeanClienteWeb facturaWeb;
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
@@ -65,12 +63,9 @@ public class ControllerWebFacturas {
 	BeanUsuarioSession beanUsuarioSession;
 	@Autowired
 	BeanIdUsuario beanIdUsuario;
-	
-	
-	private static final int numFac = 22;
-	
+
 	@GetMapping("/formeditarfactura")
-	public String formularioEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = false) String idFactura)  {
+	public String formEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = false) String idFactura)  {
 
 		Optional<Factura> factura = servicioJPA.buscarIdFactura(new Integer(Integer.parseInt(idFactura)));
 		
@@ -99,7 +94,7 @@ public class ControllerWebFacturas {
 		
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura());
-		modelo.addAttribute("clienteFactuWeb", servJPACliente.getClientes());
+		modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );
 		
 		modelo.addAttribute("datosFacturaWeb", facturaWeb);
 		
@@ -267,9 +262,9 @@ public class ControllerWebFacturas {
 			CrearBotoneraPag botoneraPag = null;
 			
 			if (numBloquePag == null)
-			{
+				{
 				numBloquePag = 0;
-			}
+				}
 
 			// La primera vez que entra
 			if (numPag == null && tpoAccion == null)
@@ -289,7 +284,6 @@ public class ControllerWebFacturas {
 							{
 							numPagInt = Integer.parseInt(numPag) - 1;
 							}	
-					
 					}
 				else
 					{
@@ -298,8 +292,6 @@ public class ControllerWebFacturas {
 					}
 			}
 
-	 
-			
 			Page<Factura> pagFactura= servicioJPA.paginacionFacturas(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA);
 			modelo.addAttribute("pagGenerica", pagFactura);
 			modelo.addAttribute("numPag", String.valueOf(numPagInt));
@@ -399,7 +391,6 @@ public class ControllerWebFacturas {
 				break;
 			}
 			
-
 			if ( pagFactura.isLast()  )
 				{
 				modelo.addAttribute("indUltPag", "S");
@@ -415,8 +406,7 @@ public class ControllerWebFacturas {
 		}
 
 	private Map<String, Object>  validarDatosFactura(BeanFacturaWeb datosFacturaWeb, String formaPago, String sitFactura, String clienteFactura) {
-			// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			
+
 			Map<String, Object> resultadoValidacion = new HashMap<>();
 			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 
