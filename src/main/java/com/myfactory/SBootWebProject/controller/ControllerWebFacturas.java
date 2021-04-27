@@ -103,15 +103,13 @@ public class ControllerWebFacturas {
 					  .stream(iterFacturaSitu.spliterator(), false)
 					  .collect(Collectors.toList());
 		 
-		 facturaWeb.setSituacionesFactura(listFactuSituacion);
+		facturaWeb.setSituacionesFactura(listFactuSituacion);
 		
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-	//	modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura());
-
+	//	modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura())
 		modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );
 		
 		modelo.addAttribute("datosFacturaWeb", facturaWeb);
-		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "gestionWeb/facturas/FormAltaFactura";
@@ -169,14 +167,16 @@ public class ControllerWebFacturas {
 	 			factura = (Factura) resultValFactura.get("facturaValidacion");
 	 			
 	 			factura.setFacturaLineas(lineasFactu);
-	 				
+	 			Integer idFactura = null;	
 	 			// Si no existe la factura todavía
 	 			if (datosFacturaWeb.getIdFacturaWeb() == null )
 	 				{
 	 				factura.setPorIva(21);
 	 				factura.setNumFactura(servJPAFactura.asignarNumFactura(ConstantesAplicacion.FACTURAS_SECUENCIAL) );
 	 			 // Dar de alta en cascada 
-	 				servJPAFactura.altaFactura(factura);
+	 				idFactura = servJPAFactura.altaFactura(factura);
+	 				datosFacturaWeb.setIdFacturaWeb(idFactura);
+	 				
 	 				servJPAFactura.incrementarNumFactura("2021", ConstantesAplicacion.FACTURAS_SECUENCIAL); 
 	 				}
 	 			  else
@@ -189,13 +189,17 @@ public class ControllerWebFacturas {
 	 	
 	 	datosFacturaWeb.getBeanFacturaLineas().add(new BeanFacturaLineas());
 	 	
-		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-		modelo.addAttribute("datosFacturaWeb", datosFacturaWeb);
+	 	modelo.addAttribute("datosFacturaWeb", datosFacturaWeb);
 	 	
+	 	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
+		modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );	
+	 
+			
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+			
 	//	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
 
-		return "gestionWeb/facturas/FormInsertarFactura";
+		return "gestionWeb/facturas/FormAltaFactura";
 	}
 	
 	@RequestMapping(value = "/modiffactura", method = RequestMethod.POST)

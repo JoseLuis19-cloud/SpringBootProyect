@@ -49,13 +49,13 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 
 	@Override
 	@Transactional
-	public Factura altaFactura(Factura factura) {
+	public Integer altaFactura(Factura factura) {
 		try {
 			factura = reposSDataFactura.save(factura);
 		} catch (Exception ex) {
 			factura = null;
 		}
-		return factura;
+		return factura.getIdFactura();
 	}
 	
 	@Override

@@ -74,7 +74,7 @@ public class CargarBeansDatos  implements Serializable {
 		 
 		 facturaWeb.setSituacionesFactura(listFactuSituacion);
 		 
-		 facturaWeb.setCodSituacionWeb(factura.getFacturaSituacion().getCodSitFactura() );
+		 facturaWeb.setCodSitFacturaWeb(factura.getFacturaSituacion().getCodSitFactura() );
 		return facturaWeb;
 	  }
 	  

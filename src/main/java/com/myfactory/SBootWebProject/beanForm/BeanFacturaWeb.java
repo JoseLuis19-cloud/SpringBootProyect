@@ -15,9 +15,10 @@ import com.myfactory.SBootWebProject.model.FacturaSituacion;
 public class BeanFacturaWeb  implements Serializable , Cloneable{
 	
 	private static final long serialVersionUID = 1L;
-
-	private Integer idFacturaWeb;
 	   
+	
+	private Integer idFacturaWeb;
+
 	private Float impFacturaWeb;
 	    
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -41,6 +42,14 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private List<BeanFacturaLineas> beanFacturaLineas;
 	
 	private List<FacturaSituacion> situacionesFactura;
+	
+	public Integer getIdFacturaWeb() {
+		return idFacturaWeb;
+	}
+
+	public void setIdFacturaWeb(Integer idFacturaWeb) {
+		this.idFacturaWeb = idFacturaWeb;
+	}
 
 	public Float getImpFacturaWeb() {
 		return impFacturaWeb;
@@ -60,17 +69,6 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 
 		public BeanFacturaWeb() {
 		}
-	    
-	//	public BeanFacturaWeb( ) {
-	//		super();
-		//	this.idFacturaWeb = idFacturaWeb;
-			//	this.impFacturaWeb = impFacturaWeb;
-			//	this.fecAltaFacturaWeb = fecFacturaWeb;
-			//	this.idFormPagoWeb =  idFormPagoWeb;
-			//	this.codSitFacturaWeb = new Integer(1);
-			//	this.porDescuentoWeb = new Float(0);
-			//	this.codDivisaWeb = new Integer(978);;
-	//	}
 
 		public Integer getIdFormPagoWeb() {
 			return idFormPagoWeb;
@@ -79,27 +77,12 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setIdFormPagoWeb(Integer idFormPagoWeb) {
 			this.idFormPagoWeb = idFormPagoWeb;
 		}
-
-		public Integer getIdFacturaWeb() {
-			return idFacturaWeb;
-		}
-		public void setIdFacturaWeb(Integer idFacturaWeb) {
-			this.idFacturaWeb = idFacturaWeb;
-		}
 		
 		public Calendar getFecAltaFacturaWeb() {
 			return fecAltaFacturaWeb;
 		}
 		public void setFecAltaFacturaWeb(Calendar fecAltaFacturaWeb) {
 			this.fecAltaFacturaWeb = fecAltaFacturaWeb;
-		}
-		
-		public Integer getCodSitFacturaWeb() {
-			return codSitFacturaWeb;
-		}
-
-		public void setCodSituacionWeb(Integer codSitFacturaWeb) {
-			this.codSitFacturaWeb = codSitFacturaWeb;
 		}
 
 		public Float getPorDescuentoWeb() {
@@ -149,6 +132,15 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setNotaFactura(String notaFactura) {
 			this.notaFactura = notaFactura;
 		}
-	
 
+		public Integer getCodSitFacturaWeb() {
+			return codSitFacturaWeb;
+		}
+
+		public void setCodSitFacturaWeb(Integer codSitFacturaWeb) {
+			this.codSitFacturaWeb = codSitFacturaWeb;
+		}
+
+		
+		
 }
