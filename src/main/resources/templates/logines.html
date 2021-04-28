@@ -5,8 +5,8 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	
 	<head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/css/bootstrap.min.css">
 	
+	 <link th:href="@{/public/css/bootstrap.min.css}" rel="stylesheet" />  
 	<style>
 
 	</style>
@@ -21,12 +21,12 @@
 			<div class="col-3"></div>
 			<div class="col-6">
 				<div th:id="idImage1" class="d-flex justify-content-center">
-					<img src="/images/image1.jpg" class="img-rounded" width="450" height="250">
+					<img th:src="@{/public/images/image1.jpg}" class="img-rounded" width="450" height="250">
 				</div>
 			</div>
 			<div class="col-3">
 			<div th:id="idImage2" class="d-flex justify-content-center">
-				<img src="/images/LogoBeigarRename.jpg" class="img-rounded">
+				<img th:src="@{/public/images/LogoBeigarRename.jpg}" class="img-rounded">
 				<p>© 2021</p>
 				<p>Version Beta 1.0<p>
 			</div>

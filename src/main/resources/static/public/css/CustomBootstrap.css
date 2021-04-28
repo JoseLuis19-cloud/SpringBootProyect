@@ -1,0 +1,123 @@
+.btn-outline {
+  color: #4fbfa8;
+  background-color: #ffffff;
+  border-color: #4fbfa8;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.btn-outline {
+  color: #4fbfa8;
+  background-color: #ffffff;
+  border-color: #4fbfa8;
+  font-weight: bold;
+  border-radius: 0;
+}
+
+.btn-outline:hover,
+.btn-outline:active,
+.btn-outline:focus,
+.btn-outline.active {
+  background: #4fbfa8;
+  color: #ffffff;
+  border-color: #4fbfa8;
+  
+}
+
+.btn-colour-1 {
+  color: #fff;
+  background-color: #004E64;
+  border-color: #004E64;
+  font: 13px Arial, sans-serif;
+ <!-- font-weight: bold; -->
+  letter-spacing: 0.05em;
+  border-radius: 0;
+}
+
+.btn-colour-1:hover,
+.btn-colour-1:active,
+.btn-colour-1:focus,
+.btn-colour-1.active {
+  /* let's darken #004E64 a bit for hover effect */
+  background: #003D4F;
+  color: #ffffff;
+  border-color: #003D4F;
+}
+
+.titulo-pag {
+  color: #FFA400;
+  font: 30px Arial, sans-serif;
+  font-weight: 900 letter-spacing: 0.05em;
+  border-radius: 0;
+  border-bottom: 6px solid #FFC72C;
+  display:inline-block;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  margin-left:2px;
+  width: 100%;
+}
+
+.titulo-pag2 {
+  color: ##004E64;
+  font: 30px Arial, sans-serif;
+  font-weight: bold letter-spacing: 0.05em;
+  background:#e9ecef;
+  border-radius: 0;
+  border-bottom: 2px solid #FFC72C;
+  display:inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top:0px;
+  margin-bottom:10px;
+  width:100%;			
+}
+
+.subtitulo-pag {
+  color: ##004E64;
+  font: 25px Arial, sans-serif;
+  font-weight: 900 letter-spacing: 0.05em;
+  border-radius: 0;
+  border-bottom: 2px solid #FFC72C;
+  display:inline-block;
+  padding-top: 14px;
+  padding-bottom: 10px;
+  margin-left:0px;
+}
+
+.subtitulo-pag2 {
+  color: ##004E64;
+  font: 25px Arial, sans-serif;
+  font-weight: 900 letter-spacing: 0.05em;
+  border-radius: 0;
+  border-bottom: 2px solid #FFC72C;
+  display:inline-block;
+  padding-top: 14px;
+  padding-bottom: 12px;
+  padding-top: 5px;
+  margin-left:0px;
+}
+
+.ir-arriba {
+	display:none;
+	padding:20px;
+	background:#024959;
+	font-size:20px;
+	color:#fff;
+	cursor:pointer;
+	position: fixed;
+	bottom:20px;
+	right:20px;
+}
+
+
+/* for demo purpose only */
+
+body {
+  padding: 20px 0;
+  font-family: Roboto, sans-serif;
+}
+
+h1 {
+  font-weight: 300;
+  margin-bottom: 40px;
+}

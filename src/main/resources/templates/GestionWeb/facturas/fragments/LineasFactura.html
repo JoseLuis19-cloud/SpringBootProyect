@@ -15,6 +15,8 @@
 							<th th:text="'% IVA'"></th>
 							<th th:text="'% Descuento'"></th>
 							<th th:text="'Importe'"></th>
+							<th th:text="'Editar'"></th>
+							<th th:text="'Eliminar'"></th>
 						</tr>
 					</thead>
 					<tbody> 
@@ -36,6 +38,13 @@
 							<td>
 								<input type="text" class="form-control form-control-xs"  th:id="'idImpLineaFactu'+ ${iterStat.index}" th:name="'impLineaFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].impLinFactura}" th:maxlength="7" th:readonly="false" required/>	
 							</td>
+							<td>
+								<button type="button" class="btn btn-primary btn-sm">Edit</button>	
+							</td>
+							<td>
+								<button type="button" class="btn btn-primary btn-sm">Eliminar</button>	
+							</td>
+							
 						</tr>
 					</tbody>
 			 </table>
