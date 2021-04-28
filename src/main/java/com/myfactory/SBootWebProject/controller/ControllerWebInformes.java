@@ -63,6 +63,13 @@ public class ControllerWebInformes {
 	}
 	
 	
+	@RequestMapping("/forminformeempleados")
+	public String formInformeEmpleados(Model modelo) {
+		
+	  modelo.addAttribute("datosInformes", "1");
+	 return "GestionWeb/informes/FormInformeEmpleados.html";
+	}
+	
 	@RequestMapping("/forminformeusuarios")
 	public String formInformeUsuarios(Model modelo) {
 		

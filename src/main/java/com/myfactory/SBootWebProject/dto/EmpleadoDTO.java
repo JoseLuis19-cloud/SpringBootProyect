@@ -2,76 +2,79 @@ package com.myfactory.SBootWebProject.dto;
 
 import java.io.Serializable;
 import java.util.Calendar;
+
+import javax.persistence.Column;
+
 import com.myfactory.SBootWebProject.model.User;
 
 public class EmpleadoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Long idEmpleado;
-	private User usuario;
-	private String nombre;
-	private String apellidos;
-	private String nif;
-    private Calendar fecAltaEmplelado;
-    private Calendar fecBajaEmplelado;
-	private String telefMovil;
-	private String email;
-	
-	public Long getIdEmpleado() {
-		return idEmpleado;
-	}
-	public void setIdEmpleado(Long idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
-	public User getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getApellidos() {
-		return apellidos;
-	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-	public String getNif() {
-		return nif;
-	}
-	public void setNif(String nif) {
-		this.nif = nif;
-	}
-	public Calendar getFecAltaEmplelado() {
-		return fecAltaEmplelado;
-	}
-	public void setFecAltaEmplelado(Calendar fecAltaEmplelado) {
-		this.fecAltaEmplelado = fecAltaEmplelado;
-	}
-	public Calendar getFecBajaEmplelado() {
-		return fecBajaEmplelado;
-	}
-	public void setFecBajaEmplelado(Calendar fecBajaEmplelado) {
-		this.fecBajaEmplelado = fecBajaEmplelado;
-	}
-	public String getTelefMovil() {
-		return telefMovil;
-	}
-	public void setTelefMovil(String telefMovil) {
-		this.telefMovil = telefMovil;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	private Long ID_EMPEADO;
+	private String NOMBRE;
+	private String APELLIDOS;
+	private String NIF;
+    private Calendar FEC_ALTA_EMPLEADO;
+    private String TEL_MOVIL;
+	private String EMAIL;
+	private Float IMP_BRUTO_ANUAL;
+	private Float IMP_FACTURADO_MES;
 	
 	
+	public Long getID_EMPEADO() {
+		return ID_EMPEADO;
+	}
+	public void setID_EMPEADO(Long iD_EMPEADO) {
+		ID_EMPEADO = iD_EMPEADO;
+	}
+	public String getNOMBRE() {
+		return NOMBRE;
+	}
+	public void setNOMBRE(String nOMBRE) {
+		NOMBRE = nOMBRE;
+	}
+	public String getAPELLIDOS() {
+		return APELLIDOS;
+	}
+	public void setAPELLIDOS(String aPELLIDOS) {
+		APELLIDOS = aPELLIDOS;
+	}
+	public String getNIF() {
+		return NIF;
+	}
+	public void setNIF(String nIF) {
+		NIF = nIF;
+	}
+	public Calendar getFEC_ALTA_EMPLEADO() {
+		return FEC_ALTA_EMPLEADO;
+	}
+	public void setFEC_ALTA_EMPLEADO(Calendar fEC_ALTA_EMPLEADO) {
+		FEC_ALTA_EMPLEADO = fEC_ALTA_EMPLEADO;
+	}
+	public String getTEL_MOVIL() {
+		return TEL_MOVIL;
+	}
+	public void setTEL_MOVIL(String telefMovil) {
+		TEL_MOVIL = telefMovil;
+	}
+	public String getEMAIL() {
+		return EMAIL;
+	}
+	public void setEMAIL(String eMAIL) {
+		EMAIL = eMAIL;
+	}
+	public Float getIMP_BRUTO_ANUAL() {
+		return IMP_BRUTO_ANUAL;
+	}
+	public void setIMP_BRUTO_ANUAL(Float iMP_BRUTO_ANUAL) {
+		IMP_BRUTO_ANUAL = iMP_BRUTO_ANUAL;
+	}
+	public Float getIMP_FACTURADO_MES() {
+		return IMP_FACTURADO_MES;
+	}
+	public void setIMP_FACTURADO_MES(Float iMP_FACTURADO_MES) {
+		IMP_FACTURADO_MES = iMP_FACTURADO_MES;
+	}
+
 }

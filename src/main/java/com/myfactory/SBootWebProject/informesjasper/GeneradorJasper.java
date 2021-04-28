@@ -104,11 +104,16 @@ public class GeneradorJasper {
 			  
 			  empleado = iterEmpleados.next();
 			  EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+			  empleadoDTO.setID_EMPEADO( empleado.getIdEmpleado() );
 			  
-			  empleadoDTO.setNombre( empleado.getNombre() );
-			  empleadoDTO.setApellidos( empleado.getApellidos());
-			  empleadoDTO.setEmail( empleado.getEmail());
-			  empleadoDTO.setNif(empleado.getNif());
+			  empleadoDTO.setNOMBRE(empleado.getNombre() );
+			  empleadoDTO.setAPELLIDOS(empleado.getApellidos());
+			  empleadoDTO.setEMAIL(empleado.getEmail());
+			  empleadoDTO.setNIF(empleado.getNif());
+			  empleadoDTO.setFEC_ALTA_EMPLEADO( empleado.getFecAltaEmplelado());
+			  empleadoDTO.setTEL_MOVIL( empleado.getTelefMovil());
+			  empleadoDTO.setIMP_BRUTO_ANUAL(empleado.getImpBrutoAnual() );
+			  empleadoDTO.setIMP_FACTURADO_MES(empleado.getImpFacturadoMes());
 			  
 			  listEmpleadoDTO.add(empleadoDTO);
 		    }
@@ -117,15 +122,16 @@ public class GeneradorJasper {
 
 		try {
 
-			String path = resourceLoader.getResource("classpath:" + REPORTE_JAPSER_EMPLEADOS).getURI().getPath();
-			JasperReport jasperReport = JasperCompileManager.compileReport(path);
+		//	String path = resourceLoader.getResource("classpath:" + REPORTE_JAPSER_EMPLEADOS).getURI().getPath();
+		//	JasperReport jasperReport = JasperCompileManager.compileReport(path);
 			
 			// Adding the additional parameters to the pdf.
 	        final Map<String, Object> parameters = new HashMap<>();
 	        parameters.put("createdBy", "javacodegeek.com");
 
 			// Fetching the .jrxml file from the resources folder.
-	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeProyectos.jrxml");
+	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeEmpleados.jrxml");
+	        													
 	     // Compile the Jasper report from .jrxml to .japser
 	        JasperReport report = JasperCompileManager.compileReport(stream);
 			

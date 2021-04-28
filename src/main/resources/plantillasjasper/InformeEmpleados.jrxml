@@ -1,19 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2020-12-05T22:58:39 -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeEmpleados" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="808e10a4-d604-4070-bfb1-bc3c7a32c618">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SakilaAdapter2"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SpringBootAdapter"/>
+	<parameter name="createdBy" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[]]>
+		<![CDATA[SELECT springboot.EMPLEADO.ID_EMPLEADO,
+				springboot.EMPLEADO.NOMBRE,
+				springboot.EMPLEADO.APELLIDOS,
+				springboot.EMPLEADO.NIF,
+				springboot.EMPLEADO.FEC_ALTA_EMPLEADO,
+				springboot.EMPLEADO.TEL_MOVIL,
+				springboot.EMPLEADO.EMAIL,
+				springboot.EMPLEADO.IMP_BRUTO_ANUAL,
+				springboot.EMPLEADO.IMP_FACTURADO_MES
+			FROM springboot.EMPLEADO
+]]>
 	</queryString>
+	<field name="ID_EMPLEADO" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ID_EMPLEADO"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID_EMPLEADO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APELLIDOS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="APELLIDOS"/>
+		<property name="com.jaspersoft.studio.field.label" value="APELLIDOS"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NIF" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="NIF"/>
+		<property name="com.jaspersoft.studio.field.label" value="NIF"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FEC_ALTA_EMPLEADO" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="FEC_ALTA_EMPLEADO"/>
+		<property name="com.jaspersoft.studio.field.label" value="FEC_ALTA_EMPLEADO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TEL_MOVIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TEL_MOVIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="TEL_MOVIL"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IMP_BRUTO_ANUAL" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="IMP_BRUTO_ANUAL"/>
+		<property name="com.jaspersoft.studio.field.label" value="IMP_BRUTO_ANUAL"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IMP_FACTURADO_MES" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="IMP_FACTURADO_MES"/>
+		<property name="com.jaspersoft.studio.field.label" value="IMP_FACTURADO_MES"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+		<fieldDescription><![CDATA[Importe mensual facturado por el empleado sin IVA]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="34" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="800" height="30" uuid="286bf183-386f-439c-b018-1ff56d0f27f0"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="11" width="650" height="30" uuid="286bf183-386f-439c-b018-1ff56d0f27f0"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -22,6 +86,10 @@
 				</textElement>
 				<text><![CDATA[Informe Empleados]]></text>
 			</staticText>
+			<image>
+				<reportElement x="750" y="0" width="50" height="50" uuid="31bf6e04-a9a8-4a54-a922-78d35313054e"/>
+				<imageExpression><![CDATA["/Users/UsuarioJoseLuis/Downloads/SBootWebProject/src/main/resources/plantillasjasper/images/LogoBeigar.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -30,7 +98,7 @@
 	<columnHeader>
 		<band height="39" splitType="Stretch">
 			<staticText>
-				<reportElement key="" x="-2" y="10" width="82" height="24" isPrintInFirstWholeBand="true" uuid="34ed4b2d-24ae-47d3-9048-3cad5b48ba1e">
+				<reportElement key="" x="-5" y="10" width="82" height="24" isPrintInFirstWholeBand="true" uuid="34ed4b2d-24ae-47d3-9048-3cad5b48ba1e">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<box topPadding="0"/>
@@ -48,7 +116,7 @@
 				<text><![CDATA[Nombre Empleado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="269" y="10" width="74" height="24" isPrintInFirstWholeBand="true" uuid="19bb4d4a-e222-4c78-a5cc-a944084f2473"/>
+				<reportElement key="" x="275" y="10" width="61" height="24" isPrintInFirstWholeBand="true" uuid="19bb4d4a-e222-4c78-a5cc-a944084f2473"/>
 				<box topPadding="0"/>
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
@@ -61,10 +129,10 @@
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Empresa]]></text>
+				<text><![CDATA[email]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="450" y="10" width="74" height="24" isPrintInFirstWholeBand="true" uuid="e88365c0-d0b4-4c15-99f1-78cc0b948669"/>
+				<reportElement key="" x="492" y="10" width="74" height="24" isPrintInFirstWholeBand="true" uuid="e88365c0-d0b4-4c15-99f1-78cc0b948669"/>
 				<box topPadding="0"/>
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
@@ -72,17 +140,7 @@
 				<text><![CDATA[Fec. Alta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="530" y="10" width="71" height="24" isPrintInFirstWholeBand="true" uuid="71afd32b-f206-493f-b29b-0548bd5213cf">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<box topPadding="0"/>
-				<textElement>
-					<font fontName="Arial" size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fec. Baja]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="" x="694" y="10" width="79" height="24" isPrintInFirstWholeBand="true" uuid="1846a4c7-3fb5-4cd3-b69d-7655917d884e"/>
+				<reportElement key="" x="591" y="10" width="100" height="24" isPrintInFirstWholeBand="true" uuid="1846a4c7-3fb5-4cd3-b69d-7655917d884e"/>
 				<box topPadding="0"/>
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
@@ -90,17 +148,66 @@
 				<text><![CDATA[Salario Bruto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="608" y="10" width="82" height="24" isPrintInFirstWholeBand="true" uuid="b2357af2-fc35-4740-9759-ee84b3a5cd7b"/>
+				<reportElement key="" x="700" y="10" width="99" height="24" isPrintInFirstWholeBand="true" uuid="0458dff5-b386-4124-80eb-7d7165a5f340"/>
 				<box topPadding="0"/>
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Antiguedad]]></text>
+				<text><![CDATA[Imp Facturado]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="52" splitType="Stretch"/>
+		<band height="52" splitType="Stretch">
+			<textField>
+				<reportElement x="-2" y="0" width="72" height="30" uuid="b80b984d-26d8-4072-9177-0f51da5d2640">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48fa0c5d-bb07-4c95-8f61-fc4b19ad60db"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{ID_EMPLEADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="2" width="87" height="30" uuid="1094a439-59a8-418a-97dd-d59a3b8f70c5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8cc6ccb-de28-4653-97aa-c30a40998111"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="1" width="100" height="30" uuid="a349cd1e-7ab8-4c11-8fcc-0347a5b10b70">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b31e8f7d-3104-47de-918e-0d4758b9ef29"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{APELLIDOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="275" y="4" width="62" height="30" uuid="f6c0b23b-93ca-4e43-9718-b5334773a211">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cdd07691-1dc4-4917-9574-aae7f997bed8"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{NIF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="491" y="5" width="100" height="30" uuid="ff873123-a761-4ce6-8497-d3f459cb967e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3c0d755b-f839-4810-a4ce-106d8418e9f3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{FEC_ALTA_EMPLEADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="4" width="151" height="30" uuid="e83e8a41-494c-4e46-ae01-2393da8425a8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a800e4c6-d428-4029-90e6-0e8da9716b00"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="593" y="5" width="100" height="30" uuid="d3d70e80-7616-4cbc-ad94-79c1d88794c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d5f54cb-6337-42c1-91e0-8969754ee21c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IMP_BRUTO_ANUAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="701" y="5" width="100" height="30" uuid="a06c7861-ffa6-4a99-a071-b89c2e08e744">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60fb308d-78af-4493-8657-009049fba230"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IMP_FACTURADO_MES}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
@@ -114,10 +221,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="349" y="15" width="100" height="30" uuid="56054ed9-684a-4bda-af25-1c9e85d2d230"/>
-				<text><![CDATA[Static Text]]></text>
-			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
@@ -131,7 +234,7 @@
 				<text><![CDATA[Salario empleados]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="3" width="100" height="30" uuid="f5704c78-391c-4e00-a96d-7193939f71bd"/>
+				<reportElement x="10" y="3" width="100" height="17" uuid="f5704c78-391c-4e00-a96d-7193939f71bd"/>
 				<text><![CDATA[Num. Empleados]]></text>
 			</staticText>
 		</band>
