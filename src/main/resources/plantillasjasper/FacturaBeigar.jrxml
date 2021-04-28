@@ -3,14 +3,50 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturaBeigar" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb864cec-94e8-451d-80cf-d5e1de7acc30">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SpringBootAdapter"/>
+	<parameter name="numFactura" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[]]>
+		<![CDATA[ SELECT springboot.FACTURA_LINEA.CANTIDAD,
+ 				springboot.FACTURA_LINEA.CONCEPTO,
+ 				springboot.FACTURA_LINEA.POR_IVA,
+ 				springboot.FACTURA_LINEA.IMP_LIN_FACTURA,
+ 				springboot.FACTURA_LINEA.POR_DESCUENTO
+ FROM springboot.FACTURA_LINEA]]>
 	</queryString>
+	<field name="CANTIDAD" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="CANTIDAD"/>
+		<property name="com.jaspersoft.studio.field.label" value="CANTIDAD"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura_linea"/>
+		<fieldDescription><![CDATA[Cantidad]]></fieldDescription>
+	</field>
+	<field name="CONCEPTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CONCEPTO"/>
+		<property name="com.jaspersoft.studio.field.label" value="CONCEPTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura_linea"/>
+		<fieldDescription><![CDATA[Concepto]]></fieldDescription>
+	</field>
+	<field name="POR_IVA" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="POR_IVA"/>
+		<property name="com.jaspersoft.studio.field.label" value="POR_IVA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura_linea"/>
+		<fieldDescription><![CDATA[Porcentaje de IVA que se aplica a la line de factura]]></fieldDescription>
+	</field>
+	<field name="IMP_LIN_FACTURA" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="IMP_LIN_FACTURA"/>
+		<property name="com.jaspersoft.studio.field.label" value="IMP_LIN_FACTURA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura_linea"/>
+		<fieldDescription><![CDATA[Importe de la linea de factura sin IVA]]></fieldDescription>
+	</field>
+	<field name="POR_DESCUENTO" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="POR_DESCUENTO"/>
+		<property name="com.jaspersoft.studio.field.label" value="POR_DESCUENTO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura_linea"/>
+		<fieldDescription><![CDATA[Porcentaje de descuento que se aplica a la lina de factura]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="84" splitType="Stretch">
+		<band height="86" splitType="Stretch">
 			<image>
 				<reportElement x="4" y="7" width="50" height="50" uuid="e82670cd-20aa-442f-9c2a-77c4621fb4a0"/>
 				<imageExpression><![CDATA["/Users/UsuarioJoseLuis/Downloads/SBootWebProject/src/main/resources/plantillasjasper/images/LogoBeigar.jpg"]]></imageExpression>
@@ -65,20 +101,6 @@
 				<reportElement x="200" y="39" width="82" height="12" uuid="56eeb0d0-cf5a-4d9a-bd33-d53ebc8efb2e"/>
 				<text><![CDATA[Fecha Factura]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="84" y="10" width="60" height="12" uuid="54ea00ed-f1a6-4960-b133-62e0ce567a14"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[B87884680]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="287" y="11" width="64" height="15" uuid="db7b1b07-4319-4758-9100-2db50a240c05"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[2020/0104]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="450" y="15" width="80" height="12" uuid="b2ff92ac-84f2-489a-bbdd-72885c408640"/>
 				<text><![CDATA[Aldebaran]]></text>
@@ -97,6 +119,10 @@
 			<line>
 				<reportElement x="2" y="74" width="548" height="1" uuid="f1b44dd2-c252-43b9-bb32-0b34b5fd0fba"/>
 			</line>
+			<textField>
+				<reportElement x="288" y="10" width="92" height="14" uuid="ccc20f67-2d26-414b-9e26-424120cbe0ba"/>
+				<textFieldExpression><![CDATA[$P{numFactura}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -105,28 +131,28 @@
 	<columnHeader>
 		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="5" width="100" height="18" uuid="17ed59da-8e2b-420c-866a-329aba4c9774"/>
+				<reportElement x="0" y="5" width="40" height="18" uuid="17ed59da-8e2b-420c-866a-329aba4c9774"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="7" width="100" height="18" uuid="b734107e-2ffb-4556-bedd-28ccd1193227"/>
+				<reportElement x="48" y="7" width="100" height="14" uuid="b734107e-2ffb-4556-bedd-28ccd1193227"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Servicio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="250" y="6" width="100" height="20" uuid="63cd11f3-9ce3-4e27-ac37-f333cbeb9674"/>
+				<reportElement x="421" y="13" width="50" height="14" uuid="63cd11f3-9ce3-4e27-ac37-f333cbeb9674"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[%  IVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="401" y="9" width="100" height="18" uuid="7b03d674-e862-4dd6-8a43-8e8a986b88d5"/>
+				<reportElement x="480" y="9" width="70" height="18" uuid="7b03d674-e862-4dd6-8a43-8e8a986b88d5"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -138,7 +164,33 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="49" splitType="Stretch"/>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="40" height="12" uuid="5e034675-1465-4b3b-a89c-6d259eb3c3a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="74faca56-537c-4d4e-ad61-00dbf176f981"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="3" width="340" height="12" uuid="87d1ca7f-dbd9-4603-b5e7-1dac2d9d914a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="641a8e1b-878b-4e07-99c3-d56fc787374a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CONCEPTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="1" width="62" height="16" uuid="d0c0dc31-934b-45de-bdf5-308058a55563">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c6cf7eb-8913-471c-9488-44d04a3d0838"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{POR_IVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="3" width="74" height="14" uuid="c61ae70a-8a7c-4e38-a8d3-f599a3707571">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0c44e68-4e68-4968-9165-64e355cc3b64"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{IMP_LIN_FACTURA}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

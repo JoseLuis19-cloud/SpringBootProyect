@@ -70,12 +70,12 @@ public class ControllerWebEmpleados {
 	private String pathMacOS;
 
 	@GetMapping("/formeditarempleado")
-	public String formEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
 
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));	  
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( idEmpleado  );	  
 		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
         
 		if (empleado.get().getImagenFotoEmpleado() != null )
@@ -112,12 +112,12 @@ public class ControllerWebEmpleados {
 	}
 	
 	@GetMapping("/formbajaempleado")
-	public String formBajaEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formBajaEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
 		
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( idEmpleado );
 		
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
 		beanEmpleadoWeb = cargarBeansDatos.cargarBeanEmpleado(empleado.get());
@@ -170,12 +170,12 @@ public class ControllerWebEmpleados {
 	}
 	
 	@GetMapping("/formactivarempleado")
-	public String formActivarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) String idEmpleado)  {
+	public String formActivarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
 		
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( idEmpleado );
 		
 		BeanEmpleadoWeb beanEmpleadoWeb = new BeanEmpleadoWeb();
 		beanEmpleadoWeb = cargarBeansDatos.cargarBeanEmpleado(empleado.get());
@@ -214,7 +214,7 @@ public class ControllerWebEmpleados {
 	@RequestMapping(value = "/activarempleado", method = RequestMethod.POST)
 	public String activarEmpleado(Model modelo, @ModelAttribute("empleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb)  { 
 		
-	 Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(datosEmpleadoWeb.getIdEmpleadoWeb()));
+	 Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(  datosEmpleadoWeb.getIdEmpleadoWeb() );
 	//	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		  		 		
 	 empleado.get().setFecAltaEmplelado(datosEmpleadoWeb.getFecAltaEmpleadoWeb()) ;
@@ -385,7 +385,7 @@ public class ControllerWebEmpleados {
 	}
 	
 	@PostMapping("/uploadimagenempleado")
-    public String uploadFile(@RequestParam("file") MultipartFile file,  @RequestParam(value = "idEmpleado", required = true) String idEmpleado, RedirectAttributes attributes, Model modelo) {
+    public String uploadFile(@RequestParam("file") MultipartFile file,  @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado, RedirectAttributes attributes, Model modelo) {
 
 		byte[] arrayBytesImagen = null;
      // check if file is empty
@@ -396,7 +396,7 @@ public class ControllerWebEmpleados {
 
      // normalize the file path
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(idEmpleado));
+        Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( idEmpleado );
         
 		try
 		 {
@@ -494,7 +494,7 @@ public class ControllerWebEmpleados {
 		
 		byte[] blobBytes = null;
 		byte[] encode =null;
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Long(1));
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(new Integer(1));
         
 		try {
 		 	Blob blobImg = empleado.get().getImagenFotoEmpleado();

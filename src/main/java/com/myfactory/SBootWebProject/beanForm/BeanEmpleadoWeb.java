@@ -20,7 +20,7 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Long idEmpleadoWeb;	
+	private Integer idEmpleadoWeb;	
 	private String nombreWeb;
 	private String apellidosWeb;
 	private String nifWeb;
@@ -57,12 +57,12 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	public BeanEmpleadoWeb() {
 	}
 
-	public Long getIdEmpleadoWeb() {
+	public Integer getIdEmpleadoWeb() {
 		return idEmpleadoWeb;
 	}
 
 
-	public void setIdEmpleadoWeb(Long idEmpleadoWeb) {
+	public void setIdEmpleadoWeb(Integer idEmpleadoWeb) {
 		this.idEmpleadoWeb = idEmpleadoWeb;
 	}
 

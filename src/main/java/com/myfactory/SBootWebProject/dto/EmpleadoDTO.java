@@ -1,33 +1,28 @@
 package com.myfactory.SBootWebProject.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
-
-import javax.persistence.Column;
-
-import com.myfactory.SBootWebProject.model.User;
 
 public class EmpleadoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Long ID_EMPEADO;
+	//  private Integer ID_EMPLEADO;
 	private String NOMBRE;
 	private String APELLIDOS;
 	private String NIF;
-    private Calendar FEC_ALTA_EMPLEADO;
+    private java.sql.Date FEC_ALTA_EMPLEADO;
     private String TEL_MOVIL;
 	private String EMAIL;
 	private Float IMP_BRUTO_ANUAL;
 	private Float IMP_FACTURADO_MES;
 	
 	
-	public Long getID_EMPEADO() {
-		return ID_EMPEADO;
-	}
-	public void setID_EMPEADO(Long iD_EMPEADO) {
-		ID_EMPEADO = iD_EMPEADO;
-	}
+//	public Integer getID_EMPEADO() {
+	//		return ID_EMPLEADO;
+	//	}
+	//	public void setID_EMPLEADO(Integer iD_EMPLEADO) {
+	//		ID_EMPLEADO = iD_EMPLEADO;
+	//	}
 	public String getNOMBRE() {
 		return NOMBRE;
 	}
@@ -46,10 +41,10 @@ public class EmpleadoDTO implements Serializable {
 	public void setNIF(String nIF) {
 		NIF = nIF;
 	}
-	public Calendar getFEC_ALTA_EMPLEADO() {
+	public java.sql.Date  getFEC_ALTA_EMPLEADO() {
 		return FEC_ALTA_EMPLEADO;
 	}
-	public void setFEC_ALTA_EMPLEADO(Calendar fEC_ALTA_EMPLEADO) {
+	public void setFEC_ALTA_EMPLEADO(java.sql.Date fEC_ALTA_EMPLEADO) {
 		FEC_ALTA_EMPLEADO = fEC_ALTA_EMPLEADO;
 	}
 	public String getTEL_MOVIL() {

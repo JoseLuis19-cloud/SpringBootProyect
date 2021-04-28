@@ -5,8 +5,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SpringBootAdapter"/>
 	<parameter name="createdBy" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT springboot.EMPLEADO.ID_EMPLEADO,
-				springboot.EMPLEADO.NOMBRE,
+		<![CDATA[SELECT  springboot.EMPLEADO.NOMBRE,
 				springboot.EMPLEADO.APELLIDOS,
 				springboot.EMPLEADO.NIF,
 				springboot.EMPLEADO.FEC_ALTA_EMPLEADO,
@@ -17,12 +16,6 @@
 			FROM springboot.EMPLEADO
 ]]>
 	</queryString>
-	<field name="ID_EMPLEADO" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="ID_EMPLEADO"/>
-		<property name="com.jaspersoft.studio.field.label" value="ID_EMPLEADO"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="NOMBRE" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="NOMBRE"/>
 		<property name="com.jaspersoft.studio.field.label" value="NOMBRE"/>
@@ -98,7 +91,7 @@
 	<columnHeader>
 		<band height="39" splitType="Stretch">
 			<staticText>
-				<reportElement key="" x="-5" y="10" width="82" height="24" isPrintInFirstWholeBand="true" uuid="34ed4b2d-24ae-47d3-9048-3cad5b48ba1e">
+				<reportElement key="" x="-5" y="10" width="65" height="24" isPrintInFirstWholeBand="true" uuid="34ed4b2d-24ae-47d3-9048-3cad5b48ba1e">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<box topPadding="0"/>
@@ -108,7 +101,7 @@
 				<text><![CDATA[Cod. Emp]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="" x="83" y="10" width="182" height="24" isPrintInFirstWholeBand="true" uuid="8d0411e4-3d54-42d8-9cea-e3a2732d13af"/>
+				<reportElement key="" x="72" y="10" width="182" height="24" isPrintInFirstWholeBand="true" uuid="8d0411e4-3d54-42d8-9cea-e3a2732d13af"/>
 				<box topPadding="0"/>
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
@@ -160,19 +153,13 @@
 	<detail>
 		<band height="52" splitType="Stretch">
 			<textField>
-				<reportElement x="-2" y="0" width="72" height="30" uuid="b80b984d-26d8-4072-9177-0f51da5d2640">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48fa0c5d-bb07-4c95-8f61-fc4b19ad60db"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{ID_EMPLEADO}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="83" y="2" width="87" height="30" uuid="1094a439-59a8-418a-97dd-d59a3b8f70c5">
+				<reportElement x="72" y="2" width="87" height="30" uuid="1094a439-59a8-418a-97dd-d59a3b8f70c5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8cc6ccb-de28-4653-97aa-c30a40998111"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="172" y="1" width="100" height="30" uuid="a349cd1e-7ab8-4c11-8fcc-0347a5b10b70">
+				<reportElement x="165" y="1" width="100" height="30" uuid="a349cd1e-7ab8-4c11-8fcc-0347a5b10b70">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b31e8f7d-3104-47de-918e-0d4758b9ef29"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{APELLIDOS}]]></textFieldExpression>

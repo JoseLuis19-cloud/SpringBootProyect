@@ -85,7 +85,7 @@
 							<td th:text="${#calendars.format(factura.fecFactura, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#calendars.format(factura.fecEmisionFactura, 'dd/MM/yyyy')}"></td>
 							<td><a th:href="@{/gestionWeb/facturas/formeditarfactura(idFactura=${factura.idFactura})}" class="btn btn-primary" role="button">Editar</a></td>
-							<td><a th:href="@{/gestionWeb/facturas/formeditarfactura(idFactura=${factura.idFactura})}" class="btn btn-primary" role="button">Imprimir</a></td>
+							<td><a th:href="@{/gestionWeb/facturas/generarpdffactura(idFactura=${factura.idFactura})}" class="btn btn-primary" role="button">Imprimir</a></td>
 						</tr>
 					</tbody>
 				</table>

@@ -19,7 +19,7 @@ public interface ServJPAEmpleado {
 
 	public Iterable<Empleado> obtenerListEmpleados() ;
 	
-	public Optional<Empleado> buscarIdEmpleado(Long idEmpleado);
+	public Optional<Empleado> buscarIdEmpleado(Integer idEmpleado);
 	
 	public Empleado grabarImagen(Empleado empleado);
 	

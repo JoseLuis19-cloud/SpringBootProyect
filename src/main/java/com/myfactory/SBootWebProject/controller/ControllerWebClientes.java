@@ -66,7 +66,7 @@ public class ControllerWebClientes {
 	
 		Iterable <TpoCliente> tipoCliente = servicioJPA.getTipoCliente();
 		
-		Optional<Cliente> cliente = servicioJPA.buscarIdCliente(new Integer(Integer.parseInt(idCliente)));
+		Optional<Cliente> cliente = servicioClienteJPA.buscarIdCliente(new Integer(Integer.parseInt(idCliente)));
 		
 		modelo.addAttribute("clienteWeb", cargarBeansDatos.cargarBeanCliente(cliente.get()) );
 		modelo.addAttribute("tpoClienteWeb", tipoCliente );
@@ -98,7 +98,7 @@ public class ControllerWebClientes {
 		
 		   if (! resultValidacion.hasErrors()) {
 			  Cliente clienteAlta = validarDatosCliente(formClienteWeb, tpoCliente);
-			  servicioJPA.altaCliente(clienteAlta);
+			  servicioClienteJPA.altaCliente(clienteAlta);
 		   }
 		
 	return "redirect:/gestionWeb/clientes/" + "pagclientesNue";
@@ -121,7 +121,7 @@ public class ControllerWebClientes {
 	
 		Iterable <TpoCliente> tipoCliente = servicioJPA.getTipoCliente();
 		
-		Optional<Cliente> cliente = servicioJPA.buscarIdCliente(new Integer(Integer.parseInt(idCliente)));
+		Optional<Cliente> cliente = servicioClienteJPA.buscarIdCliente(new Integer(Integer.parseInt(idCliente)));
 		
 		modelo.addAttribute("clienteWeb", cargarBeansDatos.cargarBeanCliente(cliente.get()) );
 		modelo.addAttribute("tipoClienteWeb", tipoCliente );
@@ -134,7 +134,7 @@ public class ControllerWebClientes {
 	@RequestMapping("/bajacliente")
 	public String bajaCliente(Model modelo,  @RequestParam(value = "idCliente", required = false ) String idCliente)  {
 
-		servicioJPA.bajaIdCliente(new Integer(Integer.parseInt(idCliente)));
+		servicioClienteJPA.bajaIdCliente(new Integer(Integer.parseInt(idCliente)));
 		 return "redirect:/gestionWeb/clientes/" + "pagclientesNue";
 	}
 	
@@ -171,7 +171,7 @@ public class ControllerWebClientes {
 
 //		Iterable <Cliente> listMismoAppelido = servicioJPA.findByApellidos("Sanchez");
 
-	 	Page<Cliente> pagCliente = servicioJPA.paginacionClientes(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA, "");
+	 	Page<Cliente> pagCliente = servicioClienteJPA.paginacionClientes(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA, "");
 
 		modelo.addAttribute("numPag", String.valueOf(numPagInt));
 		modelo.addAttribute("numRegPag", pagCliente.getContent().size());
@@ -325,7 +325,7 @@ public class ControllerWebClientes {
 		
 		modelo.addAttribute("objBusqueda", busquedaCampo);
 
-		Page<Cliente> pagCliente = servicioJPA.paginacionClientes(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA, busquedaCampo.getApellidosBusqueda().trim());
+		Page<Cliente> pagCliente = servicioClienteJPA.paginacionClientes(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA, busquedaCampo.getApellidosBusqueda().trim());
 		modelo.addAttribute("pagGenerica", pagCliente);
 		modelo.addAttribute("numPag", String.valueOf(numPagInt));
 		modelo.addAttribute("numRegPag", pagCliente.getContent().size());
@@ -438,7 +438,7 @@ public class ControllerWebClientes {
 
      // normalize the file path
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Optional<Cliente> cliente = servicioJPA.buscarIdCliente(new Integer(1));
+        Optional<Cliente> cliente = servicioClienteJPA.buscarIdCliente(new Integer(1));
         
 		try
 		 {
@@ -480,7 +480,7 @@ public class ControllerWebClientes {
 		
 		byte[] blobBytes = null;
 		byte[] encode =null;
-		Optional<Cliente> cliente = servicioJPA.buscarIdCliente(new Integer(1));
+		Optional<Cliente> cliente = servicioClienteJPA.buscarIdCliente(new Integer(1));
         
 		try {
 		 	Blob blobImg = cliente.get().getImagenFotoCliente();

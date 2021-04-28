@@ -28,7 +28,7 @@ public class Empleado  implements Serializable {
 	@Id
 	@Column(name = "ID_EMPLEADO", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private Long idEmpleado;
+	private Integer idEmpleado;
 	
 	@OneToOne(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
@@ -98,10 +98,10 @@ public class Empleado  implements Serializable {
 	@Column(name = "IMP_FACTURADO_MES", nullable = true)
 	private Float impFacturadoMes;
 	
-	public Long getIdEmpleado() {
+	public Integer getIdEmpleado() {
 		return idEmpleado;
 	}
-	public void setIdEmpleado(Long idEmpleado) {
+	public void setIdEmpleado(Integer idEmpleado) {
 		this.idEmpleado = idEmpleado;
 	}
 	public User getUsuario() {

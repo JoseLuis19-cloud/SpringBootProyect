@@ -153,7 +153,7 @@ public class ControllerWebInformes {
     public StreamingResponseBody getSteamingFile1(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
       //  response.setHeader("Content-Disposition", "attachment; filename=\"demo.pdf\"");
-        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "InformeUsuarios.pdf"));
+        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "InformeProyectos.pdf"));
         
         return outputStream -> {
             int nRead;
@@ -189,7 +189,7 @@ public class ControllerWebInformes {
     public StreamingResponseBody getSteamingFile3(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
       //  response.setHeader("Content-Disposition", "attachment; filename=\"demo.pdf\"");
-        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "InformeProyectos.pdf"));
+        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "InformeEmpleados.pdf"));
         
         return outputStream -> {
             int nRead;

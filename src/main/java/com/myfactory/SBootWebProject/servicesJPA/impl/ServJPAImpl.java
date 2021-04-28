@@ -1,14 +1,9 @@
 package com.myfactory.SBootWebProject.servicesJPA.impl;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.myfactory.SBootWebProject.model.Cliente;
-import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Provincia;
@@ -53,92 +48,6 @@ public class ServJPAImpl implements ServJPA{
 	@Autowired
 	FacturaSituacionJPADao facturaSituacionJPADao;
 
-	@Override
-	public Iterable<Cliente> buscarTodosClientes() {
-
-		return reposSDataCliente.findAll();
-	}
-	
-	@Override
-	public Optional<Cliente> buscarIdCliente(Integer idCliente) {
-
-		return reposSDataCliente.findById(idCliente);
-	}
-	
-	@Override
-	public Cliente altaCliente(Cliente cliente) {
-
-		return reposSDataCliente.save(cliente);
-	}
-	
-	@Override
-	public Iterable<Factura> buscarTodasFacturas() {
-
-		return reposSDataFactura.findAll();
-	}
-
-	@Override
-	public Optional<Factura> buscarIdFactura(Integer idFactura) {
-
-		return reposSDataFactura.findById(idFactura);
-	}
-
-	@Override
-	public Factura altaFactura(Factura factura) {
-		try {
-			factura = reposSDataFactura.save(factura);
-		} catch (Exception ex) {
-			factura = null;
-		}
-		return factura;
-	}
-	
-	@Override
-	public Optional<Factura> buscarFacturaId(Integer idFactura) {
-
-		return reposSDataFactura.findById(idFactura);
-	}
-
-	@Override
-	public Page<Cliente> paginacionClientes(Integer numPag, Integer numRegPag, String buscarApellido) {
-		Page<Cliente> restulPag ;
-		
-		//if (buscarApellido.equals("")  )
-		//	{		
-		//	 restulPag = reposSDataPagCliente.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idCliente")));
-		//	}
-	//	else
-	//		{
-			 restulPag = reposSDataPagCliente.findMayorApellido(PageRequest.of(numPag, numRegPag, Sort.by("apellidos")), buscarApellido);
-	//		}
-
-		if (restulPag.hasContent()) {
-			System.out.println("tiene contenido la paginacion");
-		}
-		return restulPag;
-	}
-
-	@Override
-	public Page<Factura> paginacionFacturas(Integer numPag, Integer numRegPag) {
-
-		Page<Factura> restulPag = reposSDataPagFactura.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idFactura")));
-
-		if (restulPag.hasContent()) {
-			System.out.println("tiene contenido la paginacion");
-		}
-
-		return restulPag;
-	}
-
-	@Override
-	public boolean bajaIdCliente(Integer idCliente) {
-		try {
-			reposSDataCliente.deleteById(idCliente);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
 
 	@Override
 	public Iterable<FormaPago> getFormasPago() {

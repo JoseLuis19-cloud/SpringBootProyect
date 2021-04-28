@@ -1,10 +1,15 @@
 package com.myfactory.SBootWebProject.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -12,9 +17,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +31,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
@@ -34,16 +42,22 @@ import com.myfactory.SBootWebProject.beanForm.BeanIdUsuario;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
+import com.myfactory.SBootWebProject.informesjasper.GeneradorJasper;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FacturaLinea;
 import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
+import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAFactura;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @Controller
 @RequestMapping("/gestionWeb/facturas")
@@ -65,14 +79,17 @@ public class ControllerWebFacturas {
 	BeanUsuarioSession beanUsuarioSession;
 	@Autowired
 	BeanIdUsuario beanIdUsuario;
+	
+	@Value("${path.MACOSGeneracionPDF}")
+	private String pathDescargaPDFMacOS;
 
 	@GetMapping("/formeditarfactura")
 	public String formEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = false) String idFactura)  {
 
-		Optional<Factura> factura = servicioJPA.buscarIdFactura(new Integer(Integer.parseInt(idFactura)));
+		Optional<Factura> factura = servJPAFactura.buscarIdFactura(new Integer(Integer.parseInt(idFactura)));
 		
 		modelo.addAttribute("facturaWeb", cargarBeansDatos.cargarBeanFactura(factura.get()) );
-		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
+		modelo.addAttribute("formasPagoWeb", servJPAFactura.getFormasPago());
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "gestionWeb/facturas/FormEditarFactura";
@@ -270,9 +287,9 @@ public class ControllerWebFacturas {
 		
 	@RequestMapping("/pagfacturasnue")
 	public String paginacionFacturasNue(Model modelo, @RequestParam(value = "numPag", required = false) String numPag,
-													      @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
-		 											      @RequestParam(value = "numPos", required = false) String numPos,
-		 											      @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag )
+													  @RequestParam(value = "tpoAccion", required = false) String tpoAccion,
+		 											  @RequestParam(value = "numPos", required = false) String numPos,
+		 											  @RequestParam(value = "numBloquePag", required = false) Integer numBloquePag )
 		{
 		 // Con esta variable sabemos la pagina exacta, dentro de todas paginacias posibles,  de donde llega a la paginacion.
 			int numPagInt = 0;
@@ -311,7 +328,9 @@ public class ControllerWebFacturas {
 					}
 			}
 
-			Page<Factura> pagFactura= servicioJPA.paginacionFacturas(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA);
+			Page<Factura> pagFactura= servJPAFactura.paginacionFacturas(new Integer(numPagInt), ConstantesAplicacion.REG_POR_PAGINA);
+			
+			
 			modelo.addAttribute("pagGenerica", pagFactura);
 			modelo.addAttribute("numPag", String.valueOf(numPagInt));
 			modelo.addAttribute("numRegPag", pagFactura.getContent().size());
@@ -470,5 +489,49 @@ public class ControllerWebFacturas {
 
 			return resultadoValidacion;	
 		}
+		
+		
+		@RequestMapping("/generarpdffactura")
+		public String generarPDFFActura(Model modelo, @RequestParam(value = "idFactura", required = true) Integer idFactura) {
+		   try
+		    {
+		     Factura factura = servJPAFactura.buscarIdFactura( idFactura).get() ;
+			 
+		     GeneradorJasper genInfoJasper = new GeneradorJasper();
+		     
+		     JasperPrint reportGenerado = genInfoJasper.generarPDFFactura(factura );
+		     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "FacturaBeigar.pdf");
+		     
+		    // JasperViewer viewer = new JasperViewer(reportGenerado);
+		    // viewer.setVisible(true);
+		    
+		    } 
+		   catch (JRException ex)
+		     {
+	         // parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
+	         }
+		   
+			modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+
+			return "gestionWeb/facturas/PDFFacturaGenerada";
+		}
+		
+		@RequestMapping(value = "downloadFilePDFFactura", method = RequestMethod.GET)
+	    public StreamingResponseBody getSteamingFile1(HttpServletResponse response) throws IOException {
+	        response.setContentType("application/pdf");
+	      //  response.setHeader("Content-Disposition", "attachment; filename=\"demo.pdf\"");
+	        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "FacturaBeigar.pdf"));
+	        
+	        return outputStream -> {
+	            int nRead;
+	            byte[] data = new byte[1024];
+	            while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+	                System.out.println("Writing some bytes..");
+	                outputStream.write(data, 0, nRead);
+	            }
+	            inputStream.close();
+	        };
+	        
+	    }
 	
 }

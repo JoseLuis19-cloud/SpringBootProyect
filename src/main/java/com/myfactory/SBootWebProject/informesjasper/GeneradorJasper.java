@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,10 +33,17 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
+import com.myfactory.SBootWebProject.beanForm.BeanFacturaLineas;
 import com.myfactory.SBootWebProject.dto.EmpleadoDTO;
+import com.myfactory.SBootWebProject.dto.FacturaDTO;
+import com.myfactory.SBootWebProject.dto.FacturaLineaDTO;
 import com.myfactory.SBootWebProject.dto.ProyectoDTO;
 import com.myfactory.SBootWebProject.dto.UserDTO;
 import com.myfactory.SBootWebProject.model.Empleado;
+import com.myfactory.SBootWebProject.model.Factura;
+import com.myfactory.SBootWebProject.model.FacturaLinea;
+import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
 @PropertySource(value = "classpath:/parametrosaplicacion.properties", ignoreResourceNotFound = true)
@@ -104,13 +115,12 @@ public class GeneradorJasper {
 			  
 			  empleado = iterEmpleados.next();
 			  EmpleadoDTO empleadoDTO = new EmpleadoDTO();
-			  empleadoDTO.setID_EMPEADO( empleado.getIdEmpleado() );
-			  
+			//  empleadoDTO.setID_EMPLEADO( empleado.getIdEmpleado() );
 			  empleadoDTO.setNOMBRE(empleado.getNombre() );
 			  empleadoDTO.setAPELLIDOS(empleado.getApellidos());
 			  empleadoDTO.setEMAIL(empleado.getEmail());
 			  empleadoDTO.setNIF(empleado.getNif());
-			  empleadoDTO.setFEC_ALTA_EMPLEADO( empleado.getFecAltaEmplelado());
+			  empleadoDTO.setFEC_ALTA_EMPLEADO( new java.sql.Date( empleado.getFecAltaEmplelado().getTimeInMillis() ) );
 			  empleadoDTO.setTEL_MOVIL( empleado.getTelefMovil());
 			  empleadoDTO.setIMP_BRUTO_ANUAL(empleado.getImpBrutoAnual() );
 			  empleadoDTO.setIMP_FACTURADO_MES(empleado.getImpFacturadoMes());
@@ -251,6 +261,79 @@ public class GeneradorJasper {
 			parentLogger.error("Se ha producido un error en la generacion del informe Jasper " + ex);
 		}
 		return null;
+	}
+	
+	
+public JasperPrint generarPDFFactura( Factura factura) {
+		
+		JasperPrint reportGenerado = null;
+		FacturaDTO facturaDTO = new FacturaDTO();
+	
+		List<FacturaDTO> listFacturaDTO = new ArrayList<FacturaDTO>();
+		List<FacturaLineaDTO> listLineasFacturaDTO = new ArrayList<FacturaLineaDTO>();
+		 
+		facturaDTO.setFEC_ALTA_FACTURA(new java.sql.Date( factura.getFecFactura().getTimeInMillis() ) );
+		facturaDTO.setCOD_USUARIO(factura.getCodUsuario());
+		facturaDTO.setCOD_DIVISA( factura.getCodDivisa());
+		if (factura.getFecEmisionFactura()!= null)
+			{
+			facturaDTO.setFEC_EMISION_FACTURA(new java.sql.Date(factura.getFecEmisionFactura().getTimeInMillis() ) );
+			}
+		facturaDTO.setNUM_FACTURA( factura.getNumFactura() );
+		facturaDTO.setPOR_IVA(factura.getPorIva());
+		
+		listFacturaDTO.add(facturaDTO);
+		
+		Set<FacturaLinea> lineasFactura = factura.getFacturaLineas();
+		
+		// Iterator <FacturaLinea> iterFacturaSitu = factura.getFacturaLineas().iterator();
+		 
+	//	List<BeanFacturaLineas> listFactuLineas = StreamSupport
+//					  .stream(lineasFactura.spliterator(), false)
+//					  .collect(Collectors.toList());
+		
+		while (lineasFactura.iterator().hasNext()) {
+			FacturaLinea elemenLinFactura  = lineasFactura.iterator().next();
+	      
+	 
+		// for (BeanFacturaLineas elemenLinFactura : lineasFactura.iterator())
+			//  {
+			 FacturaLineaDTO facturaLineaDTO = new FacturaLineaDTO();
+			 
+			 facturaLineaDTO.setCANTIDAD( elemenLinFactura.getCantidad());
+			 facturaLineaDTO.setCONCEPTO( elemenLinFactura.getConcepto());
+			 facturaLineaDTO.setIMP_LIN_FACTURA(elemenLinFactura.getImpLinFactura());
+			 facturaLineaDTO.setPOR_IVA(elemenLinFactura.getPorIva());
+			  
+			 listLineasFacturaDTO.add(facturaLineaDTO);
+			 break;
+		}
+ 
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listLineasFacturaDTO, false);
+
+		try 
+		{
+			// Adding the additional parameters to the pdf.
+	        final Map<String, Object> parameters = new HashMap<>();
+	        parameters.put("nomFactura", facturaDTO.getNUM_FACTURA().toString());
+
+			// Fetching the .jrxml file from the resources folder.
+	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/FacturaBeigar.jrxml");
+	        													
+	        // Compile the Jasper report from .jrxml to .japser
+	        JasperReport report = JasperCompileManager.compileReport(stream);
+			
+			// JasperPrint reportGenerado = JasperFillManager.fillReport(jasperReport, parameters);
+			 reportGenerado = JasperFillManager.fillReport(report, parameters, dataSource);
+			 
+			return reportGenerado;
+			
+			} 
+		catch (Exception ex)
+			{
+				parentLogger.error("Se ha producido un error en la generacion del PDF de la factura " + ex);
+				return null;
+			} 
 	}
 
 }

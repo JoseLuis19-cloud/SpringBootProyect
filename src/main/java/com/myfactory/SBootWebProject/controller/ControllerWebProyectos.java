@@ -511,10 +511,10 @@ public class ControllerWebProyectos {
 	}
 	
 	@RequestMapping(value = "/anadirempleadoajax" )
-	public String anadirEmpleadoAjax(@RequestParam("idEmpleado") String idEmpleado, Model modelo) {
+	public String anadirEmpleadoAjax(@RequestParam("idEmpleado") Integer idEmpleado, Model modelo) {
 	    List<Empleado> listEmpleadoDisponibles = new ArrayList<Empleado>();
 	    Empleado empleado = new Empleado();
-		empleado.setIdEmpleado(new Long (idEmpleado));
+		empleado.setIdEmpleado( idEmpleado );
 		empleado.setNombre("EEE"); 
 		listEmpleadoDisponibles.add(empleado);
  
@@ -523,10 +523,10 @@ public class ControllerWebProyectos {
 	}
 	
 	@RequestMapping(value = "/suprimirempleadoajax" )
-	public String suprimirEmpleadoAjax(@RequestParam("idEmpleado") String idEmpleado, Model modelo) {
+	public String suprimirEmpleadoAjax(@RequestParam("idEmpleado") Integer idEmpleado, Model modelo) {
 	    List<Empleado> listEmpresasDisponibles = new ArrayList<Empleado>();
 	    Empleado empleado = new Empleado();
-	    empleado.setIdEmpleado(new Long (idEmpleado));
+	    empleado.setIdEmpleado( idEmpleado );
 	    empleado.setNombre("EEE"); 
 		listEmpresasDisponibles.add(empleado);
  

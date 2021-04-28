@@ -54,7 +54,7 @@ public class ServJPAEmpleadoImp implements ServJPAEmpleado {
 		return empleadoJPARepository.findAll() ;
 	}
 	@Override
-	public Optional<Empleado> buscarIdEmpleado(Long idEmpleado) {
+	public Optional<Empleado> buscarIdEmpleado(Integer idEmpleado) {
 		return empleadoJPARepository.findById(idEmpleado);
 	}
 
