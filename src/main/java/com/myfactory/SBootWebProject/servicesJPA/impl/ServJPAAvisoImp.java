@@ -15,5 +15,9 @@ public class ServJPAAvisoImp implements ServJPAAviso {
 	 	public Iterable<Aviso> listAvisos(Integer idAvisos) {
 		return avisoJPAAvisoDao.findAll() ;
 	}
+	@Override
+	public void crearAviso(Aviso aviso) {
+		avisoJPAAvisoDao.save(aviso);
+	}
 
 }

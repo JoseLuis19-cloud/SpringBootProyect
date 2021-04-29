@@ -8,5 +8,7 @@ import com.myfactory.SBootWebProject.model.Aviso;
 public interface ServJPAAviso {
  
 	public Iterable<Aviso> listAvisos(Integer idAvisos);
+	
+	public void crearAviso(Aviso aviso) ;
 
 }

@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,13 +41,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
+import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
+import com.myfactory.SBootWebProject.model.Aviso;
 import com.myfactory.SBootWebProject.model.Cliente;
+import com.myfactory.SBootWebProject.model.Empleado;
+import com.myfactory.SBootWebProject.model.Pais;
+import com.myfactory.SBootWebProject.model.PuestoTrabajo;
 import com.myfactory.SBootWebProject.model.TpoCliente;
+import com.myfactory.SBootWebProject.model.TpoFrecuRepeticion;
+import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAAviso;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
  
@@ -67,6 +78,9 @@ public class ControllerWebAdministracion {
 	CargarBeansDatos cargarBeansDatos;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
+	
+	@Autowired
+	ServJPAAviso servJPAAviso;
 	
 	protected static final Logger parentLogger = LogManager.getLogger();
 	
@@ -114,12 +128,81 @@ public class ControllerWebAdministracion {
 		
 		BeanTareaWeb datosTareaWeb = new BeanTareaWeb();
 		
+		datosTareaWeb.setFecCreacionAviso(Calendar.getInstance()); 
+		
 		datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
 		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
 		
 		modelo.addAttribute("datosTareaWeb", datosTareaWeb );
 		
 		return "GestionWeb/administracion/FormCrearTarea";
+	}
+	
+	@GetMapping("/creartarea")
+	public String crearTarea(Model modelo, @ModelAttribute("datosTareaWeb") BeanTareaWeb beanTareaWeb,
+						BindingResult resultValidacion) {
+		
+		Map<String, Object> resultadoValidacion = new HashMap<>();
+	 
+		BeanErrorValidacion datosError = null;
+		
+		Aviso aviso = new Aviso();
+		
+		if (! resultValidacion.hasErrors())
+			{
+			try
+			{
+				 
+		// calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
+		
+		 Map<String, Object> resultValTarea;
+		 resultValTarea = validarDatosTarea(beanTareaWeb);
+
+		 datosError = (BeanErrorValidacion) resultValTarea.get("errorValidacion");
+		
+		 if (datosError.getCodError().intValue() != 0 ) 
+		    {
+			 modelo.addAttribute("errorValidacion" , true);
+			 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+		    }
+		  else
+		    {
+			 aviso = (Aviso) resultValTarea.get("tareaValidacion" );
+			 
+		  // Dar de alta Empleado
+			 servJPAAviso.crearAviso(aviso);	
+				
+			 modelo.addAttribute("errorValidacion" , false);
+			 modelo.addAttribute("mensajeError", "" );
+			 
+			 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+				
+			 return "GestionWeb/administracion/FormCrearTarea";  	 
+			 
+		    }
+		}
+		catch (Exception e)
+		{
+		 modelo.addAttribute("errorValidacion" , true);
+		 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+		}
+			
+		modelo.addAttribute("datosTareaWeb", beanTareaWeb);
+	 
+		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+			
+		return "GestionWeb/administracion/FormCrearTarea";  	 
+		}
+	  else
+		{
+		  
+	//	  datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
+	//		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
+			
+		modelo.addAttribute("datosTareaWeb", beanTareaWeb);	
+		
+		return "GestionWeb/administracion/FormCrearTarea"; 
+		}
 	}
 	
 	private static void backupBDMySQL() {
@@ -181,6 +264,35 @@ public class ControllerWebAdministracion {
        	parentLogger.error("Se realizo la copia de seguridad ya");
        }
 }
+	   
+	   private Map<String, Object> validarDatosTarea(BeanTareaWeb datosTareaWeb) {
+			
+			Map<String, Object> resultadoValidacion = new HashMap<>();
+			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
+			
+			Aviso aviso = new Aviso();
+			 
+			aviso.setDesTarea(datosTareaWeb.getDesTarea()); 
+			aviso.setDirEnlaceProceso(datosTareaWeb.getDirEnlaceProceso() );
+			aviso.setFecCreacionAviso(datosTareaWeb.getFecCreacionAviso()  );
+			aviso.setFecLimiteAviso(datosTareaWeb.getFecLimiteAviso());
+			
+			User usuario = new User();
+		//	usuario.setId(id);
+			
+			aviso.setUsuario(usuario);
+		//	datosTareaWeb.GET
+			
+			TpoFrecuRepeticion tpoFrecuRepeticion = new TpoFrecuRepeticion( );
+		//	tpoFrecuRepeticion.setUsuario( );
+			
+			aviso.setTpoFrecuRepeticion(tpoFrecuRepeticion);
+			
+			resultadoValidacion.put("tareaValidacion", aviso);
+			resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
+
+			return resultadoValidacion;
+		}
  
 	 
 }
