@@ -216,7 +216,7 @@ public class AppController {
 	} */
 	private void leerAvisosUsuario(Model modelo, Long idUsuario)
 	{
-		Iterable<Aviso> listAviso = servJPAAviso.listAvisos(idUsuario.intValue());
+		Iterable<Aviso> listAviso = servJPAAviso.listAvisosUsuario(idUsuario );
  		modelo.addAttribute("listAvisos", listAviso);
 	}
 

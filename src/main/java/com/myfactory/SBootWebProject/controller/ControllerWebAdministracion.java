@@ -137,28 +137,33 @@ public class ControllerWebAdministracion {
 
 		return "GestionWeb/administracion/FormCrearTarea";
 	}
-
+	
 	@RequestMapping(value = "/creartarea", method = RequestMethod.POST)
-	public String crearTarea(Model modelo, @ModelAttribute("datosTareaWeb") BeanTareaWeb beanTareaWeb,
-			BindingResult resultValidacion) {
+	public String crearTarea(Model modelo, 
+			@Valid  @ModelAttribute("datosTareaWeb") BeanTareaWeb beanTareaWeb,
+			BindingResult resultValidacion,
+			@RequestParam(value = "frecuencia", required = true) String codFrecuencia,
+ 			@RequestParam(value = "codUsuario", required = true) String idUsuario) {
 		
 		BeanErrorValidacion datosError = null;
 		Aviso aviso = new Aviso();
 
 		if (! resultValidacion.hasErrors()) 
-		{
+			{
 			try 
 			{
-				Map<String, Object> resultValTarea;
-				resultValTarea = validarDatosTarea(beanTareaWeb);
+			Map<String, Object> resultValTarea;
+			resultValTarea = validarDatosTarea(beanTareaWeb, codFrecuencia, idUsuario);
 
-				datosError = (BeanErrorValidacion) resultValTarea.get("errorValidacion");
+			datosError = (BeanErrorValidacion) resultValTarea.get("errorValidacion");
 
-				if (datosError.getCodError().intValue() != 0) {
-					modelo.addAttribute("errorValidacion", true);
-					modelo.addAttribute("mensajeError",
-							datosError.getCodError().toString() + ", " + datosError.getDesError());
-				} else {
+			if (datosError.getCodError().intValue() != 0) {
+				modelo.addAttribute("errorValidacion", true);
+				modelo.addAttribute("mensajeError",
+				datosError.getCodError().toString() + ", " + datosError.getDesError());
+			    }
+			   else
+				{
 					aviso = (Aviso) resultValTarea.get("tareaValidacion");
 
 					// Dar de alta Empleado
@@ -262,7 +267,7 @@ public class ControllerWebAdministracion {
 		}
 	}
 
-	private Map<String, Object> validarDatosTarea(BeanTareaWeb datosTareaWeb) {
+	private Map<String, Object> validarDatosTarea(BeanTareaWeb datosTareaWeb, String codFrecuencia, String idUsuario) {
 
 		Map<String, Object> resultadoValidacion = new HashMap<>();
 		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
@@ -273,15 +278,17 @@ public class ControllerWebAdministracion {
 		aviso.setDirEnlaceProceso(datosTareaWeb.getDirEnlaceProceso());
 		aviso.setFecCreacionAviso(datosTareaWeb.getFecCreacionAviso());
 		aviso.setFecLimiteAviso(datosTareaWeb.getFecLimiteAviso());
-
+		
+		aviso.setIndLeido(false);
+		
 		User usuario = new User();
-		// usuario.setId(id);
+		usuario.setId(new Long(idUsuario) );
 
 		aviso.setUsuario(usuario);
-		// datosTareaWeb.GET
+		 
 
 		TpoFrecuRepeticion tpoFrecuRepeticion = new TpoFrecuRepeticion();
-		// tpoFrecuRepeticion.setUsuario( );
+		tpoFrecuRepeticion.setIdFrecuRepeticion( new Integer(codFrecuencia) ); 
 		aviso.setTpoFrecuRepeticion(tpoFrecuRepeticion);
 
 		resultadoValidacion.put("tareaValidacion", aviso);

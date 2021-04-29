@@ -22,7 +22,7 @@ public class Aviso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_AVISO", unique = true)
 	private Integer idAviso;
 

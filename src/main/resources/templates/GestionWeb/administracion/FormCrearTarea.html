@@ -79,11 +79,11 @@
 					<div class="col-md-4 mb-3">
 						<div class="form-group">
 							<label for="labelUsuario" th:text="'Usuario Aplicacion ' "></label>
-							<select class="form-control" th:name="usuario" th:id="idUsuario">
+							<select class="form-control" th:name="codUsuario" th:id="idCodUsuario">
 								<option th:value="0" th:text="'Seleccionar Usuario' "></option>
-								<option th:each ="user:${datosTareaWeb.usuario}"
-   						 			th:value="${user.id}"
-  						  			th:text ="${user.username}">
+								<option th:each ="usu:${datosTareaWeb.usuario}"
+   						 			th:value="${usu.id}"
+  						  			th:text ="${usu.username}">
   								</option>
     						</select>
 						</div>

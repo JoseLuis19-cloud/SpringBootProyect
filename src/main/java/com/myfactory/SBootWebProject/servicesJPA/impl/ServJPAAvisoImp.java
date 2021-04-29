@@ -12,12 +12,14 @@ public class ServJPAAvisoImp implements ServJPAAviso {
 	AvisoJPAAvisoDao avisoJPAAvisoDao;
 	
 	@Override
-	 	public Iterable<Aviso> listAvisos(Integer idAvisos) {
-		return avisoJPAAvisoDao.findAll() ;
-	}
-	@Override
 	public void crearAviso(Aviso aviso) {
 		avisoJPAAvisoDao.save(aviso);
 	}
+	
+	@Override
+	public Iterable<Aviso> listAvisosUsuario(Long idUsuario) {
+		return avisoJPAAvisoDao.listAvisosUsuario(idUsuario) ;
+	}
+	
 
 }
