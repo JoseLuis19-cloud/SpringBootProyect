@@ -13,9 +13,11 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
+import com.myfactory.SBootWebProject.model.Aviso;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Empresa;
@@ -191,5 +193,20 @@ public class CargarBeansDatos  implements Serializable {
 	      datosEmpresaWeb.setCodProvinciaWeb( empresa.getCodProvincia());
 		  
 		  return datosEmpresaWeb;
+	  }
+	  
+	  public BeanTareaWeb cargarBeanTarea (Aviso aviso ) 
+	  {
+		  BeanTareaWeb datosTareaWeb = new BeanTareaWeb();
+		  
+		//  datosTareaWeb.setIdEmpresaWeb(aviso.getIdEmpresa()   );
+		//  datosTareaWeb.setNomEmpresaWeb(empresa.getNomEmpresa()  );
+		 // datosTareaWeb.setCodPostalWeb(empresa.getCodPostal());
+		 // datosTareaWeb.setDirecionWeb(empresa.getDirecion());
+		  // datosTareaWeb.setTelefonoWeb(empresa.getTelefono());
+		 // datosTareaWeb.setEmailEmpresaWeb(empresa.getEmailEmpresa());
+		  
+		  
+		  return datosTareaWeb;
 	  }
 }

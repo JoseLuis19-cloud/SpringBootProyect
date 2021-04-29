@@ -8,6 +8,7 @@ import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Provincia;
 import com.myfactory.SBootWebProject.model.TpoCliente;
+import com.myfactory.SBootWebProject.model.TpoFrecuRepeticion;
 import com.myfactory.SBootWebProject.repository.ClienteJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.ClienteJPARepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
@@ -16,6 +17,7 @@ import com.myfactory.SBootWebProject.repository.comunes.FacturaSituacionJPADao;
 import com.myfactory.SBootWebProject.repository.FormaPagoJPARepository;
 import com.myfactory.SBootWebProject.repository.TipoClienteJPARepository;
 import com.myfactory.SBootWebProject.repository.comunes.ProvinciaJPADao;
+import com.myfactory.SBootWebProject.repository.comunes.TpoFreRepeticionJPADao;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 
 @Service
@@ -47,6 +49,9 @@ public class ServJPAImpl implements ServJPA{
 	
 	@Autowired
 	FacturaSituacionJPADao facturaSituacionJPADao;
+	
+	@Autowired
+	TpoFreRepeticionJPADao tpoFreRepeticionJPADao;
 
 
 	@Override
@@ -71,18 +76,21 @@ public class ServJPAImpl implements ServJPA{
 		return facturaSituacionJPADao.findAll();
 	}
 	
-
-	@Override
-	public Iterable<Cliente> findByApellidos(String apellidos) {
-		Iterable<Cliente> listClienteMismoApell = null;
-		try {
+	public Iterable<TpoFrecuRepeticion> getTpoFrecRepeticion(Integer idTpoFreRepeticion) {
+		return tpoFreRepeticionJPADao.findAll( );
+	}
+	
+	//	@Override
+//	public Iterable<Cliente> findByApellidos(String apellidos) {
+	//		Iterable<Cliente> listClienteMismoApell = null;
+	//		try {
 
 		//	listClienteMismoApell = reposSDBaseCliente.findByApellidos(apellidos);
-		} catch (Exception ex) {
-			System.out.println("111");
-		}
-		return listClienteMismoApell;
-	}
+	//		} catch (Exception ex) {
+	//		System.out.println("111");
+	//	}
+	//	return listClienteMismoApell;
+	//}
 	
 	@Override
 	public  Cliente grabarImagen( Cliente cliente){

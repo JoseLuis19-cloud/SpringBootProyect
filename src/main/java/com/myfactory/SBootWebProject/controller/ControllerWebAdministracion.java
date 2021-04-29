@@ -40,6 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
@@ -57,6 +58,9 @@ public class ControllerWebAdministracion {
 	ServJPA servicioJPA;
 	@Autowired
 	ServJPACliente servicioClienteJPA;
+	
+	@Autowired
+	ServJPAUsuario servJPAUsuario;
 	@Autowired
 	BeanClienteWeb clienteWeb;
 	@Autowired
@@ -102,6 +106,20 @@ public class ControllerWebAdministracion {
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionWeb/administracion/FormResultRestaurarCopSeg";
+	}
+	
+	
+	@GetMapping("/formcreartarea")
+	public String formCrearTarea(Model modelo) {
+		
+		BeanTareaWeb datosTareaWeb = new BeanTareaWeb();
+		
+		datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
+		datosTareaWeb.setUsuario(usuario);
+		
+		modelo.addAttribute("datosTareaWeb", datosTareaWeb );
+		
+		return "GestionWeb/administracion/FormCrearTarea";
 	}
 	
 	private static void backupBDMySQL() {

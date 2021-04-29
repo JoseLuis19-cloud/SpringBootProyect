@@ -214,14 +214,14 @@ h1 {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<h5>Avisos para el usuario : ADMIN</h5>	
+				<h5>Tareas para el usuario : ADMIN</h5>	
 					<div class="panel-body" align="center" style="border-bottom: 2px solid #000">
 					
 					<table class="responstable">
 				<!--  	   <table class="table table-sm">-->
 						<thead>
 						 <tr>	
-							<th th:text="'id. Aviso'"></th>
+							<th th:text="'id. tarea'"></th>
 							<th th:text="Tarea"></th>
 							<th th:text="'Fecha Creación'"></th>
 							<th th:text="'Fecha Límite'"></th>
@@ -230,7 +230,7 @@ h1 {
 				 	  </thead>
 					  <tbody>
 						<tr th:if="${listAvisos.empty}">
-							<td colspan="5">No hay avisos pendientes para el usuario</td>
+							<td colspan="5">No hay tareas pendientes para el usuario</td>
 						</tr>
 						<tr th:each="aviso:${listAvisos}">
 							<td th:text="${aviso.idAviso}"></td>
