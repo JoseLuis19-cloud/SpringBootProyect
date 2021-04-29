@@ -16,12 +16,12 @@ public class BeanFacturaLineas  implements Serializable , Cloneable{
 	
 	@Size(min = 1, max = 99, message = "La cantidad debe estar entre  1 y  99")
 	@NotNull(message = "Debe introducir un cantidad de la factura")
-	private Long cantidad;
+	private Float cantidad;
 
 	@NotNull(message = "Debe introducir un concepto ")
 	private String concepto;
 	
-	private Long porIva;
+	private Float porIva;
 	
 	@NotNull(message = "Debe introducir un importe de factura")
 	private Float impLinFactura;
@@ -37,11 +37,11 @@ public class BeanFacturaLineas  implements Serializable , Cloneable{
 		this.idLinFactura = idLinFactura;
 	}
 
-	public Long getCantidad() {
+	public Float getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(Long cantidad) {
+	public void setCantidad(Float cantidad) {
 		this.cantidad = cantidad;
 	}
 
@@ -53,11 +53,11 @@ public class BeanFacturaLineas  implements Serializable , Cloneable{
 		this.concepto = concepto;
 	}
 
-	public Long getPorIva() {
+	public Float getPorIva() {
 		return porIva;
 	}
 
-	public void setPorIva(Long porIva) {
+	public void setPorIva(Float porIva) {
 		this.porIva = porIva;
 	}
 

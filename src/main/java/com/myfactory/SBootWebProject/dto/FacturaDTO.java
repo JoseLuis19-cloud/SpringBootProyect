@@ -3,6 +3,8 @@ package com.myfactory.SBootWebProject.dto;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class FacturaDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -16,7 +18,8 @@ public class FacturaDTO implements Serializable {
 	private Float POR_DESCUENTO;
 	private Integer COD_DIVISA;
 // @JoinColumn(name = "COD_SIT_FACTURA_FK")
-//	private FacturaSituacion facturaSituacion;
+//	private FacturaSituacion facturaSituacion
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private java.sql.Date FEC_EMISION_FACTURA;
 	private Long COD_USUARIO;
 	private String NOTA_FACTURA;

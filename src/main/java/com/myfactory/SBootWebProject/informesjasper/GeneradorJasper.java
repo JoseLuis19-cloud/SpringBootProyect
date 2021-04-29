@@ -2,6 +2,10 @@ package com.myfactory.SBootWebProject.informesjasper;
 
 import java.beans.PropertyVetoException;
 import java.io.InputStream;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,6 +65,8 @@ public class GeneradorJasper {
 
 	private java.sql.Connection conexionBBDD = null;
 	protected static final Logger parentLogger = LogManager.getLogger();
+	
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
 
     // @Qualifier("springboot")
 
@@ -269,10 +275,10 @@ public JasperPrint generarPDFFactura( Factura factura) {
 		JasperPrint reportGenerado = null;
 		FacturaDTO facturaDTO = new FacturaDTO();
 	
-		List<FacturaDTO> listFacturaDTO = new ArrayList<FacturaDTO>();
+	//	List<FacturaDTO> listFacturaDTO = new ArrayList<FacturaDTO>();
 		List<FacturaLineaDTO> listLineasFacturaDTO = new ArrayList<FacturaLineaDTO>();
 		 
-		facturaDTO.setFEC_ALTA_FACTURA(new java.sql.Date( factura.getFecFactura().getTimeInMillis() ) );
+	//	facturaDTO.setFEC_ALTA_FACTURA(new java.sql.Date( factura.getFecFactura().getTimeInMillis() ) );
 		facturaDTO.setCOD_USUARIO(factura.getCodUsuario());
 		facturaDTO.setCOD_DIVISA( factura.getCodDivisa());
 		if (factura.getFecEmisionFactura()!= null)
@@ -282,9 +288,11 @@ public JasperPrint generarPDFFactura( Factura factura) {
 		facturaDTO.setNUM_FACTURA( factura.getNumFactura() );
 		facturaDTO.setPOR_IVA(factura.getPorIva());
 		
-		listFacturaDTO.add(facturaDTO);
+	//	listFacturaDTO.add(facturaDTO);
 		
 		Set<FacturaLinea> lineasFactura = factura.getFacturaLineas();
+		
+		Iterator <FacturaLinea> iterFacturaLinea = lineasFactura.iterator();
 		
 		// Iterator <FacturaLinea> iterFacturaSitu = factura.getFacturaLineas().iterator();
 		 
@@ -292,10 +300,12 @@ public JasperPrint generarPDFFactura( Factura factura) {
 //					  .stream(lineasFactura.spliterator(), false)
 //					  .collect(Collectors.toList());
 		
-		while (lineasFactura.iterator().hasNext()) {
-			FacturaLinea elemenLinFactura  = lineasFactura.iterator().next();
+		
+		for(FacturaLinea elemenLinFactura : lineasFactura){
+			 
+	//	while (lineasFactura.iterator().hasNext()) {
+//			FacturaLinea elemenLinFactura  = lineasFactura.iterator().next();
 	      
-	 
 		// for (BeanFacturaLineas elemenLinFactura : lineasFactura.iterator())
 			//  {
 			 FacturaLineaDTO facturaLineaDTO = new FacturaLineaDTO();
@@ -306,17 +316,38 @@ public JasperPrint generarPDFFactura( Factura factura) {
 			 facturaLineaDTO.setPOR_IVA(elemenLinFactura.getPorIva());
 			  
 			 listLineasFacturaDTO.add(facturaLineaDTO);
-			 break;
 		}
  
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listLineasFacturaDTO, false);
 
 		try 
 		{
-			// Adding the additional parameters to the pdf.
+		 // Adding the additional parameters to the pdf.
 	        final Map<String, Object> parameters = new HashMap<>();
-	        parameters.put("nomFactura", facturaDTO.getNUM_FACTURA().toString());
+	        parameters.put("numFactura", factura.getNumFactura()  );
+	        
+	        // Datos Factura
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+	        Instant instant =  (new java.util.Date( factura.getFecFactura().getTimeInMillis() )).toInstant();
+	        	 
+	        LocalDateTime ldt = instant
+	        	 .atZone(ZoneId.of("CET"))
+	        	 .toLocalDateTime();
+	        	 
+	        
 
+	        parameters.put("fecFactura", ldt.format(formatter));
+	        
+	        // Datos Empresa Beigar
+	        parameters.put("CIFBeigar", "01925222N");
+	        parameters.put("dirEmpBeigar", "Maria de Molina, 23");
+	        parameters.put("telefEmpBeigar", "606443214");
+	        
+	        // Datos Cliente
+	        parameters.put("nomEmpCliente", factura.getCliente().getApellidos());
+	        parameters.put("CIFEmpCliente", factura.getCliente().getDNI() );
+	        parameters.put("calleEmpCliente", factura.getCliente().getDireccion());
+	        
 			// Fetching the .jrxml file from the resources folder.
 	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/FacturaBeigar.jrxml");
 	        													

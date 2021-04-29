@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity(name = "facturaLinea")
 @Table(name = "FACTURA_LINEA")
 public class FacturaLinea implements Serializable {
@@ -31,13 +30,13 @@ public class FacturaLinea implements Serializable {
  	private Factura factura;
 	 
 	@Column(name = "CANTIDAD", nullable = false, unique = false)
-	private Long cantidad;
+	private Float cantidad;
 
 	@Column(name = "CONCEPTO", nullable = false, unique = false)
 	private String concepto;
 	
 	@Column(name = "POR_IVA", nullable = false, unique = false)
-	private Long porIva;
+	private Float porIva;
 	
 	@Column(name = "IMP_LIN_FACTURA", nullable = false, unique = false)
 	private Float impLinFactura;
@@ -65,11 +64,11 @@ public class FacturaLinea implements Serializable {
 		this.factura = factura;
 	}
 
-	public Long getCantidad() {
+	public Float getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(Long cantidad) {
+	public void setCantidad(Float cantidad) {
 		this.cantidad = cantidad;
 	}
 
@@ -81,11 +80,11 @@ public class FacturaLinea implements Serializable {
 		this.concepto = concepto;
 	}
 
-	public Long getPorIva() {
+	public Float getPorIva() {
 		return porIva;
 	}
 
-	public void setPorIva(Long porIva) {
+	public void setPorIva(Float porIva) {
 		this.porIva = porIva;
 	}
 
