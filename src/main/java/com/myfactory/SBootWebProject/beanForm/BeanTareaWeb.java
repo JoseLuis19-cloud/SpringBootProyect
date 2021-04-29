@@ -3,6 +3,7 @@ package com.myfactory.SBootWebProject.beanForm;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -18,7 +19,9 @@ public class BeanTareaWeb  implements Serializable, Cloneable {
 
 	private Integer idAviso;
 	private Iterable<User> usuario;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Calendar fecCreacionAviso;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Calendar fecLimiteAviso;
     private Boolean indLeido;
     private String desTarea;

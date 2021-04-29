@@ -18,11 +18,9 @@ public interface ServJPA {
 	public Iterable<Provincia> getProvincia();
 	
 	public Iterable<FacturaSituacion> getSituacionesFactura() ;
-	
+	 
 	public Iterable<TpoFrecuRepeticion> getTpoFrecRepeticion() ;
-	
-//	public Iterable<Cliente> findByApellidos(String apellidos);
-	
+
 	public  Cliente grabarImagen(Cliente cliente); 
 
 }

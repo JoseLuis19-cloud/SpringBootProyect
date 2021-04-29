@@ -60,7 +60,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAAviso;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
- 
+
 @Controller
 @RequestMapping("/administracion")
 @PropertySource("classpath:parametrosaplicacion.properties")
@@ -78,221 +78,216 @@ public class ControllerWebAdministracion {
 	CargarBeansDatos cargarBeansDatos;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
-	
+
 	@Autowired
 	ServJPAAviso servJPAAviso;
-	
+
 	protected static final Logger parentLogger = LogManager.getLogger();
-	
- // private final String UPLOAD_DIR = "./uploads/";
+
+	// private final String UPLOAD_DIR = "./uploads/";
 	@Value("${path.MACOSDescargaFicheros}")
 	private String pathMacOS;
 
 	@GetMapping("/formcopiaseguridad")
 	public String formCopiaSeguiradad(Model modelo) {
-		modelo.addAttribute("datosCopSeg", "1" );
-		
+		modelo.addAttribute("datosCopSeg", "1");
+
 		return "GestionWeb/administracion/FormCopiaSeguridad";
 	}
-		
+
 	@RequestMapping("/generarcopiaseguridad")
-	public String generarCopiaSeguridad(Model modelo) 
-	{
-	 backupBDMySQL();
-		
-	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());	
-	 return "GestionWeb/administracion/FormResulCopiaSeguridad";
+	public String generarCopiaSeguridad(Model modelo) {
+		backupBDMySQL();
+
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		return "GestionWeb/administracion/FormResulCopiaSeguridad";
 	}
-	
+
 	@GetMapping("/formrestaurarcopiaseg")
-	public String formRestaurarCopSeg(Model modelo, @RequestParam(value = "idCliente", required = false ) String idCliente)  {
-	
-		modelo.addAttribute("datosCopSeg", "2" );
-		
+	public String formRestaurarCopSeg(Model modelo,
+			@RequestParam(value = "idCliente", required = false) String idCliente) {
+
+		modelo.addAttribute("datosCopSeg", "2");
+
 		return "GestionWeb/administracion/FormRestaurarCopSeg";
 	}
-		
+
 	@RequestMapping("/generarcrestaurarcioncopseg")
 	public String generarRestaurarCopSeg(Model modelo) {
-		
+
 		restaurarCopiSegMySQL();
-	
+
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-		
+
 		return "GestionWeb/administracion/FormResultRestaurarCopSeg";
 	}
-	
-	
+
 	@GetMapping("/formcreartarea")
 	public String formCrearTarea(Model modelo) {
-		
+
 		BeanTareaWeb datosTareaWeb = new BeanTareaWeb();
-		
-		datosTareaWeb.setFecCreacionAviso(Calendar.getInstance()); 
-		
+
+		datosTareaWeb.setFecCreacionAviso(Calendar.getInstance());
 		datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
 		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
+
+		modelo.addAttribute("datosTareaWeb", datosTareaWeb);
 		
-		modelo.addAttribute("datosTareaWeb", datosTareaWeb );
-		
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+
 		return "GestionWeb/administracion/FormCrearTarea";
 	}
-	
-	@GetMapping("/creartarea")
+
+	@RequestMapping(value = "/creartarea", method = RequestMethod.POST)
 	public String crearTarea(Model modelo, @ModelAttribute("datosTareaWeb") BeanTareaWeb beanTareaWeb,
-						BindingResult resultValidacion) {
+			BindingResult resultValidacion) {
 		
-		Map<String, Object> resultadoValidacion = new HashMap<>();
-	 
 		BeanErrorValidacion datosError = null;
-		
 		Aviso aviso = new Aviso();
-		
-		if (! resultValidacion.hasErrors())
-			{
-			try
-			{
-				 
-		// calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
-		
-		 Map<String, Object> resultValTarea;
-		 resultValTarea = validarDatosTarea(beanTareaWeb);
 
-		 datosError = (BeanErrorValidacion) resultValTarea.get("errorValidacion");
-		
-		 if (datosError.getCodError().intValue() != 0 ) 
-		    {
-			 modelo.addAttribute("errorValidacion" , true);
-			 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
-		    }
-		  else
-		    {
-			 aviso = (Aviso) resultValTarea.get("tareaValidacion" );
-			 
-		  // Dar de alta Empleado
-			 servJPAAviso.crearAviso(aviso);	
-				
-			 modelo.addAttribute("errorValidacion" , false);
-			 modelo.addAttribute("mensajeError", "" );
-			 
-			 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-				
-			 return "GestionWeb/administracion/FormCrearTarea";  	 
-			 
-		    }
-		}
-		catch (Exception e)
+		if (! resultValidacion.hasErrors()) 
 		{
-		 modelo.addAttribute("errorValidacion" , true);
-		 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+			try 
+			{
+				Map<String, Object> resultValTarea;
+				resultValTarea = validarDatosTarea(beanTareaWeb);
+
+				datosError = (BeanErrorValidacion) resultValTarea.get("errorValidacion");
+
+				if (datosError.getCodError().intValue() != 0) {
+					modelo.addAttribute("errorValidacion", true);
+					modelo.addAttribute("mensajeError",
+							datosError.getCodError().toString() + ", " + datosError.getDesError());
+				} else {
+					aviso = (Aviso) resultValTarea.get("tareaValidacion");
+
+					// Dar de alta Empleado
+					servJPAAviso.crearAviso(aviso);
+
+					modelo.addAttribute("errorValidacion", false);
+					modelo.addAttribute("mensajeError", "");
+
+					modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+
+					return "GestionWeb/administracion/FormCrearTarea";
+
+				}
+			} 
+			catch (Exception e)
+			{
+				modelo.addAttribute("errorValidacion", true);
+				modelo.addAttribute("mensajeError",
+						datosError.getCodError().toString() + ", " + datosError.getDesError());
+			}
+
+			modelo.addAttribute("datosTareaWeb", beanTareaWeb);
+			modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+
+			return "GestionWeb/administracion/FormCrearTarea";
 		}
-			
-		modelo.addAttribute("datosTareaWeb", beanTareaWeb);
-	 
-		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-			
-		return "GestionWeb/administracion/FormCrearTarea";  	 
-		}
-	  else
+		else 
 		{
-		  
-	//	  datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
+
+		//	datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
 	//		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
-			
-		modelo.addAttribute("datosTareaWeb", beanTareaWeb);	
-		
-		return "GestionWeb/administracion/FormCrearTarea"; 
+
+			modelo.addAttribute("datosTareaWeb", beanTareaWeb);
+
+			return "GestionWeb/administracion/FormCrearTarea";
 		}
 	}
-	
+
 	private static void backupBDMySQL() {
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
-        String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
-        File backupFile = new File(backupPath);
-       // if (!backupFile.exists()) {
-            try {
-            backupFile.createNewFile();
-         //   String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u%s -p%s %s","root","","springboot");
-            
-            String mysqlCom2=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u root -p springboot > /Users/UsuarioJoseLuis/Documents/copseg2.sql");
-          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S",  mysqlCom};
-            
-           // String[] command = new String[] { "/bin/bash", "-c" , "ls > /Users/UsuarioJoseLuis/Documents/lista12.txt"};
-            
-          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S /sbin/ifconfig > /Users/UsuarioJoseLuis/Documents/lista15.txt" };
-            String[] command2 = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S ", mysqlCom2 };
-   
-            
-            ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command2));
-            processBuilder.redirectError(Redirect.INHERIT);
-            processBuilder.redirectOutput(Redirect.to(backupFile));
-            Process process = processBuilder.start();
-            process.waitFor();
-            System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
+		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+		String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
+		File backupFile = new File(backupPath);
+		// if (!backupFile.exists()) {
+		try {
+			backupFile.createNewFile();
+			// String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump
+			// -u%s -p%s %s","root","","springboot");
+
+			String mysqlCom2 = String.format(
+					"/Applications/XAMPP/xamppfiles/bin/mysqldump -u root -p springboot > /Users/UsuarioJoseLuis/Documents/copseg2.sql");
+			// String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo
+			// -S", mysqlCom};
+
+			// String[] command = new String[] { "/bin/bash", "-c" , "ls >
+			// /Users/UsuarioJoseLuis/Documents/lista12.txt"};
+
+			// String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo
+			// -S /sbin/ifconfig > /Users/UsuarioJoseLuis/Documents/lista15.txt" };
+			String[] command2 = new String[] { "/bin/bash", "-c", "echo 19mendez70| sudo -S ", mysqlCom2 };
+
+			ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command2));
+			processBuilder.redirectError(Redirect.INHERIT);
+			processBuilder.redirectOutput(Redirect.to(backupFile));
+			Process process = processBuilder.start();
+			process.waitFor();
+			System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
 			// parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-	}
-	
-	   private static void restaurarCopiSegMySQL() {
-           String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
-           String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
-           File backupFile = new File(backupPath);
-           if (!backupFile.exists()) {
-               try {
-               backupFile.createNewFile();
-               String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysql -u%s -p%s %s","root","","springboot", " < 2020_12_28.sql");
-             
-               String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70 | sudo -S ",  mysqlCom};
-               ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command));
-               processBuilder.redirectError(Redirect.INHERIT);
-               processBuilder.redirectOutput(Redirect.to(backupFile));
-               Process process = processBuilder.start();
-               process.waitFor();
-               System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
-   			//parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
-           } catch (IOException e1) {
-               e1.printStackTrace();
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-
-       } else {
-       	parentLogger.error("Se realizo la copia de seguridad ya");
-       }
-}
-	   
-	   private Map<String, Object> validarDatosTarea(BeanTareaWeb datosTareaWeb) {
-			
-			Map<String, Object> resultadoValidacion = new HashMap<>();
-			BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
-			
-			Aviso aviso = new Aviso();
-			 
-			aviso.setDesTarea(datosTareaWeb.getDesTarea()); 
-			aviso.setDirEnlaceProceso(datosTareaWeb.getDirEnlaceProceso() );
-			aviso.setFecCreacionAviso(datosTareaWeb.getFecCreacionAviso()  );
-			aviso.setFecLimiteAviso(datosTareaWeb.getFecLimiteAviso());
-			
-			User usuario = new User();
-		//	usuario.setId(id);
-			
-			aviso.setUsuario(usuario);
-		//	datosTareaWeb.GET
-			
-			TpoFrecuRepeticion tpoFrecuRepeticion = new TpoFrecuRepeticion( );
-		//	tpoFrecuRepeticion.setUsuario( );
-			
-			aviso.setTpoFrecuRepeticion(tpoFrecuRepeticion);
-			
-			resultadoValidacion.put("tareaValidacion", aviso);
-			resultadoValidacion.put("errorValidacion" , datosErrorValidacion);
-
-			return resultadoValidacion;
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
- 
-	 
+	}
+
+	private static void restaurarCopiSegMySQL() {
+		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+		String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
+		File backupFile = new File(backupPath);
+		if (!backupFile.exists()) {
+			try {
+				backupFile.createNewFile();
+				String mysqlCom = String.format("/Applications/XAMPP/xamppfiles/bin/mysql -u%s -p%s %s", "root", "",
+						"springboot", " < 2020_12_28.sql");
+
+				String[] command = new String[] { "/bin/bash", "-c", "echo 19mendez70 | sudo -S ", mysqlCom };
+				ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command));
+				processBuilder.redirectError(Redirect.INHERIT);
+				processBuilder.redirectOutput(Redirect.to(backupFile));
+				Process process = processBuilder.start();
+				process.waitFor();
+				System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
+				// parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			parentLogger.error("Se realizo la copia de seguridad ya");
+		}
+	}
+
+	private Map<String, Object> validarDatosTarea(BeanTareaWeb datosTareaWeb) {
+
+		Map<String, Object> resultadoValidacion = new HashMap<>();
+		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
+
+		Aviso aviso = new Aviso();
+
+		aviso.setDesTarea(datosTareaWeb.getDesTarea());
+		aviso.setDirEnlaceProceso(datosTareaWeb.getDirEnlaceProceso());
+		aviso.setFecCreacionAviso(datosTareaWeb.getFecCreacionAviso());
+		aviso.setFecLimiteAviso(datosTareaWeb.getFecLimiteAviso());
+
+		User usuario = new User();
+		// usuario.setId(id);
+
+		aviso.setUsuario(usuario);
+		// datosTareaWeb.GET
+
+		TpoFrecuRepeticion tpoFrecuRepeticion = new TpoFrecuRepeticion();
+		// tpoFrecuRepeticion.setUsuario( );
+		aviso.setTpoFrecuRepeticion(tpoFrecuRepeticion);
+
+		resultadoValidacion.put("tareaValidacion", aviso);
+		resultadoValidacion.put("errorValidacion", datosErrorValidacion);
+
+		return resultadoValidacion;
+	}
+
 }

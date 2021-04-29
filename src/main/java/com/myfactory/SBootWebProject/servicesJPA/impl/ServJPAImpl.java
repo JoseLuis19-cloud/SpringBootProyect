@@ -80,19 +80,7 @@ public class ServJPAImpl implements ServJPA{
 	public Iterable<TpoFrecuRepeticion> getTpoFrecRepeticion() {
 		return tpoFreRepeticionJPADao.findAll( );
 	}
-	
-	//	@Override
-//	public Iterable<Cliente> findByApellidos(String apellidos) {
-	//		Iterable<Cliente> listClienteMismoApell = null;
-	//		try {
 
-		//	listClienteMismoApell = reposSDBaseCliente.findByApellidos(apellidos);
-	//		} catch (Exception ex) {
-	//		System.out.println("111");
-	//	}
-	//	return listClienteMismoApell;
-	//}
-	
 	@Override
 	public  Cliente grabarImagen( Cliente cliente){
 		Cliente cliente1 = null;

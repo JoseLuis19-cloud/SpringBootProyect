@@ -52,7 +52,7 @@
 						
 					<div class="col-md-2 mb-4">		
            				  <label for="labelFecLimiteTarea" th:text="'Fecha Limite tarea' "></label>
-           				  <input type="text" class="form-control" th:id="idFecLimiteTarea" th:name="fecLimiteTarea" th:field="*{fecLimiteAviso}" th:value="${#calendars.format(fecCreacionAviso, 'dd/MM/yyyy')}" th:maxlength="10" placeholder="DD/MM/YYYY">
+           				  <input type="text" class="form-control" th:id="idFecLimiteTarea" th:name="fecLimiteTarea" th:field="*{fecLimiteAviso}" th:value="${#calendars.format(fecLimiteAviso, 'dd/MM/yyyy')}" th:maxlength="10" placeholder="DD/MM/YYYY">
             		</div>
             		
             		<div class="col-md-3 mb-4">		
