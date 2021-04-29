@@ -98,8 +98,7 @@ public class ControllerWebAdministracion {
 	public String generarRestaurarCopSeg(Model modelo) {
 		
 		restaurarCopiSegMySQL();
-	 
-
+	
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "GestionWeb/administracion/FormResultRestaurarCopSeg";

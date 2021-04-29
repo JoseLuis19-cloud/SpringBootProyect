@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  
+	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+  	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
+    
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+   
+ <style>
+
+  </style>
+
+</head>
+
+ <body>
+
+		<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
+	<div class="container-fluid" style="margin-top:0px;">
+		<div class="row">
+			<div class="titulo-pag2">Administración</div>
+		</div>
+		<form th:action="@{/administracion/generarcopiaseguridad}" th:object="${datosCopSeg}" method="post">
+		<div class="row">
+			<br>
+			<div class="col-1"></div>
+  			<div class="col-10" >
+  				<div class="subtitulo-pag2">Resultado de la Restaurarcion de la copia de seguridad</div>
+  			</div>
+  			<div class="col-1"></div>
+  		</div>
+  		
+		<div class="row">
+			<div class="col-1"></div>
+  			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
+  			</div>
+			<div class="col-1"></div>	
+		 </div>
+		 
+ 		<div class="row">
+ 			<div class="col-1"></div>
+ 			<div class="col-2"></div>
+ 			<div class="col-5"></div>
+ 			<div class="col-3">	
+				<button type="submit" class="btn btn-primary">Generar Copia Seguridad</button>
+ 			</div>
+ 			<div class="col-1"></div>
+		</div>
+ 		</form>
+ 	</div>
+	
+ <!-- Include Date Range Picker -->
+ 
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+ 
+ <script th:inline="javascript">
+ 	$(function () { 	
+   	 $('#idFecAltaEmpresa').datepicker({
+    	 format: "dd/mm/yyyy",
+    	 language: 'es'
+    	});
+    });
+</script>
+
+</body>
+</html>
