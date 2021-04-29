@@ -30,5 +30,9 @@ import com.myfactory.SBootWebProject.model.User;
 	 
 		@Query("SELECT u FROM User u ORDER BY u.username")
 	    public Iterable<User>  listUsuariosOrderByName();
+		
+		
+		 @Query("SELECT u FROM User u WHERE u.enabled = TRUE")
+		 public Iterable<User> getUsuariosActivos();
 
 	}

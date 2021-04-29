@@ -29,33 +29,33 @@
 		<form th:action="@{/administracion/altatarea}" th:object="${datosTareaWeb}" method="post">
 		  <div class="row">
 			<br>
-			 <div class="col-2"></div>
-  			 <div class="col-8" >
+			 <div class="col-1"></div>
+  			 <div class="col-10" >
   				<div class="subtitulo-pag2">Nueva Tarea</div>
   			 </div>
-  			<div class="col-2"></div>
+  			<div class="col-1"></div>
   		 </div>
   		
 		<div class="row">
-			<div class="col-2"></div>
-  			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
+			<div class="col-1"></div>
+  			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
-					<div class="col-md-4 mb-4">
+					<div class="col-md-5 mb-4">
 						<label for="labelarea" th:text="'Tarea'"></label> 
 						<input type="text" class="form-control" id="idTareaWeb" th:field="*{desTarea}" th:maxlength="40" required>
 					</div>
 					
-					<div class="col-md-3 mb-4">		
+					<div class="col-md-2 mb-4">		
            				  <label for="labelFecAltaTarea" th:text="'Fecha alta tarea' "></label>
-           				  <input type="text" class="form-control" th:id="idFecAltaTarea" th:name="fecAltaTarea" th:field="*{fecCreacionAviso}" th:value="${#calendars.format(fecCreacionAviso, 'dd/MM/yyyy')}">
+           				  <input type="text" class="form-control" th:id="idFecAltaTarea" th:name="fecAltaTarea" th:field="*{fecCreacionAviso}" th:value="${#calendars.format(fecCreacionAviso, 'dd/MM/yyyy')}" th:maxlength="10" placeholder="DD/MM/YYYY">
             		</div>
 						
-					<div class="col-md-3 mb-4">		
+					<div class="col-md-2 mb-4">		
            				  <label for="labelFecLimiteTarea" th:text="'Fecha Limite tarea' "></label>
-           				  <input type="text" class="form-control" th:id="idFecLimiteTarea" th:name="fecLimiteTarea" th:field="*{fecLimiteAviso}" th:value="${#calendars.format(fecCreacionAviso, 'dd/MM/yyyy')}">
+           				  <input type="text" class="form-control" th:id="idFecLimiteTarea" th:name="fecLimiteTarea" th:field="*{fecLimiteAviso}" th:value="${#calendars.format(fecCreacionAviso, 'dd/MM/yyyy')}" th:maxlength="10" placeholder="DD/MM/YYYY">
             		</div>
             		
-            		<div class="col-md-2 mb-4">		
+            		<div class="col-md-3 mb-4">		
            				  <label for="labelEnlaceTarea" th:text="'Enlace tarea' "></label>
            				  <input type="text" class="form-control" th:id="idEnlaceTarea" th:name="enlaceTarea" th:field="*{dirEnlaceProceso}">
             		</div>
@@ -65,11 +65,11 @@
 				<div class="form-row">
 					<div class="col-md-4 mb-3">
 						<div class="form-group">
-							<label for="labelFrecuencia" th:text="'Frecuencia  ' "></label>
+							<label for="labelFrecuencia" th:text="'Frecuencia de la Tarea ' "></label>
 							<select class="form-control" th:name="frecuencia" th:id="idFrecuencia">
 								<option th:value="0" th:text="'Seleccionar Frecuencia' "></option>
-								<option th:each ="tpoFreRep:${tpoFrecuRepeticion}"
-   						 			th:value="tpoFreRep.idFrecuRepeticion}"
+								<option th:each ="tpoFreRep:${datosTareaWeb.tpoFrecuRepeticion}"
+   						 			th:value="${tpoFreRep.idFrecuRepeticion}"
   						  			th:text ="${tpoFreRep.desFrecuRepeticion}">
   								</option>
     						</select>
@@ -81,8 +81,8 @@
 							<label for="labelUsuario" th:text="'Usuario Aplicacion ' "></label>
 							<select class="form-control" th:name="usuario" th:id="idUsuario">
 								<option th:value="0" th:text="'Seleccionar Usuario' "></option>
-								<option th:each ="user:${usuario}"
-   						 			th:value="user.id}"
+								<option th:each ="user:${datosTareaWeb.usuario}"
+   						 			th:value="${user.id}"
   						  			th:text ="${user.username}">
   								</option>
     						</select>
@@ -96,7 +96,7 @@
 				</div>
 				
 			 </div>
-			<div class="col-8"></div>	
+			<div class="col-1"></div>	
 		 </div>
 		 
  		<div class="row">

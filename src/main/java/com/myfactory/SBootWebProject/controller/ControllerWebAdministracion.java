@@ -48,6 +48,7 @@ import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
+import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
  
 @Controller
 @RequestMapping("/administracion")
@@ -58,7 +59,6 @@ public class ControllerWebAdministracion {
 	ServJPA servicioJPA;
 	@Autowired
 	ServJPACliente servicioClienteJPA;
-	
 	@Autowired
 	ServJPAUsuario servJPAUsuario;
 	@Autowired
@@ -115,7 +115,7 @@ public class ControllerWebAdministracion {
 		BeanTareaWeb datosTareaWeb = new BeanTareaWeb();
 		
 		datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
-		datosTareaWeb.setUsuario(usuario);
+		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
 		
 		modelo.addAttribute("datosTareaWeb", datosTareaWeb );
 		

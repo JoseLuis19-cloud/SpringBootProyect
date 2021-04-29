@@ -76,7 +76,8 @@ public class ServJPAImpl implements ServJPA{
 		return facturaSituacionJPADao.findAll();
 	}
 	
-	public Iterable<TpoFrecuRepeticion> getTpoFrecRepeticion(Integer idTpoFreRepeticion) {
+	@Override
+	public Iterable<TpoFrecuRepeticion> getTpoFrecRepeticion() {
 		return tpoFreRepeticionJPADao.findAll( );
 	}
 	
@@ -101,7 +102,5 @@ public class ServJPAImpl implements ServJPA{
 			System.out.println("111");
 		}
 		return cliente1;
-	} 
-
-	
+	}
 }

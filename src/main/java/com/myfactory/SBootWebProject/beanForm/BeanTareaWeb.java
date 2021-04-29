@@ -6,6 +6,7 @@ import java.util.Calendar;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
+ 
 import com.myfactory.SBootWebProject.model.TpoFrecuRepeticion;
 import com.myfactory.SBootWebProject.model.User;
 
@@ -16,13 +17,13 @@ public class BeanTareaWeb  implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer idAviso;
-	private User usuario;
+	private Iterable<User> usuario;
     private Calendar fecCreacionAviso;
 	private Calendar fecLimiteAviso;
     private Boolean indLeido;
     private String desTarea;
     private String dirEnlaceProceso;
-	private TpoFrecuRepeticion tpoFrecuRepeticion;
+	private Iterable<TpoFrecuRepeticion> tpoFrecuRepeticion;
 	
 	public Integer getIdAviso() {
 		return idAviso;
@@ -30,12 +31,7 @@ public class BeanTareaWeb  implements Serializable, Cloneable {
 	public void setIdAviso(Integer idAviso) {
 		this.idAviso = idAviso;
 	}
-	public User getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
-	}
+	 
 	public Calendar getFecCreacionAviso() {
 		return fecCreacionAviso;
 	}
@@ -66,10 +62,18 @@ public class BeanTareaWeb  implements Serializable, Cloneable {
 	public void setDirEnlaceProceso(String dirEnlaceProceso) {
 		this.dirEnlaceProceso = dirEnlaceProceso;
 	}
-	public TpoFrecuRepeticion getTpoFrecuRepeticion() {
+	 
+
+	public Iterable<User> getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Iterable<User> usuario) {
+		this.usuario = usuario;
+	}
+	public Iterable<TpoFrecuRepeticion> getTpoFrecuRepeticion() {
 		return tpoFrecuRepeticion;
 	}
-	public void setTpoFrecuRepeticion(TpoFrecuRepeticion tpoFrecuRepeticion) {
+	public void setTpoFrecuRepeticion(Iterable<TpoFrecuRepeticion> tpoFrecuRepeticion) {
 		this.tpoFrecuRepeticion = tpoFrecuRepeticion;
 	}
 	

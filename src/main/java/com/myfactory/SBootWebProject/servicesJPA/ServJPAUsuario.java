@@ -18,6 +18,8 @@ public interface ServJPAUsuario {
 	
 	public Iterable<User> listadoUsuarios();
 	
+	public Iterable<User>  getUsuarios();
+	
 	public Iterable<User> listaUsuariosOrdenByName();
 	 
 	public Iterable<User> listadoUsuariosHistorico();
