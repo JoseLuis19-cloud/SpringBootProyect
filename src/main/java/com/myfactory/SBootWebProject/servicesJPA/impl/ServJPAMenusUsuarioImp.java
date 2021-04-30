@@ -71,4 +71,17 @@ public class ServJPAMenusUsuarioImp implements ServJPAMenusUsuario {
 		  }
 	};
 	
+	@Override
+	public Boolean existeElementoSubMenuUsuario(Integer idSubMenu) {
+ 
+		if (menusUsuJPARepository.numElementosSubMenuUsuario(idSubMenu).intValue() > 0 )
+		   {
+		    return true;
+		   }
+		 else
+		  {
+			return  false;
+		  }
+	};
+	
 }

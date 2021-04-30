@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanFormMenu;
@@ -37,7 +38,7 @@ public class ControllerWebGestionMenus {
 	ServJPAMenu serviciosJPAMenu;
 	
 	@Autowired
-	ServJPAMenusUsuario  servJPAMenusUsuarioImp;
+	ServJPAMenusUsuario  servJPAMenusUsuario;
 	
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
@@ -331,7 +332,7 @@ public class ControllerWebGestionMenus {
 		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 		
 	 // Comprobamos que el elemento de menú no está dado de alta en ningún menu usuario.
-		if (! servJPAMenusUsuarioImp.existenElementosMenuUsuario(new Integer(idMenu) ) ) 
+		if (! servJPAMenusUsuario.existenElementosMenuUsuario(new Integer(idMenu) ) ) 
 		   {
 		   serviciosJPAMenu.eliminarElementoMenu(new Integer(idMenu));
 		   }
@@ -347,6 +348,36 @@ public class ControllerWebGestionMenus {
 	   modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	   		
 	  return "redirect:/gestionmenus/obtenermenuprincipal";
+	}
+	
+	
+	@RequestMapping(value = "/eliminarsubmenu", method = RequestMethod.POST)
+	public String bajaSubMenu(Model modelo, @RequestParam(value = "subMenu", required = true) Integer idSubMenu,
+											@RequestParam(value = "idMenu2", required = true) Integer idMenu,
+								RedirectAttributes redAtrib)  {
+		
+		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
+		
+	 // Comprobamos que el elemento de menú no está dado de alta en ningún submenu usuario.
+		if (! servJPAMenusUsuario.existeElementoSubMenuUsuario(idSubMenu) ) 
+		   {
+			serviciosJPAMenu.eliminarElementoSubMenu(idSubMenu);
+		   }
+		else
+		   { 
+			datosErrorValidacion.setCodError(new Integer(11) );
+			datosErrorValidacion.setDesError( "El elemento de submenu esta asignado a algun submenu de un usuario de la aplicación" );
+			modelo.addAttribute("errorValidacion" , true);
+		    modelo.addAttribute("mensajeError", datosErrorValidacion.getCodError().toString() + ", " + datosErrorValidacion.getDesError() );
+		   }
+		
+	// Carga el menu general
+	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	   
+	  redAtrib.addAttribute("field", idMenu.toString());
+	  redAtrib.addAttribute("nomElemMenu", serviciosJPAMenu.findIdMenu(idMenu).get().getTextoMenu());
+ 
+	  return "redirect:/gestionmenus/obtenersubmenu";
 	}
 	
 	@RequestMapping(value = "/actualizarNumOrden", method = RequestMethod.POST)

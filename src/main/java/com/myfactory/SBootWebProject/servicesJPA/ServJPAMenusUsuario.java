@@ -26,4 +26,6 @@ public interface ServJPAMenusUsuario {
 	public void suprimirSubMenuUsuario(MenusUsuario menuUsuario);
 	
 	public Boolean existenElementosMenuUsuario (Integer idMenu) ;
+	
+	public Boolean existeElementoSubMenuUsuario (Integer idSubMenu) ;
 }

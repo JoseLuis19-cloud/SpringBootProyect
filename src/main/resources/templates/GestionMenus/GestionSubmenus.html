@@ -141,7 +141,14 @@
 			   
 			  }
 	 	});
-			
+		
+		$('a[id^="idLinkBaja"]').click(function(event) {
+			   var lastChar6 = getNumber(event.target.id);
+			   $("#idSubMenu").val( $("#idSubMenuHidden" + lastChar6).val() );
+			   $("#idIdMenu2").val( $("#idMenuHidden").val() );
+			   $("#myModalEliminarSubMenu").modal();
+			 });
+	 
 		$("#idCancelNumOrden").click(function() {
 			$("input[id^='idNumOrdSubMenu']").prop("readonly", true);
 			$("#idEditNumOrden").text('editar');
@@ -278,7 +285,9 @@
    				<h5 th:text="'Elementos de  Submenú pertenecientes al menu principal: ' + ${elemenMenuPrincipal} "></h5>
 			</div>
 			<div class="col-1">	</div>	
-		</div>	
+		</div>
+		
+			<div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 		
 		<form action="#" th:id="idFormElementosSubMenu" th:action="@{/gestionmenus/actualizarNumOrdenSubmenu}" th:object="${subMenu}" method="post">
 		
@@ -289,12 +298,13 @@
 					<thead class="thead-light">
 						<tr>
 							<th width="8%" th:text="'Id. submenú'"></th>
-							<th width="12%" th:text="'N. Orden'"></th>
+							<th width="18%" th:text="'N. Orden'"></th>
 							<th width="20%" th:text="'Texto submenú'"></th>
-							<th width="25%" th:text="'Dirección o Link (href) submenú'"></th>
+							<th width="22%" th:text="'Dirección o Link (href) submenú'"></th>
 							<th width="7%"  th:text="'Activado'"></th>
 							<th width="7%"  th:text="'Acción'"></th>
 							<th width="7%"  th:text="'Cancelar'"></th>
+							<th width="7%"  th:text="'Accion'"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -327,7 +337,12 @@
 							
 							<td>
 								<a th:id="'idLinkCancelarSM' + ${iterStat.index}" th:name="'linkCancelarSM' + ${iterStat.index}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' "  style="display:none;" >cancelar</a>	
-							</td>												
+							</td>
+							
+							<td>
+								<a th:id="'idLinkBaja'+ ${iterStat.index}" th:name="'linkBaja'+ ${iterStat.index}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a>
+							</td>	
+																			
 						</tr>
 						<tr>
 							<td></td>
@@ -438,7 +453,33 @@
       </div>
     </div>
   </div>
-</div>
+ </div>
+
+  <!-- Modal Eliminar Menu -->
+  <div id="myModalEliminarSubMenu" class="modal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar este elemento de submenú</h5>
+      </div>
+      <div class="modal-body">
+        <form th:id="idFormEliminarSubMenu" method="post" th:action="@{/gestionmenus/eliminarsubmenu}">
+            <input type="hidden" th:id="'idSubMenu'" th:name="'subMenu'" th:value="${idSubMenu}" /> 
+            <input type="hidden" th:id="'idIdMenu2'" th:name="'idMenu2'" th:value="${idMenu}" /> 
+    		<div class="container">
+                <p th:id="'idP1'"  th:text="'El elemento de submenu se eliminará si no está asignado a ningun submenú de un usuario'"></p>
+     	    </div>
+     	
+      		<div class="modal-footer">
+       	 		<button type="submit" id="idConfirmar" class="btn btn-primary">Confirmar</button>
+       	 		<button type="button" id="idCancelar" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+      		</div>
+      
+       </form>
+    </div>
+   </div>
+  </div>
+ </div>
 
 </body>
 
