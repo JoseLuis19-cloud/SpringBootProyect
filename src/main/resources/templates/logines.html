@@ -7,35 +7,41 @@
 	<head>
 	
 	 <link th:href="@{/public/css/bootstrap/4.5.3/bootstrap.min.css}" rel="stylesheet" />  
+	
 	<style>
+
+.divRounded {
+   margin-top: 10px;
+   margin-left: 10px;
+   border-color: black;
+   border-radius: 10px;
+   border-style: solid;
+   border-width: 1px;
+   width: 25%;
+   margin-right: 0;
+   padding: 25px;
+}
 
 	</style>
 
 </head>
 
-	<body>
+	<body class="m-0 row justify-content-center">
 	
-	<div class="container h-0">
-	 
-	 <div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-				<div th:id="idImage1" class="d-flex justify-content-center">
-					<img th:src="@{/public/images/LogoBeigarRename.jpg}" class="img-rounded">
-				</div>
-			</div>
-			<div class="col-3">
-				<p>© 2021</p>
-				<p>Version Beta 1.0<p>
-			</div>
+	<br>
+	<br>
+    <div class="col-auto divRounded">
+    
+    <div th:id="idImage1" class="justify-content-center">
+		<img th:src="@{/public/images/LogoBeigarRename.jpg}" class="img-rounded">		 
 	</div>
-	<br>
-	<br>
-    	<div class="row h-70 justify-content-center align-items-center">
+		<br>
+		<br>
            <!-- Form -->
             <form action="#" th:action="@{/login}" method="post">
-               	<h1>Beigar</h1>
-              	<p class="description">Login de Apliación piloto</p>
+              <!-- 	<p class="description">Login de Apliación piloto</p> -->
+              	
+              	<div class="alert alert-info" role="alert"> Inicio de sesión Apliación</div>
                 <!-- Input fields -->
                 <div class="form-group">
                     <label for="username">Usuario:</label>
@@ -47,12 +53,12 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-customized">Login</button>
                 <!-- End input fields -->
-             <!--    <p class="copyright">&copy; Bootstrap 4 "Align Center" tutorial by <a href="https://azmind.com">AZMIND</a>.</p> -->
+           <!--  <p class="copyright">&copy; Bootstrap 4 "Align Center" tutorial by <a href="https://azmind.com">AZMIND</a>.</p>  -->
             </form>
             <!-- Form end -->
     	</div>
     	<br>
-	</div>
- 	
+
+
 </body>
 </html>

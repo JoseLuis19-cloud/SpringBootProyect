@@ -23,20 +23,9 @@ import org.apache.logging.log4j.Logger;
 
 @Controller
 @RequestMapping("/gestionsistema")
-public class ControllerWebProject {
+public class ControllerWebAplicacion {
 	
 	protected static final Logger parentLogger = LogManager.getLogger();
-
-/*	@GetMapping("/desktop")
-	public String mostrarDesktop(Model modelo) {
-		modelo.addAttribute("numPag", "0");
-		modelo.addAttribute("tipoAccion", "avan");
-
-		modelo.addAttribute("mensajeEntrada", "Bienvenido al usuario Jose Luis: ");
-		modelo.addAttribute("mensaje2Entrada",
-				"Aplicación Spring Modelo que ejecuta service, controllers, usando Thymeleaf, JPA y BBDD MySQL");
-		return "gestionWeb/desktop.html";
-	} */
 	
 	@GetMapping("/autores")
 	public String autoresTecnologia(Model modelo) {

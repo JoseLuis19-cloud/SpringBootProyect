@@ -204,10 +204,8 @@ public class ControllerWebGestionMenus {
 		elemenSubMenu.setTextoSubMenuN1(elemenSubMenuNuevoWeb.getTextoMenuSubMenu()  );
 		elemenSubMenu.setHrefAplicacionN1(elemenSubMenuNuevoWeb.getHrefAplicacionSubMenu());
 		elemenSubMenu.setActivo(elemenSubMenuNuevoWeb.isIndActivoSubMenu() );
-		
-	//	SubMenuNivel1 elemenSubMenuNuevo = new SubMenuNivel1();		
+			
 		serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
-		
 		
 		// Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());

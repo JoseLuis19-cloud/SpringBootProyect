@@ -97,7 +97,9 @@ public class ControllerWebAdministracion {
 
 	@RequestMapping("/generarcopiaseguridad")
 	public String generarCopiaSeguridad(Model modelo) {
-		backupBDMySQL();
+		// backupBDMySQL();
+		
+		backupOpcion2();
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		return "GestionWeb/administracion/FormResulCopiaSeguridad";
@@ -236,6 +238,42 @@ public class ControllerWebAdministracion {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void backupOpcion2() {
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+        String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
+        File backupFile = new File(backupPath);
+       // if (!backupFile.exists()) {
+            try {
+            backupFile.createNewFile();
+         //   String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u%s -p%s %s","root","","springboot");
+            
+            String mysqlCom2=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u root -p springboot > /Users/UsuarioJoseLuis/Documents/copseg__2.sql");
+          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S",  mysqlCom};
+            
+           // String[] command = new String[] { "/bin/bash", "-c" , "ls > /Users/UsuarioJoseLuis/Documents/lista12.txt"};
+            
+          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S /sbin/ifconfig > /Users/UsuarioJoseLuis/Documents/lista15.txt" };
+            String[] command2 = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S ", mysqlCom2 };
+   
+            
+            ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command2));
+            processBuilder.redirectError(Redirect.INHERIT);
+            processBuilder.redirectOutput(Redirect.to(backupFile));
+            Process process = processBuilder.start();
+            process.waitFor();
+            System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
+			// parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+ 
+   // } else {
+    //	parentLogger.error("Se realizo la copia de seguridad ya");
+   // }
 	}
 
 	private static void restaurarCopiSegMySQL() {
