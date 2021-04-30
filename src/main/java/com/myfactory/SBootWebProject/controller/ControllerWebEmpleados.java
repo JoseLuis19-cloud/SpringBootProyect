@@ -257,13 +257,12 @@ public class ControllerWebEmpleados {
 					RedirectAttributes redirectAttrs,
 					Model modelo, 
 			 		@RequestParam(value = "paisEmpleado", required = true) String codPais,
-		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo,
-		 			@RequestParam(value = "fecAltaEmpleado", required = true) String fecAltaEmpleado)   {
+		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo)   {
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	  
-		// Calendar calendar1 = Calendar.getInstance();
+	//	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	  
+		 
 		Empleado empleado = null;
 		BeanErrorValidacion datosError = null;
 		Empleado empleadoNuevo = null;
@@ -273,8 +272,7 @@ public class ControllerWebEmpleados {
 			{
 			try
 			{
-			// calendar1.setTime( dateFormat.parse(fecAltaEmpleado) );
-			
+	
 			 Map<String, Object> resultValEmpleado;
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo, esModif);
 

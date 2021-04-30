@@ -110,6 +110,7 @@ public class ControllerWebFacturas {
 		facturaWeb.setCodFactura("");
 		facturaWeb.setNotaFactura("");
 		facturaWeb.setCodDivisaWeb(876);
+		facturaWeb.setDesDivisaWeb(ConstantesAplicacion.DES_ISO_DIVISA_EUR);
 		facturaWeb.setPorDescuentoWeb(10F);
 		 
 		facturaWeb.setImpFacturaWeb(1222F);

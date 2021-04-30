@@ -35,6 +35,8 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		
 	private Integer codDivisaWeb;
 	
+	private String desDivisaWeb;
+	
 	private String codFactura;
 	
 	private String notaFactura;
@@ -139,6 +141,14 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 
 		public void setCodSitFacturaWeb(Integer codSitFacturaWeb) {
 			this.codSitFacturaWeb = codSitFacturaWeb;
+		}
+
+		public String getDesDivisaWeb() {
+			return desDivisaWeb;
+		}
+
+		public void setDesDivisaWeb(String desDivisaWeb) {
+			this.desDivisaWeb = desDivisaWeb;
 		}
 
 		

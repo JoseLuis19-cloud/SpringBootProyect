@@ -157,7 +157,7 @@ h5 {
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i>
       					 	</div>
-       						<input type="text"  class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}" th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
+       						<input type="text" class="form-control" id="idFecAltaEmpleado" name="fecAltaEmpleado" th:field="*{fecAltaEmpleadoWeb}" th:value="${#calendars.format(fecAltaEmpleadoWeb, 'dd/MM/yyyy')}" th:readonly="false" required />
 						</div>
 					</div>
 					<div class="col-md-2 mb-5">
@@ -213,7 +213,7 @@ h5 {
  			<div class="col-5"></div>
  			<div class="col-3">	
  			    <button type="submit" class="btn btn-primary">Crear</button>
-				<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Nuevo Usuario</a>			 
+				<!-- 	<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Nuevo Usuario</a> -->			 
  			</div>
  			<div class="col-1"></div>
 		</div>
@@ -273,7 +273,7 @@ h5 {
 						</div>
 					</div>					
         	<div class="modal-footer">
-          		<button type="submit" class="btn btn-colour-1">Crear usuario</button>    
+          		<!--  <button type="submit" class="btn btn-colour-1">Crear usuario</button>     --> 
        			<button type="button" class="btn btn-colour-1" data-dismiss="modal">Cancelar</button>
         	</div>
         </form>	

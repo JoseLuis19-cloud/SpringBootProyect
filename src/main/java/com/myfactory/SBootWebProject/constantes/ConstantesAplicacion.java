@@ -15,6 +15,9 @@ public class ConstantesAplicacion {
 	public static final int NUM_REG_POR_BLOQUE  = 50;
 	
 	public static final int FACTURAS_SECUENCIAL  = 1;
+	
+	public static final int COD_ISO_DIVISA_EUR  = 978;
+	public static final String DES_ISO_DIVISA_EUR  = "EUR";
 
 	// Retornos de backing beans
 
