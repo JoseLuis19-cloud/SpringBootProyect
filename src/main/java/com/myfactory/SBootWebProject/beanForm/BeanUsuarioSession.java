@@ -15,7 +15,8 @@ public class BeanUsuarioSession implements Serializable, Cloneable {
 
 	private Long idUsuario;
 	private String aliasUsuario;
-	
+	private String usuarioApli;
+
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
@@ -38,6 +39,13 @@ public class BeanUsuarioSession implements Serializable, Cloneable {
 	
 	public void DataSessionScope() {
 		System.out.println("DataSessionScope Constructor Called at "+LocalDateTime.now());
+	}
+	
+	public String getUsuarioApli() {
+		return usuarioApli;
+	}
+	public void setUsuarioApli(String usuarioApli) {
+		this.usuarioApli = usuarioApli;
 	}
 
 }

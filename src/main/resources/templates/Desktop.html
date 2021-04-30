@@ -7,7 +7,8 @@
 <head>
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}" />
-	
+		<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+		
 	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
@@ -141,6 +142,18 @@ h1 {
   span {color: #167F92;}
 }
 
+.divRounded {
+   margin-top: 10px;
+   margin-left: 10px;
+   border-color: black;
+   border-radius: 10px;
+   border-style: solid;
+   border-width: 1px;
+   width: 40%;
+   margin-right: 0;
+   padding: 25px;
+}
+
 </style>
 
 </head>
@@ -187,20 +200,16 @@ h1 {
 		</div> -->
 		<br>
 		<br>
-		<br>
-		<br>
 		
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-10">
-				<h5>Tareas para el usuario : ADMIN</h5>	
-					<div class="panel-body" align="center" style="border-bottom: 2px solid #000">
-					
-					<table class="responstable">
-				<!--  	   <table class="table table-sm">-->
+			<div class="col-3"></div>
+			<div class="col-6 divRounded">
+				<div class="subtitulo-pag" th:text="'Tareas usuario: ' + ${usuarioApli}"></div>
+				<div class="panel-body" align="center">
+					<table class="table table-sm">
 						<thead>
 						 <tr>	
-							<th th:text="'id. tarea'"></th>
+							<th th:text="'id.'"></th>
 							<th th:text="Tarea"></th>
 							<th th:text="'Fecha Creación'"></th>
 							<th th:text="'Fecha Límite'"></th>
@@ -224,17 +233,15 @@ h1 {
 				  </table>
 			   </div>
 			</div>
-			<div class="col-1"></div>
+			<div class="col-3"></div>
 		</div>
+		 <br>
 		<div class="row" style="border-top: 2px solid #000">
 			<div class="col-10"></div>	
 			<div class="col-2">
-				<p>Copyright © 2020</p>
-				<p>Version Beta 1.0<p>
+				<p>Copyright © 2020   Version Beta 1.0 </p>
 			</div>
 		</div>
-		 <br>
-		 <br>
 		<footer class="container-fluid">
 		<div class="d-flex justify-content-center">
 			<a th:href="@{/gestionWeb/clientes/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo Cliente</a> 

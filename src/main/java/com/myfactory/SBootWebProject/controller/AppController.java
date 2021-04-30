@@ -14,11 +14,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -40,7 +35,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 // @PropertySource("classpath:servicioEmail.properties")
 public class AppController {
 	@Autowired
-	ServJPAUsuario serviciosJPAUsuario;
+	ServJPAUsuario servJPAUsuario;
 	@Autowired
 	private BeanIdUsuario beanIdUsuario;
 	@Autowired
@@ -49,6 +44,11 @@ public class AppController {
 	public BeanUsuarioSession beanUsuarioSession;
 	@Autowired
 	public ServJPAAviso servJPAAviso;
+	
+	@Autowired
+	private BeanIdUsuario beanIdUsusario;
+	
+	 
 	
 //	@Value("${path.servicioEmai}")
 //	private String servidorEmail;
@@ -91,8 +91,10 @@ public class AppController {
  		 listMenuUsuarioSession.add(beanMenuPrinUsuario); 		
 	 	}
 	 	// CAMBIAR ESTO PRONTO EL 7
-	 	beanUsuarioSession.setIdUsuario(new Long(7));
+	  	beanUsuarioSession.setIdUsuario(beanIdUsusario.getIdUsuario());
  		beanUsuarioSession.setListBeanMenuUsuarioSession(listMenuUsuarioSession);
+ 		beanUsuarioSession.setUsuarioApli( (servJPAUsuario.findIdUsuario (beanIdUsusario.getIdUsuario()).get().getUsername() ));
+ 		modelo.addAttribute("usuarioApli", beanUsuarioSession.getUsuarioApli());
  		
  		// Cargar la lista de submenu de cada menu en su Bean de session.
  		// Iterator<BeanMenuUsuarioSession> listBeanUsuSesionIter = listMenuUsuarioSession.iterator();
@@ -156,8 +158,7 @@ public class AppController {
 		  props.put("mail.smtp.socketFactory.port", "465");
 		  props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		 
-		
-		   Session session = Session.getInstance(props,
+		  Session session = Session.getInstance(props,
 	                new javax.mail.Authenticator() {
 	                    protected PasswordAuthentication getPasswordAuthentication() {
 	                        return new PasswordAuthentication("jlbuenome.andro@gmail.com", "19buenomendez70");
