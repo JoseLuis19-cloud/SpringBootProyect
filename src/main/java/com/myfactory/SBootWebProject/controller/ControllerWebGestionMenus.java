@@ -192,7 +192,8 @@ public class ControllerWebGestionMenus {
 	}
 	
 	@RequestMapping(value = "/insertelementosubmenu", method = RequestMethod.POST)
-	public String insertElementoSubMenu(@ModelAttribute  BeanSubMenuAplicacionWeb elemenSubMenuNuevoWeb, Model modelo ) 
+	public String insertElementoSubMenu( @ModelAttribute("elemenSubMenuNuevoWeb") BeanSubMenuAplicacionWeb elemenSubMenuNuevoWeb, 
+										RedirectAttributes redAtrib, Model modelo ) 
 	{
 		SubMenuNivel1 elemenSubMenu = new SubMenuNivel1();	
 	
@@ -206,6 +207,13 @@ public class ControllerWebGestionMenus {
 		
 	//	SubMenuNivel1 elemenSubMenuNuevo = new SubMenuNivel1();		
 		serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
+		
+		
+		// Carga el menu general
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		   
+		redAtrib.addAttribute("field", elemenSubMenuNuevoWeb.getIdMenu().toString());
+		redAtrib.addAttribute("nomElemMenu", serviciosJPAMenu.findIdMenu(elemenSubMenuNuevoWeb.getIdMenu()).get().getTextoMenu());
 		
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
