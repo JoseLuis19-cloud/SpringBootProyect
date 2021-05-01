@@ -18,33 +18,6 @@
     line-height: 1.5;
     border-radius: .2rem;
 	}
-	
-	h3 {
-  		font-weight: bold !important;
-  		color: #495057 !important;
-  		font-size: 30px !important;
-  		
-  		border-bottom: 2px solid #000 !important;
- 		background:#e9ecef !important;
-  		color:#003B49 !important;
-
-  		display:inline-block !important;
-  		padding:8px 20px !important;
- 		margin-left:10px !important;
-		}
-		
-	h5 {
-  		font-weight: bold !important;
-  		color: #F2A900 !important;
-  		font-size: 26px !important;
-  		
- 		background:#e9ecef !important;
-  		color:#F2A900 !important;
-
-  		display:inline-block !important;
-  		padding:3px 15px !important;
- 		margin-left:10px !important;
-		}
   </style>
  
  
@@ -279,19 +252,24 @@
   <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
        
 	<div class="container-fluid">
+
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-10">
-   				<h5 th:text="'Elementos de  Submenú pertenecientes al menu principal: ' + ${elemenMenuPrincipal} "></h5>
-			</div>
-			<div class="col-1">	</div>	
+			<div class="titulo-pag2" th:text="'Gestion Submenus' "></div>  
 		</div>
 		
-			<div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
+		<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
+		
+		<div class="row">
+			<div class="col-1"> </div>
+			<div class="col-10">
+   				<div class="subtitulo-pag2" th:text="'Elementos de Submenú pertenecientes al menu principal: ' + ${elemenMenuPrincipal}"></div>
+			</div>	
+			<div class="col-1"> </div>		
+		</div>
 		
 		<form action="#" th:id="idFormElementosSubMenu" th:action="@{/gestionmenus/actualizarNumOrdenSubmenu}" th:object="${subMenu}" method="post">
 		
-		<div class="row" style="border-bottom: 2px solid #000">
+		<div class="row" style="border-bottom: 2px solid #000; margin-bottom: 3px">
 			<div class="col-1"></div>
 			<div class="col-10">
      			<table class="table table-sm">
@@ -366,10 +344,9 @@
 			
 			<div class="row">
 				<div class="col-1"></div>	
-				<div class="col-10">
-				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">volver menus</a>
-					 
-					<a th:id="idPantallaAyuda" th:name="botonNuevoEleSM" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
+				<div class="col-10 text-right">
+				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary btn-sm" role="button">volver menus</a>
+					<a th:id="idPantallaAyuda" th:name="pantallaAyuda" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
 					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM" class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
 				 </div>	
 				 <div class="col-1"></div>	

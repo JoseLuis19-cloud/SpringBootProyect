@@ -58,22 +58,23 @@
 }
 
 .titulo-pag2 {
-  color: #004E64;
+  color: #0c5378;
   font: 30px Arial, sans-serif;
   font-weight: bold letter-spacing: 0.05em;
-  background:#e9ecef;
+  background:#d1ecf1;
   border-radius: 0;
   border-bottom: 2px solid #FFC72C;
   display:inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-top:0px;
+  padding-left: 5px;
   margin-bottom:10px;
   width:100%;			
 }
 
 .subtitulo-pag {
-  color: #004E64;
+  color: #18332F;
   font: 25px Arial, sans-serif;
   font-weight: 900 letter-spacing: 0.05em;
   border-radius: 0;
@@ -86,14 +87,13 @@
 
 .subtitulo-pag2 {
   color: #004E64;
-  font: 25px Arial, sans-serif;
-  font-weight: 900 letter-spacing: 0.05em;
+  font: 26px Arial, sans-serif;
+  font-weight: bold 900 letter-spacing: 0.05em;
   border-radius: 0;
-  border-bottom: 2px solid #FFC72C;
   display:inline-block;
-  padding-top: 14px;
-  padding-bottom: 12px;
-  margin-left:1px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left:2px;
 }
 
 .ir-arriba {
@@ -128,3 +128,12 @@ h1 {
  	 margin-left: 1px;
  	 margin-top: -30px;
 	}
+	
+@import "bootstrap";
+$mynewcolor:#474747;
+.btn-primary {
+    @include button-variant($mynewcolor, darken($mynewcolor, 7.5%), darken($mynewcolor, 10%), lighten($mynewcolor,5%), lighten($mynewcolor, 10%), darken($mynewcolor,30%));
+}
+.btn-outline-primary {
+    @include button-outline-variant($mynewcolor, #222222, lighten($mynewcolor,5%), $mynewcolor);
+}
