@@ -140,6 +140,15 @@ public class ControllerWebAdministracion {
 		return "GestionWeb/administracion/FormCrearTarea";
 	}
 	
+	
+	@GetMapping("/pruebas")
+	public String pruebas(Model modelo) {
+
+	 System.out.println("12345");	
+
+		return "GestionWeb/administracion/Prueba1";
+	}
+	
 	@RequestMapping(value = "/creartarea", method = RequestMethod.POST)
 	public String crearTarea(Model modelo, 
 			@Valid  @ModelAttribute("datosTareaWeb") BeanTareaWeb beanTareaWeb,

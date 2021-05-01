@@ -128,13 +128,6 @@ $table-header-border: 1px solid #FFF;
 
 // General styles
 
-body {
-  padding: 0 2em;
-  font-family: Arial, sans-serif;
-  color: #024457;
-  background: #f2f2f2;
-}
-
 h1 {
   font-family: Verdana;
   font-weight: normal;
@@ -159,7 +152,7 @@ h1 {
 </head>
 
 <body>
-	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+  <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
   <header>
   <div class="container-fluid">
@@ -170,7 +163,7 @@ h1 {
           <span class="h1">Desktop de modelo de Aplicación Piloto</span>
           </div>
           <hr class="star-light">
-          <span class="skills">Esta aplicación se ha realizado como modelo para cubrir la necesidades básicas de gestión de una pequeña empresa de servicios tecnólogicos. </span>
+          <span class="skills">Esta aplicación se ha realizado como modelo para cubrir la necesidades de gestión de una pequeña empresa del sector de servicios tecnólogicos. </span>
         </div>
       </div>
     </div>
@@ -237,8 +230,8 @@ h1 {
 		</div>
 		 <br>
 		<div class="row" style="border-top: 2px solid #000">
-			<div class="col-8"></div>	
-			<div class="col-4">
+			<div class="col-9"></div>	
+			<div class="col-3">
 				<p>Copyright © 2020   Version Beta 1.0 </p>
 			</div>
 		</div>
@@ -259,7 +252,8 @@ h1 {
  	<!--			<a th:href="@{/administracion/formcreartarea}" class="btn btn-primary" role="button">Crear Tarea</a>  -->
 			<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Pag. Empleado</a>  
 	<!--	<a th:href="@{/gestionWeb/autores}" class="btn btn-primary" role="button">Autores</a>  -->
- 		<a th:href="@{administracion/formcopiaseguridad}" class="btn btn-primary" role="button">Copia Seguridad</a>
+	  		<a th:href="@{/administracion/pruebas}" class="btn btn-primary" role="button">prueba Web</a>
+ 			<a th:href="@{administracion/formcopiaseguridad}" class="btn btn-primary" role="button">Copia Seguridad</a>
 			<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Pag Empresas</a>
 			<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Pag Proyectos</a>
 		</div>
