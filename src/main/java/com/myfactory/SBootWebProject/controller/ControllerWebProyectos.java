@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,8 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
+import com.myfactory.SBootWebProject.beanForm.BeanEmpAnadir;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanPrueba1;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.Person;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
@@ -66,7 +67,8 @@ public class ControllerWebProyectos {
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
 	
-	public List<BeanPrueba1> lPrueba1 = new ArrayList<BeanPrueba1>();
+	BeanEmpAnadir beanEmpAnadir = new BeanEmpAnadir();
+    public List<BeanEmpAnadir> listBeanEmpUTE = new ArrayList<BeanEmpAnadir>();
 
 	@GetMapping("/formaltaproyecto")
  	public String formularioAltaEmpresa(Model modelo)  {
@@ -77,20 +79,18 @@ public class ControllerWebProyectos {
 			
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
+	 // Listas Empresas disponibles
 	 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
-	 obtenerEmpresasDisponibles(listEmpresasDisponibles);
+	 obtenerEmpresasDisponibles(listEmpresasDisponibles, listBeanEmpUTE);
 	 
+	 // Listas Empleados disponibles
 	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
 	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
+
+	 modelo.addAttribute("listaEmpresasDisponibles", obtenerEmpresasDisponibles(listEmpresasDisponibles, listBeanEmpUTE));
+	 // listBeanEmpUTE aqui no habra ninguna cargada
+	 modelo.addAttribute("listaUTEEmpresas", listBeanEmpUTE);
 	 
-	 BeanPrueba1 prueba1 = new BeanPrueba1();
-	 prueba1.setApellidosWeb("1");
-	 prueba1.setNombreWeb("2");
-	 
-	 lPrueba1.add(prueba1);
-	// modelo.addAttribute("lprueba", lPrueba1);
-	
-	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
 	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
 	 
 	 modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
@@ -115,6 +115,49 @@ public class ControllerWebProyectos {
 		return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
 	}
 	
+//	@RequestMapping(value = "/anadirempresajax" /*, consumes = MediaType.APPLICATION_JSON_VALUE */ )
+//	public String anadirEmpresaAjax(@RequestParam(name="idEmpresa") String idEmpresa, 
+//									@RequestParam(name="objList")  List<BeanPrueba1> lPru1, Model modelo) {
+		
+	//	public String anadirEmpresaAjax(/* @RequestParam(name="idEmpresa") String idEmpresa, */
+	//			@RequestParam(name="search")  Person per1, Model modelo) {
+	
+	
+	 
+	@RequestMapping(value ={"/anadirempreproyecajax"},  consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	public String anadirEmpresaProyecto(@ModelAttribute("empAnadir") BeanEmpAnadir beanEmpAnadir)
+			//	BindingResult resultValidacion,
+			//	RedirectAttributes redirectAttrs,
+			//	Model modelo, 
+			{
+		
+		System.out.println(beanEmpAnadir.getIdEmpresa());
+	//	boolean noFinProyecto = false;
+		Proyecto modifProyecto = new Proyecto();
+		
+		// nuevoProyecto.setNomProyecto(formProyectoWeb.getNomProyecto() );
+		// modifProyecto.setImpProyecto( formProyectoWeb.getImpProyectoWeb());
+		// modifProyecto.setIndFinProyecto(noFinProyecto);
+		
+		servJPAProyecto.modifProyecto(modifProyecto);
+		
+		// Listas Empresas disponibles
+		 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
+		 obtenerEmpresasDisponibles(listEmpresasDisponibles, listBeanEmpUTE);
+		 
+		 // Listas Empleados disponibles
+		 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
+		 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
+
+	//	 modelo.addAttribute("listaEmpresasDisponibles", obtenerEmpresasDisponibles(listEmpresasDisponibles));
+		 // listBeanEmpUTE aqui no habra ninguna cargada
+	//	 modelo.addAttribute("listaUTEEmpresas", listBeanEmpUTE);
+		 
+		//modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
+		
+		return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
+	}
+	
 	
 	@GetMapping("/formeditarproyecto")
  	public String formEditarProyecto(Model modelo)  {
@@ -124,21 +167,21 @@ public class ControllerWebProyectos {
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
 	 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
-	 obtenerEmpresasDisponibles(listEmpresasDisponibles);
+	 obtenerEmpresasDisponibles(listEmpresasDisponibles, listBeanEmpUTE);
 	 
 	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
 	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
 	 
-	 BeanPrueba1 prueba1 = new BeanPrueba1();
-	 prueba1.setApellidosWeb("1");
-	 prueba1.setNombreWeb("2");
+	// BeanPrueba1 prueba1 = new BeanPrueba1();
+	// prueba1.setApellidosWeb("1");
+	// prueba1.setNombreWeb("2");
 	 
-	 lPrueba1.add(prueba1);
+	// lPrueba1.add(prueba1);
 
 	// modelo.addAttribute("lprueba", lPrueba1);
 	
-	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
-	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
+	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles, listBeanEmpUTE));
+	// modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
 	 
 	 modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
 	 
@@ -227,7 +270,7 @@ public class ControllerWebProyectos {
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
 	 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
-	 obtenerEmpresasDisponibles(listEmpresasDisponibles);
+	 obtenerEmpresasDisponibles(listEmpresasDisponibles, listBeanEmpUTE);
 	 
 	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
 	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
@@ -409,7 +452,7 @@ public class ControllerWebProyectos {
 		return "GestionWeb/proyectos/PagProyectos";
 	}
 	
-	private List<Empresa> obtenerEmpresasDisponibles(List <Empresa> listaEmpresaYaSelec)
+	private List<Empresa> obtenerEmpresasDisponibles(List <Empresa> listaEmpresaYaSelec, List <BeanEmpAnadir> listBeanEmpUTE)
 	{
 	  List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
 	  
@@ -421,9 +464,9 @@ public class ControllerWebProyectos {
 		empresaI = listEmpreIter.next();
 		Boolean encontradoEnEmpresasSelec = false;
 				
-		for (Empresa eleEmpresa : listaEmpresaYaSelec) {
+		for (BeanEmpAnadir eleEmpresaAnadir : listBeanEmpUTE) {
 
-			if (eleEmpresa.getIdEmpresa().equals(empresaI.getIdEmpresa() ) )
+			if (eleEmpresaAnadir.getIdEmpresa().equals(empresaI.getIdEmpresa() ) )
 			   	{
 				encontradoEnEmpresasSelec = true;
 			    break;
@@ -468,14 +511,6 @@ public class ControllerWebProyectos {
 	 
 	return listEmpleadosDisponibles;
 	}
- 
-	@RequestMapping(value = "/anadirempresajax" /*, consumes = MediaType.APPLICATION_JSON_VALUE */ )
-//	public String anadirEmpresaAjax(@RequestParam(name="idEmpresa") String idEmpresa, 
-//									@RequestParam(name="objList")  List<BeanPrueba1> lPru1, Model modelo) {
-		
-	//	public String anadirEmpresaAjax(/* @RequestParam(name="idEmpresa") String idEmpresa, */
-	//			@RequestParam(name="search")  Person per1, Model modelo) {
-	
 	
 	public  @ResponseBody String  getSearchUserProfiles(@RequestBody Person per1, HttpServletRequest request) {
 

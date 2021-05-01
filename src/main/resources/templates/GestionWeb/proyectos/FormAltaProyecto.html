@@ -14,8 +14,6 @@
 
  <style>
  
-.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
-
 .form-control-xs {
 	height: calc(1em + .375rem + 2px) !important;
 	padding: .125rem .25rem !important;
@@ -47,6 +45,54 @@ h5 {
    }
 
 </style>
+
+ 	<script th:inline="javascript">
+ 	
+	 $(document).ready(function() {
+		 
+		 $('[name="checkEmpresaDis[]"]').click(function() {
+		      arrValueCheck = $('[name="checkEmpresaDis[]"]:checked').map(function(){
+		      return this.value;
+		    }).get();
+		      
+			$("#idLinkAnadirEmpresa").click(function(){
+			
+				alert("Antes de crear objecto");
+			
+				var empAnadir = new Object();
+				empAnadir.idEmpresa = "1";
+				empAnadir.nomEmpresa = "Empresa primera prueba"; 
+			 
+				alert("Antes de llamada ajax");
+				var urlAJAX = '/gestionWeb/proyectos/anadirempreproyecajax';
+		
+ 				$.ajax({
+ 	  			 url: urlAJAX,
+ 	   	 		 type: "POST",
+ 	   	 		 dataType: "json",
+ 	     	 		headers: { 
+ 	     	 	  'Accept': 'application/json',
+ 	      	 	  'Content-Type': 'application/json' 
+ 	    			},
+ 	   	 		 data: JSON.stringify(empAnadir),
+ 	   			 contentType: "application/json",
+ 	   			 mimeType: "application/json", 
+ 	   			 
+ 	   			 success: function (result) {
+ 	    	   	 	if (result.success) {
+ 	    	   		    alert("result exito" + result.message);
+ 	    	   		 } else {
+ 	    	  	     alert("result no exito" +  result.message)
+ 	     	  		 }
+ 	    			},
+ 	    		error:function(error) {
+ 	      	 	 	alert("result error " +  error.message);                       
+ 	   		 		}
+ 			});
+	 	});	
+	 });
+	 });	 
+	</script>
 	
 </head>
 
@@ -147,7 +193,7 @@ h5 {
 				<div class="form-row">
 					<div class="col-md-5 mb-3">
 						<div id="idDivEmpresasDis">
-							<div class="subtitulo-pag4">Añadir Empresa participante en el proyecto</div>
+							<div class="subtitulo-pag4">Empresas disponibles para el proyecto</div>
 						<div th:insert="GestionWeb/fragments/anadirEmpresaProyecto :: anadirEmprProyecto"></div>
 						</div>
 			 		</div>
@@ -156,9 +202,9 @@ h5 {
 						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  						<br/>
  						<br/>
-				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  class="btn btn-primary btn-sm" role="button"> Añadir &#8680;</a>
+				 		<a th:id="'idLinkAnadirEmpresa'"  th:name="'linkAnadirEmpresa'"  class="btn btn-primary btn-sm" role="button"> Añadir &#8680;</a>
 						<br/>
-						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimir'" th:onclick="eliminarEmpresaAjax()" class="btn btn-colour-1" role="button">&#8678; Suprimir </a>
+						<a th:id="'idLinkSuprimirEmpresa'" th:name="'linkSuprimirEmpresa'" class="btn btn-colour-1" role="button">&#8678; Suprimir </a>
 						<br/>
 						</div>
 					</div>
@@ -190,9 +236,9 @@ h5 {
 						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  						<br/>
  						<br/>
-				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadir'"  th:onclick="anadirEmpresaProyecto()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
+				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadirEmpleado'"  th:onclick="anadirEmpresaProyecto()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
 						<br/>
-						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimir'" th:onclick="eliminarEmpresaProyecto()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
+						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimirEmpleado'" th:onclick="eliminarEmpresaProyecto()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
 						<br/>
 						</div> 
 					</div>
