@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
@@ -122,10 +123,8 @@ public class ControllerWebProyectos {
 	//	public String anadirEmpresaAjax(/* @RequestParam(name="idEmpresa") String idEmpresa, */
 	//			@RequestParam(name="search")  Person per1, Model modelo) {
 	
-	
-	 
-	@RequestMapping(value ={"/anadirempreproyecajax"},  consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-	public String anadirEmpresaProyecto(@ModelAttribute("empAnadir") BeanEmpAnadir beanEmpAnadir)
+	@RequestMapping(value ="/anadirempreproyecajax", produces = "application/json",  method=RequestMethod.GET)
+	public ModelAndView anadirEmpresaProyecto(@RequestBody  BeanEmpAnadir beanEmpAnadir)
 			//	BindingResult resultValidacion,
 			//	RedirectAttributes redirectAttrs,
 			//	Model modelo, 
@@ -154,8 +153,8 @@ public class ControllerWebProyectos {
 	//	 modelo.addAttribute("listaUTEEmpresas", listBeanEmpUTE);
 		 
 		//modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
-		
-		return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
+		 return new ModelAndView("/gestionWeb/proyecto/");
+		// return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
 	}
 	
 	

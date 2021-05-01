@@ -17,14 +17,14 @@
 						</tr>
 					</thead>
 					<tbody class="table-striped">
-						<tr th:each="listEmpreProyecto, iterStat :${listaEmpresasProyecto}">
+						<tr th:each="listEmpreProyectoUTE, iterStat :${listaUTEEmpresas}">
 						 	<td>
 						 		<div style="display: flex; justify-content: center; align-items: center;"> 
-								 <input type="checkbox" th:id="'idCheckEmpresaSel'+ ${iterStat.index}" th:name="checksEmpresaSel[]" th:onclick="'anadirEmpresaProyecto(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listEmpreProyecto.idEmpresa}" class="btn btn-primary btn-sm" />						
+								 <input type="checkbox" th:id="'idCheckEmpresaSel'+ ${iterStat.index}" th:name="checksEmpresaSel[]" th:checked="false" th:value="${listEmpreProyectoUTE.idEmpresa}" class="btn btn-primary btn-sm" />						
 								</div>
 							</td>
-							<td th:text="${listEmpreProyecto.idEmpresa}"></td>
-							<td th:text="${listEmpreProyecto.nomEmpresa}"></td>
+							<td th:text="${listEmpreProyectoUTE,.idEmpresa}"></td>
+							<td th:text="${listEmpreProyectoUTE,.nomEmpresa}"></td>
 						</tr>
 					</tbody>
 				 </table>
