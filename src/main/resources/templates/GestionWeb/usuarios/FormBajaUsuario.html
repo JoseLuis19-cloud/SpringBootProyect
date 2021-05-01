@@ -55,6 +55,10 @@ h5 {
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 
 	<div class="container-fluid">
+		<div class="row">
+			<div class="titulo-pag2">Gestión de Empleado</div>
+	</div>
+	
 	
 	<form action="#" th:action="@{/gestionWeb/usuarios/bajausuario}" th:object="${usuarioWeb}" method="post">
 	
@@ -63,7 +67,7 @@ h5 {
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
-				<h3 th:text="'Datos del Usuario a dar de baja'"></h3>
+				<div class="subtitulo-pag" th:text="'Datos del usuario a dar de baja'"></div>
 				<br />
 			</div>
 			<div class="col-3"></div>

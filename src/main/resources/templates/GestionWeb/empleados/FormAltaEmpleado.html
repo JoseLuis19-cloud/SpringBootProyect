@@ -59,15 +59,14 @@
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	<div class="container-fluid">
-	
-	  <div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
-	 
+ 
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Empleados</div>
 		</div>
 		<form th:action="@{/gestionWeb/empleados/altaempleado}" th:object="${empleadoWeb}" method="post">
 		<div class="row">
 			<br>
+			<div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 			<div class="col-1"></div>
   			<div class="col-10" >
   				<div class="subtitulo-pag" th:text="'Datos Nuevo Empleado'"></div>
@@ -84,7 +83,7 @@
 				   <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a> 
 				</div>  -->
 			 </div> 	
-  			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
+  			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000; margin-bottom: 3px">
   				<div class="form-row">
 						<div class="col-md-5 mb-3">
 							<label for="validationNombre" th:text="'Nombre'"></label> 
@@ -185,17 +184,18 @@
  		 <div class="col-1"></div>
  	 
  		</div>
+ 		
  		<div class="row">
- 			<div class="col-1"></div>
- 			<div class="col-2"><a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a></div>
- 			<div class="col-5"></div>
- 			<div class="col-3">	
- 			    <button type="submit" class="btn btn-primary">Crear</button>
-				<!-- 	<a th:id="'idLinkCrearUsu'" th:name="'linkCrearUsu'" class="btn btn-colour-1" role="button">Nuevo Usuario</a> -->			 
- 			</div>
- 			<div class="col-1"></div>
-		</div>
- 		</form>
+			<div class="col-1"></div>
+  			<div class="col-10">
+        		<div class="col-md-12 bg-light text-right">
+           		 	<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a>
+           	 	 	<button type="submit" class="btn btn-primary">Crear</button>
+        		</div>
+   			</div>
+   			<div class="col-1"></div>
+    	</div>
+ 	  </form>
  	</div>
 	<!-- Modal -->
     <div id="myModalAltaUsu" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
