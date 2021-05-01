@@ -4,7 +4,7 @@
   <head>
   
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+    <link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
@@ -23,28 +23,6 @@
 	font-size: .75rem !important;
 	line-height: 1.5;
 	border-radius: .2rem;
-}
-
-h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
 }
 
 </style>
@@ -80,7 +58,7 @@ h5 {
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-	<div class="container-fluid" style="margin-top:0px;">
+	<div class="container-fluid">
 	
 	  <div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 	 

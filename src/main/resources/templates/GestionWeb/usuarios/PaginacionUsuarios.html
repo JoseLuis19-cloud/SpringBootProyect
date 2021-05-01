@@ -4,7 +4,7 @@
 <head>
 
   	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link th:rel="stylesheet" href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" />
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
@@ -13,33 +13,8 @@
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
   	
-<style> 	
-	h3 {
-  		font-weight: bold !important;
-  		color: #495057 !important;
-  		font-size: 30px !important;
-  		
-  		border-bottom: 2px solid #000 !important;
- 		background:#e9ecef !important;
-  		color:#003B49 !important;
+<style>
 
-  		display:inline-block !important;
-  		padding:8px 20px !important;
- 		margin-left:10px !important;
-		}
-		
-	h5 {
-  		color: #F2A900 !important;
-  		font-size: 26px !important;
-  		
- 		background:#e9ecef !important;
-  		color:#F2A900 !important;
-
-  		display:inline-block !important;
-  		padding:3px 15px !important;
- 		margin-left:10px !important;
-		}
-		
   .div-desactivado{
   	color: #DEBC8B;
   	background-color: #ECC7CD;
@@ -49,13 +24,6 @@
   	border-radius: 0;
 	}
 	
-	.container-fluid {
-	 overflow: hidden;
-	 padding-top: 0px;
-  	 padding-bottom: 0px;
- 	 margin-left:10px;
- 	 margin-top:0px;
-	}
   </style>
   
 </head>
@@ -64,7 +32,7 @@
  	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
  	
 	<div class="container-fluid">
-	
+
 	 <div class="row">
 		<div class="titulo-pag2" th:text="'Gestion usuarios aplicación '"></div>
 	 </div>
