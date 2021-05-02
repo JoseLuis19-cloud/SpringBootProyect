@@ -1,3 +1,13 @@
+
+@import "bootstrap";
+$mynewcolor:#474747;
+.btn-primary {
+    @include button-variant($mynewcolor, darken($mynewcolor, 7.5%), darken($mynewcolor, 10%), lighten($mynewcolor,5%), lighten($mynewcolor, 10%), darken($mynewcolor,30%));
+}
+.btn-outline-primary {
+    @include button-outline-variant($mynewcolor, #222222, lighten($mynewcolor,5%), $mynewcolor);
+}
+
 .btn-outline {
   color: #4fbfa8;
   background-color: #ffffff;
@@ -59,7 +69,7 @@
 
 .titulo-pag2 {
   color: #0c5378;
-  font: 30px Arial, sans-serif;
+  font: 32px Arial, sans-serif;
   font-weight: bold letter-spacing: 0.05em;
   background:#d1ecf1;
   border-radius: 0;
@@ -128,12 +138,3 @@ h1 {
  	 margin-left: 1px;
  	 margin-top: -30px;
 	}
-	
-@import "bootstrap";
-$mynewcolor:#474747;
-.btn-primary {
-    @include button-variant($mynewcolor, darken($mynewcolor, 7.5%), darken($mynewcolor, 10%), lighten($mynewcolor,5%), lighten($mynewcolor, 10%), darken($mynewcolor,30%));
-}
-.btn-outline-primary {
-    @include button-outline-variant($mynewcolor, #222222, lighten($mynewcolor,5%), $mynewcolor);
-}

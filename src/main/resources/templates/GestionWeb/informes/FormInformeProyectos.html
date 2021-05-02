@@ -54,7 +54,7 @@ h5 {
 
 		<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-	<div class="container-fluid" style="margin-top:0px;">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Informes</div>
 		</div>
@@ -69,12 +69,51 @@ h5 {
   		</div>
   		
 		<div class="row">
-			<div class="col-1"></div>
-  			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
-  				
-			 </div>
-			<div class="col-1"></div>	
-		 </div>
+ 			<div class="col-2"></div>
+ 			<div class="col-3">
+ 				<div class="form-group">
+					<label for="labelFacturacionMes" th:text="'Usuario  Proyecto ' "></label>
+						<select class="form-control" th:name="mesFacturacionEmpleado" th:id="idMesFacturacionEmpleado">
+						<option th:value="0" th:text="'Seleccionar Usuarios Activos' "></option>
+						<option th:value="1" th:text="'Seleccionar Usuarios Baja' "></option>
+					<!--	<option th:each="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
+   						 			th:value="${pTrabajoEmple.idPuestoTrabajo}"
+  						  			th:text ="${pTrabajoEmple.desPuestoTrabajo}">
+  						</option>--> 
+    				</select>
+				</div>
+
+			</div>
+ 			<div class="col-3">
+ 			    <div class="form-group">
+					<label for="labelFacturacionMes11" th:text="'Ordenados por ' "></label>
+						<select class="form-control" th:name="mesFacturacionEmpleado" th:id="idMesFacturacionEmpleado">
+						<option th:value="0" th:text="'Fecha de proyecto' "></option>
+						<option th:value="1" th:text="'Facturacion proyecto' "></option>
+						 
+					<!--	<option th:each="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
+   						 			th:value="${pTrabajoEmple.idPuestoTrabajo}"
+  						  			th:text ="${pTrabajoEmple.desPuestoTrabajo}">
+  						</option>--> 
+    				</select>
+				</div>
+ 			
+ 			</div>
+ 			<div class="col-3">
+ 			<div class="form-group">
+			<label for="labelFacturacionMes" th:text="'Proyectos ' "></label>
+				<select class="form-control" th:name="mesFacturacionEmpleado" th:id="idMesFacturacionEmpleado">
+						<option th:value="0" th:text="'Terminados' "></option>
+						<option th:value="1" th:text="'En ejecucion' "></option>
+					<!--	<option th:each="pTrabajoEmple:${empleadoWeb.puestoTrabajoWeb}"
+   						 			th:value="${pTrabajoEmple.idPuestoTrabajo}"
+  						  			th:text ="${pTrabajoEmple.desPuestoTrabajo}">
+  						</option>--> 
+    				</select>
+			</div>
+ 			</div>
+ 			<div class="col-1"></div>
+		</div>
 		 
  		<div class="row">
  			<div class="col-1"></div>

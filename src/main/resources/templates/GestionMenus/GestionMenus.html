@@ -357,70 +357,55 @@
 		 	<input type="hidden" th:id="'idTextoMenuHiden'"  th:name="'textoMenu'" 		 th:field="*{textoMenu}" />		
 		 	<input type="hidden" th:id="'idHREFMenuHidden'"  th:name="'hREFMenu'" 		 th:field="*{hrefAplicacion}" />
 		 	<input type="hidden" th:id="'idIndActivoHidden'" th:name="'indActivo'" 		 th:field="*{indActivo}" />											
-		 </form> 
-
-    <!-- Modal -->
-    <div id="myModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-  		<div class="modal-dialog modal-xl">
-      <!-- Modal content-->
-      	<div class="modal-content">
+		 </form>
+		 
+		 
+		  <!-- Modal -->
+		  <div id="myModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  			<div class="modal-dialog modal-xl">
+      	<!-- Modal content-->
+      		<div class="modal-content">
       		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
-      	
-       	 <div class="container-fluid">
-        	<div class="subtitulo-pag" th:text="'Nuevo elementos Menu principal'"></div>
-
-			<div class="row">
-				<div class="col-12"> 
-					<table class="table table-sm">
-						<thead class="thead-light">
-							<tr>
-								<th width="15%" th:text="'Núm. Orden'"></th>
-								<th width="40%" th:text="'Texto elemento del menú'"></th>
-								<th width="35%" th:text="'Link (Href)'"></th>
-								<th width="10%" th:text="'Activado'"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td> 
-									<div class="form-group col-md-6">
-										<input type="text" class="form-control form-control-sm"  th:id="idNumOrdMenuN" th:name="mumOrdMenuN" th:field="*{numOrdenMenu}" th:maxlength="2" th:readonly="true"/>											
-									</div>
-								</td>
-								<td>
-									<div class="form-group">
-										<input type="text" class="form-control form-control-sm"  th:id="idTextoMenuN" th:name="textoMenuN" th:field="*{textoMenu}" placeholder="Teclee el texto del elemento de menú" th:maxlength="30" required/>											
-									</div>
-								</td>
-								<td>
-									<div class="form-group">
-										<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionN" th:name="hrefAplicacionN" th:field="*{hrefAplicacion}"  placeholder="Teclee la URL de enlace suministrada"  th:maxlength="30"/>											
-				 	  				</div>
-								</td>
-								<td>
-									<div class="form-group">
-										<input type="checkbox" th:checked="*{indActivo}" class="form-control form-control-sm" th:id="idActivadoN" th:name="activadoN" th:field="*{indActivo}" th:readonly="false"/>											
-				 	 				</div>
-								</td>		
+      		 <div class="container-fluid">
+       			 <br/>
+				<div class="subtitulo-pag2" th:text="'Nuevo elemento menú'"></div>
+				<table class="table table-sm">
+					<thead class="thead-light">
+					<tr>
+						<th width="15%" th:text="'Número Orden'"></th>
+						<th width="40%" th:text="'Texto elemento del menú'"></th>
+						<th width="35%" th:text="'Dirección o Link (href)'"></th>
+						<th width="10%" th:text="'Activado'"></th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr th:each="elemenSumMenuNuevo:${elemenMenuNuevoWeb}">
+					 		<td>
+								<input type="text" class="form-control form-control-sm"  th:id="idNumOrdMenuN" th:name="numOrdMenuN" th:field="*{numOrdenMenu}" th:maxlength="2" th:readonly="true"/>
+								<input type="hidden" th:id="'idMenuNHidden'"  th:name="'menuNHidden'" th:field="*{idMenu}" />			
+							</td>
+							<td>
+								<input type="text" class="form-control form-control-sm"  th:id="idTextoMenuN" th:name="textoMenuN" th:field="*{textoMenu}" placeholder="Teclee el texto del elemento de menú" th:maxlength="30" required/>											
+							</td>
+							<td>
+								<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionN" th:name="hRefAplicacionN" th:field="*{hrefAplicacion}" th:maxlength="35"/>
+							</td>
+							<td>
+								<input type="checkbox" th:checked="*{indActivo}" class="form-control form-control-sm" th:id="idActivadoN" th:name="activadoN" th:field="*{indActivo}" />											
+							</td>		
 			  	 		</tr>
-					</tbody>
-			 	</table>
-		
-			 </div>
-			 
+				</tbody>
+		 	</table>
 			</div>
-			</div>	
-        	<div class="modal-footer">
-        	<!-- <button type="button" class="btn btn-primary">Crear</button> -->
-          	<!-- 	 <a th:href="@{'/gestionmenus/insertelementomenu?obj=' + ${elemenNuevo} }" class="btn btn-primary" role="button">Crear Elemento</a> -->
-          		  <button type="submit" class="btn btn-colour-1" >Crear elemento</button>    
-       			  <button type="button" class="btn btn-colour-1"  data-dismiss="modal">Cancelar</button>
+		   	
+			<div class="modal-footer">
+			    <button type="submit" class="btn btn-primary">Crear menu</button>
+       		 	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>	
         	</div>
-          </form>	
-      </div>
-      
-    </div>
-  </div>
+			</form>
+		</div>	
+		</div>
+	</div>
   
   <!-- Modal Eliminar Menu -->
   <div id="myModalEliminarMenu" class="modal" tabindex="-1" role="dialog">

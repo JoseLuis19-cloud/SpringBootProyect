@@ -165,7 +165,6 @@ public class ControllerWebGestionMenus {
 		
 		elemenMenu = serviciosJPAMenu.insertarElementoMenu(elemenMenu);
 		
-		
 		Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0();
 		
 		BeanFormMenu beanFormMenu = new BeanFormMenu();

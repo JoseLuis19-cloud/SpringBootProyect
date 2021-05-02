@@ -59,6 +59,7 @@ public class ControllerWebInformes {
 	public String formInformeProyectos(Model modelo) {
 		
 	  modelo.addAttribute("datosInformes", "1");
+	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 return "GestionWeb/informes/FormInformeProyectos.html";
 	}
 	
@@ -67,6 +68,7 @@ public class ControllerWebInformes {
 	public String formInformeEmpleados(Model modelo) {
 		
 	  modelo.addAttribute("datosInformes", "1");
+	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 return "GestionWeb/informes/FormInformeEmpleados.html";
 	}
 	
@@ -74,6 +76,7 @@ public class ControllerWebInformes {
 	public String formInformeUsuarios(Model modelo) {
 		
 	  modelo.addAttribute("datosInformes", "1");
+	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 return "GestionWeb/informes/FormInformeUsuarios.html";
 	}
  
