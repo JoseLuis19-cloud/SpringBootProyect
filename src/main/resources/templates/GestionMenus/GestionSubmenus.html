@@ -38,7 +38,6 @@
 		 });
 		
 		$("#idPantallaAyuda").click(function(){
-			alert("Pinchado ayuda");
 		 	$("#modalAyuda").modal();
 		 });
 		
@@ -386,7 +385,7 @@
 								<input type="hidden" th:id="'idMenuNHidden'"  th:name="'menuNHidden'" th:field="*{idMenu}" />			
 							</td>
 							<td>
-								<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:field="*{textoMenuSubMenu}" th:maxlength="30"/>											
+								<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:field="*{textoMenuSubMenu}"  placeholder="Teclee el texto del elemento de summenú" th:maxlength="30"/>											
 							</td>
 							<td>
 								<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionSMN" th:name="hrefAplicacionN" th:field="*{hrefAplicacionSubMenu}" th:maxlength="35"/>
@@ -413,10 +412,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="subtitulo-pag2" th:text="'Ayuda pantalla submenu'"></div>
       </div>
       <div class="modal-body">
           <div class="modal-body">
@@ -426,7 +422,7 @@
       </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
