@@ -14,8 +14,6 @@
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 
  <style>
-.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
-
 
 .form-control-xs {
 	height: calc(1em + .375rem + 2px) !important;
@@ -23,28 +21,6 @@
 	font-size: .75rem !important;
 	line-height: 1.5;
 	border-radius: .2rem;
-}
-
-h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
 }
 
 </style>
@@ -56,24 +32,24 @@ h5 {
 
 	<div class="container-fluid">
 	
-	<div class="row">
-		<div class="titulo-pag2">Gestión de usuarios</div>
-	</div>
-	
-	 <div class="alert alert-danger"  th:if="${errorValidacion}" th:text="'Cod. Error: ' + ${mensajeError}"></div>
-	
-	<form action="#" th:action="@{/gestionWeb/usuarios/modificarusuario}" th:object="${usuarioWeb}" method="post">
-	
-		<input type="hidden" th:id="'idIdUsuarioHidden'" th:name="'idUsuarioHidden'"  th:field="*{idUsuarioWeb}" />	 
-	
 		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6" style="border-bottom: 2px solid #000">
-				<div class="subtitulo-pag" th:text="'Datos Usuario'"></div>
-				<br />
-			</div>
-			<div class="col-3"></div>
+			<div class="titulo-pag2">Gestión de usuarios</div>
 		</div>
+	
+		 <div class="alert alert-danger"  th:if="${errorValidacion}" th:text="'Cod. Error: ' + ${mensajeError}"></div>
+	
+		<form action="#" th:action="@{/gestionWeb/usuarios/modificarusuario}" th:object="${usuarioWeb}" method="post">
+	
+			<input type="hidden" th:id="'idIdUsuarioHidden'" th:name="'idUsuarioHidden'"  th:field="*{idUsuarioWeb}" />	 
+	
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col-6" style="border-bottom: 2px solid #000">
+					<div class="subtitulo-pag2" th:text="'Datos Usuario'"></div>
+					<br />
+				</div>
+				<div class="col-3"></div>
+			</div>
 		
 		<div class="row">
 			<div class="col-3"></div>
@@ -84,7 +60,7 @@ h5 {
 						 <input type="text" class="form-control" th:id="idfullNameWeb" th:name="'fullNameWeb'" th:field="*{fullNameWeb}" th:maxlength="25" required>
 					</div>
 					<div class="col-md-4 mb-3">
-						<label for="labelUserNameWeb" th:text="'Nombre Usuario:' "></label>
+						<label for="labelUserNameWeb" th:text="'Nombre Usuario' "></label>
 						<input type="text" class="form-control" th:id="idNomUsuWeb" th:name="'nomUsuWeb'" th:field="*{usernameWeb}" th:maxlength="25" required>
 					</div>
 					<div class="col-md-4 mb-3">
@@ -92,7 +68,7 @@ h5 {
 				</div>				
 				<div class="form-row">
 					<div class="col-md-6 mb-3">
-						<label for="labelEmailWeb" th:text="'email aplicación:'"></label> <input
+						<label for="labelEmailWeb" th:text="'email aplicación'"></label> <input
 							type="text" class="form-control" th:id="idDirCliWeb" th:name="'dirCliWeb'" th:field="*{emailWeb}" th:maxlength="35" required>
 					</div>
 
@@ -106,14 +82,14 @@ h5 {
 					<div class="col-md-3 mb-3">
 						<br>
 						<div class="form-check">
-							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input"/>
+							<input type="checkbox" th:checked="*{indEmpleadoWeb}" th:id="'idIndEmpleado'" th:name="'indEmpleado'" class="form-check-input"  th:disabled="disabled"/>
 							<label for="labelIndEmpleadoWeb" th:text="'Es empleado:' " class="form-check-label"></label>	
 						</div>
 					</div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-4 mb-2">
-							<label for="labelFecAltaUsu">Fec. Alta Usuario</label>
+							<label for="labelFecAltaUsu">Fec. alta Usuario</label>
 							<div class="input-group">
 								<div class="input-group-addon">
        							  <i class="fa fa-calendar"> </i> 

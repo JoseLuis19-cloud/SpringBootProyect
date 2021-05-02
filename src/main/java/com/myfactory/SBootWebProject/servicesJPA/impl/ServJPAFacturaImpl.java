@@ -7,10 +7,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
+import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Secuenciales;
@@ -77,8 +81,8 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 
 	@Override
 	public Page<Factura> paginacionFacturas(Integer numPag, Integer numRegPag) {
-
-		Page<Factura> restulPag = reposSDataPagFactura.findAll(PageRequest.of(numPag, numRegPag, Sort.by("idFactura")));
+ 
+		Page<Factura> restulPag = reposSDataPagFactura.findAll(PageRequest.of(numPag, numRegPag,Sort.by(Sort.Direction.DESC, "numFactura") ));
 
 		if (restulPag.hasContent()) {
 			System.out.println("Tiene contenido la paginacion");

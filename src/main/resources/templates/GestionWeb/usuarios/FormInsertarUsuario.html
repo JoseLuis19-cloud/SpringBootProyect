@@ -42,7 +42,7 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6" style="border-bottom: 2px solid #000">
-				<div class="subtitulo-pag" th:text="'Datos Nuevo Usuario'"></div>
+				<div class="subtitulo-pag2" th:text="'Datos Nuevo Usuario'"></div>
 			</div>
 			<div class="col-3"></div>
 		</div>
@@ -56,19 +56,19 @@
 								th:field="*{fullNameWeb}" th:maxlength="25" required>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="validationUserNameWeb" th:text="'Nombre Usuario:' "></label>
+							<label for="validationUserNameWeb" th:text="'Nombre Usuario' "></label>
 							<input type="text" class="form-control" id="idApelliCliWeb"
 								th:field="*{usernameWeb}" th:maxlength="25" required>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="validationPasswordWeb" th:text="'Password:' "></label>
+							<label for="validationPasswordWeb" th:text="'Password' "></label>
 							<input type="text" class="form-control" id="idPasswordWeb"
 								th:field="*{passwordWeb}" th:maxlength="10" required>
 						</div>
 					</div>				
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
-							<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
+							<label for="validationEmailWeb" th:text="'email aplicación'"></label> <input
 								type="text" class="form-control" id="idDirCliWeb"
 								th:field="*{emailWeb}" th:maxlength="35" required>
 						</div>
@@ -90,7 +90,7 @@
 					</div>
 					<div class="form-row">
 						<div class="col-md-4 mb-2">
-							<label for="validationFecAltaUsu">Fec. Alta Usuario</label>
+							<label for="validationFecAltaUsu">Fec. alta usuario</label>
 							<div class="input-group">
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i> 
@@ -100,7 +100,7 @@
 						</div>
 						<div class="col-md-8 mb-2">
 							<div class="form-group">
-								<label for="idRolAplicacion" th:text="'Rol de usario en la aplicación: ' "></label>
+								<label for="idRolAplicacion" th:text="'Rol de usario en la aplicación ' "></label>
 								<select th:object="${usuarioWeb}" class="form-control" name="rolAplicacion" id="idRolAplicacion">
 									<option th:value="0" th:text="'Seleccionar rol Aplicación' "></option>
 									<option th:each ="rolApli:${usuarioWeb.rolUsuarioWeb}"
