@@ -3,8 +3,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.5.3/css/bootstrap.min.css">
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+ 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+ 	
 
   	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
@@ -20,31 +21,6 @@
     border-radius: .2rem;
 	}
 	
-	h3 {
-  		font-weight: bold !important;
-  		color: #495057 !important;
-  		font-size: 30px !important;
-  		
-  		border-bottom: 2px solid #000 !important;
- 		background:#e9ecef !important;
-  		color:#003B49 !important;
-
-  		display:inline-block !important;
-  		padding:8px 20px !important;
- 		margin-left:10px !important;
-		}
-		
-	h5 {
-  		color: #F2A900 !important;
-  		font-size: 26px !important;
-  		
- 		background:#e9ecef !important;
-  		color:#F2A900 !important;
-
-  		display:inline-block !important;
-  		padding:3px 15px !important;
- 		margin-left:10px !important;
-		}
   </style>	
 		
 	<script th:inline="javascript">
@@ -222,12 +198,11 @@
    <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	<div class="container-fluid">
-
+	
 		<div class="row">
-			<div class="col-1"></div>
- 			 <div class="col-10"><h3 th:text="'Gestión de elementos submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></h3></div>
-			<div class="col-1"></div>
+			<div class="titulo-pag2" th:text="'Gestión submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></div> 
 		</div>
+
 																				
 		<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">		
 			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"    th:field="*{idAccion}" />
@@ -259,7 +234,7 @@
 		<div class="row">
 			<div class="col-1"></div>
   			<div class="col-4">
-  				<h5 th:text="'Elementos del submenú ya activas:'"></h5>
+  				<div class="subtitulo-pag2" th:text="'Elementos del submenú ya activas:'"></div>
   				<div id="idDivSubMenu1Usu">
 					<div th:insert="gestionMenus/fragments/SubMenusSelecUsuario :: submenuselecusuario"></div>
 				</div>	
@@ -278,7 +253,7 @@
 				</div>
  			</div>
  			<div class="col-4">
- 				<h5 th:text="'Opciones del submenu disponibles'"></h5>
+ 				<div class="subtitulo-pag2" th:text="'Opciones del submenu disponibles'"></div>
  				<div th:insert="gestionMenus/fragments/SubMenusAplicaDispUsuario :: submenuapliselecusuario"></div>
  			</div>
  			<div class="col-1"></div>
@@ -287,12 +262,12 @@
 		<div class="row" style="border-top: 2px solid #000">
 			<div class="col-1"></div>
  			 <div class="col-10"> 
- 			   <p th:id="'idPMensaje'"> Los cambios en la asignación de menus se verán reflejados la próxima vez que entre el usuario a la apliciación</p>
   			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=*{beanCamposGesMenuUsu.idUsuario}, nomUsuario=${nomUsuario} )}" class="btn btn-primary" role="button">Volver</a>
  			 </div>
- 			 
  			<div class="col-1"></div>
  		</div>
+ 		
+ 		 <p th:id="'idPMensaje'">Los cambios en la asignación de submenus se verán reflejados la próxima vez que entre el usuario a la apliciación o pinchando icono Beigar</p>
 		
    </div>
    

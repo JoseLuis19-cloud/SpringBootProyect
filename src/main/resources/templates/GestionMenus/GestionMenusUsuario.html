@@ -224,7 +224,7 @@
 		 </form> 
 
   			<div class="col-5">
-  				<h5 th:text="'Opciones de menu activos para el usuario'"></h5>
+  			<div class="subtitulo-pag2" th:text="'Opciones de menu activos para el usuario'"></div>
   				<div id="idDivSubMenu1Usu">
 					<div th:insert="gestionMenus/fragments/MenusSelecUsuario :: menuselecusuario"></div>
 				</div>	
@@ -243,17 +243,18 @@
 				</div> 
  			</div>
  			<div class="col-4">
- 				<h5 th:text="'Opciones del menu principal disponibles'"></h5>
+ 				<div class="subtitulo-pag2" th:text="'Opciones del menu principal disponibles'"></div>
  				<div th:insert="gestionMenus/fragments/MenusAplicaDispUsuario :: menuapliselecusuario"></div>
  			</div>
  		 
  			<div class="col-1"> </div>
- 			<p th:id="'idPMensaje'">Los cambios en la asignación de menús se verán reflejados la siguiente vez que entre el usuario a la apliciación</p>
 		</div>
 		<a th:id="'idLinkVolver'" th:name="'linkVolver'" th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-colour-1" role="button">Volver</a>
  
       	<div id="idDivSubMenu1Usu" style="visibility:visible; width:100%"> </div>
 	</div>
+	
+	<p th:id="'idPMensaje'">Los cambios en la asignación de menús se verán reflejados la siguiente vez que entre el usuario a la apliciación o pinchando icono Beigar</p>
 	
   <!-- Modal Confirmación -->
   <div id="myModalConfirm" class="modal" tabindex="-1" role="dialog">
