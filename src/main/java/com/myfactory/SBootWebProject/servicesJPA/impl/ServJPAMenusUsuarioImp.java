@@ -83,5 +83,11 @@ public class ServJPAMenusUsuarioImp implements ServJPAMenusUsuario {
 			return  false;
 		  }
 	};
+
+//	@Override
+//	public void eliminarElementosSubMenuUsuario(Integer idMenu) {
+//		 menusUsuJPARepository.eliminarElementosSubmenu(idMenu);   
+//	};
+	
 	
 }

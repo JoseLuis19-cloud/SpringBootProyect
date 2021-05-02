@@ -59,5 +59,13 @@ public interface MenusUsuarioJPADao extends CrudRepository<MenusUsuario, Integer
 			+ "  JOIN mu.subMenu1 sm1"
 		 	+ "  WHERE sm1.idSubmenuNivel1 = :idSubMenu")
  	public Number numElementosSubMenuUsuario(@Param("idSubMenu") Integer idSubMenu);
+	
+	//Delete los registro de menu usuario que tengan el idMenu y tengan submenu por eso preguntamos si es idSubmenuNivel1 > 0
+//	@Query("DELETE from MenusUsuario mu"
+//			+ "  JOIN mu.menu me"
+//			+ "  JOIN mu.subMenu1 sm1"
+//		 	+ "  WHERE me.idMenu = :idMenu"
+//		 	+ "    AND sm1.idSubmenuNivel1 > 0")
+ //	public void eliminarElementosSubmenu(@Param("idMenu") Integer idMenu);
 
 }

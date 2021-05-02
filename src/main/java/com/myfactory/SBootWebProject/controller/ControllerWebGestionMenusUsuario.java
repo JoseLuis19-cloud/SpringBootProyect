@@ -409,6 +409,10 @@ public class ControllerWebGestionMenusUsuario {
 					 menusUsuario1.setSubMenu1(subMenuNivel1); 
 					 menusUsuario1.setMenu(menu1); 
 				     servJPAMenusUsuario.suprimirMenuUsuario(menusUsuario1) ;
+				     
+				     // Debemos borrar los submenus que puedan colgar de este menu usario
+				     // Probar este codigo. !!!!!!!!!!!!!!!!!!!!!!!!
+			//	     servJPAMenusUsuario.existeElementoSubMenuUsuario(beanCamposGesMenuUsu.getIdMenuUsu1());
 				 	}
 				 
 				 if (beanCamposGesMenuUsu.getIdMenu2() != null)
@@ -421,7 +425,6 @@ public class ControllerWebGestionMenusUsuario {
 					 menusUsuario2.setUser(user);
 					 menusUsuario2.setSubMenu1(subMenuNivel1); 
 					 menusUsuario2.setMenu(menu2);
-
 				     servJPAMenusUsuario.suprimirMenuUsuario(menusUsuario2) ;
 				 	}
 				 
