@@ -38,14 +38,10 @@ import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.model.FacturacionProyecto;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.ProyectoFacturacionMes;
-import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAFacturacionProyecto;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAProyecto;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Controller
 @RequestMapping("/gestionWeb/proyectos")

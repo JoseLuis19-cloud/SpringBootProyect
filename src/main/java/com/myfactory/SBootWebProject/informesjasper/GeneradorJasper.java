@@ -37,8 +37,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
-import com.myfactory.SBootWebProject.beanForm.BeanFacturaLineas;
 import com.myfactory.SBootWebProject.dto.EmpleadoDTO;
 import com.myfactory.SBootWebProject.dto.FacturaDTO;
 import com.myfactory.SBootWebProject.dto.FacturaLineaDTO;
@@ -47,7 +45,6 @@ import com.myfactory.SBootWebProject.dto.UserDTO;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FacturaLinea;
-import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
 @PropertySource(value = "classpath:/parametrosaplicacion.properties", ignoreResourceNotFound = true)

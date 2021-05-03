@@ -1073,8 +1073,6 @@ public class ControllerWebGestionMenusUsuario {
 		return listSubMenuApliWeb;
 	}
 	 
-	 
-	 
 	 private List <BeanMenuUsuarioWeb> obtenerMenusUsuarioActualizado(Long idUsuario) { 
 		boolean encontradoEnMenuAplicacion;
 		BeanMenuUsuarioWeb menuUsuApliWeb = null;

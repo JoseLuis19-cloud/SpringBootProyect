@@ -5,9 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-
 import com.myfactory.SBootWebProject.model.Cliente;
-import com.myfactory.SBootWebProject.model.MenusUsuario;
 
 public interface ClienteJPAPagRepository extends PagingAndSortingRepository<Cliente, Integer> {
 

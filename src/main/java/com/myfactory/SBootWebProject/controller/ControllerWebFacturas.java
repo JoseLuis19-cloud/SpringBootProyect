@@ -112,8 +112,7 @@ public class ControllerWebFacturas {
 		facturaWeb.setCodDivisaWeb(876);
 		facturaWeb.setDesDivisaWeb(ConstantesAplicacion.DES_ISO_DIVISA_EUR);
 		facturaWeb.setPorDescuentoWeb(10F);
-		 
-		facturaWeb.setImpFacturaWeb(1222F);
+		facturaWeb.setImpFacturaWeb(0F);
 	 
 		Iterable <FacturaSituacion> iterFacturaSitu = servicioJPA.getSituacionesFactura();
 		 
