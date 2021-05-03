@@ -73,20 +73,30 @@ public class ControllerWebAdministracion {
 	@Autowired
 	ServJPAUsuario servJPAUsuario;
 	@Autowired
-	BeanClienteWeb clienteWeb;
+	ServJPAAviso servJPAAviso;
 	@Autowired
 	CargarBeansDatos cargarBeansDatos;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
-
-	@Autowired
-	ServJPAAviso servJPAAviso;
 
 	protected static final Logger parentLogger = LogManager.getLogger();
 
 	// private final String UPLOAD_DIR = "./uploads/";
 	@Value("${path.MACOSDescargaFicheros}")
 	private String pathMacOS;
+	
+	@Value("${path.PathMACOSCopiaSeguridad}")
+	private String pathMacOSCopiaSeguridad;
+		
+	@Value("${path.PathWindowsCopiaSeguridad}")
+	private String pathWindowsOSCopiaSeguridad;	
+	
+	@Value("${path.PathMACOSMySQLDump}")
+	private String pathMacOSMySQLDump;
+		
+	@Value("${path.PathWindowsMySQLDump}")
+	private String pathWindowsOSMySQLDump;
+		
 
 	@GetMapping("/formcopiaseguridad")
 	public String formCopiaSeguiradad(Model modelo) {
@@ -251,7 +261,7 @@ public class ControllerWebAdministracion {
 	
 	public static void backupOpcion2() {
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
-        String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
+        String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", "BeigarBD" + currentDate, "sql");
         File backupFile = new File(backupPath);
        // if (!backupFile.exists()) {
             try {

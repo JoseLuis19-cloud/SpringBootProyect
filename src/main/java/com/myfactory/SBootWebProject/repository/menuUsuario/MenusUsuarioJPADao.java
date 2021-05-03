@@ -67,5 +67,19 @@ public interface MenusUsuarioJPADao extends CrudRepository<MenusUsuario, Integer
 //		 	+ "  WHERE me.idMenu = :idMenu"
 //		 	+ "    AND sm1.idSubmenuNivel1 > 0")
  //	public void eliminarElementosSubmenu(@Param("idMenu") Integer idMenu);
-
+	
+	
+	// DELETE posts
+	// FROM posts
+	// INNER JOIN projects ON projects.project_id = posts.project_id
+	// WHERE projects.client_id = :client_id
+	
+	// @Query(value = "DELETE FROM MENUS_USUARIO "
+	//			+ " + INNER JOIN MENU ON MENU.ID_MENU = MENU_USUARIO.COD_NIVEL_1_FK"
+	//	 		+ " + WHERE MENUS_USUARIO.COD_NIVEL_1_FK = ?1", nativeQuery = true)
+	
+	 @Query(value = "DELETE FROM MENUS_USUARIO "
+	 		+ " + WHERE MENUS_USUARIO.COD_NIVEL_1_FK = ?1"
+	 		+ " + AND MENUS_USUARIO.ID_USUARIO_FK = ?2", nativeQuery = true)
+	 public void eliminarElementosSubmenu(String emailAddress, Integer idUsuario);
 }

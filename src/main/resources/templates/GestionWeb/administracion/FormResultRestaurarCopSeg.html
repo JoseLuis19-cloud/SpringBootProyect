@@ -22,16 +22,16 @@
 
 		<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-	<div class="container-fluid" style="margin-top:0px;">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Administración</div>
 		</div>
-		<form th:action="@{/administracion/generarcopiaseguridad}" th:object="${datosCopSeg}" method="post">
+		<form th:action="@{/}" th:object="${datosCopSeg}" method="post">
 		<div class="row">
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Resultado de la Restaurarcion de la copia de seguridad</div>
+  				<div class="subtitulo-pag2">Resultado de la Restauración de la copia de seguridad</div>
   			</div>
   			<div class="col-1"></div>
   		</div>
