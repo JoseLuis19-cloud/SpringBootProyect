@@ -11,7 +11,6 @@
     
     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
    
  <style>
  
@@ -29,7 +28,6 @@
 	 
 	   /*<![CDATA[*/
 		var mostrarModalFoto = [[${mostrarModalFoto}]];
-	   /*]]>*/
 
 	 	$(document).ready(function(){
  
@@ -47,8 +45,13 @@
 			   {
 			    $("#myModalCambiarFoto").modal();
 			   }
+		 	
+		 	 if (accion != "") {
+		 		 alert("Ya ha sido el alta " + accion)
+			     $("#form").attr("action", accion);
+	 			}
 	 	 }); 
-	 	
+	   
 	</script>
 </head>
 
@@ -59,15 +62,17 @@
 	<div class="container-fluid">
  
 		<div class="row">
-			<div class="titulo-pag2">Gestión de Empleados</div>
+			<div class="titulo-pag2">Empleados</div>
 		</div>
-		<form th:action="@{/gestionWeb/empleados/altaempleado}" th:object="${empleadoWeb}" method="post">
+	
+  		<form th:action="@{/gestionWeb/empleados/altaempleado}" th:object="${empleadoWeb}" method="post">
+	
 		<div class="row">
 			<br>
-			<div class="alert alert-danger"  th:if="${errorValidacion}" th:text="${mensajeError}"></div>
+			<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2" th:text="'Datos Nuevo Empleado'"></div>
+  				<div class="subtitulo-pag2" th:text="'Datos nuevo empleado'"></div>
   			</div>
   			<div class="col-1"></div>
   		</div>	
@@ -186,15 +191,23 @@
  		<div class="row">
 			<div class="col-1"></div>
   			<div class="col-10">
-        		<div class="col-md-12 bg-light text-right">
+        		<div th:if="${nuevaAlta}" class="col-md-12 bg-light text-right">
            		 	<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a>
            	 	 	<button type="submit" class="btn btn-primary">Crear</button>
         		</div>
+        	
+        		<div th:if="${! nuevaAlta}" class="col-md-12 bg-light text-right">
+           		 	<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Terminar</a>
+           	 	 	<button type="submit" class="btn btn-primary">Actualizar</button>
+        		</div>
+        		
+        		
    			</div>
    			<div class="col-1"></div>
     	</div>
  	  </form>
  	</div>
+ 	
 	<!-- Modal -->
     <div id="myModalAltaUsu" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
   		<div class="modal-dialog modal-xl">
@@ -227,7 +240,7 @@
 						</div>
 
 						<div class="col-md-3 mb-3">
-						    <label for="validationFecAltaUsu">Fecha Alta Usuario</label>
+						    <label for="validationFecAltaUsu">Fecha alta usuario</label>
 							<div class="input-group">
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i> 
@@ -269,7 +282,7 @@
     		<div class="container">	
                	 <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
                	  <input type="hidden" th:id="'idIdEmpleado'" th:name="'idEmpleado'" th:value="${idEmpleadoNuevo}" /> 
-               	    <p th:id="'idP1'"  th:text="'El tamaño de la foto no debe superar 65.535 bytes'"></p>
+               	    <p th:id="'idP1'"  th:text="'El tamaño de la foto no puede superar 65.535 bytes'"></p>
                  	 <div class="form-group">
                    	  <input type="file" name="file" class="form-control-file">
                   	 </div>

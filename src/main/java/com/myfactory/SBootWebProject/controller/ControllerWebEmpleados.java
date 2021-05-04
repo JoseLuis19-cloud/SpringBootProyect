@@ -225,6 +225,9 @@ public class ControllerWebEmpleados {
 	
 	@GetMapping("/formaltaempleado")
 	public String formAltaEmpleado(Model modelo)  {
+		boolean nuevaAlta = true;
+		
+		
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		
 		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
@@ -243,6 +246,9 @@ public class ControllerWebEmpleados {
 		   
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		
+		modelo.addAttribute("nuevaAlta" , nuevaAlta);
+	//	modelo.addAttribute("urlActualizacion" , "");  
 		
 		return "GestionWeb/empleados/FormAltaEmpleado";
 	}
@@ -263,12 +269,14 @@ public class ControllerWebEmpleados {
 		BeanErrorValidacion datosError = null;
 		Empleado empleadoNuevo = null;
 		boolean esModif = false;
+		boolean nuevaAlta = true;
+		
+		modelo.addAttribute("nuevaAlta" , nuevaAlta);
 	   
 		if (! resultValidacion.hasErrors())
 			{
 			try
 			{
-	
 			 Map<String, Object> resultValEmpleado;
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo, esModif);
 
@@ -285,9 +293,13 @@ public class ControllerWebEmpleados {
 				 
 			  // Dar de alta Empleado
 				 empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);	
-					
+				 
+				 redirectAttrs.addAttribute("idEmpleado", empleadoNuevo.getIdEmpleado());
+				 
 				 modelo.addAttribute("errorValidacion" , false);
 				 modelo.addAttribute("mensajeError", "" );
+				 
+				return "redirect:/gestionWeb/empleados/formeditarempleado";
 			    }
 			}
 			catch (Exception e)
@@ -382,6 +394,8 @@ public class ControllerWebEmpleados {
     public String uploadFile(@RequestParam("file") MultipartFile file,  @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado, RedirectAttributes attributes, Model modelo) {
 
 		byte[] arrayBytesImagen = null;
+		boolean nuevaAlta = false;
+		
      // check if file is empty
         if (file.isEmpty()) {
             attributes.addFlashAttribute("message", "Seleccione una imagen a enviar.");
@@ -414,6 +428,8 @@ public class ControllerWebEmpleados {
 		modelo.addAttribute("imgFoto", this.getImgData(arrayBytesImagen) );
 		
 		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
+		modelo.addAttribute("nuevaAlta" , nuevaAlta);
+	   
 		
 		 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);

@@ -49,10 +49,8 @@ public class AppController {
 	private BeanIdUsuario beanIdUsusario;
 	
 	 
-	
 //	@Value("${path.servicioEmai}")
 //	private String servidorEmail;
-
 	@RequestMapping("/")
 	public String viewHomePage(Model modelo) {
 		BeanMenuUsuarioSession beanMenuPrinUsuario = null;
