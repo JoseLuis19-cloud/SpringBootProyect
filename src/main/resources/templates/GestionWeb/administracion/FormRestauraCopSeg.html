@@ -3,11 +3,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
   
-	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
-  	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
     
     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
@@ -31,58 +28,57 @@
 			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Restauracion de la de seguridad</div>
+  				<div class="subtitulo-pag2">Restauración de la copia de seguridad</div>
   			</div>
   			<div class="col-1"></div>
   		</div>
   		<br>
-  			<div class="row">
-			<br>
-			<div class="col-2"></div>
-  			<div class="col-8" >
+  		<div class="row">
+			<div class="col-1"></div>
+  			<div class="col-10" style="border-bottom: 2px solid #000" >
   				<table class="table table-striped table-sm table-condensed">
 						<thead class="thead-light">
 						<tr>
-							<th th:text="'Seleccione la copia de de seguridad a restaurar'"></th>
-							<th th:text="'fecha'"></th>
+							<th th:text="'Marque la copia de seguridad a restaurar'"></th>
+							<th th:text="'Nombre fichero'"></th>
+							<th th:text="'Fecha de creación'"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${listFicheros.empty}">
-							<td colspan="12">No se han encontrado copias seguridad de  Beigar todavía</td>
+							<td colspan="3">No se han encontrado copias seguridad de  Beigar a restaurar</td>
 						</tr>
-						<tr th:each="fichero:${listFicheros}">
+
+						<tr th:each="fichero, iterStat :${listFicheros}">
+							<td>
+								 <div style="display: flex; justify-content: center; align-items: center;">
+									<input type="checkbox" th:id="'idCheckCopSeg' + ${iterStat.index}" th:name="checksCopSeg[]" th:checked="false" th:value="${fichero.nomFichero}" class="btn btn-primary btn-sm"/>											
+							 	</div>
+							</td>
 							<td th:text="${fichero.nomFichero}"></td>
 							<td th:text="${fichero.fechaCreacion}"></td>
 						</tr>
 					</tbody>
 				</table> 
   			</div>
-  			<div class="col-2"></div>
+  			<div class="col-1"></div>
   		</div>
-  		<br>
-  		<br>
   		<br>
   		<div class="row">
-			
-			<div class="col-2"></div>
-  			<div class="col-8" >
-  				<strong>Nota</strong> 
-  				<p>Realiza la restauracion copia de la base de datos en en el siguiente path: </p>
-				<p>Es recomendable para hacer la restauracion de la copia de seguridad que no está utilizando ningún usuario la aplicación</p>
-  			</div>
-  			<div class="col-2"></div>
-  		</div>
-		 
- 		<div class="row">
  			<div class="col-1"></div>
- 			<div class="col-2"></div>
- 			<div class="col-5"></div>
- 			<div class="col-3">	
-				<button type="submit" class="btn btn-primary">Restaurar Copia Seguridad</button>
- 			</div>
+ 			<div class="col-10 text-right"><button type="submit" class="btn btn-primary">Restaurar Copia Seguridad</button></div>
  			<div class="col-1"></div>
 		</div>
+  		<div class="row">
+			<div class="col-1"></div>
+  			<div class="col-10" >
+  				<strong>Nota:</strong> 
+  				<p th:text="'Realiza la restauración copia de la base de datos del siguiente path:  ' + ${pathDestinoCopia}">  </p>
+				<p>Es recomendable para hacer la restauración de la copia de seguridad, que no esté utilizando ningún usuario la aplicación</p>
+  			</div>
+  			<div class="col-1"></div>
+  		</div>
+ 		
  		</form>
  	</div>
 	

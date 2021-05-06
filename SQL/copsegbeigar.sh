@@ -8,7 +8,10 @@ now=$(date +"%m_%d_%Y")
 printf "%s\n" $now
 today=$(date +"%Y_%m_%d")
 
-echo today
+hora=$(date +"%I_%M_%S")
 
-/Applications/XAMPP/bin/mysqldump -u root -proot19 springboot > /Users/UsuarioJoseLuis/Documents/BeigarBD_${today}.sql
+echo today
+echo hora
+
+/Applications/XAMPP/bin/mysqldump -u root -proot19 springboot > /Users/UsuarioJoseLuis/Documents/BeigarBD_${today}_${hora}.sql
          

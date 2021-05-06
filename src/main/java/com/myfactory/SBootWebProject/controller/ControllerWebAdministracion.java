@@ -141,6 +141,8 @@ public class ControllerWebAdministracion {
 	            }
 	        }
 	    }
+	    
+	    modelo.addAttribute("pathDestinoCopia", pathMacOSCopiaSeguridad);
 	    modelo.addAttribute("listFicheros", listFicheros);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	    
@@ -161,21 +163,21 @@ public class ControllerWebAdministracion {
 	public String formRestaurarCopSeg(Model modelo) {
 		 List<BeanFicheroSO> listFicheros = new ArrayList<BeanFicheroSO>();
 	 
-		    File carpeta = new File("/Users/UsuarioJoseLuis/Documents/");
-		    File[] archivos;
-		    if(carpeta.exists()) {
-		        if(carpeta.isDirectory()) {
+		 File carpeta = new File("/Users/UsuarioJoseLuis/Documents/");
+		 File[] archivos;
+		 if (carpeta.exists()) {
+		    if(carpeta.isDirectory()) {
 		        
-		            archivos = carpeta.listFiles();
-		            Arrays.sort(archivos, Comparator.comparingLong(File::lastModified).reversed());
+		       archivos = carpeta.listFiles();
+		       Arrays.sort(archivos, Comparator.comparingLong(File::lastModified).reversed());
 		            
 		            for(int i=0; i<archivos.length; i++) {
 		                if(archivos[i].getName().toLowerCase().endsWith(".sql")) 
 		                {
-		                  System.out.println(archivos[i].getName());  
-		                  
-		                  BeanFicheroSO ficheroSO = new BeanFicheroSO();
-		                  
+		                	
+		                 BeanFicheroSO ficheroSO = new BeanFicheroSO();
+				         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		                 
 		                  try 
 		                  {
 		                  Path fileObj = Paths.get("/Users/UsuarioJoseLuis/Documents/" + archivos[i].getName());
@@ -195,9 +197,11 @@ public class ControllerWebAdministracion {
 		            }
 		        }
 		    }
-		    modelo.addAttribute("listFicheros", listFicheros);
 		    
+		 modelo.addAttribute("pathDestinoCopia", pathMacOSCopiaSeguridad);
+		 modelo.addAttribute("listFicheros", listFicheros);
 		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		 
 		return "GestionWeb/administracion/FormRestauraCopSeg";
 	}
 
