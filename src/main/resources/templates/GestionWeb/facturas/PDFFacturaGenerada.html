@@ -2,9 +2,8 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
- 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
-	
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+  	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 	<style> 	
 	
   </style>
@@ -12,17 +11,33 @@
 
 <body>
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
-	<h3 th:text="'Factura PDF Generad en la Aplicación'"></h3>
+	
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-10">
-				<a th:id="'idLinkPDF1'" th:name="'linkPDF1'" class="btn btn-primary btn-sm" th:href="@{file:///~Users/UsuarioJoseLuis/Documents/InformeUsuarios.pdf}">Informe Factura</a>
-				<a th:id="'idLinkPDF2'" th:name="'linkPDF2'" class="btn btn-primary btn-sm" th:href="@{/gestionWeb/facturas/downloadFilePDFFactura}" th:target="_blank">Factura PDF por controller</a>
-			</div>
-			<div class="col-sm-1"></div>
+	 <div class="row">
+		<div class="titulo-pag2" th:text="'Facturación '"></div>
+	 </div>
+	
+	
+	<div class="row">
+		<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
+		<div class="col-2"></div>
+  		<div class="col-8" >
+  			<div class="subtitulo-pag2" th:text="'Descargar Factura'"></div>
+  		</div>
+  		<div class="col-2"></div>
+  	</div>	
+
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<!-- <a th:id="'idLinkPDF1'" th:name="'linkPDF1'" class="btn btn-primary btn-sm" th:href="@{file:///~Users/UsuarioJoseLuis/Documents/InformeUsuarios.pdf}">Informe Factura</a>  -->
+			 <label for="labelNumFactura" th:text="'Imprimir Num. Factura ' + ${numFactura}"></label>
+			 
+			<a th:id="'idLinkPDF2'" th:name="'linkPDF2'" class="btn btn-primary btn-sm" th:href="@{/gestionWeb/facturas/downloadFilePDFFactura(numFactura=${numFactura})}" th:target="_blank">Factura en PDF</a>
 		</div>
+		<div class="col-sm-2"></div>
 	</div>
+  </div>
 	
 </body>
 </html>

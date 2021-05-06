@@ -184,7 +184,7 @@ public class ControllerWebAdministracion {
 		                  BasicFileAttributes attr = Files.readAttributes(fileObj, BasicFileAttributes.class);
 		                  
 		                  ficheroSO.setNomFichero(archivos[i].getName());
-		                  ficheroSO.setFechaCreacion(attr.creationTime().toString());
+		                  ficheroSO.setFechaCreacion(sdf.format( attr.creationTime().toMillis() ));
 							
 					      listFicheros.add(ficheroSO);
 		                  }

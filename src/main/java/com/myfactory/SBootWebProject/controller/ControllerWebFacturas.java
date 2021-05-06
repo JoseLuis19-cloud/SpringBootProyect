@@ -492,7 +492,8 @@ public class ControllerWebFacturas {
 		
 		
 		@RequestMapping("/generarpdffactura")
-		public String generarPDFFActura(Model modelo, @RequestParam(value = "idFactura", required = true) Integer idFactura) {
+		public String generarPDFFActura(Model modelo, @RequestParam(value = "idFactura", required = true) Integer idFactura,
+													  @RequestParam(value = "numFactura", required = true) String numFactura ) {
 		   try
 		    {
 		     Factura factura = servJPAFactura.buscarIdFactura( idFactura).get() ;
@@ -500,11 +501,14 @@ public class ControllerWebFacturas {
 		     GeneradorJasper genInfoJasper = new GeneradorJasper();
 		     
 		     JasperPrint reportGenerado = genInfoJasper.generarPDFFactura(factura );
-		     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "FacturaBeigar.pdf");
+		     // Concatenar el numero de factura en el nombre numFactura
+		     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf");
 		     
 		    // JasperViewer viewer = new JasperViewer(reportGenerado);
 		    // viewer.setVisible(true);
-		    
+		     
+		     modelo.addAttribute("numFactura", numFactura);
+				
 		    } 
 		   catch (JRException ex)
 		     {
@@ -516,11 +520,12 @@ public class ControllerWebFacturas {
 			return "gestionWeb/facturas/PDFFacturaGenerada";
 		}
 		
-		@RequestMapping(value = "downloadFilePDFFactura", method = RequestMethod.GET)
-	    public StreamingResponseBody getSteamingFile1(HttpServletResponse response) throws IOException {
+		@RequestMapping(value = "downloadFilePDFFactura", method = RequestMethod.GET
+				)
+	    public StreamingResponseBody getSteamingFile1(HttpServletResponse response, @RequestParam(value = "numFactura", required = true) String numFactura) throws IOException {
 	        response.setContentType("application/pdf");
 	      //  response.setHeader("Content-Disposition", "attachment; filename=\"demo.pdf\"");
-	        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "FacturaBeigar.pdf"));
+	        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf"));
 	        
 	        return outputStream -> {
 	            int nRead;

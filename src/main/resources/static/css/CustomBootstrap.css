@@ -69,7 +69,7 @@ $mynewcolor:#474747;
 
 .titulo-pag2 {
   color: #0c5378;
-  font: 31px Arial Black, sans-serif;
+  font: 30px Arial Black, sans-serif;
   font-weight: bold letter-spacing: 0.05em;
   background:#d1ecf1;
   border-radius: 0;
@@ -97,7 +97,7 @@ $mynewcolor:#474747;
 
 .subtitulo-pag2 {
   color: #004E64;
-  font: 26px Verdana, sans-serif;
+  font: 26px Gill Sans, sans-serif;
   font-weight: bold 900 letter-spacing: 0.05em;
   border-radius: 0;
   display:inline-block;
