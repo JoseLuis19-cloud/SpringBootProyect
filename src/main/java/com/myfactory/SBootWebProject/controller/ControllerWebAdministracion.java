@@ -97,7 +97,7 @@ public class ControllerWebAdministracion {
 	public String generarCopiaSeguridad(Model modelo) {
 		// backupBDMySQL();
 		
-		backupOpcion2();
+		backupOpcionBuena();
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		return "GestionWeb/administracion/FormResulCopiaSeguridad";
@@ -115,7 +115,7 @@ public class ControllerWebAdministracion {
 	@RequestMapping("/generarcrestaurarcioncopseg")
 	public String generarRestaurarCopSeg(Model modelo) {
 
-		restaurarCopiSegMySQL();
+		restaurarMySQLBueno();
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
@@ -282,6 +282,59 @@ public class ControllerWebAdministracion {
     //	parentLogger.error("Se realizo la copia de seguridad ya");
    // }
 	}
+	
+	
+	public static void restaurarMySQLBueno() {
+          String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+
+            try {
+            String[] comandoUnixArr2 = new String[] { "sh", "/Users/UsuarioJoseLuis/Documents/copsegbeigar.sh"};
+          
+            ProcessBuilder pb = new ProcessBuilder(comandoUnixArr2);
+         //   Map<String, String> env = pb.environment();
+         //   env.put("VAR1", "myValue");
+         //   env.remove("OTHERVAR");
+         //   env.put("VAR2", env.get("VAR1") + "suffix");
+         //   pb.directory(new File("myDir"));
+              Process p = pb.start();
+              p.waitFor();
+              
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+	
+
+	public static void restoreMySQLBueno() {
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+      // String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", "BeigarBD" + currentDate, "sql");
+      // File backupFile = new File(backupPath);
+     // if (!backupFile.exists()) {
+          try {
+        //  backupFile.createNewFile();
+
+ 
+          String[] comandoUnixArr2 = new String[] { "sh", "/Users/UsuarioJoseLuis/Documents/restorecopsegbeigar.sh"};
+           
+          ProcessBuilder pb = new ProcessBuilder(comandoUnixArr2);
+       //   Map<String, String> env = pb.environment();
+       //   env.put("VAR1", "myValue");
+       //   env.remove("OTHERVAR");
+       //   env.put("VAR2", env.get("VAR1") + "suffix");
+       //   pb.directory(new File("myDir"));
+            Process p = pb.start();
+            p.waitFor();
+            
+      } catch (IOException e1) {
+          e1.printStackTrace();
+      } catch (InterruptedException e) {
+          e.printStackTrace();
+      }
+	}
+	
+	
 
 	private static void restaurarCopiSegMySQL() {
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
