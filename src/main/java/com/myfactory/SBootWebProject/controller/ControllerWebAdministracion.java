@@ -7,17 +7,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Blob;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.Scanner;
 
 import javax.validation.Valid;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +40,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.myfactory.SBootWebProject.beanForm.BeanEmpAnadir;
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
+import com.myfactory.SBootWebProject.beanForm.BeanFicheroSO;
 import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.model.Aviso;
@@ -87,9 +95,55 @@ public class ControllerWebAdministracion {
 		
 
 	@GetMapping("/formcopiaseguridad")
-	public String formCopiaSeguiradad(Model modelo) {
-		modelo.addAttribute("datosCopSeg", "1");
-
+	public String formCopiaSeguridad(Model modelo) {
+		
+		
+	 //	Scanner sc = new Scanner(System.in);
+	//	System.out.println("Escribe la ruta: ");
+	//    String ruta = sc.nextLine();
+	//    System.out.println("Escribe la extension: ");
+	  //  String ext = sc.nextLine();
+		
+	//  public List<BeanEmpAnadir> listBeanEmpUTE = new ArrayList<BeanEmpAnadir>();
+	 
+		 List<BeanFicheroSO> listFicheros = new ArrayList<BeanFicheroSO>();
+	    
+	    File carpeta = new File("/Users/UsuarioJoseLuis/Documents/");
+	    File[] archivos;
+	    if(carpeta.exists()) {
+	        if(carpeta.isDirectory()) {
+	            archivos = carpeta.listFiles();
+	            
+	            Arrays.sort(archivos, Comparator.comparingLong(File::lastModified).reversed());
+	            
+	            for(int i=0; i<archivos.length; i++) {
+	                if(archivos[i].getName().toLowerCase().endsWith(".sql")) 
+	                {
+		               BeanFicheroSO ficheroSO = new BeanFicheroSO();
+		               SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		                  
+		               try 
+		                  {
+		                  Path fileObj = Paths.get("/Users/UsuarioJoseLuis/Documents/" + archivos[i].getName());
+		                  BasicFileAttributes attr = Files.readAttributes(fileObj, BasicFileAttributes.class);
+		                  
+		                  ficheroSO.setNomFichero(archivos[i].getName());
+		                  ficheroSO.setFechaCreacion(sdf.format( attr.creationTime().toMillis() ));
+							
+					      listFicheros.add(ficheroSO);
+		                  }
+		                  catch (Exception e)
+		                  {
+		                	  
+		                  }
+	                }
+	                // lo Metemos en un list
+	            }
+	        }
+	    }
+	    modelo.addAttribute("listFicheros", listFicheros);
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	    
 		return "GestionWeb/administracion/FormCopiaSeguridad";
 	}
 
@@ -97,25 +151,60 @@ public class ControllerWebAdministracion {
 	public String generarCopiaSeguridad(Model modelo) {
 		// backupBDMySQL();
 		
-		backupOpcionBuena();
+		copsegMySQLBueno();
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		return "GestionWeb/administracion/FormResulCopiaSeguridad";
 	}
 
 	@GetMapping("/formrestaurarcopiaseg")
-	public String formRestaurarCopSeg(Model modelo,
-			@RequestParam(value = "idCliente", required = false) String idCliente) {
-
-		modelo.addAttribute("datosCopSeg", "2");
-
-		return "GestionWeb/administracion/FormRestaurarCopSeg";
+	public String formRestaurarCopSeg(Model modelo) {
+		 List<BeanFicheroSO> listFicheros = new ArrayList<BeanFicheroSO>();
+	 
+		    File carpeta = new File("/Users/UsuarioJoseLuis/Documents/");
+		    File[] archivos;
+		    if(carpeta.exists()) {
+		        if(carpeta.isDirectory()) {
+		        
+		            archivos = carpeta.listFiles();
+		            Arrays.sort(archivos, Comparator.comparingLong(File::lastModified).reversed());
+		            
+		            for(int i=0; i<archivos.length; i++) {
+		                if(archivos[i].getName().toLowerCase().endsWith(".sql")) 
+		                {
+		                  System.out.println(archivos[i].getName());  
+		                  
+		                  BeanFicheroSO ficheroSO = new BeanFicheroSO();
+		                  
+		                  try 
+		                  {
+		                  Path fileObj = Paths.get("/Users/UsuarioJoseLuis/Documents/" + archivos[i].getName());
+		                  BasicFileAttributes attr = Files.readAttributes(fileObj, BasicFileAttributes.class);
+		                  
+		                  ficheroSO.setNomFichero(archivos[i].getName());
+		                  ficheroSO.setFechaCreacion(attr.creationTime().toString());
+							
+					      listFicheros.add(ficheroSO);
+		                  }
+		                  catch (Exception e)
+		                  {
+		                	  
+		                  }
+		                }
+		                // lo Metemos en un list
+		            }
+		        }
+		    }
+		    modelo.addAttribute("listFicheros", listFicheros);
+		    
+		 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		return "GestionWeb/administracion/FormRestauraCopSeg";
 	}
 
 	@RequestMapping("/generarcrestaurarcioncopseg")
 	public String generarRestaurarCopSeg(Model modelo) {
 
-		restaurarMySQLBueno();
+		restoreMySQLBueno();
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
@@ -284,7 +373,7 @@ public class ControllerWebAdministracion {
 	}
 	
 	
-	public static void restaurarMySQLBueno() {
+	public static void copsegMySQLBueno() {
           String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
 
             try {

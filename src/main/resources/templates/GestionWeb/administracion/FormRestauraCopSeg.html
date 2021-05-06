@@ -22,7 +22,7 @@
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-	<div class="container-fluid" style="margin-top:0px;">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Administración</div>
 		</div>
@@ -36,14 +36,27 @@
   			<div class="col-1"></div>
   		</div>
   		<br>
-  		<div class="row">
+  			<div class="row">
 			<br>
 			<div class="col-2"></div>
   			<div class="col-8" >
-  				<strong>Restaurar la  de Seguridad realizada el </strong> 
-  				<p>Copia de Seguridad de Beigar.db realizada el 2021/02/01 </p>
-  				<p>Copia de Seguridad de Beigar.db realizada el 2021/03/01 </p>
-				<p>Copia de Seguridad de Beigar.db realizada el 2021/04/01 </p> 
+  				<table class="table table-striped table-sm table-condensed">
+						<thead class="thead-light">
+						<tr>
+							<th th:text="'Seleccione la copia de de seguridad a restaurar'"></th>
+							<th th:text="'fecha'"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${listFicheros.empty}">
+							<td colspan="12">No se han encontrado copias seguridad de  Beigar todavía</td>
+						</tr>
+						<tr th:each="fichero:${listFicheros}">
+							<td th:text="${fichero.nomFichero}"></td>
+							<td th:text="${fichero.fechaCreacion}"></td>
+						</tr>
+					</tbody>
+				</table> 
   			</div>
   			<div class="col-2"></div>
   		</div>
