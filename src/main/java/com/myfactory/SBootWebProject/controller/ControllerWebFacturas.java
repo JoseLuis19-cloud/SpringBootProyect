@@ -80,8 +80,8 @@ public class ControllerWebFacturas {
 	@Autowired
 	BeanIdUsuario beanIdUsuario;
 	
-	@Value("${path.MACOSGeneracionPDF}")
-	private String pathDescargaPDFMacOS;
+	@Value("${path.MACOSGeneracionFacturasPDF}")
+	private String pathDescargaFacturasPDFMacOS;
 
 	@GetMapping("/formeditarfactura")
 	public String formEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = false) String idFactura)  {
@@ -502,7 +502,7 @@ public class ControllerWebFacturas {
 		     
 		     JasperPrint reportGenerado = genInfoJasper.generarPDFFactura(factura );
 		     // Concatenar el numero de factura en el nombre numFactura
-		     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaPDFMacOS + "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf");
+		     JasperExportManager.exportReportToPdfFile(reportGenerado, pathDescargaFacturasPDFMacOS + "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf");
 		     
 		    // JasperViewer viewer = new JasperViewer(reportGenerado);
 		    // viewer.setVisible(true);
@@ -525,7 +525,7 @@ public class ControllerWebFacturas {
 	    public StreamingResponseBody getSteamingFile1(HttpServletResponse response, @RequestParam(value = "numFactura", required = true) String numFactura) throws IOException {
 	        response.setContentType("application/pdf");
 	      //  response.setHeader("Content-Disposition", "attachment; filename=\"demo.pdf\"");
-	        InputStream inputStream = new FileInputStream(new File(pathDescargaPDFMacOS + "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf"));
+	        InputStream inputStream = new FileInputStream(new File(pathDescargaFacturasPDFMacOS + "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf"));
 	        
 	        return outputStream -> {
 	            int nRead;
