@@ -142,7 +142,7 @@ public class ControllerWebGestionMenus {
 		modelo.addAttribute("errorAltaElemento", false);  
 		
 		elemenSubMenuNuevo.setIdMenu(new Integer(idMenu));
-		elemenSubMenuNuevo.setNumOrdenSubMenu(numRegSubMenu.intValue() + 1 );
+		elemenSubMenuNuevo.setNumOrdenSubMenu(listSubMenu.size() + 1 );
 		elemenSubMenuNuevo.setIndActivoSubMenu(false);
 		
 		modelo.addAttribute("elemenSubMenuNuevoWeb", elemenSubMenuNuevo);
