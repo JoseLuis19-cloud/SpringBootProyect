@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,17 +38,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.myfactory.SBootWebProject.beanForm.BeanEmpAnadir;
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanFicheroSO;
 import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.model.Aviso;
-import com.myfactory.SBootWebProject.model.Empleado;
-import com.myfactory.SBootWebProject.model.Pais;
-import com.myfactory.SBootWebProject.model.PuestoTrabajo;
-import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.model.TpoFrecuRepeticion;
 import com.myfactory.SBootWebProject.model.User;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
@@ -97,16 +90,13 @@ public class ControllerWebAdministracion {
 	@GetMapping("/formcopiaseguridad")
 	public String formCopiaSeguridad(Model modelo) {
 		
-		
-	 //	Scanner sc = new Scanner(System.in);
+	//	Scanner sc = new Scanner(System.in);
 	//	System.out.println("Escribe la ruta: ");
-	//    String ruta = sc.nextLine();
-	//    System.out.println("Escribe la extension: ");
-	  //  String ext = sc.nextLine();
-		
-	//  public List<BeanEmpAnadir> listBeanEmpUTE = new ArrayList<BeanEmpAnadir>();
-	 
-		 List<BeanFicheroSO> listFicheros = new ArrayList<BeanFicheroSO>();
+	//  String ruta = sc.nextLine();
+	//  System.out.println("Escribe la extension: ");
+	//  String ext = sc.nextLine();
+	
+		List<BeanFicheroSO> listFicheros = new ArrayList<BeanFicheroSO>();
 	    
 	    File carpeta = new File("/Users/UsuarioJoseLuis/Documents/");
 	    File[] archivos;
@@ -151,7 +141,6 @@ public class ControllerWebAdministracion {
 
 	@RequestMapping("/generarcopiaseguridad")
 	public String generarCopiaSeguridad(Model modelo) {
-		// backupBDMySQL();
 		
 		copsegMySQLBueno();
 
@@ -210,8 +199,7 @@ public class ControllerWebAdministracion {
 		restoreMySQLBueno();
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-
-		return "GestionWeb/administracion/FormResultRestaurarCopSeg";
+		return "GestionWeb/administracion/FormResulRestaurarCopSeg";
 	}
 
 	@GetMapping("/formcreartarea")
@@ -289,49 +277,12 @@ public class ControllerWebAdministracion {
 		}
 		else 
 		{
-
 		//	datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
-	//		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
+		//	datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
 
 			modelo.addAttribute("datosTareaWeb", beanTareaWeb);
 
 			return "GestionWeb/administracion/FormCrearTarea";
-		}
-	}
-
-	private static void backupBDMySQL() {
-		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
-		String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");
-		File backupFile = new File(backupPath);
-		// if (!backupFile.exists()) {
-		try {
-			backupFile.createNewFile();
-			// String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump
-			// -u%s -p%s %s","root","","springboot");
-
-			String mysqlCom2 = String.format(
-					"/Applications/XAMPP/xamppfiles/bin/mysqldump -u root -p springboot > /Users/UsuarioJoseLuis/Documents/copseg2.sql");
-			// String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo
-			// -S", mysqlCom};
-
-			// String[] command = new String[] { "/bin/bash", "-c" , "ls >
-			// /Users/UsuarioJoseLuis/Documents/lista12.txt"};
-
-			// String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo
-			// -S /sbin/ifconfig > /Users/UsuarioJoseLuis/Documents/lista15.txt" };
-			String[] command2 = new String[] { "/bin/bash", "-c", "echo 19mendez70| sudo -S ", mysqlCom2 };
-
-			ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command2));
-			processBuilder.redirectError(Redirect.INHERIT);
-			processBuilder.redirectOutput(Redirect.to(backupFile));
-			Process process = processBuilder.start();
-			process.waitFor();
-			System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
-			// parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -342,14 +293,10 @@ public class ControllerWebAdministracion {
        // if (!backupFile.exists()) {
             try {
             backupFile.createNewFile();
-         //   String mysqlCom=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u%s -p%s %s","root","","springboot");
-            
             String mysqlCom2=String.format("/Applications/XAMPP/xamppfiles/bin/mysqldump -u root -p springboot > /Users/UsuarioJoseLuis/Documents/copseg__2.sql");
-          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S",  mysqlCom};
-            
-           // String[] command = new String[] { "/bin/bash", "-c" , "ls > /Users/UsuarioJoseLuis/Documents/lista12.txt"};
-            
-          //  String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S /sbin/ifconfig > /Users/UsuarioJoseLuis/Documents/lista15.txt" };
+         // String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S",  mysqlCom};    
+         // String[] command = new String[] { "/bin/bash", "-c" , "ls > /Users/UsuarioJoseLuis/Documents/lista12.txt"};
+         //String[] command = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S /sbin/ifconfig > /Users/UsuarioJoseLuis/Documents/lista15.txt" };
             String[] command2 = new String[] { "/bin/bash", "-c" , "echo 19mendez70| sudo -S ", mysqlCom2 };
    
             
@@ -373,33 +320,37 @@ public class ControllerWebAdministracion {
 	
 	
 	public static void copsegMySQLBueno() {
-          String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+         // String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
 
-            try {
-            String[] comandoUnixArr2 = new String[] { "sh", "/Users/UsuarioJoseLuis/Documents/copsegbeigar.sh"};
+       try 
+         {
+           String[] comandoUnixArr2 = new String[] { "sh", "/Users/UsuarioJoseLuis/Documents/copsegbeigar.sh"};
           
-            ProcessBuilder pb = new ProcessBuilder(comandoUnixArr2);
+           ProcessBuilder pb = new ProcessBuilder(comandoUnixArr2);
          //   Map<String, String> env = pb.environment();
          //   env.put("VAR1", "myValue");
          //   env.remove("OTHERVAR");
          //   env.put("VAR2", env.get("VAR1") + "suffix");
          //   pb.directory(new File("myDir"));
-              Process p = pb.start();
-              p.waitFor();
+            Process p = pb.start();
+            p.waitFor();
               
-        } catch (IOException e1) {
+        } 
+       catch (IOException e1) 
+          {
             e1.printStackTrace();
-        } catch (InterruptedException e) {
+         } 
+       catch (InterruptedException e)
+         {
             e.printStackTrace();
-        }
+         }
 	}
-	
 
 	public static void restoreMySQLBueno() {
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
-      // String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", "BeigarBD" + currentDate, "sql");
-      // File backupFile = new File(backupPath);
-     // if (!backupFile.exists()) {
+       // String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+       // String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", "BeigarBD" + currentDate, "sql");
+       // File backupFile = new File(backupPath);
+       // if (!backupFile.exists()) {
           try {
         //  backupFile.createNewFile();
 
@@ -422,8 +373,6 @@ public class ControllerWebAdministracion {
       }
 	}
 	
-	
-
 	private static void restaurarCopiSegMySQL() {
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
 		String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", currentDate, "sql");

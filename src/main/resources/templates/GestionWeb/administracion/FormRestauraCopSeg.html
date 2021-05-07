@@ -11,15 +11,32 @@
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
   
  	<script th:inline="javascript">
+ 	
+ 	 var arrValueCheckCopSeg = [];
 	
 	 $(document).ready(function(){
 		
 		$("#botonRestaurar").click(function(){ 
-			$("#modalConfirRestaurarCopSeg").modal();
+			
+			if (arrValueCheckCopSeg.length == 1)
+	    	   {
+			    $("#modalConfirRestaurarCopSeg").modal();
+	    	   }
+			  else
+				{
+				 if (arrValueCheckCopSeg.length == 0)
+					{
+				 	 alert("Seleccione una copia de seguridad a restaurar");
+				 	 }
+				   else
+					 {
+					   alert("Seleccione solo una copia de seguridad a restaurarar");
+					 }
+				}
 		 });
 		
 		$('[name="checksCopSeg[]"]').click(function() {
-			 var arrValueCheckCopSeg = $('[name="checksCopSeg[]"]:checked').map(function(){
+			 arrValueCheckCopSeg = $('[name="checksCopSeg[]"]:checked').map(function(){
 		     return this.value;
 		    }).get();
 			  
@@ -68,7 +85,7 @@
 					</thead>
 					<tbody>
 						<tr th:if="${listFicheros.empty}">
-							<td colspan="3">No se han encontrado copias seguridad de  Beigar a restaurar</td>
+							<td colspan="3">No se han encontrado copias seguridad de Beigar a restaurar</td>
 						</tr>
 
 						<tr th:each="fichero, iterStat :${listFicheros}">
