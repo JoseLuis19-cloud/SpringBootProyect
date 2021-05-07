@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
+  
   <head>
   
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
@@ -8,11 +9,33 @@
     
     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-   
- <style>
-
-  </style>
-
+  
+ 	<script th:inline="javascript">
+	
+	 $(document).ready(function(){
+		
+		$("#botonRestaurar").click(function(){ 
+			$("#modalConfirRestaurarCopSeg").modal();
+		 });
+		
+		$('[name="checksCopSeg[]"]').click(function() {
+			 var arrValueCheckCopSeg = $('[name="checksCopSeg[]"]:checked').map(function(){
+		     return this.value;
+		    }).get();
+			  
+			 if (arrValueCheckCopSeg.length > 1)
+	    	    {
+	    	      alert("Solo se puede recupar una copia de seguridad");
+	    	    }
+			  else
+				{
+				  $("#idFicheroCopSeg").val(arrValueCheckCopSeg[0]);
+				}
+		  });
+		
+	 });
+ 	 </script>
+  
 </head>
 
  <body>
@@ -23,9 +46,8 @@
 		<div class="row">
 			<div class="titulo-pag2">Administración</div>
 		</div>
-		<form th:action="@{/administracion/generarcopiaseguridad}" th:object="${datosCopSeg}" method="post">
+	
 		<div class="row">
-			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
   				<div class="subtitulo-pag2">Restauración de la copia de seguridad</div>
@@ -39,7 +61,7 @@
   				<table class="table table-striped table-sm table-condensed">
 						<thead class="thead-light">
 						<tr>
-							<th th:text="'Marque la copia de seguridad a restaurar'"></th>
+							<th th:text="'Marque copia seguridad a restaurar'"></th>
 							<th th:text="'Nombre fichero'"></th>
 							<th th:text="'Fecha de creación'"></th>
 						</tr>
@@ -66,21 +88,43 @@
   		<br>
   		<div class="row">
  			<div class="col-1"></div>
- 			<div class="col-10 text-right"><button type="submit" class="btn btn-primary">Restaurar Copia Seguridad</button></div>
+ 			<div class="col-10 text-right"><button type="button" id="botonRestaurar" class="btn btn-primary">Restaurar Copia Seguridad</button></div>
  			<div class="col-1"></div>
 		</div>
   		<div class="row">
 			<div class="col-1"></div>
-  			<div class="col-10" >
+  			<div class="col-10">
   				<strong>Nota:</strong> 
   				<p th:text="'Realiza la restauración copia de la base de datos del siguiente path:  ' + ${pathDestinoCopia}">  </p>
 				<p>Es recomendable para hacer la restauración de la copia de seguridad, que no esté utilizando ningún usuario la aplicación</p>
   			</div>
   			<div class="col-1"></div>
   		</div>
- 		
- 		</form>
+ 	
  	</div>
+ 	
+ <!-- Modal Eliminar Menu -->
+  <div id="modalConfirRestaurarCopSeg" class="modal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+         <div class="subtitulo-pag2" th:text="'Confirmar que desea restaurar la copia de seguridad'"></div>
+      </div>
+      <div class="modal-body">
+        <form th:id="idFormRestauraCopSeg" th:action="@{/administracion/generarrestauracioncopseg}" th:object="${datosCopSeg}" method="post">
+            <input type="hidden" th:id="'idFicheroCopSeg'" th:name="'ficheroCopSeg'" th:value="${fichCopSeg}" /> 
+    		<div class="container">
+                <p th:id="'idP1'"  th:text="'Asegurese que no hay usuarios en la Aplicación'"></p>
+     	    </div>
+      		<div class="modal-footer">
+       	 		<button type="submit" id="idConfirmar" class="btn btn-primary">Confirmar</button>
+       	 		<button type="button" id="idCancelar"  class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+      		</div>
+       </form>
+    </div>
+   </div>
+  </div>
+ </div>
 	
  <!-- Include Date Range Picker -->
  

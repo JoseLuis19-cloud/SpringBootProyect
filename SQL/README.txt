@@ -21,4 +21,13 @@
 	  /Users/UsuarioJoseLuis/Documents/Facturas/
 	  C:/Users/Public/Facturas/
 	  
+	  
+	  5. Crear directorios copiaseguridad en el directorio Windows o Unix,
+	   donde se generarán las copias de seguridad En MAC será  /Users/Administrador/Documents/ 
+ 
+      /Users/UsuarioJoseLuis/Documents/CopiaSeguridad/
+	  C:/Users/Public/CopiaSeguridad/
+
+	 
+	  
 	6. 

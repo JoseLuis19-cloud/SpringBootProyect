@@ -120,7 +120,7 @@ public class ControllerWebAdministracion {
 	                if(archivos[i].getName().toLowerCase().endsWith(".sql")) 
 	                {
 		               BeanFicheroSO ficheroSO = new BeanFicheroSO();
-		               SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		               SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		                  
 		               try 
 		                  {
@@ -173,20 +173,19 @@ public class ControllerWebAdministracion {
 		            
 		            for(int i=0; i<archivos.length; i++) {
 		                if(archivos[i].getName().toLowerCase().endsWith(".sql")) 
-		                {
-		                	
-		                 BeanFicheroSO ficheroSO = new BeanFicheroSO();
-				         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		                 {
+		                  BeanFicheroSO ficheroSO = new BeanFicheroSO();
+				          SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		                 
 		                  try 
 		                  {
-		                  Path fileObj = Paths.get("/Users/UsuarioJoseLuis/Documents/" + archivos[i].getName());
-		                  BasicFileAttributes attr = Files.readAttributes(fileObj, BasicFileAttributes.class);
+		                   Path fileObj = Paths.get("/Users/UsuarioJoseLuis/Documents/" + archivos[i].getName());
+		                   BasicFileAttributes attr = Files.readAttributes(fileObj, BasicFileAttributes.class);
 		                  
-		                  ficheroSO.setNomFichero(archivos[i].getName());
-		                  ficheroSO.setFechaCreacion(sdf.format( attr.creationTime().toMillis() ));
+		                   ficheroSO.setNomFichero(archivos[i].getName());
+		                   ficheroSO.setFechaCreacion(sdf.format( attr.creationTime().toMillis() ));
 							
-					      listFicheros.add(ficheroSO);
+					       listFicheros.add(ficheroSO);
 		                  }
 		                  catch (Exception e)
 		                  {
@@ -205,7 +204,7 @@ public class ControllerWebAdministracion {
 		return "GestionWeb/administracion/FormRestauraCopSeg";
 	}
 
-	@RequestMapping("/generarcrestaurarcioncopseg")
+	@RequestMapping("/generarrestauracioncopseg")
 	public String generarRestaurarCopSeg(Model modelo) {
 
 		restoreMySQLBueno();
@@ -225,7 +224,6 @@ public class ControllerWebAdministracion {
 		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
 
 		modelo.addAttribute("datosTareaWeb", datosTareaWeb);
-		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
 		return "GestionWeb/administracion/FormCrearTarea";
@@ -234,10 +232,8 @@ public class ControllerWebAdministracion {
 	
 	@GetMapping("/pruebas")
 	public String pruebas(Model modelo) {
-
 	 System.out.println("12345");	
-
-		return "GestionWeb/administracion/Prueba1";
+	 return "GestionWeb/administracion/Prueba1";
 	}
 	
 	@RequestMapping(value = "/creartarea", method = RequestMethod.POST)
@@ -273,7 +269,6 @@ public class ControllerWebAdministracion {
 
 					modelo.addAttribute("errorValidacion", false);
 					modelo.addAttribute("mensajeError", "");
-
 					modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
 					return "GestionWeb/administracion/FormCrearTarea";
