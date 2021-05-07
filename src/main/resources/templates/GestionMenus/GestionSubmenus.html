@@ -4,12 +4,12 @@
 
 <head>
 
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-  	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+ 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
  	
  	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-
+	
   <style>  
    .form-control-xs {
     height: calc(1em + .375rem + 2px) !important;
@@ -349,9 +349,9 @@
 			<div class="row">
 				<div class="col-1"></div>	
 				<div class="col-10 text-right">
-				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary btn-sm" role="button">volver menus</a>
-					<a th:id="idPantallaAyuda" th:name="pantallaAyuda" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
-					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM" class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
+				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary btn-sm" role="button">Volver a menus</a>
+					<a th:id="idPantallaAyuda" th:name="pantallaAyuda"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
+					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
 				 </div>	
 				 <div class="col-1"></div>	
 			</div>
@@ -372,7 +372,6 @@
       		<div class="modal-content">
       		<form action="#" th:action="@{'/gestionmenus/insertelementosubmenu'}" method="post" th:object="${elemenSubMenuNuevoWeb}">
       		 <div class="container-fluid">
-       			 <br/>
 				<div class="subtitulo-pag2" th:text="'Nuevo elemento del submenú'"></div>
 				<table class="table table-sm">
 					<thead class="thead-light">
@@ -408,7 +407,7 @@
        		 	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>	
         	</div>
 			</form>
-		</div>	
+		 </div>	
 		</div>
 	</div>
 

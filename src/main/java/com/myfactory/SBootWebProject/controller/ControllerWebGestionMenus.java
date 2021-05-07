@@ -140,7 +140,6 @@ public class ControllerWebGestionMenus {
 		  
 		modelo.addAttribute("noTieneSubmenus", noTieneSubmenus);
 		modelo.addAttribute("errorAltaElemento", false);  
-		  
 		
 		elemenSubMenuNuevo.setIdMenu(new Integer(idMenu));
 		elemenSubMenuNuevo.setNumOrdenSubMenu(numRegSubMenu.intValue() + 1 );
@@ -229,7 +228,7 @@ public class ControllerWebGestionMenus {
 		// Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		   
-		redAtrib.addAttribute("field", elemenSubMenuNuevoWeb.getIdMenu().toString());
+		redAtrib.addAttribute("idMenu", elemenSubMenuNuevoWeb.getIdMenu().toString());
 		redAtrib.addAttribute("nomElemMenu", serviciosJPAMenu.findIdMenu(elemenSubMenuNuevoWeb.getIdMenu()).get().getTextoMenu());
 		
 	 // Carga el menu general
@@ -353,7 +352,7 @@ public class ControllerWebGestionMenus {
 	}
 	
 	@RequestMapping(value = "/eliminarmenu", method = RequestMethod.POST)
-	public String bajaMenu(Model modelo, @RequestParam(value = "idMenu", required = true) String idMenu)  {
+	public String bajaMenu(Model modelo, RedirectAttributes redAtrib, @RequestParam(value = "idMenu", required = true) String idMenu)  {
 		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 		
 	 // Comprobamos que el elemento de menú no está dado de alta en ningún menu usuario.
@@ -368,6 +367,9 @@ public class ControllerWebGestionMenus {
 			modelo.addAttribute("errorValidacion" , true);
 		    modelo.addAttribute("mensajeError", datosErrorValidacion.getCodError().toString() + ", " + datosErrorValidacion.getDesError() );
 		  }
+		
+		redAtrib.addAttribute("idMenu", idMenu);
+		redAtrib.addAttribute("nomElemMenu", "falta");
 		
 	// Carga el menu general
 	   modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -399,7 +401,7 @@ public class ControllerWebGestionMenus {
 	// Carga el menu general
 	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	   
-	  redAtrib.addAttribute("field", idMenu.toString());
+	  redAtrib.addAttribute("idMenu", idMenu.toString());
 	  redAtrib.addAttribute("nomElemMenu", serviciosJPAMenu.findIdMenu(idMenu).get().getTextoMenu());
  
 	  return "redirect:/gestionmenus/obtenersubmenu";
