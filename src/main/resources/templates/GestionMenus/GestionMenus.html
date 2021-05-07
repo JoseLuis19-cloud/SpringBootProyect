@@ -316,7 +316,7 @@
 						<td><a th:id="'idLinkCancelar' + ${iterStat.index}" th:name="'linkCancelar' + ${iterStat.index}" class="btn btn-colour-1" role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="display:none;">Cancelar</a></td>
 							
 						 <td>	
-							<a th:id="'idLinkSubMenu' + ${iterStat.index}" th:name="'linkSubMenu'+ ${iterStat.index}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?field=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
+							<a th:id="'idLinkSubMenu' + ${iterStat.index}" th:name="'linkSubMenu'+ ${iterStat.index}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?idMenu=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
 							<input type="hidden" th:id="'idMenuHidden'+ ${iterStat.index}" th:name="'menuHidden'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].idMenu}" />
 						 </td>
 						 <td><a th:id="'idLinkBaja'+ ${iterStat.index}" th:name="'linkBaja'+ ${iterStat.index}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a></td>																					 											

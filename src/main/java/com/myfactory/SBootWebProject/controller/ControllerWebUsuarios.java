@@ -102,6 +102,7 @@ public class ControllerWebUsuarios {
 	 beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
 	
 	 modelo.addAttribute("usuarioWeb", beanUsuarioWeb); 
+	modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 	 return "GestionWeb/usuarios/FormEditarUsuario";
 	}

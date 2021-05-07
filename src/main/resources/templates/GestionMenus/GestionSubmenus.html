@@ -32,6 +32,11 @@
  /*]]>*/
 	
 	 $(document).ready(function(){
+		 
+		if (noTieneElemSubmenus)
+			{
+			$("#modalSubEleNue").modal();
+			}
 		
 		$("#idBotonNuevoEleSM").click(function(){
 		 	$("#modalSubEleNue").modal();
@@ -268,9 +273,9 @@
 		
 		<form action="#" th:id="idFormElementosSubMenu" th:action="@{/gestionmenus/actualizarNumOrdenSubmenu}" th:object="${subMenu}" method="post">
 		
-		<div class="row" style="border-bottom: 2px solid #000; margin-bottom: 3px">
+		<div class="row">
 			<div class="col-1"></div>
-			<div class="col-10">
+			<div class="col-10" style="border-bottom: 2px solid #000; margin-bottom: 2px">
      			<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>

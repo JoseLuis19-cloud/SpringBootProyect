@@ -79,7 +79,8 @@ public class ControllerWebGestionMenus {
 	}
 	
 	@RequestMapping(value = "/obtenersubmenu", method = RequestMethod.GET)
-	public String obtenerSubMenu(Model modelo, @ModelAttribute(value="field") String idMenu, @ModelAttribute(value="nomElemMenu") String nomEleMenu)
+	public String obtenerSubMenu(Model modelo, @ModelAttribute(value="idMenu") String idMenu, 
+											@ModelAttribute(value="nomElemMenu") String nomEleMenu)
 	{
 	Boolean noTieneSubmenus;
 		  
@@ -99,24 +100,43 @@ public class ControllerWebGestionMenus {
 		 
 	  //  modelo.addAttribute("subMenuNivel1", subMenuNivel1);
 		
-		System.out.println(subMenuNivel1.iterator().next().getMenu().getIdMenu());
+	//	System.out.println(subMenuNivel1.iterator().next().getMenu().getIdMenu());
 	    
 	    modelo.addAttribute("elemenMenuPrincipal", nomEleMenu);
 
-	 // Instanciar elemento submenu nuevo por si da de alta uno
+	    Long numRegSubMenu = 0L;
 	    BeanSubMenuAplicacionWeb elemenSubMenuNuevo = new BeanSubMenuAplicacionWeb();
 	    
-	    long count = StreamSupport.stream(subMenuNivel1.spliterator(), false).count();
+	  // if (listSubMenu.size() == 0 ) 
+	  // {
+	 // Instanciar elemento submenu nuevo por si da de alta uno
+	     
+	 //   long count = StreamSupport.stream(subMenuNivel1.spliterator(), false).count();
 		  
-		  Long numRegSubMenu = new Long(count);
+	    //	 numRegSubMenu = new Long(count);
 		  
-		  if (numRegSubMenu.longValue()  ==0L) {
-			  noTieneSubmenus = true;
-		  }
-		  else
-		  {
-			noTieneSubmenus = false;
-		  }
+	    //	  if (numRegSubMenu.longValue() == 0L) {
+	    //		  noTieneSubmenus = true;
+	    //	  }
+	    //	  else
+	    //	  {
+	    //		noTieneSubmenus = false;
+	    //	  }
+	    //   }
+	    //   else
+	    //   {
+	    //	   noTieneSubmenus = false;
+	    //   }
+	   
+	   
+	   if (listSubMenu.size() == 0 ) 
+	   		{
+		   noTieneSubmenus = true;
+	   		}   
+	   else
+	   		{
+		   noTieneSubmenus = false;
+	   		}
 		  
 		modelo.addAttribute("noTieneSubmenus", noTieneSubmenus);
 		modelo.addAttribute("errorAltaElemento", false);  

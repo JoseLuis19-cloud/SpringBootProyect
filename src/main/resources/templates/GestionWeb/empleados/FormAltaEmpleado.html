@@ -188,10 +188,12 @@
  	 
  		</div>
  		
+ 		
  		<div class="row">
 			<div class="col-1"></div>
-  			<div class="col-10">
-        		<div th:if="${nuevaAlta}" class="col-md-12 bg-light text-right">
+  			<div class="col-10 text-right">
+  			
+  			<div th:if="${nuevaAlta}" class="col-md-12 bg-light text-right">
            		 	<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a>
            	 	 	<button type="submit" class="btn btn-primary">Crear</button>
         		</div>
@@ -200,11 +202,10 @@
            		 	<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Terminar</a>
            	 	 	<button type="submit" class="btn btn-primary">Actualizar</button>
         		</div>
-        		
-        		
-   			</div>
-   			<div class="col-1"></div>
-    	</div>
+  			</div>
+  			<div class="col-1"></div>
+		</div>
+
  	  </form>
  	</div>
  	

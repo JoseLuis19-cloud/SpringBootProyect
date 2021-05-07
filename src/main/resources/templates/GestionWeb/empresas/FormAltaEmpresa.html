@@ -25,27 +25,7 @@
 	border-radius: .2rem;
    }
 
-h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
-}
+h
 
   </style>
 
@@ -55,12 +35,12 @@ h5 {
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-	<div class="container-fluid" style="margin-top:0px;">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Empresas</div>
 		</div>
 		<form th:action="@{/gestionWeb/empresas/altaempresa}" th:object="${datosEmpresaWeb}" method="post">
-		  <div class="row">
+		<div class="row">
 			<br>
 			 <div class="col-1"></div>
   			 <div class="col-10" >
@@ -159,16 +139,16 @@ h5 {
 			 </div>
 			<div class="col-1"></div>	
 		 </div>
-		 
- 		<div class="row">
+		 		
+		<div class="row">
+			<div class="col-1"></div>
+ 			 <div class="col-10 text-right"> 
+ 			 	<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a>
+  			 	<button type="submit" class="btn btn-primary">Guardar</button>
+ 			 </div>
  			<div class="col-1"></div>
- 			<div class="col-2"><a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
- 			<div class="col-5"></div>
- 			<div class="col-3">	
-				<button type="submit" class="btn btn-primary">Guardar</button>
- 			</div>
- 			<div class="col-1"></div>
-		</div>
+ 		</div>
+
  		</form>
  	</div>
 	

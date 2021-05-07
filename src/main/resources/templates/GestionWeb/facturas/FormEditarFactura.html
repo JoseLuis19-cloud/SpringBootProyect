@@ -4,7 +4,7 @@
   <head>
 
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-		<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
@@ -114,21 +114,21 @@ h5 {
 							<input type="text" class="form-control" id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
 						</div>
 					</div>
-					</div>
-						
-					<div class="d-flex">
-  						<div class="mr-auto p-2">
-  							<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
-  						</div>
-  			 
-  						<div class="p-2">
-						 <button type="submit" class="btn btn-primary">Modificar</button>
-						</div>
-					</div>
+					</div>	
+					
 				</form>
 			</div>
 			<div class="col-2"></div>
 		</div>
+	
+		<div class="row">
+			<div class="col-1"></div>
+ 			 <div class="col-10 text-right"> 
+ 			 	<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
+  				<button type="submit" class="btn btn-primary">Modificar</button>
+ 			 </div>
+ 			<div class="col-1"></div>
+ 		</div>		
 	</div>
 
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
