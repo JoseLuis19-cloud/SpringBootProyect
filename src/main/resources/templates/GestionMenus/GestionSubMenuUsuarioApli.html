@@ -202,8 +202,7 @@
 		<div class="row">
 			<div class="titulo-pag2" th:text="'Gestión submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></div> 
 		</div>
-
-																				
+																
 		<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">		
 			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"    th:field="*{idAccion}" />
 			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"       th:field="*{idUsuario}" />
@@ -233,7 +232,7 @@
 		
 		<div class="row">
 			<div class="col-1"></div>
-  			<div class="col-4">
+  			<div class="col-4" style="border-bottom: 2px solid #000">
   				<div class="subtitulo-pag2" th:text="'Elementos del submenú ya activas:'"></div>
   				<div id="idDivSubMenu1Usu">
 					<div th:insert="gestionMenus/fragments/SubMenusSelecUsuario :: submenuselecusuario"></div>
@@ -252,14 +251,14 @@
 					<br/>
 				</div>
  			</div>
- 			<div class="col-4">
+ 			<div class="col-4" style="border-bottom: 2px solid #000">
  				<div class="subtitulo-pag2" th:text="'Opciones del submenu disponibles'"></div>
  				<div th:insert="gestionMenus/fragments/SubMenusAplicaDispUsuario :: submenuapliselecusuario"></div>
  			</div>
  			<div class="col-1"></div>
 		</div>
 		
-		<div class="row" style="border-top: 2px solid #000">
+		<div class="row">
 			<div class="col-1"></div>
  			 <div class="col-10 text-right"> 
   			   <a th:id="'idVolver'" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=*{beanCamposGesMenuUsu.idUsuario}, nomUsuario=${nomUsuario} )}" class="btn btn-primary" role="button">Volver</a>

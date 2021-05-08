@@ -48,10 +48,10 @@
 		
 		// Evento de boton Editar
 		$('a[id^="idLinkEditarSM"]').click(function(event) {
-			alert ("Salta el envento ___" + event.target.id );
+		//	alert ("Salta el envento ___" + event.target.id );
 			
 			var lastChar = getNumber(event.target.id);
-			alert("Paso 1, lastChar " + lastChar);
+		//	alert("Paso 1, lastChar " + lastChar);
 			
 			if ($(this).text() == "editar")
 			   {
@@ -73,8 +73,6 @@
 				 $("#idTextoMenuSMHidden").val($("#idTextoSubMenu" + lastChar).val()); 
 				 $("#idHREFMenuSMHidden").val($("#idHRefApliSubMenu" + lastChar).val()); 
 				 $("#idActivadoSMHidden").val($("#idActivadoSubMenu" + lastChar).val()); 
- 
-			//	 alert( document.getElementById("idIdSubMenuHidden").value ) ;
 
 			 // Submitir formulario
 				document.getElementById("idFormEditSubMenu").submit();
@@ -99,10 +97,10 @@
 		
 		// Evento Editar numero de orden de menu
 		$("#idEditNumOrden").click(function() {
-			alert("Pinchar Editar num Orden");
+			//balert("Pinchar Editar num Orden");
 			if ( $("#idEditNumOrden").text() == "editar")
 			   {
-				alert("Editar un numero de orden");
+			//	alert("Editar un numero de orden");
 			    $("input[id^='idNumOrdSubMenu']").prop("readonly", false);
 			    $("#idEditNumOrden").text('grabar');
 			    
@@ -112,7 +110,6 @@
 			  {
 			   if (validarNumOrdenOK()) {
 			   	   document.getElementById("idCancelNumOrden").style.display = "none";
-			   	   alert("Submitimos")
 			   	   document.getElementById("idFormElementosSubMenu").submit();	
 			   }
 			   
@@ -266,7 +263,7 @@
 		<div class="row">
 			<div class="col-1"> </div>
 			<div class="col-10">
-   				<div class="subtitulo-pag2" th:text="'Elementos de Submenú pertenecientes al menu principal: ' + ${elemenMenuPrincipal}"></div>
+   				<div class="subtitulo-pag2" th:text="'Elementos de Submenú pertenecientes al menu principal:  ' + ${elemenMenuPrincipal}"></div>
 			</div>	
 			<div class="col-1"> </div>		
 		</div>
@@ -284,9 +281,9 @@
 							<th width="20%" th:text="'Texto submenú'"></th>
 							<th width="22%" th:text="'Dirección o Link (href) submenú'"></th>
 							<th width="7%"  th:text="'Activado'"></th>
-							<th width="7%"  th:text="'Acción'"></th>
-							<th width="7%"  th:text="'Cancelar'"></th>
-							<th width="7%"  th:text="'Accion'"></th>
+							<th width="7%"  th:text="'Acciones'"></th>
+							<th width="7%"  th:text="''"></th>
+							<th width="7%"  th:text="''"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -350,7 +347,7 @@
 				<div class="col-1"></div>	
 				<div class="col-10 text-right">
 				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary btn-sm" role="button">Volver a menus</a>
-					<a th:id="idPantallaAyuda" th:name="pantallaAyuda"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
+					<a th:id="idPantallaAyuda"   th:name="pantallaAyuda"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
 					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
 				 </div>	
 				 <div class="col-1"></div>	
@@ -372,6 +369,7 @@
       		<div class="modal-content">
       		<form action="#" th:action="@{'/gestionmenus/insertelementosubmenu'}" method="post" th:object="${elemenSubMenuNuevoWeb}">
       		 <div class="container-fluid">
+      		  <br/>
 				<div class="subtitulo-pag2" th:text="'Nuevo elemento del submenú'"></div>
 				<table class="table table-sm">
 					<thead class="thead-light">
@@ -436,6 +434,7 @@
   <div id="myModalEliminarSubMenu" class="modal" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
     <div class="modal-content">
+    <br>
       <div class="modal-header">
          <div class="subtitulo-pag2" th:text="'Eliminar el elemento de submenú'"></div>
       </div>

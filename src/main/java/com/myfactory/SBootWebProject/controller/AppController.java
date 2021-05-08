@@ -58,7 +58,7 @@ public class AppController {
 		
 		List<BeanSubMenuN1UsuarioSession> listSubMenuUsuSession;
 
-		Iterable<MenusUsuario> menuUsuario = servJPAMenusUsuario.obtenerMenuUsuario( beanIdUsuario.getIdUsuario());
+		Iterable<MenusUsuario> menuUsuario = servJPAMenusUsuario.obtenerMenuUsuario(beanIdUsuario.getIdUsuario());
 	 	Iterator<MenusUsuario> menuUsu = menuUsuario.iterator();
 	 	
  		List<BeanMenuUsuarioSession> listMenuUsuarioSession  = new ArrayList<BeanMenuUsuarioSession>();
@@ -67,7 +67,7 @@ public class AppController {
 	 	 // Cargamos Menu Principal que tiene definidos y activados el usuario
 	 		MenusUsuario menuUsuarioIter = menuUsu.next();
 	 		
- 			Iterable<MenusUsuario> subMenuUsuario = servJPAMenusUsuario.obtenerSubMenuUsuario(beanIdUsuario.getIdUsuario(), menuUsuarioIter.getMenu().getIdMenu());
+ 			List<MenusUsuario> subMenuUsuario = servJPAMenusUsuario.obtenerSubMenuUsuario(beanIdUsuario.getIdUsuario(), menuUsuarioIter.getMenu().getIdMenu());
  			
  			listSubMenuUsuSession = new ArrayList<BeanSubMenuN1UsuarioSession>();
  			
@@ -88,7 +88,7 @@ public class AppController {
  		 beanMenuPrinUsuario = new BeanMenuUsuarioSession(menuUsuarioIter.getIdMenu(), menuUsuarioIter.getMenu().getTextoMenu(), menuUsuarioIter.getMenu().getHrefAplicacion(), listSubMenuUsuSession );
  		 listMenuUsuarioSession.add(beanMenuPrinUsuario); 		
 	 	}
-	 	// CAMBIAR ESTO PRONTO EL 7
+
 	  	beanUsuarioSession.setIdUsuario(beanIdUsusario.getIdUsuario());
  		beanUsuarioSession.setListBeanMenuUsuarioSession(listMenuUsuarioSession);
  		beanUsuarioSession.setUsuarioApli( (servJPAUsuario.findIdUsuario (beanIdUsusario.getIdUsuario()).get().getUsername() ));

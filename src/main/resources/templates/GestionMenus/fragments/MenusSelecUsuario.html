@@ -2,42 +2,39 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
- 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
-	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
   </head>
-
   <body>
-		<header th:fragment="menuselecusuario">
-			<input type="hidden" th:id="idUserHidden" th:name="userHidden" th:value="${idUsuarioApli}"/>
-     			<table class="table table-sm">
-					<thead class="thead-light">
-						<tr>
-							<th th:text="'Seleccionado'"></th>
-							<th th:text="'Id. Menu'"></th>
-							<th th:text="'Texto menú'"></th>
-							<th th:text="'Submenú'"></th>
-						</tr>
-					</thead>
-					<tbody class="table-striped">
+	<header th:fragment="menuselecusuario">
+		<input type="hidden" th:id="idUserHidden" th:name="userHidden" th:value="${idUsuarioApli}"/>
+     		<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th th:text="'Marque'"></th>
+						<th th:text="'Id. Menu'"></th>
+						<th th:text="'Texto menú'"></th>
+						<th th:text="'Submenú'"></th>
+					</tr>
+				</thead>
+				<tbody class="table-striped">
 				  
-						<tr th:each="elemenMenuApli, iterStat :${listMenuUsuApliWeb}">
-						 	<td>
-						 		<div style="display: flex; justify-content: center; align-items: center;"> 
-								 <input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${iterStat.index}" th:name="checksMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${elemenMenuApli.idMenuUsuWeb}" class="btn btn-primary btn-sm" />						
-								</div>
-							</td>
-							<td th:text="${elemenMenuApli.idMenuWeb}"></td>
-							<td th:text="${elemenMenuApli.elementoMenu}"></td>
-							<td>
-								<div th:id="'idDivMostrarSubMenu' + ${iterStat.index}" style="visibility:visible">
-							  		<a th:id="'idLinkMostrarSubMenu' + ${iterStat.index}" th:name="'linkMostrarSubMenu' + ${iterStat.index}" th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${elemenMenuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
-							 	</div>
-							 	<input type="hidden" th:id="'idMenuHidden'+ ${iterStat.index}" th:name="'menuHidden'+ ${iterStat.index}" th:value="${elemenMenuApli.idMenuWeb}"/>
-								<input type="hidden" th:id="'idMenuUsuHidden'+ ${iterStat.index}" th:name="'menuUsuHidden'+ ${iterStat.index}" th:value="${elemenMenuApli.idMenuUsuWeb}"/>
-							</td>	
-						</tr>
-					</tbody>
-				 </table>
+					<tr th:each="elemenMenuApli, iterStat :${listMenuUsuApliWeb}">
+					 	<td>
+					 		<div style="display: flex; justify-content: center; align-items: center;"> 
+							 <input type="checkbox" th:id="'idCheckMenuUsuActiva'+ ${iterStat.index}" th:name="checksMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${elemenMenuApli.idMenuUsuWeb}" class="btn btn-primary btn-sm" />						
+							</div>
+						</td>
+						<td th:text="${elemenMenuApli.idMenuWeb}"></td>
+						<td th:text="${elemenMenuApli.elementoMenu}"></td>
+						<td>
+							<div th:id="'idDivMostrarSubMenu' + ${iterStat.index}" style="visibility:visible">
+						  		<a th:id="'idLinkMostrarSubMenu' + ${iterStat.index}" th:name="'linkMostrarSubMenu' + ${iterStat.index}" th:href="@{'/gestionmenususuario/obtenersubmenuusu?idMenu=' + ${elemenMenuApli.idMenuWeb} + '&idUsuario=' + ${idUsuarioApli} }"  class="btn btn-primary btn-sm" role="button">Submenu</a>
+						 	</div>
+						 	<input type="hidden" th:id="'idMenuHidden'+ ${iterStat.index}" th:name="'menuHidden'+ ${iterStat.index}" th:value="${elemenMenuApli.idMenuWeb}"/>
+							<input type="hidden" th:id="'idMenuUsuHidden'+ ${iterStat.index}" th:name="'menuUsuHidden'+ ${iterStat.index}" th:value="${elemenMenuApli.idMenuUsuWeb}"/>
+						</td>	
+					</tr>
+				</tbody>
+			 </table>
 		</header>
 	</body>
 

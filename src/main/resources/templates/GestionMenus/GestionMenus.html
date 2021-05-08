@@ -279,10 +279,10 @@
 							<th width="28%" th:text="'Texto menú'"></th>
 							<th width="25%" th:text="'Dirección o Link (href)'"></th>
 							<th width="5%"  th:text="'Activado'"></th>
-							<th width="7%"  th:text="'Acción'"></th>
-							<th width="7%"  th:text="'Cancelar'"></th>
+							<th width="7%"  th:text="'Acciones'"></th>
+							<th width="7%"  th:text="''"></th>	
+							<th width="7%"  th:text="''"></th>
 							<th width="7%"  th:text="'Ver'"></th>
-							<th width="7%"  th:text="'Accion'"></th>
 						</tr>
 					</thead>
 					<tbody>      
@@ -314,12 +314,11 @@
 		
 						<td><a th:id="'idLinkEdit' + ${iterStat.index}" th:name="'linkEdit' + ${iterStat.index}" class="btn btn-colour-1" role="button" th:disabled="false">editar</a></td>		
 						<td><a th:id="'idLinkCancelar' + ${iterStat.index}" th:name="'linkCancelar' + ${iterStat.index}" class="btn btn-colour-1" role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="display:none;">Cancelar</a></td>
-							
-						 <td>	
+						<td><a th:id="'idLinkBaja'+ ${iterStat.index}" th:name="'linkBaja'+ ${iterStat.index}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a></td>		
+						<td>	
 							<a th:id="'idLinkSubMenu' + ${iterStat.index}" th:name="'linkSubMenu'+ ${iterStat.index}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?idMenu=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
 							<input type="hidden" th:id="'idMenuHidden'+ ${iterStat.index}" th:name="'menuHidden'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].idMenu}" />
-						 </td>
-						 <td><a th:id="'idLinkBaja'+ ${iterStat.index}" th:name="'linkBaja'+ ${iterStat.index}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a></td>																					 											
+						</td>																				 											
 						</tr>
 						<tr>
 							<td></td>
@@ -327,6 +326,7 @@
 								<a href="#" th:id="idEditNumOrden" th:name="editNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true">editar</a>
 								<a href="#" th:id="idCancelNumOrden" th:name="editCancelNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true" style="display:none;">Cancelar</a>
 							</td>	
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>

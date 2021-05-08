@@ -1,5 +1,7 @@
 package com.myfactory.SBootWebProject.servicesJPA.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +16,17 @@ public class ServJPAMenusUsuarioImp implements ServJPAMenusUsuario {
 	MenusUsuarioJPADao menusUsuJPARepository;
 	
 	@Override
-	public Iterable<MenusUsuario> obtenerMenuUsuario(Long idUsuario) {
+	public List<MenusUsuario> obtenerMenuUsuario(Long idUsuario) {
 		return menusUsuJPARepository.obtenerMenuUsuario(idUsuario) ;
 	}
 	
 	@Override
-	public Iterable<MenusUsuario> obtenerSubMenuUsuario(Long idUsuario, Integer idMenu) {
+	public List<MenusUsuario> obtenerSubMenuUsuario(Long idUsuario, Integer idMenu) {
 		return menusUsuJPARepository.obtenerSubMenuUsuario(idUsuario, idMenu) ;
 	}
 	
 	@Override
-	public Iterable<MenusUsuario> obtenerMenuUsuSin0(Long idUsuario) {
+	public List<MenusUsuario> obtenerMenuUsuSin0(Long idUsuario) {
 		return menusUsuJPARepository.obtenerMenuUsuSin0(idUsuario) ;
 	}
 	
@@ -89,5 +91,9 @@ public class ServJPAMenusUsuarioImp implements ServJPAMenusUsuario {
 //		 menusUsuJPARepository.eliminarElementosSubmenu(idMenu);   
 //	};
 	
+	public void suprimirMenuUsuarioSQL(Integer idMenu, Integer idUsuario) {
+		menusUsuJPARepository.eliminarElementosSubmenuSQL(idMenu, idUsuario);
+	};
+
 	
 }

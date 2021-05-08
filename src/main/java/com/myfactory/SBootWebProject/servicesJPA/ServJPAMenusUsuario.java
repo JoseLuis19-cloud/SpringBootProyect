@@ -1,5 +1,7 @@
 package com.myfactory.SBootWebProject.servicesJPA;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.myfactory.SBootWebProject.model.MenusUsuario;
@@ -7,11 +9,11 @@ import com.myfactory.SBootWebProject.model.MenusUsuario;
 @Service
 public interface ServJPAMenusUsuario {
 
-	public Iterable<MenusUsuario> obtenerMenuUsuario(Long idUsuario);
+	public List<MenusUsuario> obtenerMenuUsuario(Long idUsuario);
 	
-	public Iterable<MenusUsuario> obtenerSubMenuUsuario(Long idUsuario, Integer idMenu);
+	public List<MenusUsuario> obtenerSubMenuUsuario(Long idUsuario, Integer idMenu);
 	
-	public Iterable<MenusUsuario> obtenerMenuUsuSin0(Long idUsuario);
+	public List<MenusUsuario> obtenerMenuUsuSin0(Long idUsuario);
 	
 	public Iterable<MenusUsuario> obtenerSubMenuUsuSin0(Long idUsuario, Integer idMenu);
 	
@@ -30,4 +32,6 @@ public interface ServJPAMenusUsuario {
 	public Boolean existeElementoSubMenuUsuario (Integer idSubMenu) ;
 	
 //	public void eliminarElementosSubMenuUsuario (Integer idSubMenu) ;
+	
+	public void suprimirMenuUsuarioSQL (Integer idSubMenu, Integer idUsuario) ;	
 }

@@ -31,6 +31,8 @@
 	 var arrValueCheck = null;
 	 var arrValueCheckASupr = null;
 	 var indExp = 0;
+	 var indCheck = 0;
+	 var arrIdMenuPrincipal = ["","","","","","","","",""];
 
 		$(document).ready(function() {
 
@@ -38,18 +40,15 @@
 			      arrValueCheck = $('[name="checks[]"]:checked').map(function(){
 			      return this.value;
 			    }).get();
-			     
-			    //  alert(arrValueCheck);
-			    //  alert("arrValueCheck " + arrValueCheck.length);
-			      
-			      if ( arrValueCheck.length > 9)
-			    	 {
-			    	  alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
-			    	 }
+
+			   if ( arrValueCheck.length > 9)
+			      {
+			      alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+			      }
 
 				//  var count = (arrValueCheck.match(/,/g) || []).length;
 				//  alert("checks: " + count);  
-			    // var str = arrValueCheck.join(',');
+			    //  var str = arrValueCheck.join(',');
 			    //  $('#arr').text(JSON.stringify(arr));
 			    //  $('#str').text(str);
 			  });
@@ -58,28 +57,30 @@
 				  arrValueCheckASupr = $('[name="checksMenuUsu[]"]:checked').map(function(){
 			      return this.value;
 			    }).get();
-				  
-				  if (arrValueCheckASupr.length > 9)
-		    	     {
-		    	      alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
-		    	     }
-				  
-			       alert(arrValueCheckASupr);
-			       
-			 //   alert("arrValueCheckASupr " + arrValueCheckASupr.length);
-			   // var count = (arrValueCheckASupr.match(/,/g) || []).length;
-			   // alert("arrValueCheckASupr: " + count);
-			    //var str = arrValueCheckASupr.join(',');
-			    // $('#arr').text(JSON.stringify(arr));
-			   //  $('#str').text(str)
-			    
+
+
+			 $('[name="checksMenuUsu[]"]').on('change', function() {
+				if (this.checked) {
+					indCheck = $('[name="checksMenuUsu[]"]').index(this);
+					arrIdMenuPrincipal[indCheck] = $("#idMenuHidden" + indCheck).val();
+					alert (arrIdMenuPrincipal[indCheck] );
+				 } 
+				else
+					{
+					arrIdMenuPrincipal[indCheck] = "";
+					}
+				});
+				     
+			if (arrValueCheckASupr.length > 9)
+		    	{
+		    	  alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+		    	}   
 			  });
-			 
+			  
 			 $("#idLinkAnadirTodos").click(function() {
 				$("input[id^='idCheckActivado']").prop("checked", true);
 				document.getElementById("idP3").style.display = "block";
 				$("#idAccionHidden").val("anadirtodos");
-			//	alert("Antes de mostrar Ventana todos");
 				$("#myModalConfirm").modal();
 			  });
 			 
@@ -111,9 +112,7 @@
 					 for (var i=0; i<arrValueCheck.length; i++)
 				 	 	{
 					  	$("#idIdMenuHidden" + ind).val(arrValueCheck[i]);
-					 // 	alert("Ha elegido: " + $("#idIdMenuHidden" + ind).val());
 					  	ind++;
-				 	 	// idMenuSelec = arrValueCheck[i];
 			   	     	}
 					 	$("#idAccionHidden").val("anadiruno");  
 						$("#myModalConfirm").modal();
@@ -138,17 +137,26 @@
 					{
 					 document.getElementById("idP2").style.display = "block";
 					 var ind = 0;
-					 alert("valores del arrValueCheckASupr: "+ arrValueCheckASupr);
+				 
 					 for (var i=0; i < arrValueCheckASupr.length; i++)
 				 	  {
-						alert("arrValueCheckASupr[i]): " + arrValueCheckASupr[i] );
-					   	$("#idIdMenuHidden" + ind).val( arrValueCheckASupr[i]);
-					  // 	$("#idIdMenuUsuHidden" + ind).val($("#idMenuUsuHidden" + i).val());
+					   	$("#idIdMenuHidden" + ind).val(arrValueCheckASupr[i]);
+ 
 					   	alert("El valor que recogera el controler para actualizar: " + $("#idIdMenuUsuHidden" + ind).val() );
 					  	ind++;
-				 	 // idMenuSelec = arrValueCheck[i];
 			   	      }
 					 
+					 var ind2 = 0;
+					 for (var j=0; j < arrIdMenuPrincipal.length; j++)
+				 	  {
+						if (arrIdMenuPrincipal[j] != "" )
+						   {
+							$("#idMenuPrincipalH"+ ind2).val(arrIdMenuPrincipal[j]);
+						  	alert ( $("#idMenuPrincipalH"+ ind2).val() );
+						  	ind2++;
+						   } 
+			   	      }
+
 					$("#idAccionHidden").val("suprimiruno");  
 					$("#myModalConfirm").modal();
 					}
@@ -156,24 +164,39 @@
 		}
 	
 		function anadirElemento(objElemen, ind)
-	  	 {  
-		  alert(objElemen.checked);
-		  alert("el valor del check " + objElemen.value);
-		  alert(ind);
+	  	 { 
+		//  alert(objElemen.checked);
+		//  alert("el valor del check " + objElemen.value);
+		//  alert(ind);
 		  
 		  if (objElemen.checked)
 			 {
-			  alert("indExp: " + indExp);
+		//	  alert("indExp: " + indExp);
 			  document.getElementById("idIdMenuUsuHidden"+indExp).value = objElemen.value;
 			  indExp = indExp + 1;
 			 }
 			else
 			 { 
-			  alert("indExp: " + indExp);
+		//	  alert("indExp: " + indExp);
 			  document.getElementById("idIdMenuUsuHidden"+indExp).value = "";
 			  indExp = indExp - 1;
 			 }
 	  	 }
+		
+	//	function buscarPosicionCheck(valorCheck)
+	//	{
+	//	alert (valorCheck);
+	//	 for (var i=1; i < 10; i++)
+	//		{
+	//		  alert(document.getElementById("idMenuHidden" + i).value);
+	//		  if (document.getElementById("idMenuHidden" + i).value == valorCheck)
+	//			 {
+	//			  alert ("lo encuentra " + i);
+	//			  break;
+	//			 }
+	//		}
+	//	 return i;
+	//	}
 		
 		function confirmarMenuUsuario()
 	  	 {
@@ -193,14 +216,24 @@
 			<div class="titulo-pag2" th:text="'Gestión menus para el usuario: ' + ${nomUsuario}"></div>
 		</div>
 		
-		<div class="row" style="border-bottom: 2px solid #000">
-		<div class="col-1"></div>
+		<div class="row">
+			<div class="col-1"></div>
 		 
-		<form th:id="idFormMenuUsuario" th:action="@{/gestionmenususuario/actualizarmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
+			<form th:id="idFormMenuUsuario" th:action="@{/gestionmenususuario/actualizarmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">
 			
 			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"   th:field="*{idAccion}" />
 			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"      th:field="*{idUsuario}" />
 			<input type="hidden" th:id="'idNomUsuario'" 	th:name="'nomUsuario'"     th:field="*{nomUsuario}" />
+			
+			<input type="hidden" th:id="'idMenuPrincipalH0'" th:name="'menuPrincipalH0'"   th:field="*{idMenuPrincipal1}" />
+			<input type="hidden" th:id="'idMenuPrincipalH1'" th:name="'menuPrincipalH1'"   th:field="*{idMenuPrincipal2}" />
+			<input type="hidden" th:id="'idMenuPrincipalH2'" th:name="'menuPrincipalH2'"   th:field="*{idMenuPrincipal3}" />
+			<input type="hidden" th:id="'idMenuPrincipalH3'" th:name="'menuPrincipalH3'"   th:field="*{idMenuPrincipal4}" />
+			<input type="hidden" th:id="'idMenuPrincipalH4'" th:name="'menuPrincipalH4'"   th:field="*{idMenuPrincipal5}" />
+			<input type="hidden" th:id="'idMenuPrincipalH5'" th:name="'menuPrincipalH5'"   th:field="*{idMenuPrincipal6}" />
+			<input type="hidden" th:id="'idMenuPrincipalH6'" th:name="'menuPrincipalH6'"   th:field="*{idMenuPrincipal7}" />
+			<input type="hidden" th:id="'idMenuPrincipalH7'" th:name="'menuPrincipalH7'"   th:field="*{idMenuPrincipal8}" />
+			<input type="hidden" th:id="'idMenuPrincipalH8'" th:name="'menuPrincipalH8'"   th:field="*{idMenuPrincipal9}" />
 
 		 	<input type="hidden" th:id="'idIdMenuHidden0'"  th:name="'idMenuHidden0'"  th:field="*{idMenu1}" />
 		 	<input type="hidden" th:id="'idIdMenuHidden1'"  th:name="'idMenuHidden1'"  th:field="*{idMenu2}" />
@@ -221,10 +254,10 @@
 		 	<input type="hidden" th:id="'idIdMenuUsuHidden6'"  th:name="'idMenuUsuHidden6'"  th:field="*{idMenuUsu7}" />	
 		 	<input type="hidden" th:id="'idIdMenuUsuHidden7'"  th:name="'idMenuUsuHidden7'"  th:field="*{idMenuUsu8}" />	
 		 	<input type="hidden" th:id="'idIdMenuUsuHidden8'"  th:name="'idMenuUsuHidden8'"  th:field="*{idMenuUsu9}" />						
-		 </form> 
+		 	</form> 
 
-  			<div class="col-5">
-  			<div class="subtitulo-pag2" th:text="'Opciones de menu activos para el usuario'"></div>
+  			<div class="col-5" style="border-bottom: 2px solid #000">
+  				<div class="subtitulo-pag2" th:text="'Opciones de menu activos para el usuario'"></div>
   				<div id="idDivSubMenu1Usu">
 					<div th:insert="gestionMenus/fragments/MenusSelecUsuario :: menuselecusuario"></div>
 				</div>	
@@ -242,13 +275,14 @@
 					<a th:id="'idLinkAnadirTodos'" th:name="'linkAnadirTodos'" class="btn btn-colour-1" role="button">&#8920; Añadir todos</a>
 				</div> 
  			</div>
- 			<div class="col-4">
+ 			<div class="col-4" style="border-bottom: 2px solid #000">
  				<div class="subtitulo-pag2" th:text="'Opciones del menu principal disponibles'"></div>
  				<div th:insert="gestionMenus/fragments/MenusAplicaDispUsuario :: menuapliselecusuario"></div>
  			</div>
  		 
  			<div class="col-1"> </div>
 		</div>
+	
 		
       	<div class="row">
 			<div class="col-1"></div>	

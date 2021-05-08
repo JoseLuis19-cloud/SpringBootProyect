@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.MenusUsuario;
 import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.model.User;
+import com.myfactory.SBootWebProject.repository.menuUsuario.CustomMenusUsuarioJPADao;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
@@ -32,6 +34,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 public class ControllerWebGestionMenusUsuario {
 	
 	@Autowired
+//	@Qualifier("customServJPAMenusUsuario")
 	ServJPAMenusUsuario servJPAMenusUsuario;
 	
 	@Autowired
@@ -167,7 +170,7 @@ public class ControllerWebGestionMenusUsuario {
 		BeanCamposGesMenuUsu beanCamposGesMenuUsu = new BeanCamposGesMenuUsu();
 		beanCamposGesMenuUsu.setIdUsuario(new Long(idUsuario));
 		beanCamposGesMenuUsu.setNomUsuario(nomUsuario);
-		beanCamposGesMenuUsu.setIdMenuPrincipal(new Integer (idMenu));
+		beanCamposGesMenuUsu.setIdMenuPrincipal1(new Integer (idMenu));
 		modelo.addAttribute("beanCamposGesMenuUsu", beanCamposGesMenuUsu);
 		
 		modelo.addAttribute("listSubMenuUsuApliWeb", listSubMenuUsuWeb);
@@ -408,7 +411,9 @@ public class ControllerWebGestionMenusUsuario {
 					 menusUsuario1.setUser(user);
 					 menusUsuario1.setSubMenu1(subMenuNivel1); 
 					 menusUsuario1.setMenu(menu1); 
-				     servJPAMenusUsuario.suprimirMenuUsuario(menusUsuario1) ;
+				   //  servJPAMenusUsuario.suprimirMenuUsuario(menusUsuario1) ;
+				     
+				     servJPAMenusUsuario.suprimirMenuUsuarioSQL(beanCamposGesMenuUsu.getIdMenuPrincipal1() , beanCamposGesMenuUsu.getIdUsuario().intValue()) ;
 				     
 				     // Debemos borrar los submenus que puedan colgar de este menu usario
 				     // Probar este codigo. !!!!!!!!!!!!!!!!!!!!!!!!
@@ -597,7 +602,7 @@ public class ControllerWebGestionMenusUsuario {
 		 
 		if (beanCamposGesMenuUsu.getIdAccion().equals("anadirtodos") )
 			{
-			listSubMenuSelecWeb  = obtenerSubMenuUsu( beanCamposGesMenuUsu.getIdUsuario(), beanCamposGesMenuUsu.getIdMenuPrincipal());
+			listSubMenuSelecWeb  = obtenerSubMenuUsu( beanCamposGesMenuUsu.getIdUsuario(), beanCamposGesMenuUsu.getIdMenuPrincipal1());
 		  
 			 for (BeanSubMenuAplicacionWeb elemenMenusUsuApli : listSubMenuSelecWeb)
 			 	 {
@@ -605,7 +610,7 @@ public class ControllerWebGestionMenusUsuario {
 				  user.setId(beanCamposGesMenuUsu.getIdUsuario());
 				 
 				  Menu menu = new Menu();
-				  menu.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+				  menu.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
 				 
 				  SubMenuNivel1 subMenuNivel1 = new SubMenuNivel1();
 				  subMenuNivel1.setIdSubmenuNivel1(elemenMenusUsuApli.getIdSubMenuN1());
@@ -631,7 +636,7 @@ public class ControllerWebGestionMenusUsuario {
 					 MenusUsuario menusUsuario1 = new MenusUsuario();
 		
 					 Menu menu1 = new Menu();
-					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
 					 
 					 SubMenuNivel1 subMenuNivel1 = new SubMenuNivel1();
 					 subMenuNivel1.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu1());
@@ -647,7 +652,7 @@ public class ControllerWebGestionMenusUsuario {
 					 MenusUsuario menusUsuario2 = new MenusUsuario();
 			
 					 Menu menu2 = new Menu();
-					 menu2.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					 menu2.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal2());
 					 
 					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
 					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu1());
@@ -665,7 +670,7 @@ public class ControllerWebGestionMenusUsuario {
 					 menusUsuario3.setUser(user);
 					 
 					 Menu menu3 = new Menu();
-					 menu3.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					 menu3.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal3());
 					 menusUsuario3.setMenu(menu3);
 					 
 					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario3) ;
@@ -677,7 +682,7 @@ public class ControllerWebGestionMenusUsuario {
 					menusUsuario4.setUser(user);
 					 
 					Menu menu4 = new Menu();
-					menu4.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					menu4.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal4());
 					menusUsuario4.setMenu(menu4);
 
 					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario4) ;
@@ -689,7 +694,7 @@ public class ControllerWebGestionMenusUsuario {
 					menusUsuario5.setUser(user);
 					
 					Menu menu5 = new Menu();
-					menu5.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					menu5.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal5());
 					menusUsuario5.setMenu(menu5);
 
 					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario5) ;
@@ -701,7 +706,7 @@ public class ControllerWebGestionMenusUsuario {
 					menusUsuario6.setUser(user);
 					
 					Menu menu6 = new Menu();
-					menu6.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					menu6.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal6());
 					menusUsuario6.setMenu(menu6);
 
 				 	servJPAMenusUsuario.insertarMenuUsuario(menusUsuario6) ;
@@ -712,7 +717,7 @@ public class ControllerWebGestionMenusUsuario {
 					menusUsuario7.setUser(user);
 					
 					Menu menu7 = new Menu();
-					menu7.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					menu7.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal7());
 					menusUsuario7.setIdMenu(null);
 					menusUsuario7.setMenu(menu7);
 
@@ -725,7 +730,7 @@ public class ControllerWebGestionMenusUsuario {
 					menusUsuario8.setUser(user);
 					
 					Menu menu8 = new Menu();
-					menu8.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal());
+					menu8.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal8());
 					menusUsuario8.setMenu(menu8);
  
 					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario8) ;
@@ -762,7 +767,7 @@ public class ControllerWebGestionMenusUsuario {
 					 menusUsuario1.setIdMenu(beanCamposGesMenuUsu.getIdMenuUsu1());
 					 
 					 Menu menu1 = new Menu();
-					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal()); 
+					 menu1.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1()); 
 					 menusUsuario1.setMenu(menu1); 
 
 				     servJPAMenusUsuario.suprimirMenuUsuario(menusUsuario1) ;
@@ -906,8 +911,8 @@ public class ControllerWebGestionMenusUsuario {
 	    List <BeanSubMenuN1UsuarioWeb> listSubMenuUsuWeb = new ArrayList<BeanSubMenuN1UsuarioWeb>() ;
 		List <BeanSubMenuAplicacionWeb> listSubMenuApliWeb = new ArrayList<BeanSubMenuAplicacionWeb>() ;
 		
-		Iterable <MenusUsuario> menuUsuario = servJPAMenusUsuario.obtenerSubMenuUsuSin0(beanCamposGesMenuUsu.getIdUsuario(), beanCamposGesMenuUsu.getIdMenuPrincipal() );
-		Iterable <SubMenuNivel1> subMenuAplicacion = servJPAMenu.obtenerSubMenuAplicacionSin0(beanCamposGesMenuUsu.getIdMenuPrincipal()) ;
+		Iterable <MenusUsuario> menuUsuario = servJPAMenusUsuario.obtenerSubMenuUsuSin0(beanCamposGesMenuUsu.getIdUsuario(), beanCamposGesMenuUsu.getIdMenuPrincipal1() );
+		Iterable <SubMenuNivel1> subMenuAplicacion = servJPAMenu.obtenerSubMenuAplicacionSin0(beanCamposGesMenuUsu.getIdMenuPrincipal1()) ;
 	 	Iterator <SubMenuNivel1> subMenuApli = subMenuAplicacion.iterator();
 	 	
 	 	SubMenuNivel1 subMenuApliIter = null;
@@ -952,7 +957,7 @@ public class ControllerWebGestionMenusUsuario {
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		modelo.addAttribute("nomUsuario", servJPAUsuario.findIdUsuario(new Long(beanCamposGesMenuUsu.getIdUsuario())).get().getUsername()); 
-		modelo.addAttribute("nomMenuPrincipal", servJPAMenu.findIdMenu(new Integer(beanCamposGesMenuUsu.getIdMenuPrincipal())).get().getTextoMenu());
+		modelo.addAttribute("nomMenuPrincipal", servJPAMenu.findIdMenu(new Integer(beanCamposGesMenuUsu.getIdMenuPrincipal1())).get().getTextoMenu());
 		modelo.addAttribute("beanCamposGesMenuUsu", beanCamposGesMenuUsu);	 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 

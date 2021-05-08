@@ -14,7 +14,19 @@ public class BeanCamposGesMenuUsu implements Serializable, Cloneable {
 	private String idAccion;
 	private Long idUsuario;
 	private String nomUsuario;
-	private Integer idMenuPrincipal;
+	
+	
+	private Integer idMenuPrincipal1;
+	private Integer idMenuPrincipal2;
+	private Integer idMenuPrincipal3;
+	private Integer idMenuPrincipal4;
+	private Integer idMenuPrincipal5;
+	private Integer idMenuPrincipal6;
+	private Integer idMenuPrincipal7;
+	private Integer idMenuPrincipal8;
+	private Integer idMenuPrincipal9;
+
+
 	private Integer idMenu1;
 	private Integer idMenu2;
 	private Integer idMenu3;
@@ -167,11 +179,61 @@ public class BeanCamposGesMenuUsu implements Serializable, Cloneable {
 	public void setNomUsuario(String nomUsuario) {
 		this.nomUsuario = nomUsuario;
 	}
-	public Integer getIdMenuPrincipal() {
-		return idMenuPrincipal;
+	 
+
+	public Integer getIdMenuPrincipal1() {
+		return idMenuPrincipal1;
 	}
-	public void setIdMenuPrincipal(Integer idMenuPrincipal) {
-		this.idMenuPrincipal = idMenuPrincipal;
+	public void setIdMenuPrincipal1(Integer idMenuPrincipal1) {
+		this.idMenuPrincipal1 = idMenuPrincipal1;
+	}
+	public Integer getIdMenuPrincipal2() {
+		return idMenuPrincipal2;
+	}
+	public void setIdMenuPrincipal2(Integer idMenuPrincipal2) {
+		this.idMenuPrincipal2 = idMenuPrincipal2;
+	}
+	public Integer getIdMenuPrincipal3() {
+		return idMenuPrincipal3;
+	}
+	public void setIdMenuPrincipal3(Integer idMenuPrincipal3) {
+		this.idMenuPrincipal3 = idMenuPrincipal3;
+	}
+	public Integer getIdMenuPrincipal4() {
+		return idMenuPrincipal4;
+	}
+	public void setIdMenuPrincipal4(Integer idMenuPrincipal4) {
+		this.idMenuPrincipal4 = idMenuPrincipal4;
+	}
+	public Integer getIdMenuPrincipal5() {
+		return idMenuPrincipal5;
+	}
+	public void setIdMenuPrincipal5(Integer idMenuPrincipal5) {
+		this.idMenuPrincipal5 = idMenuPrincipal5;
+	}
+	public Integer getIdMenuPrincipal6() {
+		return idMenuPrincipal6;
+	}
+	public void setIdMenuPrincipal6(Integer idMenuPrincipal6) {
+		this.idMenuPrincipal6 = idMenuPrincipal6;
+	}
+	public Integer getIdMenuPrincipal7() {
+		return idMenuPrincipal7;
+	}
+	public void setIdMenuPrincipal7(Integer idMenuPrincipal7) {
+		this.idMenuPrincipal7 = idMenuPrincipal7;
+	}
+	public Integer getIdMenuPrincipal8() {
+		return idMenuPrincipal8;
+	}
+	public void setIdMenuPrincipal8(Integer idMenuPrincipal8) {
+		this.idMenuPrincipal8 = idMenuPrincipal8;
+	}
+	public Integer getIdMenuPrincipal9() {
+		return idMenuPrincipal9;
+	}
+	public void setIdMenuPrincipal9(Integer idMenuPrincipal9) {
+		this.idMenuPrincipal9 = idMenuPrincipal9;
 	}
 
 	
