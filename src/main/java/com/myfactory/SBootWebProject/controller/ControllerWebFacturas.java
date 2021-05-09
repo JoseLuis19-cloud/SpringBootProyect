@@ -13,16 +13,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,6 +78,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 @Controller
 @RequestMapping("/gestionWeb/facturas")
+@PropertySource("classpath:parametrosServicioMail.properties")
 public class ControllerWebFacturas {
 
 	@Autowired
@@ -82,7 +100,13 @@ public class ControllerWebFacturas {
 	
 	@Value("${path.MACOSGeneracionFacturasPDF}")
 	private String pathDescargaFacturasPDFMacOS;
-
+	
+	@Value("${emailFactura.cuerpoMensaje}")
+	private String cuerpoMensajeFactura;
+	
+	@Value("${emailFactura.asunto}")	
+	private String asuntoMensajeFactura;
+	
 	@GetMapping("/formeditarfactura")
 	public String formEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = false) String idFactura)  {
 
@@ -535,8 +559,71 @@ public class ControllerWebFacturas {
 	                outputStream.write(data, 0, nRead);
 	            }
 	            inputStream.close();
+	            
+	            enviarEmail(numFactura, "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf");
 	        };
 	        
 	    }
-	
+		
+	private void enviarEmail(String numFactura, String nomFichero)
+	{		
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	    mailSender.setHost("smtp.gmail.com");
+	    mailSender.setPort(587);
+	    
+	    mailSender.setUsername("jlbuenome.andro@gmail.com");
+	    mailSender.setPassword("19buenomendez70");
+		    
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		 
+		Session session = Session.getInstance(props,
+	                new javax.mail.Authenticator() {
+	                    protected PasswordAuthentication getPasswordAuthentication() {
+	                        return new PasswordAuthentication("jlbuenome.andro@gmail.com", "19buenomendez70");
+	                    }
+	                });
+	        
+	        try {
+
+	            Message message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress("jlbuenome.andro@gmail.com"));
+	            message.setRecipients(
+	                    Message.RecipientType.TO,
+	                    InternetAddress.parse("jlbuenome.andro@gmail.com")
+	            );
+	            
+	            String asuntoMensaje = asuntoMensajeFactura.replace("%1" , numFactura) ;
+	            String cuerpoMensaje = cuerpoMensajeFactura.replaceAll("%1", numFactura + "\n\n");
+	            
+	            MimeBodyPart messageBodyPart = new MimeBodyPart();
+	            Multipart multipart = new MimeMultipart();
+	            String file = pathDescargaFacturasPDFMacOS;
+	            String fileName = nomFichero;
+	            DataSource source = new FileDataSource(file);
+	            messageBodyPart.setDataHandler(new DataHandler(source));
+	            messageBodyPart.setFileName(fileName);
+	            multipart.addBodyPart(messageBodyPart);
+
+	            message.setContent(multipart); 
+	            
+	            
+  
+	            message.setSubject(asuntoMensaje);
+	            message.setText(cuerpoMensaje);
+	           
+	            Transport.send(message);
+
+	            System.out.println("Done");
+
+	        } catch (MessagingException e) {
+	            e.printStackTrace();
+	        }
+
+		
+	}
 }
