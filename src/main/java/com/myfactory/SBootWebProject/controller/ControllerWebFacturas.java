@@ -560,7 +560,7 @@ public class ControllerWebFacturas {
 	            }
 	            inputStream.close();
 	            
-	            enviarEmail(numFactura, "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf");
+	       //     enviarEmail(numFactura, "FacturaBeigar" + numFactura.replace("/", "_") + ".pdf");
 	        };
 	        
 	    }
