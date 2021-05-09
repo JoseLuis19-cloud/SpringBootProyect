@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 
-	 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
  	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
  	
 
@@ -14,11 +14,11 @@
   <style> 
  
    .form-control-xs {
-    height: calc(1em + .375rem + 2px) !important;
-    padding: .125rem .25rem !important;
-    font-size: .75rem !important;
-    line-height: 1.5;
-    border-radius: .2rem;
+    	height: calc(1em + .375rem + 2px) !important;
+    	padding: .125rem .25rem !important;
+    	font-size: .75rem !important;
+    	line-height: 1.5;
+    	border-radius: .2rem;
 	}
 	
   </style>	
@@ -28,6 +28,9 @@
 		var arrValueCheck = null;
 		var arrValueCheckASupr  = null;
 	 	var idMenuSelec = "";
+	 	
+	 	var indCheck = 0;
+		var arrIdSubMenu = [null,null,null,null,null,null,null,null,null];
 
 		$(document).ready(function() {
 			 $('[name="checks[]"]').click(function() {
@@ -44,17 +47,44 @@
 			  //  $('#arr').text(JSON.stringify(arr));
 			  //  $('#str').text(str);
 			  });
+			 
+			 
+			 $('[name="checks[]"]').on('change', function() {
+				if (this.checked) {
+					indCheck = $('[name="checks[]"]').index(this);
+					alert("ÇÇÇÇÇÇ  " +   $("#idCheckActivado" + indCheck).val() );
+					arrIdSubMenu[indCheck] = $("#idCheckActivado" + indCheck).val();
+					alert (arrIdSubMenu[indCheck] );
+					} 
+				else
+					{
+					arrIdSubMenu[indCheck] = null;
+				}
+				});
 			  
 			  $('[name="checksSubMenuUsu[]"]').click(function() {
 				  arrValueCheckASupr = $('[name="checksSubMenuUsu[]"]:checked').map(function(){
 			      return this.value;
 			    }).get();
 	
-				  if (arrValueCheckASupr.length > 9)
-			     	{
-			    	 alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
-			        }
+				if (arrValueCheckASupr.length > 9)
+			       {
+			       alert("Se pueden elegir hasta 9 elementos de menu para añadir o suprimir");
+			       }
 			  });
+			  
+			  
+			  $('[name="checksSubMenuUsu[]"]').on('change', function() {
+					if (this.checked) {
+						indCheck = $('[name="checksSubMenuUsu[]"]').index(this);
+						arrIdSubMenu[indCheck] = $("#idSubMenuHidden" + indCheck).val();
+						alert (arrIdSubMenu[indCheck] );
+					 } 
+					else
+					 {
+					 arrIdSubMenu[indCheck] = null;
+					 }
+				});
 			 
 			 $("#idLinkAnadirTodos").click(function() {
 				$("input[id^='idCheckActivado']").prop("checked", true);
@@ -89,20 +119,26 @@
 
 					 var ind = 0;
 					 for (var i=0; i < arrValueCheck.length; i++)
-				 	 	{
+				 	  {
 						 alert(arrValueCheck[i]);
 					  	 $("#idIdSubMenuHidden" + ind).val(arrValueCheck[i]);	
-					  //   alert("Ha elegido: " + $("#idIdSubMenuHidden" + ind).val());
 					  	 ind++;
-			   	     	}
-					 	$("#idAccionHidden").val("anadiruno");  
-						$("#myModalConfirm").modal();
+			   	      }
+					 
+					 var ind2 = 0;
+					 for (var j=0; j < arrIdSubMenu.length; j++)
+				 	  { 
+					    if (arrIdSubMenu[j] != null )
+					    	{
+					    	 alert("arrIdSubMenu[i] " + arrIdSubMenu[j]);
+					   		 $("#idIdSubMenuH" + ind2).val(arrIdSubMenu[j]);
+							 alert(" #idIdSubMenuH: vale     " + $("#idIdSubMenuH" + ind2).val() );
+					   		 ind2++;
+					    	}
+				 	  }
+					  $("#idAccionHidden").val("anadiruno");  
+					  $("#myModalConfirm").modal();
 					}
-				
-				//	for (var i=0; i<arrValueCheck.length; i++)
-				//	 {
-				//	  idMenuSelec = arrValueCheck[i];
-			   	//   }
 			  }
 	  	 }
 		
@@ -118,57 +154,41 @@
 					{
 					 alert("Debe seleccionar al menos un elemento a suprimir");
 					}
-				else
+				  else
 					{
- 					document.getElementById("idP2").style.display = "block";
+ 					 document.getElementById("idP2").style.display = "block";
 					 
 					 var ind = 0;
-					 for (var i=0; i<arrValueCheckASupr.length; i++)
+					 for (var i=0; i < arrValueCheckASupr.length; i++)
 				 	  { 
 					   	$("#idIdSubMenuUsuHidden" + ind).val(arrValueCheckASupr[i]);
-					   	
-					   	alert("alert menu id"+  $("#idSubMenuHidden" + i).val() );
-					 //  	$("#idIdSubMenuHidden" + ind).val( $("#idSubMenuHidden" + i).val() );
-					   	
-					   	for (var i2=0; i2<9; i2++)
-					   	{ 
-					   		if ( $("#idCheckMenuUsuActiva" + i2).val() != null )
-					   			{
-					   			 if ( $("#idCheckMenuUsuActiva" + i2).val() == $("#idIdSubMenuUsuHidden" + ind).val() ) 
-					   				 {
-					   				  alert("lo encuentra el los input check");
-					   				  $("#idIdSubMenuHidden" + ind).val( $("#idSubMenuHidden" + i2).val() );
-					   				  
-					   				 
-					   				  alert( $("#idIdSubMenuHidden" + ind).val() );
-					   				 }
-					   			}
-					   		else
-					   			{
-					   			 break;
-					   			}	
-					   	}
-					 // No sabemos el indice del check seleccionado en la tabla pintada. Tenemos los numero des submenu en el array pero no la posición real.
-					   
-					 // alert("Seleccionado: " + "i: " + i + ", " + $("#idMenuUsuHidden" + ind).val());
-					 //	$("#idIdSubMenuUsuHidden" + ind).val($("#idSubMenuUsuSelHidden" + i).val());
-					 //	$("#idIdSubMenuHidden" + ind).val( arrValueCheckASupr[i]);
-					 	
-					   	alert("alert: " + $("#idIdSubMenuUsuHidden" + ind).val() );
-					  	ind++;
-				 	 // idMenuSelec = arrValueCheck[i];
-			   	      }
-					$("#idAccionHidden").val("suprimiruno");  
-					$("#myModalConfirm").modal();
+					   	alert("idSubMenuHidden: " +  $("#idIdSubMenuUsuHidden" + ind).val() );
+					   	ind++;
+				 	  }
+					 
+					 var ind2 = 0;
+					 for (var j=0; j < arrIdSubMenu.length; j++)
+				 	  { 
+					    if (arrIdSubMenu[j] != null )
+					    	{
+					    	 alert("arrIdSubMenu[i] " + arrIdSubMenu[j]);
+					   		 $("#idIdSubMenuH" + ind2).val(arrIdSubMenu[j]);
+							 alert(" #idIdSubMenuH: vale     " + $("#idIdSubMenuH" + ind2).val() );
+					   		 ind2++;
+					    	}
+				 	  }
+
+					 $("#idAccionHidden").val("suprimiruno");  
+					 $("#myModalConfirm").modal();
 					}
 	  			}
 		}
 
 		function anadirElemento(objElemen, ind)
 	  	 {  
-		  alert(objElemen.checked);
-		  alert(ind);
-		  alert("buenas: " + document.getElementById("idSubMenuUsuSelHidden"+ind).value);
+		 // alert(objElemen.checked);
+		 // alert(ind);
+		 // alert("buenas: " + document.getElementById("idSubMenuUsuSelHidden"+ind).value);
 		  
 		  if (objElemen.checked)
 			 {
@@ -204,20 +224,20 @@
 		</div>
 																
 		<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">		
-			<input type="hidden" th:id="'idAccionHidden'" 	th:name="'accionHidden'"    th:field="*{idAccion}" />
-			<input type="hidden" th:id="'IdIdUsuario'" 		th:name="'idUsuario'"       th:field="*{idUsuario}" />
-			<input type="hidden" th:id="'idNomUsuario'" 	th:name="'nomUsuario'"      th:field="*{nomUsuario}" />
-			<input type="hidden" th:id="'idMenuPrincipal'" 	th:name="'idMenuPrincipal'" th:field="*{idMenuPrincipal}" />
+			<input type="hidden" th:id="'idAccionHidden'" 	 th:name="'accionHidden'"    th:field="*{idAccion}" />
+			<input type="hidden" th:id="'IdIdUsuario'" 		 th:name="'idUsuario'"       th:field="*{idUsuario}" />
+			<input type="hidden" th:id="'idNomUsuario'" 	 th:name="'nomUsuario'"      th:field="*{nomUsuario}" />
+			<input type="hidden" th:id="'idMenuPrincipalH0'" th:name="'menuPrincipalH0'" th:field="*{idMenuPrincipal1}" />			
 
-		 	<input type="hidden" th:id="'idIdSubMenuHidden0'"  th:name="'idSubMenuHidden0'"  th:field="*{idMenu1}" />
-		 	<input type="hidden" th:id="'idIdSubMenuHidden1'"  th:name="'idSubMenuHidden1'"  th:field="*{idMenu2}" />
-		 	<input type="hidden" th:id="'idIdSubMenuHidden2'"  th:name="'idSubMenuHidden2'"  th:field="*{idMenu3}" />	
-		 	<input type="hidden" th:id="'idIdSubMenuHidden3'"  th:name="'idSubMenuHidden3'"  th:field="*{idMenu4}" />	
-		 	<input type="hidden" th:id="'idIdSubMenuHidden4'"  th:name="'idSubMenuHidden4'"  th:field="*{idMenu5}" />	
-		 	<input type="hidden" th:id="'idIdSubMenuHidden5'"  th:name="'idSubMenuHidden5'"  th:field="*{idMenu6}" />	
-		 	<input type="hidden" th:id="'idIdSubMenuHidden6'"  th:name="'idSubMenuHidden6'"  th:field="*{idMenu7}" />	
-		 	<input type="hidden" th:id="'idIdSubMenuHidden7'"  th:name="'idSubMenuHidden7'"  th:field="*{idMenu8}" />	
-		 	<input type="hidden" th:id="'idIdSubMenuHidden8'"  th:name="'idSubMenuHidden8'"  th:field="*{idMenu9}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuH0'"  th:name="'idSubMenuH0'"  th:field="*{idMenu1}" />
+		 	<input type="hidden" th:id="'idIdSubMenuH1'"  th:name="'idSubMenuH1'"  th:field="*{idMenu2}" />
+		 	<input type="hidden" th:id="'idIdSubMenuH2'"  th:name="'idSubMenuH2'"  th:field="*{idMenu3}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuH3'"  th:name="'idSubMenuH3'"  th:field="*{idMenu4}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuH4'"  th:name="'idSubMenuH4'"  th:field="*{idMenu5}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuH5'"  th:name="'idSubMenuH5'"  th:field="*{idMenu6}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuH6'"  th:name="'idSubMenuH6'"  th:field="*{idMenu7}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuH7'"  th:name="'idSubMenuH7'"  th:field="*{idMenu8}" />	
+		 	<input type="hidden" th:id="'idIdSubMenuH8'"  th:name="'idSubMenuH8'"  th:field="*{idMenu9}" />	
 		 	
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden0'"  th:name="'idSubMenuUsuHidden0'"  th:field="*{idMenuUsu1}" />
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden1'"  th:name="'idSubMenuUsuHidden1'"  th:field="*{idMenuUsu2}" />
@@ -227,7 +247,7 @@
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden5'"  th:name="'idSubMenuUsuHidden5'"  th:field="*{idMenuUsu6}" />	
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden6'"  th:name="'idSubMenuUsuHidden6'"  th:field="*{idMenuUsu7}" />	
 		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden7'"  th:name="'idSubMenuUsuHidden7'"  th:field="*{idMenuUsu8}" />	
-		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden8'"  th:name="'idSubMenuUsuHidden8'"  th:field="*{idMenuUsu9}" />						
+		 	<input type="hidden" th:id="'idIdSubMenuUsuHidden8'"  th:name="'idSubMenuUsuHidden8'"  th:field="*{idMenuUsu9}" />		
 		</form> 
 		
 		<div class="row">
@@ -275,7 +295,7 @@
  	 <div class="modal-dialog" role="document">
     	<div class="modal-content">
      	 <div class="modal-header">
-       	 <h5 class="modal-title">Confirmación elementos menu</h5>
+       	 <h5 class="modal-title">Confirmación elementos submenú</h5>
        	 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
        	   <span aria-hidden="true">&times;</span>
        	 </button>

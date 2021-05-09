@@ -141,9 +141,8 @@
 					 for (var i=0; i < arrValueCheckASupr.length; i++)
 				 	  {
 					   	$("#idIdMenuHidden" + ind).val(arrValueCheckASupr[i]);
- 
 					   	alert("El valor que recogera el controler para actualizar: " + $("#idIdMenuUsuHidden" + ind).val() );
-					  	ind++;
+					   	ind++;
 			   	      }
 					 
 					 var ind2 = 0;
@@ -171,37 +170,20 @@
 		  
 		  if (objElemen.checked)
 			 {
-		//	  alert("indExp: " + indExp);
 			  document.getElementById("idIdMenuUsuHidden"+indExp).value = objElemen.value;
 			  indExp = indExp + 1;
 			 }
 			else
 			 { 
-		//	  alert("indExp: " + indExp);
 			  document.getElementById("idIdMenuUsuHidden"+indExp).value = "";
 			  indExp = indExp - 1;
 			 }
 	  	 }
 		
-	//	function buscarPosicionCheck(valorCheck)
-	//	{
-	//	alert (valorCheck);
-	//	 for (var i=1; i < 10; i++)
-	//		{
-	//		  alert(document.getElementById("idMenuHidden" + i).value);
-	//		  if (document.getElementById("idMenuHidden" + i).value == valorCheck)
-	//			 {
-	//			  alert ("lo encuentra " + i);
-	//			  break;
-	//			 }
-	//		}
-	//	 return i;
-	//	}
-		
 		function confirmarMenuUsuario()
 	  	 {
 		 // Submitir formulario
-			document.getElementById("idFormMenuUsuario").submit();
+		  document.getElementById("idFormMenuUsuario").submit();
 	  	 }
 	</script>
 

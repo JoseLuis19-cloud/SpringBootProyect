@@ -414,10 +414,6 @@ public class ControllerWebGestionMenusUsuario {
 				   //  servJPAMenusUsuario.suprimirMenuUsuario(menusUsuario1) ;
 				     
 				     servJPAMenusUsuario.suprimirMenuUsuarioSQL(beanCamposGesMenuUsu.getIdMenuPrincipal1() , beanCamposGesMenuUsu.getIdUsuario().intValue()) ;
-				     
-				     // Debemos borrar los submenus que puedan colgar de este menu usario
-				     // Probar este codigo. !!!!!!!!!!!!!!!!!!!!!!!!
-			//	     servJPAMenusUsuario.existeElementoSubMenuUsuario(beanCamposGesMenuUsu.getIdMenuUsu1());
 				 	}
 				 
 				 if (beanCamposGesMenuUsu.getIdMenu2() != null)
@@ -652,10 +648,10 @@ public class ControllerWebGestionMenusUsuario {
 					 MenusUsuario menusUsuario2 = new MenusUsuario();
 			
 					 Menu menu2 = new Menu();
-					 menu2.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal2());
+					 menu2.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
 					 
 					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
-					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu1());
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu2());
 					 
 					 menusUsuario2.setUser(user);
 					 menusUsuario2.setMenu(menu2);
@@ -667,85 +663,119 @@ public class ControllerWebGestionMenusUsuario {
 				 if (beanCamposGesMenuUsu.getIdMenu3() != null)
 			 		{
 					 MenusUsuario menusUsuario3 = new MenusUsuario();
-					 menusUsuario3.setUser(user);
-					 
+						
 					 Menu menu3 = new Menu();
-					 menu3.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal3());
+					 menu3.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
+					 
+					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu3());
+					 
+					 menusUsuario3.setUser(user);
 					 menusUsuario3.setMenu(menu3);
+					 menusUsuario3.setSubMenu1(subMenuNivel12); 
 					 
 					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario3) ;
 			 		}
 				 
 				if (beanCamposGesMenuUsu.getIdMenu4() != null)
 			 		{
-					MenusUsuario menusUsuario4 = new MenusUsuario();
-					menusUsuario4.setUser(user);
+					 MenusUsuario menusUsuario4 = new MenusUsuario();
+						
+					 Menu menu4 = new Menu();
+					 menu4.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
 					 
-					Menu menu4 = new Menu();
-					menu4.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal4());
-					menusUsuario4.setMenu(menu4);
-
-					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario4) ;
+					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu4());
+					 
+					 menusUsuario4.setUser(user);
+					 menusUsuario4.setMenu(menu4);
+					 menusUsuario4.setSubMenu1(subMenuNivel12); 
+					 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario4);
 			 		}
 				
 				if (beanCamposGesMenuUsu.getIdMenu5() != null)
 			 		{
-					MenusUsuario menusUsuario5 = new MenusUsuario();
-					menusUsuario5.setUser(user);
+					 MenusUsuario menusUsuario5 = new MenusUsuario();
 					
-					Menu menu5 = new Menu();
-					menu5.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal5());
-					menusUsuario5.setMenu(menu5);
-
-					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario5) ;
+					 Menu menu5 = new Menu();
+					 menu5.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
+					 
+					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu5());
+					 
+					 menusUsuario5.setUser(user);
+					 menusUsuario5.setMenu(menu5);
+					 menusUsuario5.setSubMenu1(subMenuNivel12); 
+					 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario5);
 			 		}
 				
 				if (beanCamposGesMenuUsu.getIdMenu6() != null)
 			 		{
-					MenusUsuario menusUsuario6 = new MenusUsuario();
-					menusUsuario6.setUser(user);
-					
-					Menu menu6 = new Menu();
-					menu6.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal6());
-					menusUsuario6.setMenu(menu6);
-
-				 	servJPAMenusUsuario.insertarMenuUsuario(menusUsuario6) ;
+					 MenusUsuario menusUsuario6 = new MenusUsuario();
+						
+					 Menu menu6 = new Menu();
+					 menu6.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
+					 
+					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu6());
+					 
+					 menusUsuario6.setUser(user);
+					 menusUsuario6.setMenu(menu6);
+					 menusUsuario6.setSubMenu1(subMenuNivel12); 
+					 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario6);
 			 		}
 				if (beanCamposGesMenuUsu.getIdMenu7() != null)
 					{
-					MenusUsuario menusUsuario7 = new MenusUsuario();
-					menusUsuario7.setUser(user);
-					
-					Menu menu7 = new Menu();
-					menu7.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal7());
-					menusUsuario7.setIdMenu(null);
-					menusUsuario7.setMenu(menu7);
-
-					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario7) ;
+					 MenusUsuario menusUsuario7 = new MenusUsuario();
+						
+					 Menu menu7 = new Menu();
+					 menu7.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
+					 
+					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu7());
+					 
+					 menusUsuario7.setUser(user);
+					 menusUsuario7.setMenu(menu7);
+					 menusUsuario7.setSubMenu1(subMenuNivel12); 
+					 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario7);
 					}
 			 
 				if (beanCamposGesMenuUsu.getIdMenu8() != null)
 			 		{
 					MenusUsuario menusUsuario8 = new MenusUsuario();
-					menusUsuario8.setUser(user);
 					
-					Menu menu8 = new Menu();
-					menu8.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal8());
-					menusUsuario8.setMenu(menu8);
- 
-					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario8) ;
+					 Menu menu8 = new Menu();
+					 menu8.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
+					 
+					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu8());
+					 
+					 menusUsuario8.setUser(user);
+					 menusUsuario8.setMenu(menu8);
+					 menusUsuario8.setSubMenu1(subMenuNivel12); 
+					 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario8);
 			 		}
 			 
 				if (beanCamposGesMenuUsu.getIdMenu9() != null)
 			 		{
-					MenusUsuario menusUsuario9 = new MenusUsuario();
-					menusUsuario9.setUser(user);
+					 MenusUsuario menusUsuario9 = new MenusUsuario();
 					
-					Menu menu9 = new Menu();
-					menu9.setIdMenu(beanCamposGesMenuUsu.getIdMenu9());
-					menusUsuario9.setMenu(menu9);
- 
-					servJPAMenusUsuario.insertarMenuUsuario(menusUsuario9) ;
+					 Menu menu9 = new Menu();
+					 menu9.setIdMenu(beanCamposGesMenuUsu.getIdMenuPrincipal1());
+					 
+					 SubMenuNivel1 subMenuNivel12 = new SubMenuNivel1();
+					 subMenuNivel12.setIdSubmenuNivel1(beanCamposGesMenuUsu.getIdMenu9());
+					 
+					 menusUsuario9.setUser(user);
+					 menusUsuario9.setMenu(menu9);
+					 menusUsuario9.setSubMenu1(subMenuNivel12); 
+					 
+					 servJPAMenusUsuario.insertarMenuUsuario(menusUsuario9);
 			 		}
 			 	}
 			 else

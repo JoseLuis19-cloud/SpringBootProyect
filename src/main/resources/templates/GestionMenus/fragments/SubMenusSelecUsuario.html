@@ -21,11 +21,11 @@
 					<tbody class="table-striped">
 						<tr th:each="listSubMenuUsu, iterStat :${listSubMenuUsuApliWeb}">
 							<td>
-								<input type="checkbox" th:id="'idCheckMenuUsuActiva'+  ${iterStat.index}" th:name="checksSubMenuUsu[]" th:onclick="'anadirElemento(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listSubMenuUsu.idSubMenuUsuWeb}" class="btn btn-primary btn-sm" />						
+							  <input type="checkbox" th:id="'idCheckMenuUsuActiva'+  ${iterStat.index}" th:name="checksSubMenuUsu[]" th:checked="false" th:value="${listSubMenuUsu.idSubMenuUsuWeb}" class="btn btn-primary btn-sm" />						
 							</td>
 							<td th:text="${listSubMenuUsu.idSubmenuNivel1}"></td>
 							<td th:text="${listSubMenuUsu.textoSubMenuN1}"></td>
-							<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:value="${listSubMenuUsu.idSubmenuNivel1}"/>
+							<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}"       th:name="'subMenuHidden'+ ${iterStat.index}"       th:value="${listSubMenuUsu.idSubmenuNivel1}"/>
 							<input type="hidden" th:id="'idSubMenuUsuSelHidden'+ ${iterStat.index}" th:name="'subMenuUsuSelHidden'+ ${iterStat.index}" th:value="${listSubMenuUsu.idSubMenuUsuWeb}"/>
 					</tbody>
 				 </table>
