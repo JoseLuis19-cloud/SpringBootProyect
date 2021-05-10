@@ -43,7 +43,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
  
 @Controller
 @RequestMapping("/gestionWeb/clientes")
-@PropertySource("classpath:parametrosaplicacion.properties")
+@PropertySource("classpath:parametrosAplicacion.properties")
 public class ControllerWebClientes {
 
 	@Autowired

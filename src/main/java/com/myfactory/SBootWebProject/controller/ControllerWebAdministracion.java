@@ -52,7 +52,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Controller
 @RequestMapping("/administracion")
-@PropertySource("classpath:parametrosaplicacion.properties")
+@PropertySource("classpath:parametrosAplicacion.properties")
 public class ControllerWebAdministracion {
 
 	@Autowired

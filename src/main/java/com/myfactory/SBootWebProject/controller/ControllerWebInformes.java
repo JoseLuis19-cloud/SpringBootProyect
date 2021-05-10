@@ -34,7 +34,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 @Controller
 @RequestMapping("/informes")
-@PropertySource("classpath:parametrosaplicacion.properties")
+@PropertySource("classpath:parametrosAplicacion.properties")
 public class ControllerWebInformes {
 
 	@Autowired

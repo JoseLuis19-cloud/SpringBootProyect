@@ -47,7 +47,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Controller
 @RequestMapping("/gestionWeb/empleados")
-@PropertySource("classpath:parametrosaplicacion.properties")
+@PropertySource("classpath:parametrosaAplicacion.properties")
 public class ControllerWebEmpleados {
 
 	@Autowired

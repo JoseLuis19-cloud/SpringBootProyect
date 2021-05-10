@@ -47,7 +47,7 @@ import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FacturaLinea;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
-@PropertySource(value = "classpath:/parametrosaplicacion.properties", ignoreResourceNotFound = true)
+@PropertySource(value = "classpath:/parametrosAplicacion.properties", ignoreResourceNotFound = true)
 public class GeneradorJasper {
 	
 	private static final String REPORTE_JAPSER_EMPLEADOS = "InformeEmpleados.jasper";
