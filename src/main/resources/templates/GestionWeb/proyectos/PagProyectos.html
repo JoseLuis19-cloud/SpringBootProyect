@@ -50,7 +50,7 @@
   			<div class="col-sm-10">
 				<div class="divRoundedBuscar">
   					<form class="form-inline" th:action="@{/gestionWeb/proyectos/pagproyecto}" th:object="${objBusqueda}" method="post"> 
- 						<div class="col-sm-3"><label for="buscarProyectos" th:text="' Proyectos:  '"></label></div>
+ 						<div class="col-sm-3"><label for="buscarProyectos" th:text="' Nombre proyecto: '"></label></div>
   						<div class="col-sm-6"><input type="text" class="form-control form-control-xs" th:id="idBuscarProyecto" th:name="buscarProyecto" th:maxlength="20" th:field="*{nomProyecto}"></div>
 						<div class="col-sm-3"><button type="submit" class="btn btn-primary btn-sm">Buscar</button></div>
 					</form>

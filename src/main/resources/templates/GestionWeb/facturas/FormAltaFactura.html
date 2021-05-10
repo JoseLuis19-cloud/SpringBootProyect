@@ -5,9 +5,6 @@
 
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
-		
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
 
  <style>
 
@@ -20,10 +17,9 @@
 	}
 </style>
 
-
  <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
  <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	
+ 
 </head>
 
 <body>
@@ -44,7 +40,7 @@
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8" style="border-bottom: 2px solid #000">
-				<div class="subtitulo-pag" th:text="'Datos Nueva Factura'"></div>
+				<div class="subtitulo-pag2" th:text="'Datos Nueva Factura'"></div>
 			</div>
 			<div class="col-2"></div>
 		</div>
@@ -127,7 +123,7 @@
 			<div class="row">
 				<div class="col-2"></div>
 				<div class="col-8">
-				<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura"></div>
+					<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura"></div>
 				</div>	
 				<div class="col-2"></div>
 			</div>

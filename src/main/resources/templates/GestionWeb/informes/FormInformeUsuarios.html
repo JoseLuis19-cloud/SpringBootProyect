@@ -115,32 +115,15 @@ h5 {
  			<div class="col-1"></div>
 		</div>
  	
-
  		<div class="row">
- 			<div class="col-1"></div>
- 			<div class="col-2"><a th:href="@{/}" class="btn btn-primary" role="button">Volver</a></div>
- 			<div class="col-5"></div>
- 			<div class="col-3">	
+			<div class="col-1"></div>	
+			<div class="col-10 text-right">
+				<a th:href="@{/}" class="btn btn-primary" role="button">Volver</a>
 				<button type="submit" class="btn btn-primary">Generar Informe</button>
- 			</div>
- 			<div class="col-1"></div>
+			</div>	
+			<div class="col-1"></div>	
 		</div>
+		</form> 
  	</div>
-		</form>
- <!-- Include Date Range Picker -->
- 
-  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
- 
- <script th:inline="javascript">
- 	$(function () { 	
-   	 $('#idFecAltaEmpresa').datepicker({
-    	 format: "dd/mm/yyyy",
-    	 language: 'es'
-    	});
-    });
-</script>
-
 </body>
 </html>

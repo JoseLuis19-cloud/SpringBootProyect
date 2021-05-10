@@ -196,7 +196,7 @@ public class ControllerWebAdministracion {
 	@RequestMapping("/generarrestauracioncopseg")
 	public String generarRestaurarCopSeg(Model modelo) {
 
-		restoreMySQLBueno();
+		restoreMySQLBueno("");
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		return "GestionWeb/administracion/FormResulRestaurarCopSeg";
@@ -217,13 +217,11 @@ public class ControllerWebAdministracion {
 		return "GestionWeb/administracion/FormCrearTarea";
 	}
 	
-	
 	@GetMapping("/forminfotecnologias")
 	public String formInformacionTecnologias(Model modelo) {
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		return "GestionWeb/administracion/InfoTecnologias";
 	}
-	
 	
 	@GetMapping("/pruebas")
 	public String pruebas(Model modelo) {
@@ -353,15 +351,13 @@ public class ControllerWebAdministracion {
          }
 	}
 
-	public static void restoreMySQLBueno() {
+	public static void restoreMySQLBueno(String nomFicheroSQL) {
        // String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
        // String backupPath = String.format("%s/%s.%s", "/Users/UsuarioJoseLuis/Documents", "BeigarBD" + currentDate, "sql");
        // File backupFile = new File(backupPath);
        // if (!backupFile.exists()) {
           try {
-        //  backupFile.createNewFile();
-
- 
+       //  backupFile.createNewFile();
           String[] comandoUnixArr2 = new String[] { "sh", "/Users/UsuarioJoseLuis/Documents/restorecopsegbeigar.sh"};
            
           ProcessBuilder pb = new ProcessBuilder(comandoUnixArr2);

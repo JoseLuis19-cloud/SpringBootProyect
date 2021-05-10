@@ -61,11 +61,11 @@ h5 {
 		<form th:action="@{/informes/informeproyectos}" th:object="${datosInformes}" method="post">
 		<div class="row">
 			<br>
-			<div class="col-1"></div>
-  			<div class="col-10" >
+			<div class="col-2"></div>
+  			<div class="col-8" >
   				<div class="subtitulo-pag2">Informe Proyectos</div>
   			</div>
-  			<div class="col-1"></div>
+  			<div class="col-2"></div>
   		</div>
   		
 		<div class="row">
@@ -114,16 +114,16 @@ h5 {
  			</div>
  			<div class="col-1"></div>
 		</div>
-		 
- 		<div class="row">
- 			<div class="col-1"></div>
- 			<div class="col-2"><a th:href="@{/}" class="btn btn-primary" role="button">Volver</a></div>
- 			<div class="col-5"></div>
- 			<div class="col-3">	
+		
+		<div class="row">
+			<div class="col-1"></div>	
+			<div class="col-10 text-right">
+				<a th:href="@{/}" class="btn btn-primary" role="button">Volver</a>
 				<button type="submit" class="btn btn-primary">Generar Informe</button>
- 			</div>
- 			<div class="col-1"></div>
+			</div>	
+			<div class="col-1"></div>	
 		</div>
+		
  		</form>
  	</div>
 	
