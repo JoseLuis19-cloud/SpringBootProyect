@@ -7,9 +7,33 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	 <link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 	 
-	<style> 	
+	<style> 
+	
+	.divRoundedBuscar {
+  	 margin-top: 6px;
+  	 margin-left: 6px;
+  	 margin-bottom: 6px;
+   	 border-color: black;
+   	 border-radius: 10px;
+   	 border-style: solid;
+   	 border-width: 1px;
+   	 width: 35%;
+   	 margin-right: 0;
+   	 padding: 15px;
+	}	
+	
+	.form-control-xs {
+    height: calc(1em + .375rem + 2px) !important;
+    padding: .125rem .25rem !important;
+    font-size: .75rem !important;
+    line-height: 1.5;
+    border-radius: .2rem;
+	}
 	
   </style>
+ 
+ <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+ <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
 </head>
 
@@ -20,22 +44,22 @@
 		<div class="row">
 			<div class="titulo-pag2">Proyectos que participa Beigar</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-sm-1"></div>
+  			<div class="col-sm-10">
+				<div class="divRoundedBuscar">
+  					<form class="form-inline" th:action="@{/gestionWeb/proyectos/pagproyecto}" th:object="${objBusqueda}" method="post"> 
+ 						<div class="col-sm-3"><label for="buscarProyectos" th:text="' Proyectos:  '"></label></div>
+  						<div class="col-sm-6"><input type="text" class="form-control form-control-xs" th:id="idBuscarProyecto" th:name="buscarProyecto" th:maxlength="20" th:field="*{nomProyecto}"></div>
+						<div class="col-sm-3"><button type="submit" class="btn btn-primary btn-sm">Buscar</button></div>
+					</form>
+  				</div>
+  			</div>
+  			<div class="col-sm-1"></div>
+		</div>
 	
-	<div class="row">
-		<div class="col-sm-1"></div>   
-  		<div class="col-sm-10">
-  			<form class="form-inline" action="#" th:action="@{/gestionWeb/proyectos/pagproyecto}" th:object="${objBusqueda}" method="post">
-  				<div class="form-group mx-sm-3 mb-2">
-    				<label for="buscarApellidos" th:text="'  Proyecto:  '"></label>
-    				<input type="text" class="form-control" th:id="idBuscarProyecto" th:name="buscarProyecto" th:maxlength="25" th:field="*{nomProyecto}" >
-    				<button type="submit" class="btn btn-primary">Buscar</button>    
- 				</div>	
-			</form>
-  		</div>
-  		<div class="col-sm-1"></div> 
-	</div>
-	
-	<div class="row">
+		<div class="row">
 		<div class="col-sm-1"></div>   
   		<div class="col-sm-10">
 			<div class="panel panel-default" style="border-bottom: 2px solid #000">

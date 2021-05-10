@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+ 	<style>
+ 
+	.form-control-xs {
+		height: calc(1em + .375rem + 2px) !important;
+		padding: .125rem .25rem !important;
+		font-size: .75rem !important;
+		line-height: 1.5;
+		border-radius: .2rem;
+	}
+
+	</style>
+	
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+	
+	<script th:inline="javascript">
+
+	  $(document).ready(function(){
+		// Evento de boton idLinkSimulacion
+		 $('a[id^="idLinkSimulacion"]').click(function(event) {
+			$("#myModalSimulacion").modal();	
+		 });
+		
+		
+		 $('a[id^="idLinkGeneracion"]').click(function(event) {
+				$("#myModalGenProceso").modal();	
+			 });
+	 });
+	  
+	  
+	  
+	  
+	  
+	  function confirmarSimulacion()
+	  {
+		 alert("____"); 
+	  }
+	
+	</script>
+
+</head>
+
+ <body>
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="titulo-pag2">Gestión de Proyectos</div>
+		</div>
+		<form th:action="@{/gestionWeb/proyectos/modifproyecto}" th:object="${datosProyecto}" method="post">
+		<div class="row">
+			<div class="col-1"></div>
+  			<div class="col-10" >
+  				<div class="subtitulo-pag2">Finalizar Proyecto SEPE</div>
+  			</div>
+  			<div class="col-1"></div>
+  		</div>
+  		<br>
+  		<div class="row">
+			<br>
+			 <div class="col-1"></div>
+  			 <div class="col-10"> 			 
+  			 <!-- 3 Pestañas  de Pantalla -->
+  				 <ul class="nav nav-tabs" id="myTab" role="tablist">
+  			  		<li class="nav-item">
+    					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#informacion" role="tab" aria-controls="home" aria-selected="true">Información</a>
+  			  		</li>
+  			  		<li class="nav-item">
+    					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#facturacion" role="tab" aria-controls="profile" aria-selected="false">Facturacion</a>
+  			 		</li>
+ 			 		<li class="nav-item">
+  			 		 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#finalizacion" role="tab" aria-controls="contact" aria-selected="false">Finalizacion</a>
+  					</li>
+		  		</ul>
+		  </div>
+  		  <div class="col-1"></div>
+  		</div>
+
+		<div class="row">
+			<div class="col-1"></div>
+  			<div class="col-10">
+  			 <div class="tab-content" id="myTabContent">
+  			 
+  			 	<div class="tab-pane fade show active" id="informacion" role="tabpanel" aria-labelledby="home-tab">
+  			 		<br>
+  			 		<div class="form-row">
+						<div class="col-md-3 mb-5">
+							<label for="labelNomProyecto" th:text="'Nombre Proyecto'"></label> 
+							<input type="text" class="form-control" id="idNombreProyecto" th:field="*{nomProyecto}" th:maxlength="30" th:readonly="true">
+						</div>
+						
+						<div class="col-md-3 mb-5">
+							<label for="validationUbiProyecto" th:text="'Ubicacion Proyecto'"></label> 
+							<input type="text" class="form-control" id="idUbicacionProyecto" th:field="*{ubicacionProyecto}" th:maxlength="30" th:readonly="true">
+						</div>
+						
+						<div class="col-md-2 mb-5">
+							<label for="labelImpBrutoAnu" th:text="'Importe Proyecto' "></label>
+							<input type="text" class="form-control" id="idImpProyecto" name="impProyecto" th:value="${#numbers.formatDecimal(impProyectoWeb,3,2,'COMMA')}" th:readonly="true" >
+						</div>
+						
+						<div class="col-md-2 mb-5">
+							<label for="labelFecIniProyecto" th:text="'Fecha Inicio del proyecto' "></label> 
+       						<input type="text" class="form-control" th:id="idFecIniProyecto" th:name="fecIniProyecto" th:value="${#calendars.format(fecIniProyecto, 'dd/MM/yyyy')}" th:readonly="true">
+						</div>
+						
+						<div class="col-md-2 mb-5">
+						   <label for="labelFecFinProyecto" th:text="'Fecha Fin del proyecto' "></label>
+						   <input type="text" class="form-control" th:id="idFecFinProyecto" th:name="fecFinProyecto" th:value="${#calendars.format(fecFinProyecto, 'dd/MM/yyyy')}" th:readonly="true">
+						</div>
+					</div>
+				
+					<div class="form-row">
+						<div class="col-md-12 mb-1">
+    						<label for="labelNomGerenteProyecto">Nombre del Gerente</label>
+    						<input type="text" class="form-control" th:id="idNomGerente" th:name="nomGerente" th:field="*{nomGerenteProyecto}" th:maxlength="35" th:readonly="true">
+  						</div>
+  					</div>
+				 
+					<div class="form-row">
+						<div class="col-md-12 mb-1">
+    					 	<label for="labelInformacionComplementaria">Información Complementaria del proyecto</label>
+    						<textarea class="form-control" th:id="idInfoComplementaria" th:name="infoComplementaria" th:field="*{infoComplementaria}" rows="3" th:readonly="true"></textarea>
+  						</div>
+  					</div>
+  				 </div>
+
+  				<div class="tab-pane fade" id="facturacion" role="tabpanel" aria-labelledby="profile-tab">
+  					<div class="form-row">
+  						<div class="subtitulo-pag2">Total facturado por el proyecto</div>
+  					</div>
+					<div class="form-row"> 
+    					<table class="table table-sm">
+							<thead class="thead-light">
+								<tr>
+									<th th:text="'Seleccionar'"></th>
+									<th th:text="'Id. proc'"></th>
+									<th th:text="'Año proceso'"></th>
+									<th th:text="'Mes proceso'"></th>
+									<th th:text="'Importe'"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="elemenProyFactuPendientes, iterStat :${proyFactuPendientes}">
+									<td><input type="checkbox" th:checked="false" class="btn btn-primary btn-sm" th:id="'idProyProMes'+ ${iterStat.index}" th:name="'proyProMes' + ${iterStat.index}"/></td>	 
+									<th th:text="${elemenProyFactuPendientes.idProyectoFacMes}"></th>
+									<td th:text="${elemenProyFactuPendientes.numAnyo}"></td>
+									<td th:text="${elemenProyFactuPendientes.numMes}"></td>
+									<td th:text="'3.500'"></td>	
+								</tr>
+							</tbody>
+						</table>	 
+  					</div>	
+  				</div>
+  				
+  				<div class="tab-pane fade" id="finalizacion" role="tabpanel" aria-labelledby="contact-tab">
+  			  		<div class="form-row">
+  						<div class="subtitulo-pag2">Finalizar Proyecto</div>
+  					</div>
+  					
+  					<div class="form-row">
+  						<div>Campos para finalizar proyecto</div>
+  					</div>
+				
+  			 	</div>
+  			 </div>
+  			</div>
+  			<div class="col-1"></div>
+		</div>
+ 		
+ 		<div class="row">
+			<div class="col-1"></div>	
+			<div class="col-10 text-right">
+				<a th:id="'idLinkVolver'" th:name="'linkVolver'" th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-colour-1" role="button">Volver</a>
+			</div>	
+			<div class="col-1"></div>	
+		</div>
+ 				
+ 		</form>
+	</div>
+	
+	<div id="myModalSimulacion" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+      <!-- Modal content-->
+      	<div class="modal-content">
+      		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
+      	
+       	 <div class="container-fluid">
+       	 	 <br/>
+        	<div class="subtitulo-pag" th:text="'Simulación en Verde Mes'"></div>
+
+			<div class="row">
+			<!-- Meter div con scroll -->
+				<div class="col-12"> 
+					<table class="table table-sm">
+						<thead class="thead-light">
+							<tr>
+								<th th:text="'Empleado'"></th>
+								<th th:text="'Importe facturado mes'"></th>
+								<th th:text="'Acciones'"></th>
+								<th th:text="''"></th>
+							</tr>
+						</thead>
+						<tbody>
+						 <tr>
+							<td th:text="'Pedro Ruiz'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+						 </tr>
+						 <tr>
+							<td th:text="'Silvia García Rodríguez'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>	  
+						 </tr>
+					</tbody>
+			 	</table>
+		
+			 </div>
+			 
+			</div>
+			</div>	
+        	<div class="modal-footer">  
+        		  <button type="button" class="btn btn-colour-1"  data-dismiss="modal">Cancelar</button>
+       			  <button type="button" th:onclick="confirmarSimulacion()" class="btn btn-success">Confirmar</button>
+        	</div>
+          </form>	
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="myModalGenProceso" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+      <!-- Modal content-->
+      	<div class="modal-content">
+      		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
+      	
+       	 <div class="container-fluid">
+       	 	 <br/>
+        	<div class="subtitulo-pag" th:text="'Confirmacion Proceso Facturación'"></div>
+
+			<div class="row">
+			<!-- Meter div con scroll -->
+				<div class="col-12"> 
+					<table class="table table-sm">
+						<thead class="thead-light">
+							<tr>
+								<th th:text="'Empleado'"></th>
+								<th th:text="'Importe facturado mes'"></th>
+								<th th:text="'Acciones'"></th>
+								<th th:text="''"></th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td th:text="'Pedro Ruiz'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+						</tr>
+						<tr>
+							<td th:text="'Silvia García Rodríguez'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+							  
+						</tr>
+					</tbody>
+			 	</table>
+		
+			 </div>
+			 
+			</div>
+			</div>	
+        	<div class="modal-footer">  
+        		  <button type="button" class="btn btn-danger">Cancelar</button>
+       			  <button type="button" th:onclick="confirmarGeneracion()" class="btn btn-danger">Confirmar</button>
+        	</div>
+          </form>	
+      </div>
+      
+    </div>
+  </div>
+  
+ 
+</body>
+</html>

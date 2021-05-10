@@ -256,34 +256,36 @@ public class ControllerWebProyectos {
 	 
 	 return "GestionWeb/proyectos/FormGenFacturacionProyecto";
 	}
-	
+
 	@GetMapping("/formfinproyecto")
- 	public String formFinProyecto(Model modelo)  {
-		
-	 BeanProyectoWeb datosProyectoWeb = new BeanProyectoWeb ();
-			
+ 	public String formFinProyecto(Model modelo, @RequestParam(value = "idProyecto", required = true) Integer idProyecto )  {
+	 Integer idFacturaProyecto = new Integer(1);
+	 FacturacionProyecto facturacionProyecto = servJPAFacturacionProyecto.buscarIdProyectoFacturacion(idFacturaProyecto).get();
+	 modelo.addAttribute("datosFacturacionProyecto", facturacionProyecto);
+	 
+	 Proyecto datosProyecto = servJPAProyecto.buscarIdProyecto(idProyecto).get();
+	 modelo.addAttribute("datosProyecto", datosProyecto);
+	 
+	 Iterable <ProyectoFacturacionMes> proyectFactuMes = datosProyecto.getProyectoFacturacionMes();
+	 
+	 List<ProyectoFacturacionMes> listFactuProyectoMes = StreamSupport
+				  .stream(proyectFactuMes.spliterator(), false)
+				  .collect(Collectors.toList());
+	 
+	 List<ProyectoFacturacionMes> proyecFactuMesPendientes = listFactuProyectoMes
+			  .stream()
+			  .filter(c -> c.getCodEstado() == 1)
+			  .collect(Collectors.toList());
+	 
+	 modelo.addAttribute("proyFactuPendientes", proyecFactuMesPendientes );
 	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
-	 List<Empresa> listEmpresasDisponibles = new ArrayList<Empresa>();
-	 obtenerEmpresasDisponibles(listEmpresasDisponibles, listBeanEmpUTE);
+	// if activadoModalSimulacion
+	 //	{
+	 //	Proyecto datosProyectos = servJPAProyecto.listaEmpleAFacturarMes(idProyecto).get();
+	 //	}
 	 
-	 List<Empleado> listEmpleadosDisponibles = new ArrayList<Empleado>();
-	 obtenerEmpleadosDisponibles(listEmpleadosDisponibles);
-	 
-	// BeanPrueba1 prueba1 = new BeanPrueba1();
-	// prueba1.setApellidosWeb("1");
-	// prueba1.setNombreWeb("2");
-	 
-	// lPrueba1.add(prueba1);
-
-	// modelo.addAttribute("lprueba", lPrueba1);
-	
-//	 modelo.addAttribute("listaEmpresasProyecto", obtenerEmpresasDisponibles(listEmpresasDisponibles));
-//	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
-	 
-	 modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
-	 
-	 return "GestionWeb/proyectos/FormFinProyecto";
+	 return "GestionWeb/proyectos/FormFinalizarProyecto";
 	}
 	
 	@RequestMapping("/pagproyectos")
