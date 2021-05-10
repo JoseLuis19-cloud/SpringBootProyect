@@ -27,8 +27,16 @@
 		// Evento de boton idLinkSimulacion
 		 $('a[id^="idLinkSimulacion"]').click(function(event) {
 			$("#myModalSimulacion").modal();	
-		 });	
+		 });
+		
+		
+		 $('a[id^="idLinkGeneracion"]').click(function(event) {
+				$("#myModalGenProceso").modal();	
+			 });
 	 });
+	  
+	  
+	  
 	  
 	  
 	  function confirmarSimulacion()
@@ -51,7 +59,7 @@
 		<div class="row">
 			<div class="col-1"></div>
   			<div class="col-10" >
-  				<div class="subtitulo-pag2">Proceso Facturacion Proyecto ____</div>
+  				<div class="subtitulo-pag2">Proceso Facturacion Proyecto SEPE</div>
   			</div>
   			<div class="col-1"></div>
   		</div>
@@ -155,9 +163,29 @@
   				
   				<div class="tab-pane fade" id="ejecucion" role="tabpanel" aria-labelledby="contact-tab">
   			  		<div class="form-row">
-						<div class="col-md-12 mb-1">
-    						<label for="labelNomGerenteProyecto3">Nombre del Gerente 3</label>
-  						</div>
+  						<div class="subtitulo-pag2">Procesos Pendientes de lanzar para el proyecto</div>
+  					</div>
+					<div class="form-row"> 
+    					<table class="table table-sm">
+							<thead class="thead-light">
+								<tr>
+									<th th:text="'Seleccionar'"></th>
+									<th th:text="'Id. proc'"></th>
+									<th th:text="'Año proceso'"></th>
+									<th th:text="'Mes proceso'"></th>
+									<th th:text="'Accion'"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="elemenProyFactuPendientes, iterStat :${proyFactuPendientes}">
+									<td><input type="checkbox" th:checked="false" class="btn btn-primary btn-sm" th:id="'idProyProMes'+ ${iterStat.index}" th:name="'proyProMes' + ${iterStat.index}"/></td>	 
+									<th th:text="${elemenProyFactuPendientes.idProyectoFacMes}"></th>
+									<td th:text="${elemenProyFactuPendientes.numAnyo}"></td>
+									<td th:text="${elemenProyFactuPendientes.numMes}"></td>
+									<td><a th:id="'idLinkGeneracion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-danger" role="button">Generación</a></td>	
+								</tr>
+							</tbody>
+						</table>	 
   					</div>
   			 	</div>
   			 </div>
@@ -199,19 +227,18 @@
 							</tr>
 						</thead>
 						<tbody>
-						<tr>
+						 <tr>
 							<td th:text="'Pedro Ruiz'"></td>
 							<td th:text="'10000'"></td>
 							<td th:text="''"></td>
-							<td><button type="button" class="btn btn-colour-1"  data-dismiss="modal">modificar</button></td>
-						</tr>
-						<tr>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+						 </tr>
+						 <tr>
 							<td th:text="'Silvia García Rodríguez'"></td>
 							<td th:text="'10000'"></td>
 							<td th:text="''"></td>
-							<td><button type="button" class="btn btn-colour-1"  data-dismiss="modal">modificar</button></td>
-							  
-						</tr>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>	  
+						 </tr>
 					</tbody>
 			 	</table>
 		
@@ -228,6 +255,60 @@
       
     </div>
   </div>
+  
+  <div id="myModalGenProceso" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-xl">
+      <!-- Modal content-->
+      	<div class="modal-content">
+      		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
+      	
+       	 <div class="container-fluid">
+       	 	 <br/>
+        	<div class="subtitulo-pag" th:text="'Confirmacion Proceso Facturación'"></div>
+
+			<div class="row">
+			<!-- Meter div con scroll -->
+				<div class="col-12"> 
+					<table class="table table-sm">
+						<thead class="thead-light">
+							<tr>
+								<th th:text="'Empleado'"></th>
+								<th th:text="'Importe facturado mes'"></th>
+								<th th:text="'Acciones'"></th>
+								<th th:text="''"></th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td th:text="'Pedro Ruiz'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+						</tr>
+						<tr>
+							<td th:text="'Silvia García Rodríguez'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+							  
+						</tr>
+					</tbody>
+			 	</table>
+		
+			 </div>
+			 
+			</div>
+			</div>	
+        	<div class="modal-footer">  
+        		  <button type="button" class="btn btn-danger">Cancelar</button>
+       			  <button type="button" th:onclick="confirmarGeneracion()" class="btn btn-danger">Confirmar</button>
+        	</div>
+          </form>	
+      </div>
+      
+    </div>
+  </div>
+  
  
 </body>
 </html>
