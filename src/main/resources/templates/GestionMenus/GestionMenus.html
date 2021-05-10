@@ -51,7 +51,6 @@
 			var lastChar = getNumber(event.target.id);
 			
 			if ($(this).text() == "editar") {
-			//	alert("Es Editar" + lastChar);
 				
 				$("a[id^='idLinkEdit']").hide(); 
 				$("a[id^='idLinkSubMenu']").hide();
@@ -69,7 +68,6 @@
 				}  
 		   	  else
 				{
-		   	//	alert("Es Grabar");
 		   	 // Guardar elemento menu modificado
 		   		
 				$("#idIdMenuHidden").val($("#idMenuHidden" + lastChar).val()) ;
@@ -77,9 +75,7 @@
 				$("#idTextoMenuHiden").val($("#idTextoMenu" + lastChar).val()); 
 				$("#idHREFMenuHidden").val($("#idhRefAplicacion" + lastChar).val()); 
 				$("#idIndActivoHidden").val($("#idActivado" + lastChar).val()); 
-				
-			//	alert ( "num. orden menu " + $("#idNumOrdMenu" + lastChar).val() + " , idIndActivoHidden " +  $("#idIndActivoHidden").val() );
-				
+			
 			 // Submitir formulario
 				document.getElementById("idFormEditMenu").submit();
 			}	

@@ -1,6 +1,7 @@
 package com.myfactory.SBootWebProject.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -120,19 +121,27 @@ public class ControllerWebProyectos {
 	//			@RequestParam(name="search")  Person per1, Model modelo) {
 	
 	@RequestMapping(value ="/anadirempreproyecajax", produces = "application/json",  method=RequestMethod.GET)
-	public ModelAndView anadirEmpresaProyecto(@RequestBody  BeanEmpAnadir beanEmpAnadir)
-			//	BindingResult resultValidacion,
-			//	RedirectAttributes redirectAttrs,
-			//	Model modelo, 
-			{
+	public ModelAndView anadirEmpresaProyecto(@RequestParam String arrEmpresasAnadirUTE)
+		{
 		
-		System.out.println(beanEmpAnadir.getIdEmpresa());
+		
 	//	boolean noFinProyecto = false;
 		Proyecto modifProyecto = new Proyecto();
 		
 		// nuevoProyecto.setNomProyecto(formProyectoWeb.getNomProyecto() );
 		// modifProyecto.setImpProyecto( formProyectoWeb.getImpProyectoWeb());
 		// modifProyecto.setIndFinProyecto(noFinProyecto);
+		
+		 
+		List<String> listEmpresasAnadir = Arrays.asList(arrEmpresasAnadirUTE.split(","));
+		
+		
+	//	listEmpresasAnadir
+		
+		for (String eleidEmpresa : listEmpresasAnadir) {
+			
+		
+		}
 		
 		servJPAProyecto.modifProyecto(modifProyecto);
 		

@@ -3,15 +3,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
-  	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+    <link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
     
     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-
+	
  <style>
  
 .form-control-xs {
@@ -20,54 +20,43 @@
 	font-size: .75rem !important;
 	line-height: 1.5;
 	border-radius: .2rem;
-}
-
-h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
-   }
+ }
 
 </style>
 
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+
  	<script th:inline="javascript">
- 	
+ 
+ // Creates an array of 4 undefined elements
+ 	var arrEmpresasUTE = new Array(4);
+   
+ // Now assign values
+	arrEmpresasUTE[0] = "1BHK";
+ 
 	 $(document).ready(function() {
 		 
-		 $('[name="checkEmpresaDis[]"]').click(function() {
-		      arrValueCheck = $('[name="checkEmpresaDis[]"]:checked').map(function(){
+		 $('[name="checkEmpresaDisp[]"]').click(function() {
+		      arrValueCheck = $('[name="checkEmpresaDisp[]"]:checked').map(function(){
 		      return this.value;
 		    }).get();
-		      
-		   //   alert(arrValueCheck);
-			//   alert("arrValueCheck " + arrValueCheck.length);
-		      
-			$("#idLinkAnadirEmpresa").click(function(){
-			
-				alert("Antes de crear objecto");
-			
-				var empAnadir = new Object();
-				empAnadir.idEmpresa = "1";
-				empAnadir.nomEmpresa = "Empresa primera prueba"; 
-			 
-				alert("Antes de llamada ajax");
-				var urlAJAX = '/gestionWeb/proyectos/anadirempreproyecajax';
+		 }); 
+		  
+		$("#idLinkAnadirEmpresa").click(function() {
+				
+			alert (arrValueCheck);
+			var str = arrValueCheck.join(',');
+			alert(str);
+				
+			if (arrValueCheck.length > 4)
+			 	{
+				  alert("Solo se puede seleccionar hasta 4 empresas");
+				}
+				 
+			alert("Antes de llamada ajax");
+			var urlAJAX = '/gestionWeb/proyectos/anadirempreproyecajax';
 		
  				$.ajax({
  				headers: {
@@ -98,10 +87,10 @@ h5 {
  	    			}
  			});
 	 	});	
-	 });
+
 	 });	 
 	</script>
-,
+
 </head>
 
  <body>
@@ -210,7 +199,7 @@ h5 {
 						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  							<br/>
  							<br/>
-				 			<a th:id="'idLinkAnadirEmpresa'"  th:name="'linkAnadirEmpresa'"  class="btn btn-primary btn-sm" role="button"> Añadir &#8680;</a>
+				 			<a th:id="'idLinkAnadirEmpresa'"   th:name="'linkAnadirEmpresa'"  class="btn btn-primary btn-sm" role="button"> Añadir &#8680;</a>
 							<br/>
 							<a th:id="'idLinkSuprimirEmpresa'" th:name="'linkSuprimirEmpresa'" class="btn btn-colour-1" role="button">&#8678; Suprimir </a>
 							<br/>
@@ -279,7 +268,6 @@ h5 {
 	</div>
  		
  <!-- Include Date Range Picker -->
- 
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
