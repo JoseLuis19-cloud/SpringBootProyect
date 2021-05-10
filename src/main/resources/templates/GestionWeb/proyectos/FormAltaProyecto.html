@@ -142,13 +142,13 @@ h5 {
   		</div>
 
 		<div class="row">
-			<br>
+			 
 			<div class="col-1"></div>
   			<div class="col-10">
   			 <div class="tab-content" id="myTabContent">
   			 
   			  <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="home-tab">
-
+				<br>
   			  	<div class="form-row">
 					<div class="col-md-3 mb-5">
 						<label for="validationProyecto" th:text="'Nombre Proyecto'"></label> 
@@ -193,7 +193,7 @@ h5 {
   			</div>
   			
   			<div class="tab-pane fade" id="empresas" role="tabpanel" aria-labelledby="profile-tab">
-  			
+  				<br>
   				<div class="form-row">
 				 <div class="subtitulo-pag3"><strong><U>Empresas participantes en el proyecto</U></strong></div>
 				</div>
@@ -228,6 +228,7 @@ h5 {
 			</div>
 			
   			<div class="tab-pane fade" id="empleados" role="tabpanel" aria-labelledby="contact-tab">
+  				<br>
 				<div class="form-row">
 				 <div class="subtitulo-pag3"><strong><U>Empleados Beigar actualmente en el proyecto</U></strong></div>
 				</div>
@@ -264,15 +265,17 @@ h5 {
   		    </div>
   		  <div class="col-1"></div>
   		</div>
-		
+ 		
  		<div class="row">
- 			<div class="col-4"></div>
- 			<div class="col-2"><a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Cancelar</a></div>
- 			<div class="col-2"><button type="submit" class="btn btn-colour-1">Crear</button></div>
- 			<div class="col-4"></div>
- 		</div>
- 				
- 		</form>
+			<div class="col-1"></div>	
+			<div class="col-10 text-right">
+				<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Cancelar</a>
+				<button type="submit" class="btn btn-colour-1">Crear</button>
+			</div>	
+			<div class="col-1"></div>	
+		</div>
+ 		</form>		
+ 
 	</div>
  		
  <!-- Include Date Range Picker -->
