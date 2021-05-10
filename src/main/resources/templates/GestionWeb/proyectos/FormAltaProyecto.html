@@ -46,11 +46,7 @@
 		  
 		$("#idLinkAnadirEmpresa").click(function() {
 				
-			alert (arrValueCheck);
 			var arrEmpresasAnadirUTE = arrValueCheck.join(',');
-			alert(arrEmpresasAnadirUTE);
-			
-			data: { param1: arrEmpresasAnadirUTE  } // parameters
 				
 			if (arrValueCheck.length > 4)
 			 	{
@@ -99,9 +95,7 @@
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	<div class="container-fluid">
-		<div class="row">
-			<div class="titulo-pag2">Gestión de Proyectos</div>
-		</div>
+		<div class="row"> <div class="titulo-pag2">Gestión de Proyectos</div> </div>
 		<form th:action="@{/gestionWeb/empleados/modifproyecto}" th:object="${datosProyectoWeb}" method="post">
 		<div class="row">
 			<br>
@@ -133,7 +127,6 @@
   		</div>
 
 		<div class="row">
-			 
 			<div class="col-1"></div>
   			<div class="col-10">
   			 <div class="tab-content" id="myTabContent">
@@ -193,10 +186,10 @@
 					<div class="col-md-5 mb-3">
 						<div id="idDivEmpresasDis">
 							<div class="subtitulo-pag4">Empresas disponibles para el proyecto</div>
-						<div th:insert="GestionWeb/fragments/anadirEmpresaProyecto :: anadirEmprProyecto"></div>
+						<div th:insert="GestionWeb/fragments/anadirEmpresaProyecto :: anadirEmprProyecto" style="overflow-y: scroll; width:600px; height:500px; border: 1px solid black;"></div>
 						</div>
 			 		</div>
-				
+			 		
 					<div class="col-md-2 mb-3 justify-content-center">
 						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  							<br/>
@@ -227,8 +220,8 @@
 				<div class="form-row">
 					<div class="col-md-5 mb-3">
 						<div id="idDivSubMenu1Usu">
-						<div class="subtitulo-pag4"> Añada un empleado Beigar al proyecto</div>
-						<div th:insert="GestionWeb/fragments/anadirEmpleadoProyecto :: anadirEmplProyecto"></div>
+							<div class="subtitulo-pag4"> Añada un empleado Beigar al proyecto</div>
+							<div th:insert="GestionWeb/fragments/anadirEmpleadoProyecto :: anadirEmplProyecto" style="overflow-y: scroll; width:600px; height:500px; border: 1px solid black;"></div>
 						</div>
 			 		</div>
 				
@@ -236,9 +229,9 @@
 						<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
  						<br/>
  						<br/>
-				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadirEmpleado'"  th:onclick="anadirEmpresaProyecto()" class="btn btn-primary btn-sm" role="button"> &#8678; Añadir</a>
+				 		<a th:id="'idLinkAnadir'"   th:name="'linkAnadirEmpleado'"  th:onclick="anadirEmpresaProyecto()" class="btn btn-primary btn-sm" role="button"> Añadir &#8680;</a>
 						<br/>
-						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimirEmpleado'" th:onclick="eliminarEmpresaProyecto()" class="btn btn-colour-1" role="button">Suprimir &#8680;</a>
+						<a th:id="'idLinkSuprimir'"  th:name="'linkSuprimirEmpleado'" th:onclick="eliminarEmpresaProyecto()" class="btn btn-colour-1" role="button">&#8678; Suprimir</a>
 						<br/>
 						</div> 
 					</div>

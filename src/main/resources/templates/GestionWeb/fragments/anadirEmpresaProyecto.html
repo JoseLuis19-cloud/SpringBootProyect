@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
   </head>
   <body>
 	<header th:fragment="anadirEmprProyecto">
-     		<table class="table table-sm">
-				<thead class="thead-light">
-					<tr>
-						<th th:text="'Marque'"></th>
-						<th th:text="'Id. Empresa'"></th>
-						<th th:text="'Empresa'"></th>
-					</tr>
-				</thead>
-				<tbody class="table-striped">
-					<tr th:each="listEmpreProyecto, iterStat :${listaEmpresasDisponibles}">
-					 	<td>
-					 		<div style="display: flex; justify-content: center; align-items: center;"> 
-							 <input type="checkbox" th:id="'idCheckEmpresaDis'+ ${iterStat.index}" th:name="checkEmpresaDisp[]" th:checked="false" th:value="${listEmpreProyecto.idEmpresa}" class="btn btn-primary btn-sm"/>						
-							</div>
-						</td>
-						<td th:text="${listEmpreProyecto.idEmpresa}"></td>
-						<td th:text="${listEmpreProyecto.nomEmpresa}"></td>
-					</tr>
-				</tbody>
-			 </table>
+     	<table class="table table-sm">
+			<thead class="thead-light">
+				<tr>
+					<th th:text="'Marque'"></th>
+					<th th:text="'Id. Empresa'"></th>
+					<th th:text="'Empresa'"></th>
+				</tr>
+			</thead>
+			<tbody class="table-striped">
+				<tr th:each="listEmpreProyecto, iterStat :${listaEmpresasDisponibles}">
+				 	<td>
+				 		<div style="display: flex; justify-content: center; align-items: center;"> 
+						 <input type="checkbox" th:id="'idCheckEmpresaDis'+ ${iterStat.index}" th:name="checkEmpresaDisp[]" th:checked="false" th:value="${listEmpreProyecto.idEmpresa}" class="btn btn-primary btn-sm"/>						
+						</div>
+					</td>
+					<td th:text="${listEmpreProyecto.idEmpresa}"></td>
+					<td th:text="${listEmpreProyecto.nomEmpresa}"></td>
+				</tr>
+			</tbody>
+		</table>
 	</header>
  </body>
 
