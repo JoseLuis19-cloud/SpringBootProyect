@@ -120,23 +120,30 @@ public class ControllerWebProyectos {
 	//	public String anadirEmpresaAjax(/* @RequestParam(name="idEmpresa") String idEmpresa, */
 	//			@RequestParam(name="search")  Person per1, Model modelo) {
 	
-	@RequestMapping(value ="/anadirempreproyecajax", produces = "application/json",  method=RequestMethod.GET)
-	public ModelAndView anadirEmpresaProyecto(@RequestParam String arrEmpresasAnadirUTE)
+	
+	
+// 	@RequestMapping(value = "/obtenersubmenuajax/{idmenu,idusuario}", method = RequestMethod.GET)
+	// @RequestMapping(value = "/obtenersubmenuajax", method = RequestMethod.GET)
+	// public String obtenerSubMenuAjax(Model modelo, @RequestParam("idMenu")  String idMenu, @RequestParam("idUsuario")  String idUsuario) {
+	
+	
+//	@RequestMapping(value = "/submit.htm", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody
+//	String Submit(@RequestParam("name") String name,@RequestParam("location") String location) {
+//	    // your logic here
+//	    return resp;
+//	}
+	
+	@RequestMapping(value ="/anadirempreproyecajax", method=RequestMethod.GET)
+	public String anadirEmpresaProyecto(Model modelo, @RequestParam("param1") String arrEmpresasAnadirUTE)
 		{
-		
-		
-	//	boolean noFinProyecto = false;
 		Proyecto modifProyecto = new Proyecto();
 		
 		// nuevoProyecto.setNomProyecto(formProyectoWeb.getNomProyecto() );
 		// modifProyecto.setImpProyecto( formProyectoWeb.getImpProyectoWeb());
 		// modifProyecto.setIndFinProyecto(noFinProyecto);
-		
-		 
+
 		List<String> listEmpresasAnadir = Arrays.asList(arrEmpresasAnadirUTE.split(","));
-		
-		
-	//	listEmpresasAnadir
 		
 		for (String eleidEmpresa : listEmpresasAnadir) {
 			
@@ -158,8 +165,8 @@ public class ControllerWebProyectos {
 	//	 modelo.addAttribute("listaUTEEmpresas", listBeanEmpUTE);
 		 
 		//modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
-		 return new ModelAndView("/gestionWeb/proyecto/");
-		// return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
+		// return new ModelAndView("/gestionWeb/proyecto/");
+		  return "redirect:/gestionWeb/proyecto/" + "pagproyectos";
 	}
 	
 	

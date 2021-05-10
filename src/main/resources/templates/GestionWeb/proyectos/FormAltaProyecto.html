@@ -47,8 +47,10 @@
 		$("#idLinkAnadirEmpresa").click(function() {
 				
 			alert (arrValueCheck);
-			var str = arrValueCheck.join(',');
-			alert(str);
+			var arrEmpresasAnadirUTE = arrValueCheck.join(',');
+			alert(arrEmpresasAnadirUTE);
+			
+			data: { param1: arrEmpresasAnadirUTE  } // parameters
 				
 			if (arrValueCheck.length > 4)
 			 	{
@@ -64,8 +66,8 @@
  			      },
  	  			 url: urlAJAX,
  	   	 		 type: "GET",
- 	   	 		 data: JSON.stringify(empAnadir),
- 	   	 		// dataType: "json",
+ 	   	 		 data: { param1: arrEmpresasAnadirUTE },
+ 	   	 		 dataType: "json",
  	   	 		 dataType: "text",
  	   			 contentType: "application/json; charset=utf-8",
  	   			 mimeType: "application/json", 
