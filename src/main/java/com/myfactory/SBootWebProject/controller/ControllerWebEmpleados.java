@@ -60,13 +60,14 @@ public class ControllerWebEmpleados {
 	ServJPAUsuario servJPAUsuario;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
-	
-	// private final String UPLOAD_DIR = "./uploads/";
+
 	@Value("${path.MACOSDescargaFicheros}")
 	private String pathMacOS;
 
 	@GetMapping("/formeditarempleado")
-	public String formEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado)  {
+	public String formEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado,
+			@RequestParam(value = "errorValidacion", required = false) Boolean errorValidacion,
+			@RequestParam(value = "mensajeError", required = false) String mensajeError)  {
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
@@ -102,8 +103,18 @@ public class ControllerWebEmpleados {
 		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
 		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
 		
-		 
-		
+		if (errorValidacion != null)
+			{
+			if  (errorValidacion) {
+				modelo.addAttribute("errorValidacion", true);
+				modelo.addAttribute("mensajeError", mensajeError );
+				}
+			else
+			   {
+				modelo.addAttribute("errorValidacion", false);	
+			  }
+			}
+
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
@@ -265,15 +276,12 @@ public class ControllerWebEmpleados {
 		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo)   {
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-	
-	//	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	  
-		 
+	 
 		Empleado empleado = null;
 		BeanErrorValidacion datosError = null;
 		Empleado empleadoNuevo = null;
 		boolean esModif = false;
 		boolean nuevaAlta = true;
-		BeanEmpleadoWeb datosEmpleadoWebModif;
 		
 		modelo.addAttribute("nuevaAlta" , nuevaAlta);
 	   
@@ -297,14 +305,7 @@ public class ControllerWebEmpleados {
 				 
 			  // Dar de alta Empleado
 				 empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);
-				 
-			//	 datosEmpleadoWebModif = cargarBeansDatos.cargarBeanEmpleado(empleadoNuevo);
-			//	 datosEmpleadoWebModif.setIdEmpleadoWeb(empleadoNuevo.getIdEmpleado());
-				  
-			//	 modelo.addAttribute("empleadoWeb", datosEmpleadoWebModif);
-				 
-			//	 redirectAttrs.addFlashAttribute("empleadoWeb", datosEmpleadoWebModif); 
-			 
+
 				 redirectAttrs.addAttribute("idEmpleado" , empleadoNuevo.getIdEmpleado() ) ;
 				 
 				 modelo.addAttribute("errorValidacion" , false);
@@ -353,7 +354,7 @@ public class ControllerWebEmpleados {
 		Map<String, Object> resultValEmpleado;
 		boolean esModif = true;
 		BeanErrorValidacion datosError = null;
-
+	
 		if (! resultValidacion.hasErrors() )
 			{
 			 resultValEmpleado = validarDatosEmpleado(datosEmpleadoWeb, codPais, codPuestoTrabajo, esModif);
@@ -399,11 +400,11 @@ public class ControllerWebEmpleados {
     public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam(value="empleadoImg", required = true) Integer idEmpleado, RedirectAttributes attributes, Model modelo) {
 
 		byte[] arrayBytesImagen = null;
-		boolean nuevaAlta = false;
 		
      // check if file is empty
         if (file.isEmpty()) {
-            attributes.addFlashAttribute("message", "Seleccione una imagen a enviar.");
+        	 attributes.addAttribute("errorValidacion", true);
+		     attributes.addAttribute("mensajeError", "51, "  + "El fichero enviado está vacio");
             return "redirect:/";
         }
 
@@ -415,32 +416,37 @@ public class ControllerWebEmpleados {
 		 {
 			if ( file.getSize() > 65535L)
 				{
-				System.out.println("El tamaño de la foto no puede superar los 65.535 bytes");	
+				 System.out.println("El tamaño de la foto no puede superar los 65.535 bytes");	
+				 attributes.addAttribute("errorValidacion", true);
+			     attributes.addAttribute("mensajeError", "52, " + "El tamaño de la foto no puede superar los 65.535 bytes");
 				}
 			  else
 				{
 				 arrayBytesImagen = file.getBytes();
 				 java.sql.Blob blobImagen = new javax.sql.rowset.serial.SerialBlob(arrayBytesImagen);	
 				 empleado.get().setImagenFotoEmpleado(blobImagen);
+				 
+			  // Grabar Imagen en la tabla
+				 servJPAEmpleado.grabarImagen(empleado.get());
+				 modelo.addAttribute("imgFoto", this.getImgData(arrayBytesImagen) );
 				}
 		 }
 		catch (Exception exp) 
 		 {
-			System.out.println("Error conversion");
+		  System.out.println("Error conversion");
+		  attributes.addAttribute("errorValidacion", true);
+		  attributes.addAttribute("mensajeError", "53" + "Se ha producido un error en la inserción de la imagen");
 		 }
-        
-		servJPAEmpleado.grabarImagen(empleado.get());
-		modelo.addAttribute("imgFoto", this.getImgData(arrayBytesImagen) );
 		
-		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
-		modelo.addAttribute("nuevaAlta" , nuevaAlta);
+	//	modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
+	//	modelo.addAttribute("nuevaAlta" , nuevaAlta);
 	   
-		
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
         
         try 
          {
+        // Esto puede sobrar no ?
         // save the file on the local file system
            Path path = Paths.get(this.getPathMacOS() + fileName);
            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
@@ -453,7 +459,7 @@ public class ControllerWebEmpleados {
       // return success response
       //  attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
         
-        attributes.addAttribute("idEmpleado", idEmpleado) ;
+        attributes.addAttribute("idEmpleado", idEmpleado);
 		 
 		return "redirect:/gestionWeb/empleados/formeditarempleado";
     }

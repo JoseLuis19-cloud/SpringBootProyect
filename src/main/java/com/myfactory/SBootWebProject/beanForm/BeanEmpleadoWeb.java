@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NegativeOrZero;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -49,7 +50,10 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	
 	private Integer codPaisWeb;
 	private Iterable<Pais> paisWeb;
+	
+	@NegativeOrZero (message = "Seleccione un Puesto de trabajo")
 	private Integer codPuestoTrabajoWeb;
+	
 	private Iterable<PuestoTrabajo> puestoTrabajoWeb;
 	private Float impBrutoAnualWeb;
 	private Float impFacturadoMes;
