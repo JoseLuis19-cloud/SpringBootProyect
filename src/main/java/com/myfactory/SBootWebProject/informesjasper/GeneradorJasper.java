@@ -47,6 +47,7 @@ import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FacturaLinea;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.User;
+
 @PropertySource(value = "classpath:/parametrosAplicacion.properties", ignoreResourceNotFound = true)
 public class GeneradorJasper {
 	

@@ -418,15 +418,6 @@ public class ControllerWebClientes {
 		return "GestionWeb/clientes/PaginacionClientes.html";
 	}
 	
-	
-	@GetMapping("/formuploadfichero")
-	public String formUploadFichero(Model modelo)  {
-	
-
-	//	return "redirect:/gestionWeb/formBajaCliente/";
-		return "GestionWeb/clientes/FormUploadFichero.html";
-	}
-	
 	@PostMapping("/uploadfile")
     public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
 

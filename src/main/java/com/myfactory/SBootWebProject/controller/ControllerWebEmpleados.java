@@ -47,7 +47,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Controller
 @RequestMapping("/gestionWeb/empleados")
-@PropertySource("classpath:parametrosaAplicacion.properties")
+@PropertySource("classpath:parametrosAplicacion.properties")
 public class ControllerWebEmpleados {
 
 	@Autowired
@@ -71,7 +71,7 @@ public class ControllerWebEmpleados {
 		byte[] blobBytes = null;
 		byte[] encode =null;
 
-		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( idEmpleado  );	  
+		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(idEmpleado);	  
 		modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
         
 		if (empleado.get().getImagenFotoEmpleado() != null )
@@ -95,11 +95,14 @@ public class ControllerWebEmpleados {
 		
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
+		modelo.addAttribute("idEmpleadoImg", idEmpleado);
 		
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		
 		beanUsuarioWeb.setFecAltaUsuarioWeb(Calendar.getInstance());
 		beanUsuarioWeb.setRolUsuarioWeb(servJPAUsuario.obtenerRoles());
+		
+		 
 		
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -270,6 +273,7 @@ public class ControllerWebEmpleados {
 		Empleado empleadoNuevo = null;
 		boolean esModif = false;
 		boolean nuevaAlta = true;
+		BeanEmpleadoWeb datosEmpleadoWebModif;
 		
 		modelo.addAttribute("nuevaAlta" , nuevaAlta);
 	   
@@ -292,9 +296,16 @@ public class ControllerWebEmpleados {
 				 empleado = (Empleado) resultValEmpleado.get("empleadoValidacion" );
 				 
 			  // Dar de alta Empleado
-				 empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);	
+				 empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);
 				 
-				 redirectAttrs.addAttribute("idEmpleado", empleadoNuevo.getIdEmpleado());
+			//	 datosEmpleadoWebModif = cargarBeansDatos.cargarBeanEmpleado(empleadoNuevo);
+			//	 datosEmpleadoWebModif.setIdEmpleadoWeb(empleadoNuevo.getIdEmpleado());
+				  
+			//	 modelo.addAttribute("empleadoWeb", datosEmpleadoWebModif);
+				 
+			//	 redirectAttrs.addFlashAttribute("empleadoWeb", datosEmpleadoWebModif); 
+			 
+				 redirectAttrs.addAttribute("idEmpleado" , empleadoNuevo.getIdEmpleado() ) ;
 				 
 				 modelo.addAttribute("errorValidacion" , false);
 				 modelo.addAttribute("mensajeError", "" );
@@ -384,14 +395,8 @@ public class ControllerWebEmpleados {
 			}
 	}
 	
-	@GetMapping("/formuploadfichero")
-	public String formUploadFichero(Model modelo)  {
-	//	return "redirect:/gestionWeb/formBajaCliente/";
-		return "GestionWeb/empleados/FormUploadImagenEmpleado";
-	}
-	
 	@PostMapping("/uploadimagenempleado")
-    public String uploadFile(@RequestParam("file") MultipartFile file,  @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado, RedirectAttributes attributes, Model modelo) {
+    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam(value="empleadoImg", required = true) Integer idEmpleado, RedirectAttributes attributes, Model modelo) {
 
 		byte[] arrayBytesImagen = null;
 		boolean nuevaAlta = false;
@@ -431,21 +436,26 @@ public class ControllerWebEmpleados {
 		modelo.addAttribute("nuevaAlta" , nuevaAlta);
 	   
 		
-		 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
-		 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
         
-        try {
+        try 
+         {
         // save the file on the local file system
-            Path path = Paths.get(this.getPathMacOS() + fileName);
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+           Path path = Paths.get(this.getPathMacOS() + fileName);
+           Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+         } 
+        catch (IOException e) 
+         {
+           e.printStackTrace();
+         }
 
       // return success response
       //  attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
-
-        return "GestionWeb/empleados/FormAltaEmpleado";  
+        
+        attributes.addAttribute("idEmpleado", idEmpleado) ;
+		 
+		return "redirect:/gestionWeb/empleados/formeditarempleado";
     }
 	
 	

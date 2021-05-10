@@ -72,7 +72,7 @@
 				</div>
 				<div style="display: flex; justify-content: center; align-items: center;"> 
 				<br>
-				 <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Cambiar foto</a>
+				 <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir/Cambiar foto</a>
 				</div>
  			</div>
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
@@ -196,13 +196,15 @@
         <h5 class="modal-title">Cambiar foto del empleado</h5>
       </div>
       <div class="modal-body">
-    		<div class="container">	
-               	 <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
-                 	 <div class="form-group">
-                   	  <input type="file" name="file" class="form-control-file">
-                  	 </div>
-                  	 <button type="submit" class="btn btn-primary">Enviar Foto</button>
-               	</form>
+    	<div class="container">	
+             <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
+               	 <input type="hidden" th:id="idEmpleadoImg" th:name="empleadoImg" th:value="${idEmpleadoImg}" /> 
+               	  <p th:id="'idP1'"  th:text="'El tamaño de la foto no puede superar 65.535 bytes'"></p>
+                 <div class="form-group">
+                   <input type="file" name="file" class="form-control-file">
+                 </div>
+                 <button type="submit" class="btn btn-primary">Enviar Foto</button>
+             </form>
    		 </div>
 	
       </div>
