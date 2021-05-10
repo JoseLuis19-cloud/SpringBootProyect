@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	
+<head>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} "/>
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}"/>
+
+<style>
+h3 {
+	font-weight: bold !important;
+	color: #495057 !important;
+	font-size: 30px !important;
+	border-bottom: 2px solid #000 !important;
+	background: #e9ecef !important;
+	color: #003B49 !important;
+	display: inline-block !important;
+	padding: 8px 20px !important;
+	margin-left: 10px !important;
+}
+
+h5 {
+	color: #F2A900 !important;
+	font-size: 26px !important;
+	background: #e9ecef !important;
+	color: #F2A900 !important;
+	display: inline-block !important;
+	padding: 3px 15px !important;
+	margin-left: 10px !important;
+}
+</style>
+
+	<script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="titulo-pag2">Administración</div>
+		</div>
+		
+		<div class="row">
+			<div class="subtitulo-pag2">Tecnologias usadas en la aplicación</div>
+		</div>
+	 
+		 
+		<div class="row">
+			<p>La apliación de ha desarrollado usando las siguientes tecnologías:</p>
+			<p>
+			<ul>
+				<li>JPA 3.0</li>
+				<li>Thymeleaf 2.0</li>
+				<li>Spring Boot</li>
+				<li>Spring 5.3</li>
+				<li>Spring Security</li>
+				<li>Jasper Reports</li>
+				<li>Jasper Studio 6.0</li>
+				<li>JQuery 3.5.5</li>
+				<li>CSS: Boostrap 4</li>
+				<li>BBDD usada: My SQL</li>
+			</ul>
+			</p>
+		</div>
+	
+		<div class="row">	
+			<p>© 2021</p>
+			<p>Version Beta 1.0<p>
+		</div>
+	</div>		
+</body>
+</html>
+
+
