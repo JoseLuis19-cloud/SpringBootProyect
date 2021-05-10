@@ -9,9 +9,6 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
 
-	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-
  <style>
 
 .form-control-xs {
@@ -22,6 +19,11 @@
     border-radius: .2rem;
 	}
 </style>
+
+
+ <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+ <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	
 </head>
 
 <body>
@@ -52,7 +54,7 @@
 			<div class="col-8" style="border-bottom: 2px solid #000">
 					<div class="form-row">
 						<div class="col-md-2 mb-4">
-							<label for="validaImpFatura" th:text="'Código factura' "></label>
+							<label for="validaImpFatura" th:text="'Número factura' "></label>
 							<input type="text" class="form-control" th:id="idCodFacturaWeb" th:name="codFacturaWeb" th:field="*{codFactura}" th:readonly="true" >
 						</div>
 						<div class="col-md-4 mb-4">

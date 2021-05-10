@@ -6,7 +6,6 @@
 
 <head>
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}" />
 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 		
 	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
@@ -191,12 +190,11 @@ h1 {
 
 			</div>
 		</div> -->
-		<br>
-		<br>
-		<br>
-		<br>
 	<div class="container-fluid">
-		<div class="row" style="border-bottom: 2px solid #000;  margin-bottom: 8px; ">
+	    <br>
+		<br>
+		<br>
+		<div class="row" style="margin-bottom: 8px;">
 			<div class="col-3"></div>
 			<div class="col-6 divRounded">
 				<div class="subtitulo-pag2" th:text="'Tareas usuario: ' + ${usuarioApli}"></div>
@@ -230,37 +228,36 @@ h1 {
 			</div>
 			<div class="col-3"></div>
 		</div>
-			 <br>
-		<footer class="container-fluid">
-		<div class="d-flex justify-content-center">
-		 <!--		<a th:href="@{/gestionWeb/clientes/forminsertarcliente}" class="btn btn-primary" role="button">Nuevo Cliente</a> --> 
-		 <!--		<a th:href="@{/gestionWeb/clientes/pagclientesNue}" class="btn btn-primary" role="button">Clientes</a> -->
+		  <br>
+		<div class="row" style="margin-bottom: 6px;">
+			<div class="col-1"></div>
+		 	<div class="col-12 d-flex justify-content-center" style="border-top: 2px solid #000;">
+	<!--	<a th:href="@{/gestionWeb/clientes/pagclientesNue}" class="btn btn-primary" role="button">Clientes</a> -->
 			<a th:href="@{/gestionWeb/facturas/formaltafactura}" class="btn btn-primary" role="button">Nueva Factura</a> 
 			<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Facturas</a>
 			<a th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-primary" role="button">Usuarios</a>
-		<!--<a th:href="@{/gestionWeb/usuarios/listausuarioshist}" class="btn btn-primary" role="button">Usuarios Hist</a> -->
+	<!--	<a th:href="@{/gestionWeb/usuarios/listausuarioshist}" class="btn btn-primary" role="button">Usuarios Hist</a> -->
 			<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">Menus Aplicación</a>
-	<!--		<a th:href="@{/informes/forminformeproyectos}" class="btn btn-primary" role="button">Informe Proyectos</a>  -->
-	<!--		<a th:href="@{/informes/forminformeusuarios}" class="btn btn-primary" role="button">Informe Usuarios</a>  -->
-	<!--		<a th:href="@{/informes/forminformeempleados}" class="btn btn-primary" role="button">Informe Empleados</a>  -->
-	<!--	<a th:href="@{/gestionWeb/clientes/formuploadfichero}" class="btn btn-primary" role="button">Upload fichero</a>  -->
-	<!--	<a th:href="@{/gestionWeb/empleados/formuploadfichero}" class="btn btn-primary" role="button">Insert Img Empleado</a>   -->
- 	<!--			<a th:href="@{/administracion/formcreartarea}" class="btn btn-primary" role="button">Crear Tarea</a>  -->
+	<!--	<a th:href="@{/informes/forminformeproyectos}" class="btn btn-primary" role="button">Informe Proyectos</a>  -->
+	<!--	<a th:href="@{/informes/forminformeusuarios}" class="btn btn-primary" role="button">Informe Usuarios</a>  -->
+	<!--	<a th:href="@{/informes/forminformeempleados}" class="btn btn-primary" role="button">Informe Empleados</a>  -->
+ 	<!--	<a th:href="@{/administracion/formcreartarea}" class="btn btn-primary" role="button">Crear Tarea</a>  -->
 			<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Pag. Empleado</a>  
 	<!--	<a th:href="@{/gestionWeb/autores}" class="btn btn-primary" role="button">Autores</a>  -->
-	  <!--		<a th:href="@{/administracion/pruebas}" class="btn btn-primary" role="button">prueba Web</a>  -->
+	<!--	<a th:href="@{/administracion/pruebas}" class="btn btn-primary" role="button">prueba Web</a>  -->
  			<a th:href="@{administracion/formcopiaseguridad}" class="btn btn-primary" role="button">Copia Seguridad</a>
  			<a th:href="@{administracion/formrestaurarcopiaseg}" class="btn btn-primary" role="button">Restaurar Cop Seg</a>
 			<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Pag Empresas</a>
 			<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Pag Proyectos</a>
+			</div>
+			<div class="col-1"></div>
 		</div>
-	</footer>
-	
+		<br>
 		<div class="row">
 			<div class="col-9"></div>	
 			<div class="col-3">
-			<p>Copyright © 2020   Version Beta 1.0 </p>
-		</div>
+				<p>Copyright © 2020   Version Beta 1.0 </p>
+			</div>
 		</div>
 	</div>	
 </body>

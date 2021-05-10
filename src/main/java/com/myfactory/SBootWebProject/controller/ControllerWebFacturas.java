@@ -458,7 +458,7 @@ public class ControllerWebFacturas {
 			
 			modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 			
-			return "gestionWeb/facturas/paginacionFacturas.html";
+			return "gestionWeb/facturas/PagFacturas";
 		}
 
 	private Map<String, Object> validarDatosFactura(BeanFacturaWeb datosFacturaWeb, String formaPago, String sitFactura, String clienteFactura) {

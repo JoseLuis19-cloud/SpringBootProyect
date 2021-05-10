@@ -3,52 +3,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
-	
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
-    
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	
-	
-	<!-- Include Date Range Picker -->
+ 	<style>
  
-  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
+	.form-control-xs {
+		height: calc(1em + .375rem + 2px) !important;
+		padding: .125rem .25rem !important;
+		font-size: .75rem !important;
+		line-height: 1.5;
+		border-radius: .2rem;
+	}
 
- <style>
-
-.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
-
-
-.form-control-xs {
-	height: calc(1em + .375rem + 2px) !important;
-	padding: .125rem .25rem !important;
-	font-size: .75rem !important;
-	line-height: 1.5;
-	border-radius: .2rem;
-}
-
-</style>
+	</style>
 	
-  <script th:inline="javascript">
-  </script>
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 	
+	<script th:inline="javascript">
+
+	  $(document).ready(function(){
+		// Evento de boton idLinkSimulacion
+		 $('a[id^="idLinkSimulacion"]').click(function(event) {
+			$("#myModalSimulacion").modal();	
+		 });	
+	 });
+	  
+	  
+	  function confirmarSimulacion()
+	  {
+		 alert("____"); 
+	  }
+	
+	</script>
+
 </head>
 
  <body>
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-	<div class="container-fluid" style="margin-top:0px;">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Gestión de Proyectos</div>
 		</div>
 		<form th:action="@{/gestionWeb/proyectos/modifproyecto}" th:object="${datosProyecto}" method="post">
 		<div class="row">
-			<br>
 			<div class="col-1"></div>
   			<div class="col-10" >
   				<div class="subtitulo-pag2">Proceso Facturacion Proyecto ____</div>
@@ -77,12 +77,12 @@
   		</div>
 
 		<div class="row">
-			<br>
 			<div class="col-1"></div>
   			<div class="col-10">
   			 <div class="tab-content" id="myTabContent">
   			 
   			 	<div class="tab-pane fade show active" id="informacion" role="tabpanel" aria-labelledby="home-tab">
+  			 		<br>
   			 		<div class="form-row">
 						<div class="col-md-3 mb-5">
 							<label for="labelNomProyecto" th:text="'Nombre Proyecto'"></label> 
@@ -127,7 +127,7 @@
 
   				<div class="tab-pane fade" id="simulacion" role="tabpanel" aria-labelledby="profile-tab">
   					<div class="form-row">
-  						<div class="subtitulo-pag2">Procesos Pedientes de lanzar para el proyecto</div>
+  						<div class="subtitulo-pag2">Procesos Pendientes de lanzar para el proyecto</div>
   					</div>
 					<div class="form-row"> 
     					<table class="table table-sm">
@@ -146,7 +146,7 @@
 									<th th:text="${elemenProyFactuPendientes.idProyectoFacMes}"></th>
 									<td th:text="${elemenProyFactuPendientes.numAnyo}"></td>
 									<td th:text="${elemenProyFactuPendientes.numMes}"></td>
-									<td><a th:id="'idLinkSimulacion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-primary" role="button">Simulación</a></td>	
+									<td><a th:id="'idLinkSimulacion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-success" role="button">Simulación</a></td>	
 								</tr>
 							</tbody>
 						</table>	 
@@ -156,7 +156,7 @@
   				<div class="tab-pane fade" id="ejecucion" role="tabpanel" aria-labelledby="contact-tab">
   			  		<div class="form-row">
 						<div class="col-md-12 mb-1">
-    						<label for="labelNomGerenteProyecto3">Nombre del Gerente3</label>
+    						<label for="labelNomGerenteProyecto3">Nombre del Gerente 3</label>
   						</div>
   					</div>
   			 	</div>
@@ -164,13 +164,14 @@
   			</div>
   			<div class="col-1"></div>
 		</div>
-		
+ 		
  		<div class="row">
- 			<div class="col-4"></div>
- 			<div class="col-2"><a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Volver</a></div>
- 			<div class="col-2"></div>
- 			<div class="col-4"></div>
- 		</div>
+			<div class="col-1"></div>	
+			<div class="col-10 text-right">
+				<a th:id="'idLinkVolver'" th:name="'linkVolver'" th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-colour-1" role="button">Volver</a>
+			</div>	
+			<div class="col-1"></div>	
+		</div>
  				
  		</form>
 	</div>
@@ -182,6 +183,7 @@
       		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
       	
        	 <div class="container-fluid">
+       	 	 <br/>
         	<div class="subtitulo-pag" th:text="'Simulación en Verde Mes'"></div>
 
 			<div class="row">
@@ -190,25 +192,25 @@
 					<table class="table table-sm">
 						<thead class="thead-light">
 							<tr>
-								<th th:text="'Empleado"></th>
+								<th th:text="'Empleado'"></th>
 								<th th:text="'Importe facturado mes'"></th>
-								<th th:text="'Accion"></th>
-								 
+								<th th:text="'Acciones'"></th>
+								<th th:text="''"></th>
 							</tr>
 						</thead>
 						<tbody>
-						<tr th:if="${pagGenerica.empty}">
-							<td colspan="7">No hay empleados asignados a este Periodo del proyecto</td>
+						<tr>
+							<td th:text="'Pedro Ruiz'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1"  data-dismiss="modal">modificar</button></td>
 						</tr>
 						<tr>
-							<td th:text="Pedro Ruiz"></td>
-							<td th:text="10000"></td>
-							<td><a th:href="@{/gestionWeb/proyectos/formgenerarfacproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Modificar</a></td>
-						</tr>
-						<tr>
-							<td th:text="Silvia García Rodríguez"></td>
-							<td th:text="10000"></td>
-							<td><a th:href="@{/gestionWeb/proyectos/formgenerarfacproyecto(idProyecto=${proyecto.idProyecto})}" class="btn btn-primary" role="button">Modificar</a></td>
+							<td th:text="'Silvia García Rodríguez'"></td>
+							<td th:text="'10000'"></td>
+							<td th:text="''"></td>
+							<td><button type="button" class="btn btn-colour-1"  data-dismiss="modal">modificar</button></td>
+							  
 						</tr>
 					</tbody>
 			 	</table>
@@ -218,7 +220,8 @@
 			</div>
 			</div>	
         	<div class="modal-footer">  
-       			  <button type="button" class="btn btn-colour-1"  data-dismiss="modal">volver</button>
+        		  <button type="button" class="btn btn-colour-1"  data-dismiss="modal">Cancelar</button>
+       			  <button type="button" th:onclick="confirmarSimulacion()" class="btn btn-success">Confirmar</button>
         	</div>
           </form>	
       </div>

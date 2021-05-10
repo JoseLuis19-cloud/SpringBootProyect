@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 
-  	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+  	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
   	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
   	
  	 <style>
@@ -32,7 +32,7 @@
 	 var arrValueCheckASupr = null;
 	 var indExp = 0;
 	 var indCheck = 0;
-	 var arrIdMenuPrincipal = ["","","","","","","","",""];
+	 var arrIdMenuPrincipal = [null,null,null,null,null,null,null,null,null];
 
 		$(document).ready(function() {
 
@@ -63,11 +63,11 @@
 				if (this.checked) {
 					indCheck = $('[name="checksMenuUsu[]"]').index(this);
 					arrIdMenuPrincipal[indCheck] = $("#idMenuHidden" + indCheck).val();
-					alert (arrIdMenuPrincipal[indCheck] );
+				//	alert (arrIdMenuPrincipal[indCheck] );
 				 } 
 				else
 					{
-					arrIdMenuPrincipal[indCheck] = "";
+					arrIdMenuPrincipal[indCheck] = null;
 					}
 				});
 				     
@@ -85,7 +85,7 @@
 			  });
 			 
 			 $("#idLinkConfirmar").click(function() {
-				  alert("boton confirmar");
+				//  alert("boton confirmar");
 				});
 
 			});
@@ -141,17 +141,17 @@
 					 for (var i=0; i < arrValueCheckASupr.length; i++)
 				 	  {
 					   	$("#idIdMenuHidden" + ind).val(arrValueCheckASupr[i]);
-					   	alert("El valor que recogera el controler para actualizar: " + $("#idIdMenuUsuHidden" + ind).val() );
+					  // 	alert("El valor que recogera el controler para actualizar: " + $("#idIdMenuUsuHidden" + ind).val() );
 					   	ind++;
 			   	      }
 					 
 					 var ind2 = 0;
 					 for (var j=0; j < arrIdMenuPrincipal.length; j++)
 				 	  {
-						if (arrIdMenuPrincipal[j] != "" )
+						if (arrIdMenuPrincipal[j] != null )
 						   {
 							$("#idMenuPrincipalH"+ ind2).val(arrIdMenuPrincipal[j]);
-						  	alert ( $("#idMenuPrincipalH"+ ind2).val() );
+						  //	alert ( $("#idMenuPrincipalH"+ ind2).val() );
 						  	ind2++;
 						   } 
 			   	      }

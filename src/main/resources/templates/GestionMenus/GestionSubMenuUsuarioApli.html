@@ -52,9 +52,9 @@
 			 $('[name="checks[]"]').on('change', function() {
 				if (this.checked) {
 					indCheck = $('[name="checks[]"]').index(this);
-					alert("ÇÇÇÇÇÇ  " +   $("#idCheckActivado" + indCheck).val() );
+				//	alert("ÇÇÇÇÇÇ  " +   $("#idCheckActivado" + indCheck).val() );
 					arrIdSubMenu[indCheck] = $("#idCheckActivado" + indCheck).val();
-					alert (arrIdSubMenu[indCheck] );
+					// alert (arrIdSubMenu[indCheck] );
 					} 
 				else
 					{
@@ -78,7 +78,7 @@
 					if (this.checked) {
 						indCheck = $('[name="checksSubMenuUsu[]"]').index(this);
 						arrIdSubMenu[indCheck] = $("#idSubMenuHidden" + indCheck).val();
-						alert (arrIdSubMenu[indCheck] );
+						// alert (arrIdSubMenu[indCheck] );
 					 } 
 					else
 					 {
@@ -94,7 +94,7 @@
 			  });
 			 
 			 $("#idLinkConfirmar").click(function() {
-				    alert("boton confirmar");
+				 //   alert("boton confirmar");
 				  });
 
 			});
@@ -120,7 +120,7 @@
 					 var ind = 0;
 					 for (var i=0; i < arrValueCheck.length; i++)
 				 	  {
-						 alert(arrValueCheck[i]);
+						// alert(arrValueCheck[i]);
 					  	 $("#idIdSubMenuHidden" + ind).val(arrValueCheck[i]);	
 					  	 ind++;
 			   	      }
@@ -130,9 +130,9 @@
 				 	  { 
 					    if (arrIdSubMenu[j] != null )
 					    	{
-					    	 alert("arrIdSubMenu[i] " + arrIdSubMenu[j]);
+					    	// alert("arrIdSubMenu[i] " + arrIdSubMenu[j]);
 					   		 $("#idIdSubMenuH" + ind2).val(arrIdSubMenu[j]);
-							 alert(" #idIdSubMenuH: vale     " + $("#idIdSubMenuH" + ind2).val() );
+							// alert(" #idIdSubMenuH: vale     " + $("#idIdSubMenuH" + ind2).val() );
 					   		 ind2++;
 					    	}
 				 	  }
@@ -162,7 +162,7 @@
 					 for (var i=0; i < arrValueCheckASupr.length; i++)
 				 	  { 
 					   	$("#idIdSubMenuUsuHidden" + ind).val(arrValueCheckASupr[i]);
-					   	alert("idSubMenuHidden: " +  $("#idIdSubMenuUsuHidden" + ind).val() );
+					  // 	alert("idSubMenuHidden: " +  $("#idIdSubMenuUsuHidden" + ind).val() );
 					   	ind++;
 				 	  }
 					 
@@ -171,9 +171,9 @@
 				 	  { 
 					    if (arrIdSubMenu[j] != null )
 					    	{
-					    	 alert("arrIdSubMenu[i] " + arrIdSubMenu[j]);
+					    //	 alert("arrIdSubMenu[i] " + arrIdSubMenu[j]);
 					   		 $("#idIdSubMenuH" + ind2).val(arrIdSubMenu[j]);
-							 alert(" #idIdSubMenuH: vale     " + $("#idIdSubMenuH" + ind2).val() );
+						//	 alert(" #idIdSubMenuH: vale     " + $("#idIdSubMenuH" + ind2).val() );
 					   		 ind2++;
 					    	}
 				 	  }
