@@ -130,7 +130,7 @@
 
   				<div class="tab-pane fade" id="simulacion" role="tabpanel" aria-labelledby="profile-tab">
   					<div class="form-row">
-  						<div class="subtitulo-pag2">Procesos Pendientes de lanzar para el proyecto</div>
+  						<div class="subtitulo-pag2">Procesos de Facturación Pendientes de lanzar para el proyecto</div>
   					</div>
 					<div class="form-row"> 
     					<table class="table table-sm">
@@ -149,7 +149,7 @@
 									<th th:text="${elemenProyFactuPendientes.idProyectoFacMes}"></th>
 									<td th:text="${elemenProyFactuPendientes.numAnyo}"></td>
 									<td th:text="${elemenProyFactuPendientes.numMes}"></td>
-									<td><a th:id="'idLinkSimulacion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-success" role="button">Simulación</a></td>	
+									<td><a th:id="'idLinkSimulacion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-success btn-sm" role="button">Simulación</a></td>	
 								</tr>
 							</tbody>
 						</table>	 
@@ -158,7 +158,7 @@
   				
   				<div class="tab-pane fade" id="ejecucion" role="tabpanel" aria-labelledby="contact-tab">
   			  		<div class="form-row">
-  						<div class="subtitulo-pag2">Procesos Pendientes de lanzar para el proyecto</div>
+  						<div class="subtitulo-pag2">Procesos de Facturación Pendientes de lanzar para el proyecto</div>
   					</div>
 					<div class="form-row"> 
     					<table class="table table-sm">
@@ -177,7 +177,7 @@
 									<th th:text="${elemenProyFactuPendientes.idProyectoFacMes}"></th>
 									<td th:text="${elemenProyFactuPendientes.numAnyo}"></td>
 									<td th:text="${elemenProyFactuPendientes.numMes}"></td>
-									<td><a th:id="'idLinkGeneracion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-danger" role="button">Generación</a></td>	
+									<td><a th:id="'idLinkGeneracion'+ ${iterStat.index}" th:name="'linkSimulacion'+ ${iterStat.index}" class="btn btn-danger btn-sm" role="button">Generación</a></td>	
 								</tr>
 							</tbody>
 						</table>	 
@@ -206,8 +206,9 @@
       		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
       	
        	 <div class="container-fluid">
-       	 	 <br/>
+       	 	<br/>
         	<div class="subtitulo-pag2" th:text="'Proceso Simulación Facturación'"></div>
+        	<div class="subtitulo-pag3" th:text="'Empleados del proyecto del mes facturado'"></div>
 
 			<div class="row">
 			<!-- Meter div con scroll -->
@@ -225,14 +226,14 @@
 						 <tr>
 							<td th:text="'Pedro Ruiz'"></td>
 							<td th:text="'10000'"></td>
-							<td th:text="''"></td>
 							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+							<td th:text="''"></td>	
 						 </tr>
 						 <tr>
 							<td th:text="'Silvia García Rodríguez'"></td>
 							<td th:text="'10000'"></td>
-							<td th:text="''"></td>
 							<td><button type="button" class="btn btn-colour-1">modificar</button></td>	  
+							<td th:text="''"></td>
 						 </tr>
 					</tbody>
 			 	</table>
@@ -242,8 +243,8 @@
 			</div>
 			</div>	
         	<div class="modal-footer">  
-        		  <button type="button" class="btn btn-colour-1"  data-dismiss="modal">Cancelar</button>
-       			  <button type="button" th:onclick="confirmarSimulacion()" class="btn btn-success">Confirmar</button>
+        		  <button type="button" class="btn btn-colour-1 btn-sm"  data-dismiss="modal">Cancelar</button>
+       			  <button type="button" th:onclick="confirmarSimulacion()" class="btn btn-success btn-sm">Confirmar</button>
         	</div>
           </form>	
       </div>
@@ -258,9 +259,9 @@
       		<form action="#" th:action="@{'/gestionmenus/insertelementomenu'}" method="post" th:object="${elemenMenuNuevoWeb}">
       	
        	 <div class="container-fluid">
-       	 	 <br/>
+       	  <br>
         	<div class="subtitulo-pag2" th:text="'Confirmacion Proceso Facturación'"></div>
-
+			<div class="subtitulo-pag3" th:text="'Empleados del proyecto del mes facturado'"></div>
 			<div class="row">
 			<!-- Meter div con scroll -->
 				<div class="col-12"> 
@@ -277,15 +278,14 @@
 						<tr>
 							<td th:text="'Pedro Ruiz'"></td>
 							<td th:text="'10000'"></td>
-							<td th:text="''"></td>
 							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
+							<td th:text="''"></td>
 						</tr>
 						<tr>
 							<td th:text="'Silvia García Rodríguez'"></td>
 							<td th:text="'10000'"></td>
-							<td th:text="''"></td>
 							<td><button type="button" class="btn btn-colour-1">modificar</button></td>
-							  
+							<td th:text="''"></td>  
 						</tr>
 					</tbody>
 			 	</table>
@@ -294,9 +294,9 @@
 			 
 			</div>
 			</div>	
-        	<div class="modal-footer">  
-        		  <button type="button" class="btn btn-danger">Cancelar</button>
-       			  <button type="button" th:onclick="confirmarGeneracion()" class="btn btn-danger">Confirmar</button>
+        	<div class="modal-footer">
+        		  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+       			  <button type="button" th:onclick="confirmarGeneracion()" class="btn btn-danger btn-sm">Confirmar</button>
         	</div>
           </form>	
       </div>

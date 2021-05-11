@@ -221,7 +221,7 @@ public class ControllerWebProyectos {
 	
 	 modelo.addAttribute("datosFacturacionProyecto", facturacionProyecto);
 	 
-	 return "GestionWeb/proyectos/FormFacturacionProyecto";
+	 return "GestionWeb/proyectos/FormInfoFacturacionProyecto";
 	}
 	
 	@GetMapping("/formgenerarfacproyecto")

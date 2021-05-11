@@ -395,8 +395,8 @@
 			</div>
 		   	
 			<div class="modal-footer">
-			    <button type="submit" class="btn btn-primary">Crear menu</button>
-       		 	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>	
+			    <button type="submit" class="btn btn-primary btn-sm">Crear menu</button>
+       		 	<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>	
         	</div>
 			</form>
 		</div>	
@@ -408,20 +408,18 @@
    <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="subtitulo-pag2" th:text="'Eliminar el elemento de menú'"></div>
+        <div class="subtitulo-pag-ayuda" th:text="'Eliminar el elemento de menú'"></div>
       </div>
       <div class="modal-body">
         <form action="#" th:id="idFormEliminarMenu" method="post" th:action="@{/gestionmenus/eliminarmenu}">
             <input type="hidden" th:id="'idIdMenu'" th:name="'idMenu'" th:value="${idMenu}" /> 
     		<div class="container">
-                <p th:id="'idP1'"  th:text="'El elemento de menu se eliminará si no está asignado a ningun menú de un usuario'"></p>
+                <p th:id="'idP1'" th:text="'El elemento de menu se eliminará, si no está asignado a ningun menú de un usuario.'"></p>
      	    </div>
-     	
       		<div class="modal-footer">
-       	 		<button type="submit" id="idConfirmar" class="btn btn-primary">Confirmar</button>
-       	 		<button type="button" id="idCancelar" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+       	 		<button type="submit" id="idConfirmar" class="btn btn-primary btn-sm">Confirmar</button>
+       	 		<button type="button" id="idCancelar"  class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>
       		</div>
-      
        </form>
     </div>
    </div>

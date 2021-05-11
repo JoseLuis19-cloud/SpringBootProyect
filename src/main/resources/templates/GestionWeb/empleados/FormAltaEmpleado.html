@@ -68,7 +68,6 @@
   		<form th:action="@{/gestionWeb/empleados/altaempleado}" th:object="${empleadoWeb}" method="post">
 	
 		<div class="row">
-			<br>
 			<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 			<div class="col-1"></div>
   			<div class="col-10" >
@@ -80,7 +79,7 @@
 			<div class="col-1"></div>
   			<div class="col-2" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div style="display: flex; justify-content: center; align-items: center;">
-					<img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imgFoto}" width="200" height="400" />
+					<img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imgFoto}" width="200" height="400" style="visibility: hidden" />
 				</div>
 			  <!--  <div style="display: flex; justify-content: center; align-items: center;"> 
 				   <a th:id="'idLinkCambiarFoto'" th:name="'linkCambiarFoto'" class="btn btn-colour-1" role="button">Añadir foto</a> 
@@ -88,18 +87,18 @@
 			 </div> 	
   			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000; margin-bottom: 3px">
   				<div class="form-row">
-						<div class="col-md-5 mb-3">
-							<label for="validationNombre" th:text="'Nombre'"></label> 
-							<input type="text" class="form-control" th:id="idNombreWeb" th:field="*{nombreWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-5 mb-3">
-							<label for="validaApellidos" th:text="'Apellidos' "></label>
-							<input type="text" class="form-control" th:id="idApellidosWeb" th:field="*{apellidosWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-2 mb-3">
-							<label for="validaTelefMovil" th:text="'Teléfono móvil' "></label>
-							<input type="text" class="form-control" th:id="idTelefMovilWeb" th:field="*{telefMovilWeb}" th:maxlength="14">
-						</div>
+					<div class="col-md-5 mb-3">
+						<label for="labelNombre" th:text="'Nombre'"></label> 
+						<input type="text" class="form-control" th:id="idNombreWeb" th:field="*{nombreWeb}" th:maxlength="25" required>
+					</div>
+					<div class="col-md-5 mb-3">
+						<label for="labelApellidos" th:text="'Apellidos' "></label>
+						<input type="text" class="form-control" th:id="idApellidosWeb" th:field="*{apellidosWeb}" th:maxlength="25" required>
+					</div>
+					<div class="col-md-2 mb-3">
+						<label for="labelTelefMovil" th:text="'Teléfono móvil' "></label>
+						<input type="text" class="form-control" th:id="idTelefMovilWeb" th:field="*{telefMovilWeb}" th:maxlength="14">
+					</div>
 				</div>
 				
 				<div class="form-row">
@@ -185,20 +184,18 @@
   			</div>
  		 </div>
  		 <div class="col-1"></div>
- 	 
  		</div>
- 		
  		
  		<div class="row">
 			<div class="col-1"></div>
   			<div class="col-10 text-right">
   			
-  			<div th:if="${nuevaAlta}" class="col-md-12 bg-light text-right">
+  				<div th:if="${nuevaAlta}">
            		 	<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a>
            	 	 	<button type="submit" class="btn btn-primary">Crear</button>
         		</div>
         	
-        		<div th:if="${! nuevaAlta}" class="col-md-12 bg-light text-right">
+        		<div th:if="${! nuevaAlta}">
            		 	<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Terminar</a>
            	 	 	<button type="submit" class="btn btn-primary">Actualizar</button>
         		</div>
@@ -262,44 +259,15 @@
 							</div>
 						</div>
 					</div>					
-        	<div class="modal-footer">
-          		<!--  <button type="submit" class="btn btn-colour-1">Crear usuario</button>     --> 
-       			<button type="button" class="btn btn-colour-1" data-dismiss="modal">Cancelar</button>
-        	</div>
-        </form>	
+        			<div class="modal-footer">
+          				<!--  <button type="submit" class="btn btn-colour-1">Crear usuario</button>     --> 
+       					<button type="button" class="btn btn-colour-1" data-dismiss="modal">Cancelar</button>
+        			</div>
+        	</form>	
      </div>
       
     </div>
-  </div>
-  
-  <!-- Modal Cambiar Foto -->
-  <div id="myModalCambiarFoto" class="modal" tabindex="-1" role="dialog">
-   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Añadir foto del empleado</h5>
-      </div>
-      <div class="modal-body">
-    		<div class="container">	
-               	 <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
-               	  <input type="hidden" th:id="'idIdEmpleado'" th:name="'idEmpleado'" th:value="${idEmpleadoNuevo}" /> 
-               	    <p th:id="'idP1'"  th:text="'El tamaño de la foto no puede superar 65.535 bytes'"></p>
-                 	 <div class="form-group">
-                   	  <input type="file" name="file" class="form-control-file">
-                  	 </div>
-                  	 <button type="submit" class="btn btn-primary">Enviar Foto</button>
-               	</form>
-     	   </div>
-      <div class="modal-footer">
-        <button type="button" id="idSaltarPaso" class="btn btn-primary" data-dismiss="modal">Saltar Paso</button>
-      </div>
-    </div>
-  </div>
-</div>
-
- 	<form th:id="idFormPaginacion" th:action="@{/gestionWeb/empleados/pagempleadosNue}"  method="post">
-    </form>
-</div>	
+  </div>	
 
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>

@@ -18,6 +18,11 @@
     line-height: 1.5;
     border-radius: .2rem;
 	}
+	
+p.francesa {
+	text-indent: -18px;
+	padding-left: 25px;
+}
   </style>
  
  
@@ -347,7 +352,7 @@
 				<div class="col-1"></div>	
 				<div class="col-10 text-right">
 				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary btn-sm" role="button">Volver a menus</a>
-					<a th:id="idPantallaAyuda"   th:name="pantallaAyuda"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Ayuda pantalla</a>
+					<a th:id="idPantallaAyuda"   th:name="pantallaAyuda"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Ayuda</a>
 					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
 				 </div>	
 				 <div class="col-1"></div>	
@@ -401,8 +406,8 @@
 			</div>
 		   	
 			<div class="modal-footer">
-			    <button type="submit" class="btn btn-primary">Crear submenu</button>
-       		 	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>	
+			    <button type="submit" class="btn btn-primary btn-sm">Crear submenu</button>
+       		 	<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>	
         	</div>
 			</form>
 		 </div>	
@@ -414,17 +419,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="subtitulo-pag2" th:text="'Ayuda pantalla submenu'"></div>
+        <div class="subtitulo-pag-ayuda" th:text="'Ayuda submenús'"></div>
       </div>
       <div class="modal-body">
-          <div class="modal-body">
-        <p>. Para ordenar los sumenus se necesita</p>
-        <p>. Para editar los submenus ....</p>
-        <p>. 1 Para ordenar los sumenus se necesita</p>
-      </div>
+        <div class="modal-body">
+        	<p class="francesa">. Para cambiar el orden de los sumenus debe pinchar el botón editar y elegir el numero de orden no repetido y sin faltar ningún número entre medias</p>
+        	<p class="francesa">. Podrá darlo de baja, sino está asociado a ningún usuario</p>
+      	</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
@@ -434,23 +438,21 @@
   <div id="myModalEliminarSubMenu" class="modal" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
     <div class="modal-content">
-    <br>
       <div class="modal-header">
-         <div class="subtitulo-pag2" th:text="'Eliminar el elemento de submenú'"></div>
+         <div class="subtitulo-pag-ayuda" th:text="'Eliminar el elemento de submenú'"></div>
       </div>
       <div class="modal-body">
         <form th:id="idFormEliminarSubMenu" method="post" th:action="@{/gestionmenus/eliminarsubmenu}">
             <input type="hidden" th:id="'idSubMenu'" th:name="'subMenu'" th:value="${idSubMenu}" /> 
             <input type="hidden" th:id="'idIdMenu2'" th:name="'idMenu2'" th:value="${idMenu}" /> 
     		<div class="container">
-                <p th:id="'idP1'"  th:text="'El elemento de submenu se eliminará si no está asignado a ningun submenú de un usuario'"></p>
+                <p th:id="'idP1'"  th:text="'El elemento de submenú se eliminará, si no está asignado a ningun submenú de un usuario'"></p>
      	    </div>
      	
       		<div class="modal-footer">
-       	 		<button type="submit" id="idConfirmar" class="btn btn-primary">Confirmar</button>
-       	 		<button type="button" id="idCancelar" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+       	 		<button type="submit" id="idConfirmar" class="btn btn-primary btn-sm">Confirmar</button>
+       	 		<button type="button" id="idCancelar" class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>
       		</div>
-      
        </form>
     </div>
    </div>

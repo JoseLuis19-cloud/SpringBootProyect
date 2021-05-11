@@ -22,6 +22,10 @@
 	border-radius: .2rem;
 }
 
+p.letPeq {
+	font-size: small;
+}
+
 </style>
 
 	<script th:inline="javascript">
@@ -180,8 +184,8 @@
  		<div class="row">
  			<div class="col-1"></div>
  			<div class="col-10 text-right"> 
- 				<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a>
-				<button type="submit" class="btn btn-primary">Guardar</button>
+ 				<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary btn-sm" role="button">Volver</a>
+				<button type="submit" class="btn btn-primary btn-sm">Guardar</button>
  			</div>
  			<div class="col-1"></div>
 		</div>
@@ -193,23 +197,23 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Añadir/Cambiar foto empleado</h5>
+        <div class="subtitulo-pag-ayuda" th:text="'Añadir/cambiar foto empleado'"></div>
       </div>
       <div class="modal-body">
     	<div class="container">	
              <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
                	 <input type="hidden" th:id="idEmpleadoImg" th:name="empleadoImg" th:value="${idEmpleadoImg}" /> 
-               	  <p th:id="'idP1'"  th:text="'El tamaño de la foto no puede superar 65.535 bytes'"></p>
                  <div class="form-group">
-                   <input type="file" name="file" class="form-control-file">
+                   <input type="file" name="file" class="form-control-file btn-sm">
                  </div>
-                 <button type="submit" class="btn btn-primary">Enviar Foto</button>
+                 <button type="submit" class="btn btn-primary btn-sm">Enviar Foto</button>
+                 <p class="letPeq" th:id="'idP1'" th:text="'Nota: El tamaño de la foto no puede superar 65.535 bytes'"></p>
              </form>
    		 </div>
 	
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
