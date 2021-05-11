@@ -14,9 +14,8 @@
 	
 	<div class="container-fluid">
 	 <div class="row">
-		<div class="titulo-pag2" th:text="'Facturación '"></div>
+		<div class="titulo-pag2" th:text="'Gestión de Facturas '"></div>
 	 </div>
-	
 	
 	<div class="row">
 		<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
@@ -37,6 +36,16 @@
 		</div>
 		<div class="col-sm-2"></div>
 	</div>
+	
+	
+	
+	<div class="row">
+ 			<div class="col-1"></div>
+ 			<div class="col-10 text-right"> 
+ 				<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
+ 			</div>
+ 			<div class="col-1"></div>
+		</div>
   </div>
 	
 </body>

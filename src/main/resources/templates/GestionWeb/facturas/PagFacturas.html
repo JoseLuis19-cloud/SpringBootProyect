@@ -22,7 +22,7 @@
 	<div class="container-fluid">
 	
 		<div class="row">
-			<div class="titulo-pag2">Gestión Facturas</div>
+			<div class="titulo-pag2">Gestión de Facturas</div>
 		</div>
 	 
 		<div class="row">
@@ -55,8 +55,8 @@
 							<td th:text="${factura.cliente.nombre}"></td>
 							<td th:text="${#calendars.format(factura.fecFactura, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#calendars.format(factura.fecEmisionFactura, 'dd/MM/yyyy')}"></td>
-							<td><a th:href="@{/gestionWeb/facturas/formeditarfactura(idFactura=${factura.idFactura})}" class="btn btn-primary" role="button">Editar</a></td>
-							<td><a th:href="@{/gestionWeb/facturas/generarpdffactura(idFactura=${factura.idFactura}, numFactura=${factura.numFactura})}" class="btn btn-primary" role="button">Imprimir</a></td>
+							<td><a th:href="@{/gestionWeb/facturas/formeditarfactura(idFactura=${factura.idFactura})}" class="btn btn-primary btn-sm" role="button">Editar</a></td>
+							<td><a th:href="@{/gestionWeb/facturas/generarpdffactura(idFactura=${factura.idFactura}, numFactura=${factura.numFactura})}" class="btn btn-primary btn-sm" role="button">Imprimir</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -71,7 +71,7 @@
 		<div class="row">
 			<div class="col-1"></div>	
 			<div class="col-10 text-right">
-				<a th:href="@{/gestionWeb/facturas/formaltafactura}" class="btn btn-primary" role="button">Nuevo</a>
+				<a th:href="@{/gestionWeb/facturas/formaltafactura}" class="btn btn-primary" role="button">Nueva</a>
 			</div>	
 			<div class="col-1"></div>	
 		</div>
