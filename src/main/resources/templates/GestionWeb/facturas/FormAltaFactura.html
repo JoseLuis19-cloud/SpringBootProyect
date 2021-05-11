@@ -35,9 +35,9 @@
 		
 		<form th:action="@{/gestionWeb/facturas/insertarfactura}" th:object="${datosFacturaWeb}" method="post">
 		
-		 <input type="hidden" th:id="'idIdFacturaWeb'" th:name="'idFacturaWeb'"  th:field="*{idFacturaWeb}" />
+		  <input type="hidden" th:id="'idIdFacturaWeb'" th:name="'idFacturaWeb'"  th:field="*{idFacturaWeb}" />
 	 
-		<div class="row">
+		 <div class="row">
 			<div class="col-2"></div>
 			<div class="col-8" style="border-bottom: 2px solid #000">
 				<div class="subtitulo-pag2" th:text="'Datos Nueva Factura'"></div>
@@ -47,109 +47,108 @@
 		
 		<div class="row">
 			<div class="col-2"></div>
-			<div class="col-8" style="border-bottom: 2px solid #000">
-					<div class="form-row">
-						<div class="col-md-2 mb-4">
-							<label for="validaImpFatura" th:text="'Número factura' "></label>
-							<input type="text" class="form-control" th:id="idCodFacturaWeb" th:name="codFacturaWeb" th:field="*{codFactura}" th:readonly="true" >
-						</div>
-						<div class="col-md-4 mb-4">
-							<div class="form-group">
+			<div class="col-8">
+				<div class="form-row">
+					<div class="col-md-3 mb-4">
+						<label for="labelNumFatura" th:text="'Número factura' "></label>
+						<input type="text" class="form-control" th:id="idCodFacturaWeb" th:name="codFacturaWeb" th:field="*{codFactura}" th:readonly="true" >
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="form-group">
 							<label for="labelFormaPago" th:text="'Forma de pago ' "></label>
-								<select th:object="${datosFacturaWeb}" class="form-control"  th:name="formaPago" th:id="idFormaPago">
-								<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
-									<option th:each = "formPag:${formasPagoWeb}"
-   						 					th:value="${formPag.idForPago}"
-  						  					th:text ="${formPag.desForPago}">
+							<select th:object="${datosFacturaWeb}" class="form-control"  th:name="formaPago" th:id="idFormaPago">
+							<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
+								<option th:each = "formPag:${formasPagoWeb}"
+   						 				th:value="${formPag.idForPago}"
+  						  				th:text ="${formPag.desForPago}">
   						 		</option>
     						</select>
-							</div> 
-						</div>
-						<div class="col-md-2 mb-4">
-							<label for="validaCodFatura" th:text="'Cod. divisa' "></label>
-							<input type="text" class="form-control" id="idCodDivisaWeb" th:field="*{desDivisaWeb}" th:maxlength="3" th:readonly="true">
-						</div>
-						<div class="col-md-2 mb-4">
-							<label for="validaImpFatura" th:text="'Importe factura' "></label>
-							<input type="text" class="form-control" id="idImpFacturaWeb" th:field="*{impFacturaWeb}" th:readonly="true" >
-						</div>
+						</div> 
 					</div>
+					<div class="col-md-2 mb-4">
+						<label for="labelCodDivisa" th:text="'Cod. divisa' "></label>
+						<input type="text" class="form-control" id="idCodDivisaWeb" th:field="*{desDivisaWeb}" th:maxlength="3" th:readonly="true">
+					</div>
+					<div class="col-md-3 mb-4">
+						<label for="labelImpFatura" th:text="'Importe factura' "></label>
+						<input type="text" class="form-control" id="idImpFacturaWeb" th:field="*{impFacturaWeb}" th:readonly="true" >
+					</div>
+				</div>
 					
-					<div class="form-row">
-					 <div class="col-md-4 mb-4">
-						<div class="form-group">
-							<label for="labelSitFactura" th:text="'Situacion Factura' "></label>
-								<select th:object="${datosFacturaWeb}" class="form-control" th:id="idSitFactura" th:name="sitFactura">
+				<div class="form-row">
+				 <div class="col-md-4 mb-4">
+					<div class="form-group">
+						<label for="labelSitFactura" th:text="'Situacion Factura' "></label>
+							<select th:object="${datosFacturaWeb}" class="form-control" th:id="idSitFactura" th:name="sitFactura">
 								<option th:value="0" th:text="'Seleccionar situación factura' "></option>
 								<option th:each ="sitFactu:${datosFacturaWeb.situacionesFactura}"
    						 				th:value="${sitFactu.codSitFactura}"
   						  				th:text ="${sitFactu.nomSitFactura}">
   						 		</option>
     						</select>
-						</div>
 					</div>
-					<div class="col-md-3 mb-4">
-						<label for="labelFecFactura">Fec. Alta Factura</label>
-						<div class="input-group">
-							<div class="input-group-addon">
-       						 <i class="fa fa-calendar"> </i> 
-      					 	</div>
-							 <input type="text" class="form-control" th:id="idFecAltaFactura" th:name="fecAltaFactura" th:field="*{fecAltaFacturaWeb}" th:value="${#calendars.format(fecFacturaWeb, 'dd/MM/yyyy')}" th:maxlength="10"  placeholder="MM/DD/YYYY"  required>
-						</div>
+				</div>
+				<div class="col-md-3 mb-4">
+					<label for="labelFecFactura">Fec. Alta Factura</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+       					 <i class="fa fa-calendar"> </i> 
+      					</div>
+					 <input type="text" class="form-control" th:id="idFecAltaFactura" th:name="fecAltaFactura" th:field="*{fecAltaFacturaWeb}" th:value="${#calendars.format(fecFacturaWeb, 'dd/MM/yyyy')}" th:maxlength="10"  placeholder="MM/DD/YYYY"  required>
 					</div>
-					<div class="col-md-2 mb-4">
-						<label for="labelPorDescuento" th:text="'Porcentaje Descuento' "></label>
-						<input type="text" class="form-control" th:id="idPorDecuentoWeb" th:name="porDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
-					</div>
+				</div>
+				<div class="col-md-2 mb-4">
+					<label for="labelPorDescuento" th:text="'Porcentaje Descuento' "></label>
+					<input type="text" class="form-control" th:id="idPorDecuentoWeb" th:name="porDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
+				</div>
 					
-					<div class="col-md-3 mb-4">
-						<div class="form-group">
-							<label for="labelEmpresaFactura" th:text="'Seleccione Cliente' "></label>
-								<select th:object="${datosFacturaWeb}" class="form-control" th:id="idClienteFactura" th:name="clienteFactura">
+				<div class="col-md-3 mb-4">
+					<div class="form-group">
+						<label for="labelEmpresaFactura" th:text="'Seleccione Cliente' "></label>
+							<select th:object="${datosFacturaWeb}" class="form-control" th:id="idClienteFactura" th:name="clienteFactura">
 								<option th:value="0" th:text="'Seleccionar cliente' "></option>
 								<option th:each ="clienteFactu:${empresaFactuWeb}"
    						 				th:value="${clienteFactu.idEmpresa}"
   						  				th:text ="${clienteFactu.nomEmpresa}">
   						 		</option>
     						</select>
-						</div> 
-					</div>
-					
+					</div> 
 				</div>
-			 </div>		
-			 <div class="col-2"></div>
 			</div>
-			
-			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
-					<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura"></div>
-				</div>	
-				<div class="col-2"></div>
-			</div>
-			
-			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8" style="border-bottom: 2px solid #000">
-					<div class="form-row">
-						<div class="col-md-12 mb-1">
-    				 		<label for="labelNotaFactura"  th:text="'Nota Factura' " ></label>
-    						<textarea class="form-control" th:id="idNotaFactura" th:name="notaFactura" th:field="*{notaFactura}" rows="2"></textarea>
-  						</div>
-  					</div>
-				</div>
-				<div class="col-2"></div>
 			</div>		
+		 <div class="col-2"></div>
+		</div>
 			
-			<div class="row">
-				<div class="col-2"></div>
- 			 	<div class="col-8 text-right"> 
- 			 		<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
-  					<button type="submit" class="btn btn-primary">Guardar</button>
- 				 </div>
- 				<div class="col-2"></div>
- 			</div>
-		</form>
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura" style="overflow-y:scroll; height:330px; border:1px solid black;"></div>
+			</div>	
+			<div class="col-2"></div>
+		</div>
+			
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8" style="border-bottom: 2px solid #000">
+				<div class="form-row">
+					<div class="col-md-12 mb-1">
+    			 		<label for="labelNotaFactura"  th:text="'Nota Factura' " ></label>
+    					<textarea class="form-control" th:id="idNotaFactura" th:name="notaFactura" th:field="*{notaFactura}" rows="2"></textarea>
+  					</div>
+  				</div>
+			</div>
+			<div class="col-2"></div>
+		</div>		
+			
+		<div class="row">
+			<div class="col-2"></div>
+ 			 <div class="col-8 text-right"> 
+ 			 	<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
+  				<button type="submit" class="btn btn-primary">Guardar</button>
+ 				</div>
+ 			<div class="col-2"></div>
+ 		</div>
+	  </form>
 	</div>
 	
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>

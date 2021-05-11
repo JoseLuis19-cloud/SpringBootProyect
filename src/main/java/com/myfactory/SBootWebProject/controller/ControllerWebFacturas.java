@@ -101,6 +101,9 @@ public class ControllerWebFacturas {
 	@Value("${path.MACOSGeneracionFacturasPDF}")
 	private String pathDescargaFacturasPDFMacOS;
 	
+	@Value("${factura.divisa.EUR}")
+	private String codDivisaEUR;
+	
 	@Value("${emailFactura.cuerpoMensaje}")
 	private String cuerpoMensajeFactura;
 	
@@ -183,7 +186,6 @@ public class ControllerWebFacturas {
 	 			}
 	 		  else
 	 			{
-		
 	 			  for (BeanFacturaLineas elemenLinFactura : datosFacturaWeb.getBeanFacturaLineas())
 	   				  {
 	 				  Map<String, Object> resultValLineaFactura;
@@ -470,7 +472,7 @@ public class ControllerWebFacturas {
 			
 		 	factura.setImpFactura(datosFacturaWeb.getImpFacturaWeb() );
 			factura.setFecFactura(datosFacturaWeb.getFecAltaFacturaWeb() );
-			factura.setCodDivisa(datosFacturaWeb.getCodDivisaWeb());
+			factura.setCodDivisa(new Integer( codDivisaEUR) );
 			factura.setNotaFactura(datosFacturaWeb.getNotaFactura());
 			
 			factura.setCodUsuario(beanIdUsuario.getIdUsuario());

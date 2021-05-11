@@ -5,52 +5,98 @@
   <body>
   
     <div th:fragment="lineafactura" class="results-block">
-    
-		<div class="row" style="border-bottom: 2px solid #000">
-     			<table class="table table-sm">
-					<thead class="thead-light">
-						<tr>
-							<th th:text="'Cantidad'"></th>
-							<th th:text="'Concepto'"></th>
-							<th th:text="'% IVA'"></th>
-							<th th:text="'% Descuento'"></th>
-							<th th:text="'Importe'"></th>
-							<th th:text="'Editar'"></th>
-							<th th:text="'Eliminar'"></th>
-						</tr>
-					</thead>
-					<tbody> 
-					  	<tr th:each="linFactu, iterStat: *{beanFacturaLineas}">
-					  	
-					  		<td>
-					  			<input type="hidden" th:id="'idLinFactu'+ ${iterStat.index}" th:name="'linFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].idLinFactura}"/>	
-								<input type="text" class="form-control form-control-xs"  th:id="'idCantidad'+ ${iterStat.index}" th:name="'cantidad'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].cantidad}" th:maxlength="2" th:readonly="false" required/>	
-					  		</td>
-							<td>
-								<input type="text" class="form-control form-control-xs"  th:id="'idConcepto'+ ${iterStat.index}" th:name="'Concepto'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].concepto}" th:maxlength="40" th:readonly="false" required/>
-							</td>
-							<td>
-								<input type="text" class="form-control form-control-xs"  th:id="'idPorIva'+ ${iterStat.index}" th:name="'porIva'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porIva}" th:maxlength="2" th:readonly="false" required/>
-							</td>
-							<td>
-								<input type="text" class="form-control form-control-xs"  th:id="'idPorDescuento'+ ${iterStat.index}" th:name="'porDescuento'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porDescuento}" th:maxlength="2" th:readonly="false" required/>
-							</td>
-							<td>
-								<input type="text" class="form-control form-control-xs"  th:id="'idImpLineaFactu'+ ${iterStat.index}" th:name="'impLineaFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].impLinFactura}" th:maxlength="7" th:readonly="false" required/>	
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sm">Edit</button>	
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sm">Eliminar</button>	
-							</td>
+
+		<div class="row" style="border:1px solid black; width:99.5%">
+    		<div class="col-1">
+      			<label for="labelCantidad" th:text="'Cantidad' "></label> 
+    		</div>
+   			<div class="col-5">
+    	  		<label for="labelConcepto" th:text="'Concepto' "></label> 
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<label for="labelIVA" th:text="'IVA' "></label> 
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<label for="labelPorcentaje" th:text="'% Des' "></label> 
+   		 	</div>
+   		 	<div class="col-2">
+    	  		<label for="labelImportante" th:text="'Importe' "></label> 
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<label for="labelEditar" th:text="'Editar' "></label> 
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<label for="labelEditar2" th:text="'Eliminar' "></label> 
+   		 	</div>
+ 		</div>
+ 		
+		<div class="row" th:each="linFactu, iterStat: *{beanFacturaLineas}" style="border:1px solid black; width:99.5%">
+    		<div class="col-1">
+      			<input type="text" class="form-control form-control-xs" th:id="'idCantidad'+ ${iterStat.index}" th:name="'cantidad'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].cantidad}" th:maxlength="2" th:readonly="false" required/>	
+    		</div>
+   			<div class="col-5">
+    	  		<input type="text" class="form-control form-control-xs" th:id="'idConcepto'+ ${iterStat.index}" th:name="'Concepto'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].concepto}" th:maxlength="40" th:readonly="false" required/>
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<input type="text" class="form-control form-control-xs" th:id="'idPorIva'+ ${iterStat.index}" th:name="'porIva'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porIva}" th:maxlength="2" th:readonly="false" required/>
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<input type="text" class="form-control form-control-xs" th:id="'idPorDescuento'+ ${iterStat.index}" th:name="'porDescuento'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porDescuento}" th:maxlength="2" th:readonly="false" required/>
+   		 	</div>
+   		 	<div class="col-2">
+    	  		<input type="text" class="form-control form-control-xs" th:id="'idImpLineaFactu'+ ${iterStat.index}" th:name="'impLineaFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].impLinFactura}" th:maxlength="7" th:readonly="false" required/>	
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<button type="button" class="btn btn-primary btn-sm">Edit</button>	
+   		 	</div>
+   		 	<div class="col-1">
+    	  		<button type="button" class="btn btn-primary btn-sm">Eliminar</button>	
+   		 	</div>
+ 		</div>
+  
+	<!-- <div class="row">
+     		<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th style="width: 20%" th:text="'Cantidad'"></th>
+						<th style="width: 30%" th:text="'Concepto'"></th>
+						<th style="width: 5%" th:text="'% IVA'"></th>
+						<th style="width: 5%" th:text="'% Descuento'"></th>
+						<th style="width: 20%" th:text="'Importe'"></th>
+						<th style="width: 10%" th:text="'Editar'"></th>
+						<th style="width: 10%" th:text="'Eliminar'"></th>
+					</tr>
+				</thead>
+				<tbody> 
+					 <tr th:each="linFactu, iterStat: *{beanFacturaLineas}">
+					  	<td>
+					  		<input type="hidden" th:id="'idLinFactu'+ ${iterStat.index}" th:name="'linFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].idLinFactura}"/>	
+							<input type="text" class="form-control form-control-xs"  th:id="'idCantidad'+ ${iterStat.index}" th:name="'cantidad'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].cantidad}" th:maxlength="2" th:readonly="false" required/>	
+					  	</td>
+						<td>
+							<input type="text" class="form-control form-control-xs"  th:id="'idConcepto'+ ${iterStat.index}" th:name="'Concepto'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].concepto}" th:maxlength="40" th:readonly="false" required/>
+						</td>
+						<td>
+							<input type="text" class="form-control form-control-xs"  th:id="'idPorIva'+ ${iterStat.index}" th:name="'porIva'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porIva}" th:maxlength="2" th:readonly="false" required/>
+						</td>
+						<td>
+							<input type="text" class="form-control form-control-xs"  th:id="'idPorDescuento'+ ${iterStat.index}" th:name="'porDescuento'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].porDescuento}" th:maxlength="2" th:readonly="false" required/>
+						</td>
+						<td>
+							<input type="text" class="form-control form-control-xs"  th:id="'idImpLineaFactu'+ ${iterStat.index}" th:name="'impLineaFactu'+ ${iterStat.index}" th:field="*{beanFacturaLineas[__${iterStat.index}__].impLinFactura}" th:maxlength="7" th:readonly="false" required/>	
+						</td>
+						<td>
+							<button type="button" class="btn btn-primary btn-sm">Edit</button>	
+						</td>
+						<td>
+							<button type="button" class="btn btn-primary btn-sm">Eliminar</button>	
+						</td>
 							
-						</tr>
-					</tbody>
+					</tr>
+				</tbody>
 			 </table>
-		</div>
-				
-	</div>	
+		</div>   -->	 	
+	</div>	 
 
 	</body>
 </html>
