@@ -530,7 +530,7 @@ public class CrearBotoneraPag {
    }
    
    
-   public static void montarEnlacesBotonera10(HashMap<String, Integer>  paramBotonera, Model modelo, int numPagInt, String URLPag, String empresaBusqueda)  {
+   public static void montarEnlacesBotonera10(HashMap<String, Integer>  paramBotonera, Model modelo, int numPagInt, String URLPag, String empresaBusqueda, Integer numPosInt)  {
 	   
 	    modelo.addAttribute("numPagVisibles", paramBotonera.get("numPagVisibles") );
 		
@@ -553,8 +553,24 @@ public class CrearBotoneraPag {
 		modelo.addAttribute("numPagAct3", "N");
 		modelo.addAttribute("numPagAct4", "N" );
 		modelo.addAttribute("numPagAct5", "N" );
-	
-	   
+		
+		switch (numPosInt) {
+		case 1:
+			modelo.addAttribute("numPagAct1", "S" );
+			break;
+		case 2:
+			modelo.addAttribute("numPagAct2", "S" );
+			break;
+		case 3:
+			modelo.addAttribute("numPagAct3", "S" );
+			break;
+		case 4:
+			modelo.addAttribute("numPagAct4", "S" );
+			break;
+		case 5:
+			modelo.addAttribute("numPagAct5", "S" );
+			break;
+		}
   }
    
 }

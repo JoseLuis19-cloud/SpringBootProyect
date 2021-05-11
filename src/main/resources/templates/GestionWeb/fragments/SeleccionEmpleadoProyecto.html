@@ -2,10 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
- 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
-	<link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.15.1/css/all.css}"/>
   </head>
-
   <body>
 		<header th:fragment="SelecEmplProyecto">
      		<table class="table table-sm">
@@ -17,14 +14,14 @@
 					</tr>
 				</thead>
 				<tbody class="table-striped">
-					<tr th:each="listEmpleProyecto, iterStat :${listaEmpleadosProyecto}">
+					<tr th:each="listEmpleProyecto, iterStat :${listaEmpleadoSelec}">
 					<td>
 						<div style="display: flex; justify-content: center; align-items: center;"> 
-						 <input type="checkbox" th:id="'idCheckEmpleadoSel'+ ${iterStat.index}" th:name="checksEmpleadoSel[]" th:onclick="'anadirEmpleadoProyecto(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listEmpleProyecto.idEmpleado}" class="btn btn-primary btn-sm" />						
+						<input type="checkbox" th:id="'idCheckEmpleadoSel'+ ${iterStat.index}" th:name="checksEmpleadoSel[]" th:onclick="'anadirEmpleadoProyecto(this, ' + ${iterStat.index} + ')'" th:checked="false" th:value="${listEmpleProyecto.idEmpleado}" class="btn btn-primary btn-sm" />						
 					</div>
 				</td>
-					<td th:text="${listEmpleProyecto.idEmpleado}"></td>
-					<td th:text="${listEmpleProyecto.nombre}"></td>
+					<td th:text="${listEmpleProyecto.idEmpresa}"></td>
+					<td th:text="${listEmpleProyecto.nomEmpresa}"></td>
 				</tr>
 				</tbody>
 			</table>

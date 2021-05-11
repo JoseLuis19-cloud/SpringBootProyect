@@ -90,6 +90,7 @@ public class ControllerWebProyectos {
 	 modelo.addAttribute("listaUTEEmpresas", listBeanEmpUTE);
 	 
 	 modelo.addAttribute("listaEmpleadosProyecto", obtenerEmpleadosDisponibles(listEmpleadosDisponibles));
+	 modelo.addAttribute("listaEmpleadoSelec", listBeanEmpUTE);
 	 
 	 modelo.addAttribute("datosProyectoWeb", datosProyectoWeb);
 	 
@@ -116,23 +117,6 @@ public class ControllerWebProyectos {
 //	@RequestMapping(value = "/anadirempresajax" /*, consumes = MediaType.APPLICATION_JSON_VALUE */ )
 //	public String anadirEmpresaAjax(@RequestParam(name="idEmpresa") String idEmpresa, 
 //									@RequestParam(name="objList")  List<BeanPrueba1> lPru1, Model modelo) {
-		
-	//	public String anadirEmpresaAjax(/* @RequestParam(name="idEmpresa") String idEmpresa, */
-	//			@RequestParam(name="search")  Person per1, Model modelo) {
-	
-	
-	
-// 	@RequestMapping(value = "/obtenersubmenuajax/{idmenu,idusuario}", method = RequestMethod.GET)
-	// @RequestMapping(value = "/obtenersubmenuajax", method = RequestMethod.GET)
-	// public String obtenerSubMenuAjax(Model modelo, @RequestParam("idMenu")  String idMenu, @RequestParam("idUsuario")  String idUsuario) {
-	
-	
-//	@RequestMapping(value = "/submit.htm", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody
-//	String Submit(@RequestParam("name") String name,@RequestParam("location") String location) {
-//	    // your logic here
-//	    return resp;
-//	}
 	
 	@RequestMapping(value ="/anadirempreproyecajax", method=RequestMethod.GET)
 	public String anadirEmpresaProyecto(Model modelo, @RequestParam("param1") String arrEmpresasAnadirUTE)
