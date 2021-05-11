@@ -5,6 +5,20 @@
   
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	
+	<style> 	
+	.divRounded {
+   margin-top: 10px;
+   margin-left: 10px;
+   border-color: black;
+   border-radius: 10px;
+   border-style: solid;
+   border-width: 1px;
+   width: 100%;
+   margin-right: 0;
+   padding: 10px;
+}
+    </style> 
     
     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
@@ -23,7 +37,7 @@
 		<div class="row">
 			<div class="col-2"></div>
   			<div class="col-8">
-  				<div class="subtitulo-pag2">Copias de seguridad realizas de la base de datos de Beigar</div>
+  				<div class="subtitulo-pag2">Copias de seguridad realizadas de la base de datos de Beigar</div>
   			</div>
   			<div class="col-2"></div>
   		</div>
@@ -57,13 +71,14 @@
   			<div class="col-8 text-right"><button type="submit" class="btn btn-primary">Generar Copia Seguridad</button></div>
   			<div class="col-2"></div>
 		</div>
-	    <br>
 		<div class="row">
 			<div class="col-2"></div>
   			<div class="col-8" >
   				<strong>Nota:</strong> 
-  				<p th:text="'Realiza la copia de la base de datos del siguiente path:  ' + ${pathDestinoCopia}"></p>
-				<p>Es recomendable para hacer la copia de seguridad, que no esté utilizando ningún usuario la aplicación</p>
+  				<div class="divRounded">
+  					<p th:text="'. La copia de seguridad de la base de datos se realiza en el siguiente path:  ' + ${pathDestinoCopia}"></p>
+					<p>. Es recomendable para realizar la copia de seguridad, que no esté utilizando ningún usuario la aplicación en el momento</p>
+				</div>
   			</div>
   			<div class="col-2"></div>
   		</div>

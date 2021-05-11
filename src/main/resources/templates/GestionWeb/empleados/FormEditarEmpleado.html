@@ -30,7 +30,6 @@ p.letPeq {
 
 	<script th:inline="javascript">
 	 	$(document).ready(function(){
-	 		
 			$("#idLinkCambiarFoto").click(function(){
 		 		$("#myModalCambiarFoto").modal();
 		 	});
@@ -44,12 +43,12 @@ p.letPeq {
 	<div class="container-fluid">
 	
 		<!-- Mostrar los errores en una lista -->
-				<!-- 
-				<div th:object="${producto}" th:remove="tag">
+			<!-- 
+			<div th:object="${producto}" th:remove="tag">
 					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
-						<li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
-					</ul>
-			</div>  -->
+				<li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
+				</ul>
+		</div>  -->
 				 
 		<div class="row">
 			<div class="titulo-pag2">Gestión Empleados</div>
@@ -194,8 +193,8 @@ p.letPeq {
   
   <!-- Modal Cambiar Foto -->
   <div id="myModalCambiarFoto" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
       <div class="modal-header">
         <div class="subtitulo-pag-ayuda" th:text="'Añadir/cambiar foto empleado'"></div>
       </div>
@@ -206,18 +205,19 @@ p.letPeq {
                  <div class="form-group">
                    <input type="file" name="file" class="form-control-file btn-sm">
                  </div>
-                 <button type="submit" class="btn btn-primary btn-sm">Enviar Foto</button>
-                 <p class="letPeq" th:id="'idP1'" th:text="'Nota: El tamaño de la foto no puede superar 65.535 bytes'"></p>
+                 <button type="submit" class="btn btn-primary btn-sm float-right">Enviar Foto</button>
              </form>
+            <br>
+            <p class="letPeq" th:id="'idP1'" th:text="'Nota: El tamaño de la foto no puede superar 65.535 bytes'"></p>
    		 </div>
 	
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>
       </div>
-    </div>
-  </div>
-</div>
+   	 </div>
+  		</div>
+	</div>
  
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>

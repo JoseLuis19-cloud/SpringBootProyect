@@ -68,7 +68,6 @@ public class ControllerWebAdministracion {
 
 	protected static final Logger parentLogger = LogManager.getLogger();
 
-	// private final String UPLOAD_DIR = "./uploads/";
 	@Value("${path.MACOSDescargaFicheros}")
 	private String pathMacOS;
 	

@@ -4,11 +4,27 @@
   
   <head>
   
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}"/>
+	
+	<style>
+	.divRounded {
+   		margin-top: 10px;
+   		margin-left: 10px;
+  		border-color: black;
+  		border-radius: 10px;
+   		border-style: solid;
+  		border-width: 1px;
+  		width: 100%;
+  		margin-right: 0;
+   		padding: 10px;
+	}
+    </style> 	
     
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+    <!-- Este es el orden correcto de definición de los js de bootstrap -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
   
  	<script th:inline="javascript">
  	
@@ -20,7 +36,7 @@
 			
 			if (arrValueCheckCopSeg.length == 1)
 	    	   {
-			    $("#modalConfirRestaurarCopSeg").modal();
+			    $("#modalConfirRestCopSeg").modal();
 	    	   }
 			  else
 				{
@@ -30,7 +46,7 @@
 				 	 }
 				   else
 					 {
-					   alert("Seleccione solo una copia de seguridad a restaurarar");
+					  alert("Seleccione solo una copia de seguridad a restaurar");
 					 }
 				}
 		 });
@@ -63,12 +79,9 @@
 		<div class="row">
 			<div class="titulo-pag2">Administración</div>
 		</div>
-	
 		<div class="row">
 			<div class="col-2"></div>
-  			<div class="col-8" >
-  				<div class="subtitulo-pag2">Restauración de la copia de seguridad</div>
-  			</div>
+  			<div class="col-8"><div class="subtitulo-pag2">Restauración de la copia de seguridad</div></div>
   			<div class="col-2"></div>
   		</div>
   	
@@ -102,7 +115,6 @@
   			</div>
   			<div class="col-2"></div>
   		</div>
-  		<br>
   		<div class="row">
  			<div class="col-2"></div>
  			<div class="col-8 text-right"><button type="button" id="botonRestaurar" class="btn btn-primary">Restaurar Copia Seguridad</button></div>
@@ -111,53 +123,39 @@
   		<div class="row">
 			<div class="col-2"></div>
   			<div class="col-8">
-  				<strong>Nota:</strong> 
-  				<p th:text="'Realiza la restauración copia de la base de datos del siguiente path:  ' + ${pathDestinoCopia}">  </p>
-				<p>Es recomendable para hacer la restauración de la copia de seguridad, que no esté utilizando ningún usuario la aplicación</p>
-				<p>Una vez termine el proceso de restauración vuelva a entrar a la aplicación</p>
+  				<div class="divRounded">
+  					<strong>Nota:</strong> 
+  					<p th:text="'. Realiza la restauración copia de la base de datos del siguiente path:  ' + ${pathDestinoCopia}">  </p>
+					<p>. Es recomendable para hacer la restauración de la copia de seguridad, que no esté utilizando ningún usuario la aplicación</p>
+					<p>. Una vez termine el proceso de restauración vuelva a entrar a la aplicación</p>
+				</div>
   			</div>
   			<div class="col-2"></div>
   		</div>
- 	
  	</div>
  	
  <!-- Modal Eliminar Menu -->
-  <div id="modalConfirRestaurarCopSeg" class="modal" tabindex="-1" role="dialog">
+  <div id="modalConfirRestCopSeg" class="modal" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-         <div class="subtitulo-pag2" th:text="'Confirmar que desea restaurar la copia de seguridad'"></div>
+         <div class="subtitulo-pag-ayuda" th:text="'Confirmar la restauración la copia de seguridad'"></div>
       </div>
       <div class="modal-body">
         <form th:id="idFormRestauraCopSeg" th:action="@{/administracion/generarrestauracioncopseg}" th:object="${datosCopSeg}" method="post">
             <input type="hidden" th:id="'idFicheroCopSeg'" th:name="'ficheroCopSeg'" th:value="${fichCopSeg}" /> 
     		<div class="container">
-                <p th:id="'idP1'"  th:text="'Asegurese que no hay usuarios en la Aplicación'"></p>
+                <p th:id="'idP1'" th:text="'Asegurese que no hay usuarios en la Aplicación'"></p>
      	    </div>
       		<div class="modal-footer">
-       	 		<button type="submit" id="idConfirmar" class="btn btn-primary">Confirmar</button>
-       	 		<button type="button" id="idCancelar"  class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+       	 		<button type="submit" id="idConfirmar" class="btn btn-primary btn-sm">Confirmar</button>
+       	 		<button type="button" id="idCancelar"  class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>
       		</div>
        </form>
     </div>
    </div>
   </div>
  </div>
-	
- <!-- Include Date Range Picker -->
- 
-  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
- 
- <script th:inline="javascript">
- 	$(function () { 	
-   	 $('#idFecAltaEmpresa').datepicker({
-    	 format: "dd/mm/yyyy",
-    	 language: 'es'
-    	});
-    });
-</script>
 
 </body>
 </html>
