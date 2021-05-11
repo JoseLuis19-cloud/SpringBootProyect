@@ -2,7 +2,9 @@ package com.myfactory.SBootWebProject.controller;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -17,11 +19,13 @@ import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
+import com.myfactory.SBootWebProject.beanForm.BeanFacturaLineas;
 import com.myfactory.SBootWebProject.model.Aviso;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Empresa;
 import com.myfactory.SBootWebProject.model.Factura;
+import com.myfactory.SBootWebProject.model.FacturaLinea;
 import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Proyecto;
@@ -58,15 +62,19 @@ public class CargarBeansDatos  implements Serializable {
 	public BeanFacturaWeb cargarBeanFactura (Factura factura)
 	  {
 	//	 BeanFacturaWeb facturaWeb = new BeanFacturaWeb();
-		 
+ 
 		 facturaWeb.setIdFacturaWeb(factura.getIdFactura());
-		 facturaWeb.setCodFactura(factura.getNumFactura());
+		 facturaWeb.setNumFacturaWeb(factura.getNumFactura());
 		 facturaWeb.setImpFacturaWeb(factura.getImpFactura());
 		 facturaWeb.setFecAltaFacturaWeb(factura.getFecFactura());
 		 facturaWeb.setNotaFactura(factura.getNotaFactura());
 		 facturaWeb.setCodDivisaWeb(factura.getCodDivisa());
 		 facturaWeb.setFecAltaFacturaWeb( factura.getFecFactura());
-	
+		 
+		 facturaWeb.setIdFormPagoWeb(factura.getFormaPago().getIdForPago());
+		 facturaWeb.setCodSitFacturaWeb(factura.getFacturaSituacion().getCodSitFactura());
+		 facturaWeb.setCodEmpresaWeb(factura.getCliente().getIdCliente());
+		 
 		 Iterable <FacturaSituacion> facturaSitu = servJPA.getSituacionesFactura();
 		 
 		 List<FacturaSituacion> listFactuSituacion = StreamSupport
@@ -74,8 +82,26 @@ public class CargarBeansDatos  implements Serializable {
 					  .collect(Collectors.toList());
 		 
 		 facturaWeb.setSituacionesFactura(listFactuSituacion);
-		 
 		 facturaWeb.setCodSitFacturaWeb(factura.getFacturaSituacion().getCodSitFactura() );
+		 
+		 List<BeanFacturaLineas> listFacturaLineas = new ArrayList<BeanFacturaLineas>();
+		 
+		 for (FacturaLinea elemenLinFactura : factura.getFacturaLineas())
+			  {
+			   BeanFacturaLineas  facturaLinea = new BeanFacturaLineas();
+			   facturaLinea.setCantidad(  elemenLinFactura.getCantidad() );
+			   facturaLinea.setConcepto( elemenLinFactura.getConcepto() );
+			   facturaLinea.setIdLinFactura( elemenLinFactura.getIdLinFactura() );
+			   facturaLinea.setPorDescuento( elemenLinFactura.getPorDescuento() );
+			   facturaLinea.setPorIva( elemenLinFactura.getPorIva() );
+			   
+			   listFacturaLineas.add(facturaLinea);
+			  }
+		 BeanFacturaLineas   facturaLineaVacia = new BeanFacturaLineas();
+		 listFacturaLineas.add(facturaLineaVacia);
+		 
+		   facturaWeb.setBeanFacturaLineas(listFacturaLineas);
+		 
 		return facturaWeb;
 	  }
 	  

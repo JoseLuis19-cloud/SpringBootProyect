@@ -3,50 +3,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
-    
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 
  <style>
- 
-.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
 
 .form-control-xs {
-	height: calc(1em + .375rem + 2px) !important;
-	padding: .125rem .25rem !important;
-	font-size: .75rem !important;
-	line-height: 1.5;
-	border-radius: .2rem;
-}
-
-h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
-}
+    height: calc(1em + .375rem + 2px) !important;
+    padding: .125rem .25rem !important;
+    font-size: .75rem !important;
+    line-height: 1.5;
+    border-radius: .2rem;
+	}
 </style>
+
+ <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+ <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+ 
 </head>
 
 <body>
@@ -54,94 +30,143 @@ h5 {
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 
 	<div class="container-fluid">
+	 
 		<div class="row">
+			<div class="titulo-pag2">Gestión de Facturas</div>
+		</div>
+		
+		<form th:action="@{/gestionWeb/facturas/modiffactura}" th:object="${datosFacturaWeb}" method="post">
+		
+		  <input type="hidden" th:id="'idIdFacturaWeb'" th:name="'idFacturaWeb'"  th:field="*{idFacturaWeb}" />
+	 
+		 <div class="row">
 			<div class="col-2"></div>
 			<div class="col-8" style="border-bottom: 2px solid #000">
-				<h3 th:text="'Datos Factura'"></h3>
-				<br />
+				<div class="subtitulo-pag2" th:text="'Datos Factura'"></div>
 			</div>
 			<div class="col-2"></div>
 		</div>
+		
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<form th:action="@{/gestionWeb/facturas/modiffactura}" th:object="${facturaWeb}" method="post">
-						
-				<input type="hidden" th:id="'idIdFacturaWeb'" th:name="'idFacturaWeb'"  th:field="*{idFacturaWeb}" />	 
-				
-					<div class="container-fluid" style="border-bottom: 2px solid #000">
-					
-					<div class="form-row">
-						<div class="col-md-4 mb-3">
-							<label for="validationConcepto" th:text="'Concepto'"></label> 
-							<input type="text" class="form-control" id="idConceptoWeb" th:field="*{conceptoWeb}" th:maxlength="50" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validaImpFatura" th:text="'Importe factura' "></label>
-							<input type="text" class="form-control" id="idImpFacturaWeb" th:field="*{impFacturaWeb}" th:maxlength="10" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validaCodFatura" th:text="'Cod. divisa' "></label>
-							<input type="text" class="form-control" id="idCodDivisaWeb" th:field="*{codDivisaWeb}" th:maxlength="3" required>
-						</div>
+				<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
+				<div class="form-row">
+					<div class="col-md-3 mb-4">
+						<label for="labelNumFatura" th:text="'Número factura' "></label>
+						<input type="text" class="form-control" th:id="idCodFacturaWeb" th:name="codFacturaWeb" th:field="*{numFacturaWeb}" th:readonly="true" >
 					</div>
-					
-					<div class="form-row">
-					 	<div class="col-md-4 mb-3">
-							<div class="form-group">
-								<label for="idFormaPago" th:text="'Forma de pago: ' "></label>
-									<select th:object="${facturaWeb}" name="formaPago" id="idFormaPago">
-									<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
-										<option th:each ="formPag:${formasPagoWeb}"
+					<div class="col-md-4 mb-4">
+						<div class="form-group">
+							<label for="labelFormaPago" th:text="'Forma de pago ' "></label>
+							<select th:object="${datosFacturaWeb}" class="form-control"  th:name="formaPago" th:id="idFormaPago">
+							<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
+								<option th:each = "formPag:${formasPagoWeb}"
    						 				th:value="${formPag.idForPago}"
-  						  				th:text ="${formPag.desForPago}">
-  						 			</option>
-    							</select>
-							</div>
-						 </div>
-
-						<div class="col-md-4 mb-3">
-							<label for="labelFecFactura">Fec. Factura</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-       							 <i class="fa fa-calendar"> </i> 
-      					 		</div>
-							    <input type="text" class="form-control" th:id="idFecFactura" th:name="fecFactura" th:field="*{fecFacturaWeb}" th:value="${#calendars.format(fecFacturaWeb, 'dd/MM/yyyy')}" th:maxlength="10" required>
-							</div>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validaCodFatura" th:text="'Porcentaje Descuento' "></label>
-							<input type="text" class="form-control" id="idPorDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
-						</div>
+  						  				th:text ="${formPag.desForPago}" 
+  						  				th:selected="${formPag.idForPago} == ${datosFacturaWeb.idFormPagoWeb}">
+  						 		</option>
+    						</select>
+						</div> 
 					</div>
-					</div>	
+					<div class="col-md-2 mb-4">
+						<label for="labelCodDivisa" th:text="'Cod. divisa' "></label>
+						<input type="text" class="form-control" id="idCodDivisaWeb" th:field="*{desDivisaWeb}" th:maxlength="3" th:readonly="true">
+					</div>
+					<div class="col-md-3 mb-4">
+						<label for="labelImpFatura" th:text="'Importe factura' "></label>
+						<input type="text" class="form-control" id="idImpFacturaWeb" th:field="*{impFacturaWeb}" th:readonly="true" >
+					</div>
+				</div>
 					
-				</form>
+				<div class="form-row">
+				 <div class="col-md-4 mb-4">
+					<div class="form-group">
+						<label for="labelSitFactura" th:text="'Situacion Factura' "></label>
+							<select th:object="${datosFacturaWeb}" class="form-control" th:id="idSitFactura" th:name="sitFactura">
+								<option th:value="0" th:text="'Seleccionar situación factura' "></option>
+								<option th:each ="sitFactu:${datosFacturaWeb.situacionesFactura}"
+   						 				th:value="${sitFactu.codSitFactura}"
+  						  				th:text ="${sitFactu.nomSitFactura}"
+  						  				th:selected="${sitFactu.codSitFactura} == ${datosFacturaWeb.codSitFacturaWeb}">
+  						 		</option>
+    						</select>
+					</div>
+				</div>
+				<div class="col-md-3 mb-4">
+					<label for="labelFecFactura">Fec. Alta Factura</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+       					 <i class="fa fa-calendar"> </i> 
+      					</div>
+					 <input type="text" class="form-control" th:id="idFecAltaFactura" th:name="fecAltaFactura" th:field="*{fecAltaFacturaWeb}" th:value="${#calendars.format(fecFacturaWeb, 'dd/MM/yyyy')}" th:maxlength="10"  placeholder="MM/DD/YYYY"  required>
+					</div>
+				</div>
+				<div class="col-md-2 mb-4">
+					<label for="labelPorDescuento" th:text="'Porcentaje Descuento' "></label>
+					<input type="text" class="form-control" th:id="idPorDecuentoWeb" th:name="porDecuentoWeb" th:field="*{porDescuentoWeb}" th:maxlength="3" required>
+				</div>
+					
+				<div class="col-md-3 mb-4">
+					<div class="form-group">
+						<label for="labelEmpresaFactura" th:text="'Seleccione Cliente' "></label>
+							<select th:object="${datosFacturaWeb}" class="form-control" th:id="idClienteFactura" th:name="clienteFactura">
+								<option th:value="0" th:text="'Seleccionar cliente' "></option>
+								<option th:each ="clienteFactu:${empresaFactuWeb}"
+   						 				th:value="${clienteFactu.idEmpresa}"
+  						  				th:text ="${clienteFactu.nomEmpresa}"
+  						  				th:selected="${clienteFactu.idEmpresa} == ${datosFacturaWeb.codEmpresaWeb}">
+  						 		</option>
+    						</select>
+					</div> 
+				</div>
 			</div>
+			</div>		
+		 	<div class="col-2"></div>
+		</div>
+			
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura" style="overflow-y:scroll; height:330px; border:1px solid black;"></div>
+			</div>	
 			<div class="col-2"></div>
 		</div>
-	
+			
 		<div class="row">
-			<div class="col-1"></div>
- 			 <div class="col-10 text-right"> 
+			<div class="col-2"></div>
+			<div class="col-8" style="border-bottom: 2px solid #000">
+				<div class="form-row">
+					<div class="col-md-12 mb-1">
+    			 		<label for="labelNotaFactura"  th:text="'Nota Factura' " ></label>
+    					<textarea class="form-control" th:id="idNotaFactura" th:name="notaFactura" th:field="*{notaFactura}" rows="2"></textarea>
+  					</div>
+  				</div>
+			</div>
+			<div class="col-2"></div>
+		</div>		
+			
+		<div class="row">
+			<div class="col-2"></div>
+ 			 <div class="col-8 text-right"> 
  			 	<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Volver</a>
-  				<button type="submit" class="btn btn-primary">Modificar</button>
- 			 </div>
- 			<div class="col-1"></div>
- 		</div>		
+  				<button type="submit" class="btn btn-primary">Guardar</button>
+ 				</div>
+ 			<div class="col-2"></div>
+ 		</div>
+	  </form>
 	</div>
-
+	
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.7.1/js/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
  
   <script th:inline="javascript">
  	$(function () { 	
-   	 $('#idFecFactura').datepicker({
+   	 $('#idFecAltaFactura').datepicker({
     	 format: "dd/mm/yyyy",
     	 language: 'es'
     	});
-
     });
  </script>
 

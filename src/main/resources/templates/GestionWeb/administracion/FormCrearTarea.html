@@ -3,18 +3,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
   
-	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
-  	
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
-    
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
    
  <style>
 
  </style>
+ 
+  <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
 </head>
 
@@ -22,26 +22,26 @@
 
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-	<div class="container-fluid" style="margin-top:0px;">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Administración</div>
 		</div>
 		<form th:action="@{/administracion/creartarea}" th:object="${datosTareaWeb}" method="post">
 		  <div class="row">
 			<br>
-			 <div class="col-1"></div>
-  			 <div class="col-10" >
+			 <div class="col-2"></div>
+  			 <div class="col-8" >
   				<div class="subtitulo-pag2">Nueva Tarea</div>
   			 </div>
-  			<div class="col-1"></div>
+  			<div class="col-2"></div>
   		 </div>
   		
 		<div class="row">
-			<div class="col-1"></div>
-  			<div class="col-10" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
+			<div class="col-2"></div>
+  			<div class="col-8" style="border-bottom: 2px solid #000; border-top: 2px solid #000">
   				<div class="form-row">
 					<div class="col-md-5 mb-4">
-						<label for="labelarea" th:text="'Tarea'"></label> 
+						<label for="labelarea" th:text="'Nombre de la tarea'"></label> 
 						<input type="text" class="form-control" id="idTareaWeb" th:field="*{desTarea}" th:maxlength="40" required>
 					</div>
 					
@@ -96,17 +96,16 @@
 				</div>
 				
 			 </div>
-			<div class="col-1"></div>	
+			<div class="col-2"></div>	
 		 </div>
 		 
-		 
 		 <div class="row">
-			<div class="col-1"></div>	
-			<div class="col-10 text-right">
-				<div class="col-2"><a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Volver</a></div>
+			<div class="col-2"></div>	
+			<div class="col-8 text-right">
+				<a th:href="@{/}" class="btn btn-primary" role="button">Volver</a>
 				<button type="submit" class="btn btn-primary">Crear</button>
 			</div>	
-			<div class="col-1"></div>	
+			<div class="col-2"></div>	
 		</div>
 		
  		</form>

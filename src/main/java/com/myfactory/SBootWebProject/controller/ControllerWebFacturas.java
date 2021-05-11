@@ -47,6 +47,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
@@ -108,12 +109,15 @@ public class ControllerWebFacturas {
 	private String asuntoMensajeFactura;
 	
 	@GetMapping("/formeditarfactura")
-	public String formEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = false) String idFactura)  {
+	public String formEditarFactura(Model modelo, @RequestParam(value = "idFactura", required = true) Integer idFactura)  {
 
-		Optional<Factura> factura = servJPAFactura.buscarIdFactura(new Integer(Integer.parseInt(idFactura)));
+		Optional<Factura> factura = servJPAFactura.buscarIdFactura( idFactura  );
 		
-		modelo.addAttribute("facturaWeb", cargarBeansDatos.cargarBeanFactura(factura.get()) );
-		modelo.addAttribute("formasPagoWeb", servJPAFactura.getFormasPago());
+		modelo.addAttribute("datosFacturaWeb", cargarBeansDatos.cargarBeanFactura(factura.get()) );
+		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
+		//	modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura())
+		 modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );
+		 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
 		return "gestionWeb/facturas/FormEditarFactura";
@@ -131,6 +135,7 @@ public class ControllerWebFacturas {
 		facturaWeb.setBeanFacturaLineas(lineasFactura);
 	 	
 		facturaWeb.setFecAltaFacturaWeb(Calendar.getInstance());
+		facturaWeb.setNumFacturaWeb("");
 		facturaWeb.setCodFactura("");
 		facturaWeb.setNotaFactura("");
 		facturaWeb.setCodDivisaWeb(876);
@@ -159,11 +164,12 @@ public class ControllerWebFacturas {
 	@RequestMapping(value = "/insertarfactura", method = RequestMethod.POST)
 	public String altaFactura(@ModelAttribute("datosFacturaWeb") @Valid BeanFacturaWeb datosFacturaWeb,
 		BindingResult resultValidacion, 
+		RedirectAttributes redirectAttrs,
 		Model modelo, @RequestParam(value = "formaPago", required = true) String formaPago,
 					  @RequestParam(value = "sitFactura", required = true) String sitFactura,
 					  @RequestParam(value = "clienteFactura", required = true) String clienteFactura) {
 		
-		Factura factura; // = new Factura();
+		Factura factura;
 		BeanErrorValidacion datosError = null;
 		BeanErrorValidacion datosErrorLinea  = null;
 		 
@@ -180,6 +186,16 @@ public class ControllerWebFacturas {
 	 			{
 	 			modelo.addAttribute("errorValidacion" , true);
 	 			modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
+	 			  	modelo.addAttribute("datosFacturaWeb", datosFacturaWeb);
+	 		 	
+	 			  	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
+	 			 	modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );	
+	 			 	modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 					
+	 			 //	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
+
+ 	 				
+	 			
 	 			}
 	 		  else
 	 			{
@@ -202,45 +218,56 @@ public class ControllerWebFacturas {
 						factuLinea.setFactura( (Factura) resultValFactura.get("facturaValidacion"));
 						lineasFactu.add(factuLinea); 
 					 	}
-	   			}
+	   				  }
 	 			  
 	 			factura = (Factura) resultValFactura.get("facturaValidacion");
 	 			
 	 			factura.setFacturaLineas(lineasFactu);
 	 			Integer idFactura = null;	
 	 			// Si no existe la factura todavía
-	 			if (datosFacturaWeb.getIdFacturaWeb() == null )
-	 				{
+	 		//	if (datosFacturaWeb.getIdFacturaWeb() == null )
+	 		//		{
 	 				factura.setPorIva(21);
 	 				factura.setNumFactura(servJPAFactura.asignarNumFactura(ConstantesAplicacion.FACTURAS_SECUENCIAL) );
 	 			 // Dar de alta en cascada 
 	 				idFactura = servJPAFactura.altaFactura(factura);
-	 				datosFacturaWeb.setIdFacturaWeb(idFactura);
 	 				
-	 				servJPAFactura.incrementarNumFactura("2021", ConstantesAplicacion.FACTURAS_SECUENCIAL); 
-	 				}
-	 			  else
-	 				{
-	 			     servJPAFactura.modifFactura(factura);	
-	 				}
+	 				datosFacturaWeb.setIdFacturaWeb(idFactura);
+	 				datosFacturaWeb.setNumFacturaWeb(factura.getNumFactura());
+	 				
+	 				servJPAFactura.incrementarNumFactura("2021", new Integer ( factura.getNumFactura().substring(5, factura.getNumFactura().length() ) ) );
+	 				
+	 				redirectAttrs.addAttribute("idFactura", idFactura) ;
+					 
+					modelo.addAttribute("errorValidacion" , false);
+					modelo.addAttribute("mensajeError", "" );
+					 
+					return "redirect:/gestionWeb/facturas/formeditarfactura";
+	 				
+	 		//		}
+	 		//	  else
+	 		//		{
+	 		//		 factura.setNumFactura(datosFacturaWeb.getNumFacturaWeb());
+	 		//	     servJPAFactura.modifFactura(factura);	
+	 		//		}
 		    }
-		
 		}
+	 	return "gestionWeb/facturas/FormAltaFactura";
+	}
 	 	
-	 	datosFacturaWeb.getBeanFacturaLineas().add(new BeanFacturaLineas());
+	 //	datosFacturaWeb.getBeanFacturaLineas().add(new BeanFacturaLineas());
 	 	
-	 	modelo.addAttribute("datosFacturaWeb", datosFacturaWeb);
+	 //	modelo.addAttribute("datosFacturaWeb", datosFacturaWeb);
 	 	
-	 	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-		modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );	
+	 //	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
+	//	modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );	
 	 
 			
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	//	modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 			
 	//	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
 
-		return "gestionWeb/facturas/FormAltaFactura";
-	}
+//		return "gestionWeb/facturas/FormAltaFactura";
 	
 	@RequestMapping(value = "/modiffactura", method = RequestMethod.POST)
 	public String modifFactura(@ModelAttribute("datosFacturaWeb") @Valid BeanFacturaWeb datosFacturaWeb,
@@ -469,7 +496,9 @@ public class ControllerWebFacturas {
 			
 		 	factura.setImpFactura(datosFacturaWeb.getImpFacturaWeb() );
 			factura.setFecFactura(datosFacturaWeb.getFecAltaFacturaWeb() );
-			factura.setCodDivisa(new Integer( codDivisaEUR) );
+			factura.setCodDivisa(new Integer(codDivisaEUR));
+			datosFacturaWeb.setPorIvaWeb(21F);
+			factura.setPorIva(  datosFacturaWeb.getImpFacturaWeb().intValue() );
 			factura.setNotaFactura(datosFacturaWeb.getNotaFactura());
 			
 			factura.setCodUsuario(beanIdUsuario.getIdUsuario());

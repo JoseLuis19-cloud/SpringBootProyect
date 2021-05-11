@@ -17,6 +17,8 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private static final long serialVersionUID = 1L;
 	   
 	private Integer idFacturaWeb;
+	
+	private String numFacturaWeb;
 
 	private Float impFacturaWeb;
 	    
@@ -29,7 +31,9 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private Integer idFormPagoWeb;
 	    
 	private Integer codSitFacturaWeb;
-		
+	
+	private Integer codEmpresaWeb;
+
 	private Float porDescuentoWeb;
 		
 	private Integer codDivisaWeb;
@@ -39,7 +43,9 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 	private String codFactura;
 	
 	private String notaFactura;
-
+	
+	private Float porIvaWeb;
+	
 	private List<BeanFacturaLineas> beanFacturaLineas;
 	
 	private List<FacturaSituacion> situacionesFactura;
@@ -149,7 +155,29 @@ public class BeanFacturaWeb  implements Serializable , Cloneable{
 		public void setDesDivisaWeb(String desDivisaWeb) {
 			this.desDivisaWeb = desDivisaWeb;
 		}
-
 		
+		public String getNumFacturaWeb() {
+			return numFacturaWeb;
+		}
+
+		public void setNumFacturaWeb(String numFacturaWeb) {
+			this.numFacturaWeb = numFacturaWeb;
+		}
+		
+		public Float getPorIvaWeb() {
+			return porIvaWeb;
+		}
+
+		public void setPorIvaWeb(Float porIvaWeb) {
+			this.porIvaWeb = porIvaWeb;
+		}
+
+		public Integer getCodEmpresaWeb() {
+			return codEmpresaWeb;
+		}
+
+		public void setCodEmpresaWeb(Integer codEmpresaWeb) {
+			this.codEmpresaWeb = codEmpresaWeb;
+		}
 		
 }

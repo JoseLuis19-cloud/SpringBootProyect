@@ -93,11 +93,10 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 	
 	@Override
 	public String asignarNumFactura(Integer idSecuencial) {
-		String codFactura;
+
 		Optional<Secuenciales> datosSecFactu = secuencialesJPADao.findById(idSecuencial);
 		
-		codFactura = datosSecFactu.get().getAnyoCurso() + "/" + datosSecFactu.get().getIdentificadorUnico();
-	return codFactura;
+		return datosSecFactu.get().getAnyoCurso() + "/" + datosSecFactu.get().getIdentificadorUnico();
 	}
 
 	@Override
