@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,6 @@ import com.myfactory.SBootWebProject.model.Menu;
 import com.myfactory.SBootWebProject.model.MenusUsuario;
 import com.myfactory.SBootWebProject.model.SubMenuNivel1;
 import com.myfactory.SBootWebProject.model.User;
-import com.myfactory.SBootWebProject.repository.menuUsuario.CustomMenusUsuarioJPADao;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenusUsuario;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
@@ -34,15 +32,11 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 public class ControllerWebGestionMenusUsuario {
 	
 	@Autowired
-//	@Qualifier("customServJPAMenusUsuario")
 	ServJPAMenusUsuario servJPAMenusUsuario;
-	
 	@Autowired
 	ServJPAUsuario servJPAUsuario;
-
 	@Autowired
 	ServJPAMenu servJPAMenu;
-	
 	@Autowired
 	public BeanUsuarioSession beanUsuarioSession;
 	

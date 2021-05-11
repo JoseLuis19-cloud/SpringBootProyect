@@ -32,7 +32,6 @@ public class ControllerWebAplicacion {
 		return "Aplicacion/AutorTecnologia";
 	}
 	
-	
 	@RequestMapping(value = "/copsegMySQL", method = RequestMethod.GET)
 	public String copSeguridadMySQL(Model modelo) {
 

@@ -104,8 +104,6 @@ public class ControllerWebEmpresas {
 		servJPAEmpresa.altaEmpresa(nuevaEmpresa);
 		
 		return "redirect:/gestionWeb/empresas/" + "pagempresas";
-	 
-	// return "GestionWeb/empresa/FormEditarEmpresa";
 	}
 	
 	@GetMapping("/formeditarempresa")
