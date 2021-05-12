@@ -13,6 +13,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,6 +36,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 @Controller
 // @PropertySource("classpath:servicioEmail.properties")
 public class AppController {
+	
 	@Autowired
 	ServJPAUsuario servJPAUsuario;
 	@Autowired
@@ -44,10 +47,11 @@ public class AppController {
 	public BeanUsuarioSession beanUsuarioSession;
 	@Autowired
 	public ServJPAAviso servJPAAviso;
-	
 	@Autowired
 	private BeanIdUsuario beanIdUsusario;
 	
+	private static final Logger logger = LogManager.getLogger();
+
 	 
 //	@Value("${path.servicioEmai}")
 //	private String servidorEmail;
@@ -110,6 +114,8 @@ public class AppController {
  		
  		// Enviar un email 
  		leerAvisosUsuario(modelo, beanIdUsuario.getIdUsuario());
+ 		
+ 		logger.info("El usuario: " + beanIdUsuario.getIdUsuario() + " ha entrado en la aplicación" );
  
 	return "Desktop";
 	}

@@ -59,7 +59,7 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -89,12 +89,12 @@
 			<artifactId>bootstrap</artifactId>
 			<version>${bootstrap.version}</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap-datepicker -->
 		<dependency>
-  		  <groupId>org.webjars</groupId>
-   		 	<artifactId>bootstrap-datepicker</artifactId>
-    		<version>1.7.1</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap-datepicker</artifactId>
+			<version>1.7.1</version>
 		</dependency>
 
 		<dependency>
@@ -147,12 +147,28 @@
 			<artifactId>commons-net</artifactId>
 			<version>3.6</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.mockftpserver</groupId>
 			<artifactId>MockFtpServer</artifactId>
 			<version>2.7.1</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Add Log4j2 Dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
 	</dependencies>

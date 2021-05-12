@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{HH:mm:ss dd.mm} [%t] [%-5level] %logger{36} - %msg %n
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        
+        <File name="FILE_ERROR" fileName="/Users/UsuarioJoseLuis/Documents/logs/beigarerror.log">
+            <PatternLayout pattern="%d{HH:mm:ss dd.mm} [%t] [%-5level] %logger{36} - %msg %n"/>
+        </File>
+        
+        <File name="FILE_INFO" fileName="/Users/UsuarioJoseLuis/Documents/logs/beigarinfo.log">
+            <PatternLayout pattern="%d{HH:mm:ss dd.mm} [%t] [%-5level] %logger{36} - %msg %n"/>
+        </File> 
+         
+    </Appenders>
+      
+      <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="FILE_INFO" level="debug"/>
+            <AppenderRef ref="FILE_ERROR" level="debug"/>
+            <AppenderRef ref="ConsoleAppender" level="info"/>
+        </Root>
+    </Loggers>
+    
+    
+</Configuration>
