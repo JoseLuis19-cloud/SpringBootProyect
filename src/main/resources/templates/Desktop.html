@@ -76,7 +76,9 @@
 		<br>
 		<div class="row" style="margin-bottom: 8px;">
 			<div class="col-3"></div>
-			<div class="col-6 divRounded">
+			
+	 
+			<div class="col-6 divRounded" style="overflow-y: scroll; width:600px; height:400px;">
 				<div class="subtitulo-pag2" th:text="'Tareas usuario: ' + ${usuarioApli}"></div>
 				<div class="panel-body" align="center">
 					<table class="table table-sm">
@@ -127,7 +129,10 @@
  			<a th:href="@{/administracion/formrestaurarcopiaseg}" class="btn btn-primary" role="button">Restaurar Cop Seg</a>
 			<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Pag Empresas</a>
 			<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Pag Proyectos</a>
-			<a th:href="@{/administracion/forminfotecnologias}" class="btn btn-primary" role="button">Info. Tecnologias</a>
+		<!--		<a th:href="@{/administracion/forminfotecnologias}" class="btn btn-primary" role="button">Info. Tecnologias</a>  -->
+			
+			<a th:href="@{/gestionWeb/facturas/enivaremailpdffactura}" class="btn btn-primary" role="button">Enviar PDF Fac email</a>
+
 			</div>
 			<div class="col-1"></div>
 		</div>

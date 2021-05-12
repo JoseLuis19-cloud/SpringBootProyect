@@ -27,4 +27,8 @@
        /Users/UsuarioJoseLuis/Documents/CopiaSeguridad/
 	   C:/Users/Public/CopiaSeguridad/
 
-	 7. 
+	 7. Crear directorios log4j2 en el directorio Windows o Unix,
+	    donde se generarán los fichero logs de la aplicacion
+ 
+       /Users/UsuarioJoseLuis/Documents/logs/
+	   C:/Users/Public/logs/ 

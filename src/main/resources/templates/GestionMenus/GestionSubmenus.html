@@ -20,7 +20,7 @@
 	}
 	
 p.francesa {
-	text-indent: -18px;
+	text-indent: -12px;
 	padding-left: 25px;
 }
   </style>
@@ -33,7 +33,6 @@ p.francesa {
   
 	var isErrorAlta = [[${errorAltaElemento}]];
 	var noTieneElemSubmenus = [[${noTieneSubmenus}]];
-	
  /*]]>*/
 	
 	 $(document).ready(function(){
@@ -102,10 +101,8 @@ p.francesa {
 		
 		// Evento Editar numero de orden de menu
 		$("#idEditNumOrden").click(function() {
-			//balert("Pinchar Editar num Orden");
 			if ( $("#idEditNumOrden").text() == "editar")
 			   {
-			//	alert("Editar un numero de orden");
 			    $("input[id^='idNumOrdSubMenu']").prop("readonly", false);
 			    $("#idEditNumOrden").text('grabar');
 			    
@@ -331,8 +328,8 @@ p.francesa {
 						<tr>
 							<td></td>
 							<td>
-								<a href="#" th:id="idEditNumOrden" th:name="editNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true">editar</a>
-								<a href="#" th:id="idCancelNumOrden" th:name="editCancelNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true" style="display:none;">Cancelar</a>
+								<a href="#" th:id="idEditNumOrden" 	 th:name="editNumOrden" 	  class="btn btn-colour-1" role="button" aria-disabled="true">Editar</a>
+								<a href="#" th:id="idCancelNumOrden" th:name="editCancelNumOrden" class="btn btn-colour-1" role="button" aria-disabled="true" style="display:none;">Cancelar</a>
 							</td>	
 							<td></td>
 							<td></td>
@@ -423,12 +420,13 @@ p.francesa {
       </div>
       <div class="modal-body">
         <div class="modal-body">
-        	<p class="francesa">. Para cambiar el orden de los sumenus debe pinchar el botón editar y elegir el numero de orden no repetido y sin faltar ningún número entre medias</p>
-        	<p class="francesa">. Podrá darlo de baja, sino está asociado a ningún usuario</p>
+        	<p class="francesa">. El orden en el que aparecera el submenú para cualquier usuario que lo tenga se asignará en esta pantalla.</p>
+        	<p class="francesa">. Para cambiar el orden de los sumenus debe pinchar el botón editar de la columna num. orden y elegir el número de orden no repetido y sin faltar ningún número entre medias.</p>
+        	<p class="francesa">. Podrá darlo de baja, sino está asociado a ningún usuario.</p>
       	</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

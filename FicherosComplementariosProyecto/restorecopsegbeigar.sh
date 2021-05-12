@@ -10,4 +10,4 @@ today=$(date +"%Y_%m_%d")
 
 echo today
 
-/Applications/XAMPP/bin/mysql -u root -proot19 springboot < BeigarBD_2021_05_07_10_22_02.sql
+/Applications/XAMPP/bin/mysql -u root -proot19 springboot < BeigarBD_2021_05_12_11_18_08.sql

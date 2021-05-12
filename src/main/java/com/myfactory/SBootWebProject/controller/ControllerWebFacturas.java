@@ -20,6 +20,7 @@ import java.util.stream.StreamSupport;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -30,6 +31,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -116,7 +118,7 @@ public class ControllerWebFacturas {
 		modelo.addAttribute("datosFacturaWeb", cargarBeansDatos.cargarBeanFactura(factura.get()) );
 		modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 		//	modelo.addAttribute("situacionFactuWeb", servicioJPA.getSituacionesFactura())
-		 modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );
+		modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );
 		 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
@@ -190,12 +192,9 @@ public class ControllerWebFacturas {
 	 		 	
 	 			  	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
 	 			 	modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );	
-	 			 	modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-	 					
+	 			 	modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());			
 	 			 //	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
 
- 	 				
-	 			
 	 			}
 	 		  else
 	 			{
@@ -593,6 +592,15 @@ public class ControllerWebFacturas {
 	        
 	    }
 		
+		
+	@RequestMapping("/enivaremailpdffactura")
+	public String enivarEmailPDFFactura(Model modelo) {
+			
+		 enviarEmail("1", pathDescargaFacturasPDFMacOS + "FacturaBeigar2023_1.pdf");
+
+		 return "gestionWeb/facturas/PDFFacturaGenerada";
+	}
+		
 	private void enviarEmail(String numFactura, String nomFichero)
 	{		
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -601,7 +609,8 @@ public class ControllerWebFacturas {
 	    
 	    mailSender.setUsername("jlbuenome.andro@gmail.com");
 	    mailSender.setPassword("19buenomendez70");
-		    
+	    
+	    
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "465");
@@ -622,34 +631,69 @@ public class ControllerWebFacturas {
 	            message.setFrom(new InternetAddress("jlbuenome.andro@gmail.com"));
 	            message.setRecipients(
 	                    Message.RecipientType.TO,
-	                    InternetAddress.parse("jlbuenome.andro@gmail.com")
+	                    InternetAddress.parse("jlbuenome@gmail.com")
 	            );
 	            
-	            String asuntoMensaje = asuntoMensajeFactura.replace("%1" , numFactura) ;
-	            String cuerpoMensaje = cuerpoMensajeFactura.replaceAll("%1", numFactura + "\n\n");
+	          String asuntoMensaje = asuntoMensajeFactura.replace("%1" , numFactura) ;
+	         //   String cuerpoMensaje = cuerpoMensajeFactura.replaceAll("%1", numFactura + "\n\n");
 	            
-	            MimeBodyPart messageBodyPart = new MimeBodyPart();
 	            Multipart multipart = new MimeMultipart();
-	            String file = pathDescargaFacturasPDFMacOS;
-	            String fileName = nomFichero;
-	            DataSource source = new FileDataSource(file);
-	            messageBodyPart.setDataHandler(new DataHandler(source));
-	            messageBodyPart.setFileName(fileName);
-	            multipart.addBodyPart(messageBodyPart);
+	            
+	            BodyPart messageBodyPart0 = new MimeBodyPart();
+	         // Fill the message
+	            messageBodyPart0.setText("This is message body");
+	            multipart.addBodyPart(messageBodyPart0);
+	            // Create a multipar message
+	           // Multipart multipart0 = new MimeMultipart();
+
+	            // Set text message part
+	     //       multipart0.addBodyPart(messageBodyPart0);
+	            
+	            
+	            
+	          //  MimeBodyPart messageBodyPart = new MimeBodyPart();
+	            
+	            BodyPart messageBodyPart1 = new MimeBodyPart();
+	            String filename = pathDescargaFacturasPDFMacOS + "FacturaBeigar2023_1.pdf";  
+	            DataSource source = new FileDataSource(filename);  
+	            messageBodyPart1.setDataHandler(new DataHandler(source));  
+	            messageBodyPart1.setFileName(filename);
+	            
+	            multipart.addBodyPart(messageBodyPart1); 
+	            
+	            
+	         //   String filePath = pathDescargaFacturasPDFMacOS ;
+	         //   String nomFichero2 = "FacturaBeigar2023_1.pdf";
+	            
+	         
+	          //  File file = new File(pathDescargaFacturasPDFMacOS + "FacturaBeigar2023_1");
+	             
+	          //  DataSource dataSource = new ByteArrayDataSource(new FileInputStream(file), "application/pdf");
+	           //  message.addAttachment("FacturaBeigar2023_1.pdf", dataSource);  //         
+	            
+	          //  DataSource source = new FileDataSource(filePath);
+	         //   messageBodyPart.setDataHandler(new DataHandler(source));
+	         //   messageBodyPart.setFileName(nomFichero2);
+	          //  multipart.addBodyPart(messageBodyPart);
 
 	            message.setContent(multipart); 
 	            
-	            
-  
-	            message.setSubject(asuntoMensaje);
-	            message.setText(cuerpoMensaje);
+	           message.setSubject(asuntoMensaje);
+	         //   message.setText(cuerpoMensaje);
 	           
 	            Transport.send(message);
-
+	            
 	            System.out.println("Done");
+	            
+	             
+	           
 
 	        } catch (MessagingException e) {
 	            e.printStackTrace();
+	        }
+	        
+	        catch (Exception e2) {
+	            e2.printStackTrace();
 	        }
 
 		
