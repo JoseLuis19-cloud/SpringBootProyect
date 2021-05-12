@@ -81,19 +81,7 @@ public class ControllerWebUsuarios {
 
 	 return "gestionWeb/usuarios/PaginacionUsuariosHistorico";
 	}
-	
-//	@RequestMapping("/usuariomenu")
-//	public String usuarioMenus(Model modelo, @RequestParam(value = "idUsuario", required = false) Long idUsuario){
-		
-//		User usuarioMenu = servJPAUsuario.getMenusUsuario(idUsuario);
-//		modelo.addAttribute("aliasUsuario", usuarioMenu.getFullName());
-//		modelo.addAttribute("nombreUsuario", usuarioMenu.getUsername());
-		
-//		modelo.addAttribute("usuarioMenu", usuarioMenu); 
-		
-//	  return "gestionWeb/UsuarioMenus.html";
-//	}
-	 
+
 	@RequestMapping(value = "/formeditarusuario", method = RequestMethod.GET)
 	public String formEditarUsuario(Model modelo, @ModelAttribute(value="idUsuario") String idUsuario) {
 	 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();

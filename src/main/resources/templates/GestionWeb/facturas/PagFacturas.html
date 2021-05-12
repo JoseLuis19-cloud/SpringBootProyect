@@ -40,6 +40,7 @@
 							<th th:text="'Cliente'"></th>
 							<th th:text="'Fecha factura'"></th>
 							<th th:text="'Fecha emision'"></th>
+							<th th:text="'Forma pago'"></th>
 							<th th:text="'Editar'"></th>
 							<th th:text="'Imprimir'"></th>
 						</tr>
@@ -51,10 +52,11 @@
 					</tr>
 						<tr th:each="factura:${pagGenerica.content}">
 							<td th:text="${factura.numFactura}"></td>
-							<td th:text="${factura.impFactura}"></td>
+							<td class="text-right" th:text="${#numbers.formatDecimal(factura.impFactura,3,'POINT',2,'COMMA')}"></td>
 							<td th:text="${factura.cliente.nombre}"></td>
 							<td th:text="${#calendars.format(factura.fecFactura, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#calendars.format(factura.fecEmisionFactura, 'dd/MM/yyyy')}"></td>
+							<td th:text="${factura.formaPago.desForPago}"></td>
 							<td><a th:href="@{/gestionWeb/facturas/formeditarfactura(idFactura=${factura.idFactura})}" class="btn btn-primary btn-sm" role="button">Editar</a></td>
 							<td><a th:href="@{/gestionWeb/facturas/generarpdffactura(idFactura=${factura.idFactura}, numFactura=${factura.numFactura})}" class="btn btn-primary btn-sm" role="button">Imprimir</a></td>
 						</tr>

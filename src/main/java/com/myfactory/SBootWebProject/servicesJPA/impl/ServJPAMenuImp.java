@@ -56,7 +56,7 @@ public class ServJPAMenuImp implements ServJPAMenu {
 	};
 	
 	@Override
-	public SubMenuNivel1 insertarElementoSubMenu(SubMenuNivel1 subMenuNivel1)
+	public SubMenuNivel1 modificarElemenSubMenu(SubMenuNivel1 subMenuNivel1)
 	{	
 	return subMenuN1NuevoJPARepository.save(subMenuNivel1);
 	};

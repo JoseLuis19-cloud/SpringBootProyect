@@ -59,14 +59,14 @@
 				<imageExpression><![CDATA["/Users/UsuarioJoseLuis/Downloads/SBootWebProject/src/main/resources/plantillasjasper/images/LogoBeigar.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="60" y="4" width="20" height="12" uuid="691aff35-9f15-494d-9294-ae796c39bb08"/>
+				<reportElement x="59" y="4" width="20" height="12" uuid="691aff35-9f15-494d-9294-ae796c39bb08"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[CIF.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="59" y="33" width="120" height="12" uuid="9e14d54a-c33d-4eec-9bd3-6c053dcb0894"/>
+				<reportElement x="58" y="33" width="120" height="12" uuid="9e14d54a-c33d-4eec-9bd3-6c053dcb0894"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -74,24 +74,27 @@
 			</staticText>
 			<staticText>
 				<reportElement x="200" y="6" width="70" height="14" forecolor="#1D6378" uuid="f2c4ffa8-2e1c-4805-9749-10d32162fb46"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Num. Factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="391" y="7" width="42" height="14" uuid="3054809c-97b7-4a78-8e8a-ffc60dafcd0a"/>
+				<reportElement x="371" y="7" width="39" height="14" uuid="3054809c-97b7-4a78-8e8a-ffc60dafcd0a"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="391" y="24" width="42" height="14" uuid="528cfb1f-d24b-4311-b742-fa6fbae5c424"/>
+				<reportElement x="371" y="24" width="39" height="14" uuid="528cfb1f-d24b-4311-b742-fa6fbae5c424"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[NIF]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="391" y="41" width="42" height="14" uuid="c64da479-1cf6-4822-b5b8-ca82af510ae3"/>
+				<reportElement x="371" y="41" width="39" height="14" uuid="c64da479-1cf6-4822-b5b8-ca82af510ae3"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -99,6 +102,9 @@
 			</staticText>
 			<staticText>
 				<reportElement x="200" y="24" width="70" height="12" uuid="56eeb0d0-cf5a-4d9a-bd33-d53ebc8efb2e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Fecha Factura]]></text>
 			</staticText>
 			<line>
@@ -112,21 +118,21 @@
 				<textFieldExpression><![CDATA[$P{numFactura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="441" y="7" width="113" height="14" uuid="4244cc38-2e7c-4890-a3fe-f4bc6ecbe12f"/>
+				<reportElement x="416" y="7" width="138" height="14" uuid="4244cc38-2e7c-4890-a3fe-f4bc6ecbe12f"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nomEmpCliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="441" y="24" width="98" height="14" uuid="56067d8a-3122-46d1-a3b7-0e7ede900b02"/>
+				<reportElement x="414" y="24" width="140" height="14" uuid="56067d8a-3122-46d1-a3b7-0e7ede900b02"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CIFEmpCliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="440" y="42" width="114" height="12" uuid="4c73349f-f45d-4aca-bf8a-c37ce7192ce3"/>
+				<reportElement x="414" y="41" width="140" height="12" uuid="4c73349f-f45d-4aca-bf8a-c37ce7192ce3"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -147,7 +153,7 @@
 				<textFieldExpression><![CDATA[$P{CIFBeigar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="60" y="18" width="130" height="12" uuid="42f2801c-70b2-4a7b-964c-b6a4c09c0a37"/>
+				<reportElement x="59" y="18" width="130" height="12" uuid="42f2801c-70b2-4a7b-964c-b6a4c09c0a37"/>
 				<textFieldExpression><![CDATA[$P{dirEmpBeigar}]]></textFieldExpression>
 			</textField>
 			<line>
@@ -251,10 +257,16 @@
 			</staticText>
 			<staticText>
 				<reportElement x="310" y="3" width="100" height="16" uuid="86151729-6796-49e4-8ab0-2a171be1d3b8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Total IVA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="310" y="21" width="100" height="15" uuid="3eb6a290-1727-4146-8bcb-b85ebe708bdb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Total Factura]]></text>
 			</staticText>
 		</band>

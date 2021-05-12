@@ -108,17 +108,16 @@ $mynewcolor:#474747;
 }
 
 .subtitulo-pag3 {
-  color: #004E64;
-  font: 25px Gill Sans, sans-serif;
+  color: #05A9C7;
+  font: 26px Gill Sans, sans-serif;
   font-weight: bold 900 letter-spacing: 0.05em;
   border-radius: 0;
   display:inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   margin-left: 2px;
-  margin-bottom:6px;
+  margin-bottom: 4px;
 }
-
 
 .subtitulo-pag-ayuda {
   color: #00BCE1;
@@ -151,6 +150,7 @@ body {
 }
 
 h1 {
+  color: #00BCE1;
   font-weight: 300;
   margin-bottom: 40px;
 }

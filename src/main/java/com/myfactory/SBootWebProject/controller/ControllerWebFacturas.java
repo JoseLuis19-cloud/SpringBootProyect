@@ -634,60 +634,35 @@ public class ControllerWebFacturas {
 	                    InternetAddress.parse("jlbuenome@gmail.com")
 	            );
 	            
-	          String asuntoMensaje = asuntoMensajeFactura.replace("%1" , numFactura) ;
-	         //   String cuerpoMensaje = cuerpoMensajeFactura.replaceAll("%1", numFactura + "\n\n");
+	           String asuntoMensaje = asuntoMensajeFactura.replace("%1" , numFactura) ;
+	           String cuerpoMensaje = cuerpoMensajeFactura.replaceAll("%1", numFactura + "\n\n");
 	            
-	            Multipart multipart = new MimeMultipart();
+	           Multipart multipart = new MimeMultipart();
 	            
-	            BodyPart messageBodyPart0 = new MimeBodyPart();
-	         // Fill the message
-	            messageBodyPart0.setText("This is message body");
-	            multipart.addBodyPart(messageBodyPart0);
-	            // Create a multipar message
-	           // Multipart multipart0 = new MimeMultipart();
+	        // Parte 1 body cuerpo del mensaje
+	           BodyPart messageBodyPart0 = new MimeBodyPart();
+	           messageBodyPart0.setText(cuerpoMensaje);
+	        // Aquí lo añade
+	           multipart.addBodyPart(messageBodyPart0);
+	           
+	        // Parte2 body cuerpo del mensaje con insercion del mensaje.
+	           BodyPart messageBodyPart1 = new MimeBodyPart();
+	           String filename = pathDescargaFacturasPDFMacOS + "FacturaBeigar2023_1.pdf";
+	            
+	           DataSource source = new FileDataSource(filename);  
+	           messageBodyPart1.setDataHandler(new DataHandler(source));  
+	           messageBodyPart1.setFileName(filename);
+	            
+	        // Aquí lo añade
+	           multipart.addBodyPart(messageBodyPart1); 
 
-	            // Set text message part
-	     //       multipart0.addBodyPart(messageBodyPart0);
-	            
-	            
-	            
-	          //  MimeBodyPart messageBodyPart = new MimeBodyPart();
-	            
-	            BodyPart messageBodyPart1 = new MimeBodyPart();
-	            String filename = pathDescargaFacturasPDFMacOS + "FacturaBeigar2023_1.pdf";  
-	            DataSource source = new FileDataSource(filename);  
-	            messageBodyPart1.setDataHandler(new DataHandler(source));  
-	            messageBodyPart1.setFileName(filename);
-	            
-	            multipart.addBodyPart(messageBodyPart1); 
-	            
-	            
-	         //   String filePath = pathDescargaFacturasPDFMacOS ;
-	         //   String nomFichero2 = "FacturaBeigar2023_1.pdf";
-	            
-	         
-	          //  File file = new File(pathDescargaFacturasPDFMacOS + "FacturaBeigar2023_1");
-	             
-	          //  DataSource dataSource = new ByteArrayDataSource(new FileInputStream(file), "application/pdf");
-	           //  message.addAttachment("FacturaBeigar2023_1.pdf", dataSource);  //         
-	            
-	          //  DataSource source = new FileDataSource(filePath);
-	         //   messageBodyPart.setDataHandler(new DataHandler(source));
-	         //   messageBodyPart.setFileName(nomFichero2);
-	          //  multipart.addBodyPart(messageBodyPart);
-
-	            message.setContent(multipart); 
-	            
+	           message.setContent(multipart); 
 	           message.setSubject(asuntoMensaje);
-	         //   message.setText(cuerpoMensaje);
 	           
-	            Transport.send(message);
+	           Transport.send(message);
 	            
-	            System.out.println("Done");
-	            
-	             
+	           System.out.println("Done");
 	           
-
 	        } catch (MessagingException e) {
 	            e.printStackTrace();
 	        }

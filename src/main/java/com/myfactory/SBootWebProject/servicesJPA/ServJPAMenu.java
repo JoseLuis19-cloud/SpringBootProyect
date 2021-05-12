@@ -21,7 +21,7 @@ public interface ServJPAMenu {
 	
 	public Iterable<SubMenuNivel1> obtenerSubMenuAplicacionSin0(Integer idMenu);
 	
-	public SubMenuNivel1 insertarElementoSubMenu(SubMenuNivel1 subMenuNivel1);
+	public SubMenuNivel1 modificarElemenSubMenu(SubMenuNivel1 subMenuNivel1);
 	
 	public Optional<Menu> findIdMenu(Integer idMenu);
 	

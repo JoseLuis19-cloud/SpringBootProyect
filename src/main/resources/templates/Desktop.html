@@ -23,7 +23,7 @@
    border-width: 1px;
    width: 40%;
    margin-right: 0;
-   padding: 25px;
+   padding: 15px;
 }
 
 </style>
@@ -48,9 +48,8 @@
     </div>
   </div>
 </header>
-	
 
-	<!--   <div class="container-fluid">
+<!--  <div class="container-fluid">
 		<div class="row">
 			<div class="col">
 				<div sec:authorize="isAuthenticated()">
@@ -69,17 +68,16 @@
 			<div class="col">
 
 			</div>
-		</div> -->
+	</div> -->
+		
 	<div class="container-fluid">
 	    <br>
-		<br>
-		<br>
-		<div class="row" style="margin-bottom: 8px;">
+	    <br>
+	    <br>
+		<div class="row" style="margin-bottom: 10px;">
 			<div class="col-3"></div>
-			
-	 
-			<div class="col-6 divRounded" style="overflow-y: scroll; width:600px; height:400px;">
-				<div class="subtitulo-pag2" th:text="'Tareas usuario: ' + ${usuarioApli}"></div>
+			<div class="col-6 divRounded" style="overflow-y: scroll; width:600px; height:360px;">
+				<div class="subtitulo-pag3" th:text="'Tareas de:  ' + ${usuarioApli}"></div>
 				<div class="panel-body" align="center">
 					<table class="table table-sm">
 						<thead>
@@ -110,29 +108,25 @@
 			</div>
 			<div class="col-3"></div>
 		</div>
-		  <br>
-		<div class="row" style="margin-bottom: 6px;">
+		<div class="row">
 			<div class="col-1"></div>
-		 	<div class="col-12 d-flex justify-content-center" style="border-top: 2px solid #000;">
-			<a th:href="@{/gestionWeb/facturas/formaltafactura}" class="btn btn-primary" role="button">Nueva Factura</a> 
-			<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Facturas</a>
-			<a th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-primary" role="button">Usuarios</a>
-	<!--	<a th:href="@{/gestionWeb/usuarios/listausuarioshist}" class="btn btn-primary" role="button">Usuarios Hist</a> -->
-			<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">Menus Aplicación</a>
-	<!--	<a th:href="@{/informes/forminformeproyectos}" class="btn btn-primary" role="button">Informe Proyectos</a>  -->
-	<!--	<a th:href="@{/informes/forminformeusuarios}" class="btn btn-primary" role="button">Informe Usuarios</a>  -->
-	<!--	<a th:href="@{/informes/forminformeempleados}" class="btn btn-primary" role="button">Informe Empleados</a>  -->
- 	<!--	<a th:href="@{/administracion/formcreartarea}" class="btn btn-primary" role="button">Crear Tarea</a>  -->
-			<a th:href="@{/gestionWeb/empleados/pagempleados10nuemod}" class="btn btn-primary" role="button">Pag. Empleado</a>
-	<!--	<a th:href="@{/administracion/pruebas}" class="btn btn-primary" role="button">prueba Web</a>  -->
- 			<a th:href="@{/administracion/formcopiaseguridad}" class="btn btn-primary" role="button">Copia Seguridad</a>
- 			<a th:href="@{/administracion/formrestaurarcopiaseg}" class="btn btn-primary" role="button">Restaurar Cop Seg</a>
-			<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Pag Empresas</a>
-			<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Pag Proyectos</a>
-		<!--		<a th:href="@{/administracion/forminfotecnologias}" class="btn btn-primary" role="button">Info. Tecnologias</a>  -->
-			
-			<a th:href="@{/gestionWeb/facturas/enivaremailpdffactura}" class="btn btn-primary" role="button">Enviar PDF Fac email</a>
-
+		 	<div class="col-10 d-flex justify-content-center" style="margin-bottom: 4px; margin-top: 12px; padding-top: 12px; border-top: 2px solid #000;">
+				<a th:href="@{/gestionWeb/facturas/pagfacturasnue}" class="btn btn-primary" role="button">Facturas</a>
+				<a th:href="@{/gestionWeb/usuarios/pagusuarios}" class="btn btn-primary" role="button">Usuarios</a>
+	<!--		<a th:href="@{/gestionWeb/usuarios/listausuarioshist}" class="btn btn-primary" role="button">Usuarios Hist</a> -->
+				<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary" role="button">Menus Aplicación</a>
+	<!--		<a th:href="@{/informes/forminformeproyectos}" class="btn btn-primary" role="button">Informe Proyectos</a>  -->
+	<!--		<a th:href="@{/informes/forminformeusuarios}" class="btn btn-primary" role="button">Informe Usuarios</a>  -->
+	<!--		<a th:href="@{/informes/forminformeempleados}" class="btn btn-primary" role="button">Informe Empleados</a>  -->
+ 	<!--		<a th:href="@{/administracion/formcreartarea}" class="btn btn-primary" role="button">Crear Tarea</a>  -->
+				<a th:href="@{/gestionWeb/empleados/pagempleados10nuemod}" class="btn btn-primary" role="button">Pag. Empleado</a>
+	<!--		<a th:href="@{/administracion/pruebas}" class="btn btn-primary" role="button">prueba Web</a>  -->
+ 				<a th:href="@{/administracion/formcopiaseguridad}" class="btn btn-primary" role="button">Copia Seguridad</a>
+ 				<a th:href="@{/administracion/formrestaurarcopiaseg}" class="btn btn-primary" role="button">Restaurar Cop Seg</a>
+				<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Pag Empresas</a>
+				<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Pag Proyectos</a>
+		<!--	<a th:href="@{/administracion/forminfotecnologias}" class="btn btn-primary" role="button">Info. Tecnologias</a>  -->
+				<a th:href="@{/gestionWeb/facturas/enivaremailpdffactura}" class="btn btn-primary" role="button">Enviar PDF Fac email</a>
 			</div>
 			<div class="col-1"></div>
 		</div>

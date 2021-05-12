@@ -24,7 +24,7 @@
 	
   .div-desactivado{
   	color: #DEBC8B;
-  	background-color: #ECC7CD;
+  	background-color: #ABC7C9;
   	border-color: #004E64;
   	font: 15px Arial, sans-serif;
  	letter-spacing: 0.05em;
@@ -40,7 +40,19 @@
  /*]]>*/
 	
 	 $(document).ready(function(){
-		
+
+		 $('[name="checksActivado[]"]').on('change', function() {
+			 alert ("se produce evento");
+			if (this.checked) {
+				//indCheck = $('[name="checksActivado[]"]').index(this);
+				$("#idActivadoH").val(true);
+				 } 
+				else
+				{
+				$("#idActivadoH").val(false);
+				}
+			});
+
 		$("#idBotonNuevoEle").click(function(){
 		   $("#myModal").modal();
 		 });
@@ -264,26 +276,27 @@
 		</div>
 
 		<form action="#" th:id="idFormElementosMenu" th:action="@{/gestionmenus/actualizarNumOrden}" th:object="${menuPrincipal}" method="post">
+		
 		  <div class="row" >
 			<div class="col-1"> </div>
 			<div class="col-10" style="border-bottom: 2px solid #000">
-     			<table class="table table-sm">
-					<thead class="thead-light">
-						<tr>
-							<th width="7%"  th:text="'Id. Menu'"></th>
-							<th width="7%"  th:text="'N. Orden'"></th>
-							<th width="28%" th:text="'Texto menú'"></th>
-							<th width="25%" th:text="'Dirección o Link (href)'"></th>
-							<th width="5%"  th:text="'Activado'"></th>
-							<th width="7%"  th:text="'Acciones'"></th>
-							<th width="7%"  th:text="''"></th>	
-							<th width="7%"  th:text="''"></th>
-							<th width="7%"  th:text="'Ver'"></th>
-						</tr>
-					</thead>
-					<tbody>      
-					  <tr th:each="mPrincipal, iterStat: *{beanMenuAplicacionWeb}">
-						<td th:text="${mPrincipal.idMenu}"></td>
+     		<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th width="7%"  th:text="'Id. Menu'"></th>
+						<th width="7%"  th:text="'N. Orden'"></th>
+						<th width="28%" th:text="'Texto menú'"></th>
+						<th width="25%" th:text="'Dirección o Link (href)'"></th>
+						<th width="5%"  th:text="'Activado'"></th>
+						<th width="7%"  th:text="'Acciones'"></th>
+						<th width="7%"  th:text="''"></th>	
+						<th width="7%"  th:text="''"></th>
+						<th width="7%"  th:text="'Ir'"></th>
+					</tr>
+				</thead>
+				<tbody>      
+					 <tr th:each="mPrincipal, iterStat: *{beanMenuAplicacionWeb}">
+						<td th:classappend="${mPrincipal.activo}? div-desactivado" th:text="${mPrincipal.idMenu}"></td>
 						<td th:classappend="${mPrincipal.activo}? div-desactivado">
 							<div class="form-group"> 
 								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${iterStat.index}" th:name="'mumOrdMenu'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
@@ -302,17 +315,15 @@
 							 </div>
 						</td>
 						
-						 <td th:classappend="${mPrincipal.activo}? div-desactivado">
-							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">   
-								<input type="checkbox" th:checked="*{beanMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-colour-1" th:id="'idActivado'+ ${iterStat.index}" th:name="'activado'+ ${iterStat.index}" th:disabled="disabled"/>											
-							</div>
+						 <td th:classappend="${mPrincipal.activo}? div-desactivado" style="display: flex; justify-content: center; align-items: center;">
+							<input type="checkbox" th:checked="*{beanMenuAplicacionWeb[__${iterStat.index}__].activo}" th:id="'idActivado'+ ${iterStat.index}" th:name="checksActivado[]" th:disabled="disabled" />											
 						 </td>
 		
 						<td><a th:id="'idLinkEdit' + ${iterStat.index}"     th:name="'linkEdit' + ${iterStat.index}"     class="btn btn-colour-1" role="button" th:disabled="false">editar</a></td>		
 						<td><a th:id="'idLinkCancelar' + ${iterStat.index}" th:name="'linkCancelar' + ${iterStat.index}" class="btn btn-colour-1" role="button" th:onclick="'cancelarEditarEleMenu(' + ${mPrincipal.idMenu} + ')' " style="display:none;">Cancelar</a></td>
 						<td><a th:id="'idLinkBaja'+ ${iterStat.index}"      th:name="'linkBaja'+ ${iterStat.index}"      class="btn btn-colour-1" role="button" style="visibility:visible">baja</a></td>		
 						<td>	
-							<a th:id="'idLinkSubMenu' + ${iterStat.index}" th:name="'linkSubMenu'+ ${iterStat.index}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?idMenu=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
+							<a th:id="'idLinkSubMenu' + ${iterStat.index}"  th:name="'linkSubMenu'+ ${iterStat.index}"  class="btn btn-colour-1"  role="button" th:href="@{'/gestionmenus/obtenersubmenu?idMenu=' + ${mPrincipal.idMenu} + '&nomElemMenu=' + ${mPrincipal.textoMenu}}" style="visibility:visible">submenu</a>
 							<input type="hidden" th:id="'idMenuHidden'+ ${iterStat.index}" th:name="'menuHidden'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].idMenu}" />
 						</td>																				 											
 						</tr>
@@ -352,7 +363,8 @@
 		 	<input type="hidden" th:id="'idNumOrdenHidden'"  th:name="'numOrdenHidden'"  th:field="*{numOrdenMenu}" />	
 		 	<input type="hidden" th:id="'idTextoMenuHiden'"  th:name="'textoMenu'" 		 th:field="*{textoMenu}" />		
 		 	<input type="hidden" th:id="'idHREFMenuHidden'"  th:name="'hREFMenu'" 		 th:field="*{hrefAplicacion}" />
-		 	<input type="hidden" th:id="'idIndActivoHidden'" th:name="'indActivo'" 		 th:field="*{indActivo}" />											
+		 	<input type="hidden" th:id="'idIndActivoHidden'" th:name="'indActivo'" 		 th:field="*{indActivo}" />		
+		 	  <input type="hidden" th:id="'idActivadoH'" th:name="'activadoH'" th:value="false"/>									
 		 </form>
 		 
 		 

@@ -23,6 +23,15 @@ p.francesa {
 	text-indent: -12px;
 	padding-left: 25px;
 }
+
+  .div-desactivado{
+  	color: #DEBC8B;
+  	background-color: #ABC7C9;
+  	border-color: #004E64;
+  	font: 15px Arial, sans-serif;
+ 	letter-spacing: 0.05em;
+  	border-radius: 0;
+	}
   </style>
  
  
@@ -77,6 +86,8 @@ p.francesa {
 				 $("#idTextoMenuSMHidden").val($("#idTextoSubMenu" + lastChar).val()); 
 				 $("#idHREFMenuSMHidden").val($("#idHRefApliSubMenu" + lastChar).val()); 
 				 $("#idActivadoSMHidden").val($("#idActivadoSubMenu" + lastChar).val()); 
+				 
+				 alert ("Submitir formulario")
 
 			 // Submitir formulario
 				document.getElementById("idFormEditSubMenu").submit();
@@ -265,7 +276,7 @@ p.francesa {
 		<div class="row">
 			<div class="col-1"> </div>
 			<div class="col-10">
-   				<div class="subtitulo-pag2" th:text="'Elementos de Submenú pertenecientes al menu principal:  ' + ${elemenMenuPrincipal}"></div>
+   				<div class="subtitulo-pag2" th:text="'Elementos de submenú pertenecientes al menu principal:  ' + ${elemenMenuPrincipal}"></div>
 			</div>	
 			<div class="col-1"> </div>		
 		</div>
@@ -290,24 +301,24 @@ p.francesa {
 					</thead>
 					<tbody>
 					 <tr th:each="subMenuN1, iterStat: *{beanSubMenuAplicacionWeb}">
-						<td th:text="${subMenuN1.idSubmenuNivel1}"></td>
-						<td>
-							<div class="form-group col-md-4">                                                                               
+						<td th:classappend="${subMenuN1.activo}? div-desactivado" th:text="${subMenuN1.idSubmenuNivel1}"></td>
+						<td th:classappend="${subMenuN1.activo}? div-desactivado">
+							<div class="form-group">                                                                               
 								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}"  th:maxlength="2" th:readonly="true"/>	
 							<!-- <p class="alert alert-danger"  th:if="${#fields.hasErrors('${menuP[__${row.index}__].numOrdenMenu}')}" th:errors="${menuP.numOrdenMenu}">	 -->	    			 
 							</div>
 						</td>
-						<td>
-							<div class="form-group col-md-20">
+						<td th:classappend="${subMenuN1.activo}? div-desactivado">
+							<div class="form-group">
 								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${iterStat.index}" th:name="'textoSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
 							</div>
 						</td>
-							<td> 
-								<div class="form-group col-md-40" style="display: flex; justify-content: center; align-items: center;">
+							<td th:classappend="${subMenuN1.activo}? div-desactivado"> 
+								<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
 									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${iterStat.index}" th:name="'hRefApliSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
 							    </div>
 							</td>
-							<td>
+							<td th:classappend="${subMenuN1.activo}? div-desactivado">
 								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${iterStat.index}" th:name="'activadoSubMenu'+ ${iterStat.index}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>						
 								<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
 							</td>

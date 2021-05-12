@@ -223,7 +223,7 @@ public class ControllerWebGestionMenus {
 		elemenSubMenu.setHrefAplicacionN1(elemenSubMenuNuevoWeb.getHrefAplicacionSubMenu());
 		elemenSubMenu.setActivo(elemenSubMenuNuevoWeb.isIndActivoSubMenu() );
 			
-		serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
+		serviciosJPAMenu.modificarElemenSubMenu(elemenSubMenu);
 		
 		// Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
@@ -252,7 +252,7 @@ public class ControllerWebGestionMenus {
 		elemenSubMenu.setHrefAplicacionN1(beanSubMenuAplicacionWeb.getHrefAplicacionSubMenu());
 		elemenSubMenu.setActivo(beanSubMenuAplicacionWeb.isIndActivoSubMenu() );
 	
-		serviciosJPAMenu.insertarElementoSubMenu(elemenSubMenu);
+		serviciosJPAMenu.modificarElemenSubMenu(elemenSubMenu);
 		
 		Iterable <SubMenuNivel1> subMenuNivel1 = serviciosJPAMenu.obtenerSubMenuAplicacionSin0(new Integer(beanSubMenuAplicacionWeb.getIdMenu()));
 		BeanFormSubMenu beanFormSubMenu = new BeanFormSubMenu();
@@ -301,7 +301,8 @@ public class ControllerWebGestionMenus {
 	}
 			
 	@RequestMapping(value = "/updateelementomenu", method = RequestMethod.POST)
-	public String updateElementoMenu(Model modelo, @ModelAttribute("elemenEditMenuApli") BeanMenuAplicacionWeb beanMenuAplicacionWeb)
+	public String updateElementoMenu(Model modelo, @ModelAttribute("elemenEditMenuApli") BeanMenuAplicacionWeb beanMenuAplicacionWeb,
+													@RequestParam(value = "activadoH", required = true) Boolean checkActivo)
 	  { 
 		
 		Menu elementoMenu = new Menu();
@@ -310,7 +311,10 @@ public class ControllerWebGestionMenus {
 		elementoMenu.setNumOrdenMenu(beanMenuAplicacionWeb.getNumOrdenMenu() ) ;
 		elementoMenu.setTextoMenu(beanMenuAplicacionWeb.getTextoMenu() ) ;
 		elementoMenu.setHrefAplicacion(beanMenuAplicacionWeb.getHrefAplicacion() );
-	 	elementoMenu.setActivo(beanMenuAplicacionWeb.getIndActivo());
+		
+		elementoMenu.setActivo(checkActivo);
+		
+	 //	elementoMenu.setActivo(beanMenuAplicacionWeb.getIndActivo());
  
 		serviciosJPAMenu.updateElementoMenu(elementoMenu);
 		
