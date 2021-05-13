@@ -301,19 +301,19 @@ p.francesa {
 					</thead>
 					<tbody>
 					 <tr th:each="subMenuN1, iterStat: *{beanSubMenuAplicacionWeb}">
-						<td th:classappend="${subMenuN1.activo}? div-desactivado" th:text="${subMenuN1.idSubmenuNivel1}"></td>
-						<td th:classappend="${subMenuN1.activo}? div-desactivado">
+						<td th:text="${subMenuN1.idSubmenuNivel1}"></td>
+						<td>
 							<div class="form-group">                                                                               
 								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}"  th:maxlength="2" th:readonly="true"/>	
 							<!-- <p class="alert alert-danger"  th:if="${#fields.hasErrors('${menuP[__${row.index}__].numOrdenMenu}')}" th:errors="${menuP.numOrdenMenu}">	 -->	    			 
 							</div>
 						</td>
-						<td th:classappend="${subMenuN1.activo}? div-desactivado">
+						<td>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${iterStat.index}" th:name="'textoSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
 							</div>
 						</td>
-						<td th:classappend="${subMenuN1.activo}? div-desactivado"> 
+						<td> 
 							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
 									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${iterStat.index}" th:name="'hRefApliSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
 							 </div>
@@ -430,9 +430,9 @@ p.francesa {
       </div>
       <div class="modal-body">
         <div class="modal-body">
-        	<p class="francesa">. El orden en el que aparecera el submenú para cualquier usuario que lo tenga se asignará en esta pantalla.</p>
-        	<p class="francesa">. Para cambiar el orden de los sumenus debe pinchar el botón editar de la columna num. orden y elegir el número de orden no repetido y sin faltar ningún número entre medias.</p>
-        	<p class="francesa">. Podrá darlo de baja, sino está asociado a ningún usuario.</p>
+        	<p class="francesa">. El orden que tiene el submenú indica el orden en el que aparecerá el submenu el usuario que lo tenga asignado .</p>
+        	<p class="francesa">. Para cambiar el orden de los submenus debe pinchar el botón editar de la columna num. orden y teclear el número de orden y que no este repetido y sin faltar ningún número de orden entre el mínimo y último.</p>
+        	<p class="francesa">. Podrá dar de baja el submenu, si no está asociado a ningún usuario.</p>
       	</div>
       </div>
       <div class="modal-footer">

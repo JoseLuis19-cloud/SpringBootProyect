@@ -283,7 +283,7 @@
      		<table class="table table-sm">
 				<thead class="thead-light">
 					<tr>
-						<th width="7%"  th:text="'Id. Menu'"></th>
+						<th width="7%"  th:text="'Id.'"></th>
 						<th width="7%"  th:text="'N. Orden'"></th>
 						<th width="28%" th:text="'Texto menú'"></th>
 						<th width="25%" th:text="'Dirección o Link (href)'"></th>
@@ -296,20 +296,20 @@
 				</thead>
 				<tbody>      
 					 <tr th:each="mPrincipal, iterStat: *{beanMenuAplicacionWeb}">
-						<td th:classappend="${mPrincipal.activo}? div-desactivado" th:text="${mPrincipal.idMenu}"></td>
-						<td th:classappend="${mPrincipal.activo}? div-desactivado">
+						<td th:text="${mPrincipal.idMenu}"></td>
+						<td>
 							<div class="form-group"> 
 								<input type="text" class="form-control form-control-xs"  th:id="'idNumOrdMenu'+ ${iterStat.index}" th:name="'mumOrdMenu'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].numOrdenMenu}" th:maxlength="2" th:readonly="true" required/>				 
 							</div>
 						</td>
 
-						<td th:classappend="${mPrincipal.activo}? div-desactivado">
+						<td>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-xs"  th:id="'idTextoMenu'+ ${iterStat.index}" th:name="'textoMenu'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].textoMenu}" th:maxlength="30" th:readonly="true" required/>											
 							</div>
 						</td>
 						
-						<td th:classappend="${mPrincipal.activo}? div-desactivado">
+						<td>
 							<div class="form-group">
 								<input type="text" class="form-control form-control-xs"  th:id="'idhRefAplicacion'+ ${iterStat.index}" th:name="'hrefAplicacion'+ ${iterStat.index}" th:field="*{beanMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacion}" th:maxlength="45" th:readonly="true"/>											
 							 </div>

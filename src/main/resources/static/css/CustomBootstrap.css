@@ -63,9 +63,9 @@ $mynewcolor:#474747;
   border-bottom: 2px solid #F1C400;
   display:inline-block;
   padding-top: 10px;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
   margin-top: 0px;
-  padding-left: 5px;
+  padding-left: 6px;
   margin-bottom: 8px;
   width:100%;			
 }
@@ -77,14 +77,14 @@ $mynewcolor:#474747;
   border-radius: 0;
   display:inline-block;
   padding-top: 14px;
-  padding-bottom: 6px;
-  margin-left: 2px;
-  margin-bottom:5px;
+  padding-bottom: 5px;
+  margin-left: 1px;
+  margin-bottom:4px;
 }
 
 .subtitulo-pag3 {
   color: #05A9C7;
-  font: 26px Gill Sans, sans-serif;
+  font: 27px Gill Sans, sans-serif;
   font-weight: bold 900 letter-spacing: 0.05em;
   border-radius: 0;
   display:inline-block;

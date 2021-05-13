@@ -220,7 +220,15 @@
 	<div class="container-fluid">
 	
 		<div class="row">
-			<div class="titulo-pag2" th:text="'Gestión submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}"></div> 
+			<div class="titulo-pag2" th:text="'Submenús Usuario'"></div> 
+		</div>
+		
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<div class="subtitulo-pag2 " th:text="'Gestión submenus del menu: ' + ${nomMenuPrincipal} + ' para el usuario: ' + ${nomUsuario}">></div>
+			</div>
+			<div class="col-1"></div>
 		</div>
 																
 		<form th:id="idFormSubMenuUsuario" th:action="@{/gestionmenususuario/actualizarsubmenuusuario}" th:object="${beanCamposGesMenuUsu}" method="post">		
@@ -253,7 +261,7 @@
 		<div class="row">
 			<div class="col-1"></div>
   			<div class="col-4" style="border-bottom: 2px solid #000">
-  				<div class="subtitulo-pag2" th:text="'Elementos del submenú ya activas:'"></div>
+  				<div class="subtitulo-pag3" th:text="'Opciones de submenu asignadas al usuario'"></div>
   				<div id="idDivSubMenu1Usu">
 					<div th:insert="gestionMenus/fragments/SubMenusSelecUsuario :: submenuselecusuario"></div>
 				</div>	
@@ -272,7 +280,7 @@
 				</div>
  			</div>
  			<div class="col-4" style="border-bottom: 2px solid #000">
- 				<div class="subtitulo-pag2" th:text="'Opciones del submenu disponibles'"></div>
+ 				<div class="subtitulo-pag3" th:text="'Opciones del submenu disponibles'"></div>
  				<div th:insert="gestionMenus/fragments/SubMenusAplicaDispUsuario :: submenuapliselecusuario"></div>
  			</div>
  			<div class="col-1"></div>

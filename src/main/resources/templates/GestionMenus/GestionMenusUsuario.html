@@ -195,7 +195,15 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="titulo-pag2" th:text="'Gestión menus para el usuario: ' + ${nomUsuario}"></div>
+			<div class="titulo-pag2" th:text="'Menus Usuario'"></div>
+		</div>
+		
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<div class="subtitulo-pag2 " th:text="'Gestión menus para el usuario: ' + ${nomUsuario}"></div>
+			</div>
+			<div class="col-1"></div>
 		</div>
 		
 		<div class="row">
@@ -239,7 +247,7 @@
 		 	</form> 
 
   			<div class="col-5" style="border-bottom: 2px solid #000">
-  				<div class="subtitulo-pag2" th:text="'Opciones de menu activos para el usuario'"></div>
+  				<div class="subtitulo-pag3" th:text="'Opciones de menu asignadas al usuario'"></div>
   				<div id="idDivSubMenu1Usu">
 					<div th:insert="gestionMenus/fragments/MenusSelecUsuario :: menuselecusuario"></div>
 				</div>	
@@ -258,7 +266,7 @@
 				</div> 
  			</div>
  			<div class="col-4" style="border-bottom: 2px solid #000">
- 				<div class="subtitulo-pag2" th:text="'Opciones del menu principal disponibles'"></div>
+ 				<div class="subtitulo-pag3" th:text="'Opciones del menu principal disponibles'"></div>
  				<div th:insert="gestionMenus/fragments/MenusAplicaDispUsuario :: menuapliselecusuario"></div>
  			</div>
  		 
