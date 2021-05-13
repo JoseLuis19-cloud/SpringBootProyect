@@ -372,21 +372,17 @@ public class ControllerWebGestionMenus {
 	 // Comprobamos que el elemento de menú no está dado de alta en ningún menu usuario.
 		if (! servJPAMenusUsuario.existenElementosMenuUsuario(new Integer(idMenu) ) ) 
 		   {
-		   serviciosJPAMenu.eliminarElementoMenu(new Integer(idMenu));
-		   
+		   serviciosJPAMenu.eliminarElementoMenu(new Integer(idMenu)); 
+		   redAtrib.addAttribute("errorValidacion", false);
+		   redAtrib.addAttribute("mensajeError", "");
 		   }
 		else
 		  { 
-			 datosErrorValidacion.setCodError(new Integer(11) );
-			  datosErrorValidacion.setDesError( "El elemento de menu no se ha borrado porque está asignado a algún menú de un usuario de la aplicación" );
+			datosErrorValidacion.setCodError(new Integer(11) );
+			datosErrorValidacion.setDesError( "El elemento de menu no se ha borrado porque está asignado a algún menú de un usuario de la aplicación" );
 			redAtrib.addAttribute("errorValidacion", true);
-			redAtrib.addAttribute("mensajeError", "Cod. Error: " + datosErrorValidacion.getCodError().toString() + ". " + datosErrorValidacion.getDesError());;
+			redAtrib.addAttribute("mensajeError", "Cod. Error: " + datosErrorValidacion.getCodError().toString() + ". " + datosErrorValidacion.getDesError());
 		  }
-		
-	//	redAtrib.addAttribute("idMenu", idMenu);
-	//	redAtrib.addAttribute("nomElemMenu",  serviciosJPAMenu.findIdMenu(idMenu).get().getTextoMenu());
-		redAtrib.addAttribute("errorValidacion", true);
-		redAtrib.addAttribute("mensajeError", datosErrorValidacion.getCodError().toString() + ", " + datosErrorValidacion.getDesError());
 		
 	// Carga el menu general
 	   modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());

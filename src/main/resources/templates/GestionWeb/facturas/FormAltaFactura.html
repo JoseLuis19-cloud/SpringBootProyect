@@ -125,6 +125,31 @@
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
+				<div class="row" style="border:1px solid black;">
+    				<div class="col-1">
+      					<label for="labelCantidad" th:text="'Cantidad'" style="font-weight: bold;"></label> 
+    				</div>
+   					<div class="col-5">
+    	  			<label for="labelConcepto" th:text="'Concepto' " style="font-weight: bold;"></label> 
+   		 		</div>
+   		 		<div class="col-1">
+    	  			<label for="labelIVA" th:text="'IVA' " style="font-weight: bold;"></label> 
+   		 		</div>
+   		 		<div class="col-1">
+    	  			<label for="labelPorcentaje" th:text="'% Des' " style="font-weight: bold;"></label> 
+   		 		</div>
+   		 		<div class="col-2">
+    	  			<label for="labelImportante" th:text="'Importe' " style="font-weight: bold;"></label> 
+   		 		</div>
+   		 		<div class="col-1">
+    	  			<label for="labelEditar" th:text="'' " style="font-weight: bold;"></label> 
+   		 		</div>
+   		 		<div class="col-1">
+    	  			<label for="labelEditar2" th:text="'' " style="font-weight: bold;"></label> 
+   		 		</div>
+ 			</div>
+			
+			
 				<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura" style="overflow-y:scroll; border:1px solid black;"></div>
 			</div>	
 			<div class="col-2"></div>

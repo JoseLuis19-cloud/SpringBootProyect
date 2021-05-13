@@ -38,7 +38,7 @@
 		<form th:action="@{/gestionWeb/facturas/modiffactura}" th:object="${datosFacturaWeb}" method="post">
 		
 		  <input type="hidden" th:id="'idIdFacturaWeb'" th:name="'idFacturaWeb'"  th:field="*{idFacturaWeb}" />
-	 
+	 	<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 		 <div class="row">
 			<div class="col-2"></div>
 			<div class="col-8" style="border-bottom: 2px solid #000">
@@ -50,7 +50,6 @@
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 				<div class="form-row">
 					<div class="col-md-3 mb-4">
 						<label for="labelNumFatura" th:text="'Número factura' "></label>
@@ -58,7 +57,7 @@
 					</div>
 					<div class="col-md-4 mb-4">
 						<div class="form-group">
-							<label for="labelFormaPago" th:text="'Forma de pago ' "></label>
+							<label for="labelFormaPago" th:text="'Forma de pago' "></label>
 							<select th:object="${datosFacturaWeb}" class="form-control"  th:name="formaPago" th:id="idFormaPago">
 							<option th:value="0" th:text="'Seleccionar una forma de pago' "></option>
 								<option th:each = "formPag:${formasPagoWeb}"
@@ -94,7 +93,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 mb-4">
-					<label for="labelFecFactura">Fec. Alta Factura</label>
+					<label for="labelFecFactura">Fec. alta factura</label>
 					<div class="input-group">
 						<div class="input-group-addon">
        					 <i class="fa fa-calendar"> </i> 
@@ -128,6 +127,27 @@
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
+				<div class="row">
+    				<div class="col-1">
+      					<label for="labelCantidad" th:text="'Cantidad'" style="font-weight: bold;"></label> 
+    				</div>
+   					<div class="col-5">
+    	  				<label for="labelConcepto" th:text="'Concepto' " style="font-weight: bold;"></label> 
+   		 			</div>
+   		 			<div class="col-1">
+    	  				<label for="labelIVA" th:text="'IVA' " style="font-weight: bold;"></label> 
+   		 			</div>
+   		 			<div class="col-1">
+    	  				<label for="labelPorcentaje" th:text="'% Des' " style="font-weight: bold;"></label> 
+   		 			</div>
+   		 			<div class="col-2">
+    	  				<label for="labelImportante" th:text="'Importe' " style="font-weight: bold;"></label> 
+   		 			</div>
+   		 			<div class="col-2">
+   		 			</div>
+   		 			<div class="col-1"> 
+   		 			</div>
+ 				</div>
 				<div th:insert="gestionWeb/facturas/fragments/LineasFactura :: lineafactura" style="overflow-y:scroll; height:330px; border:1px solid black;"></div>
 			</div>	
 			<div class="col-2"></div>

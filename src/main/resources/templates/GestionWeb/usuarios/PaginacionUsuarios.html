@@ -45,6 +45,7 @@
 			<table class="table table-sm">
 				<thead class="thead-light">
 					<tr>
+						<th th:text="'id'"></th>
 						<th th:text="'Usuario'"></th>
 						<th th:text="'Nombre/Alias'"></th>
 						<th th:text="'empleado'"></th>
@@ -53,7 +54,7 @@
 						<th th:text="'fec. alta usuario'"></th>
 						<th th:text="'activo'"></th>
 						<th th:text="'cambiar'"></th>
-						<th th:text="'Acción'"></th>
+						<th th:text="'Acciones'"></th>
 						<th th:text="''"></th>
 						<th th:text="'Gestión'"></th>
 					</tr>
@@ -61,10 +62,11 @@
 
 				<tbody class="table-striped">
 					<tr th:if="${pagUsuarios.empty}">
-						<td colspan="4">No hay Usuarios definidos en la aplicación</td>
+						<td colspan="12">No hay Usuarios definidos en la aplicación</td>
 					</tr>
 
 					<tr th:each="users:${pagUsuarios}">
+						<td th:text="${users.id}"></td>
 						<td th:text="${users.username}"></td>
 						<td th:classappend="${! users.enabled}? div-desactivado" th:text="${users.fullName}"></td>
 						<td>

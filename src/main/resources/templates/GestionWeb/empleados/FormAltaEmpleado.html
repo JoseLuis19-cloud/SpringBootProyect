@@ -211,7 +211,7 @@
   		<div class="modal-dialog modal-xl">
       <!-- Modal content-->
       	<div class="modal-content">
-			<h5 th:text="'Datos Nuevo Usuario'"></h5>
+			<h5 th:text="'Nuevo Usuario'"></h5>
 				<form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
@@ -232,13 +232,12 @@
 					</div>				
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
-							<label for="validationEmailWeb" th:text="'Email de aplicación:'"></label> <input
-								type="text" class="form-control" th:id="idDirCliWeb"
-								th:field="*{emailWeb}" th:maxlength="35" required>
+							<label for="validationEmailWeb" th:text="'Email de aplicación'"></label>
+							 <input	type="text" class="form-control" th:id="idDirCliWeb" th:field="*{emailWeb}" th:maxlength="35" required>
 						</div>
 
 						<div class="col-md-3 mb-3">
-						    <label for="validationFecAltaUsu">Fecha alta usuario</label>
+						    <label for="validationFecAltaUsu" th:text="'Fecha alta usuario'" ></label>
 							<div class="input-group">
 								<div class="input-group-addon">
        							 <i class="fa fa-calendar"> </i> 

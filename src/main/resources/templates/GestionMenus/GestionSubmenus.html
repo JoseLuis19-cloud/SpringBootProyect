@@ -274,26 +274,26 @@ p.francesa {
 		<div class="alert alert-danger" th:if="${errorValidacion}" th:text="${mensajeError}"></div>
 		
 		<div class="row">
-			<div class="col-1"> </div>
-			<div class="col-10">
+			<div class="col-2"> </div>
+			<div class="col-8">
    				<div class="subtitulo-pag2" th:text="'Elementos de submenú pertenecientes al menu principal:  ' + ${elemenMenuPrincipal}"></div>
 			</div>	
-			<div class="col-1"> </div>		
+			<div class="col-2"> </div>		
 		</div>
 		
 		<form action="#" th:id="idFormElementosSubMenu" th:action="@{/gestionmenus/actualizarNumOrdenSubmenu}" th:object="${subMenu}" method="post">
 		
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-10" style="border-bottom: 2px solid #000; margin-bottom: 2px">
+			<div class="col-2"></div>
+			<div class="col-8" style="border-bottom: 2px solid #000; margin-bottom: 2px">
      			<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th width="8%" th:text="'Id. submenú'"></th>
-							<th width="18%" th:text="'N. Orden'"></th>
-							<th width="20%" th:text="'Texto submenú'"></th>
-							<th width="22%" th:text="'Dirección o Link (href) submenú'"></th>
-							<th width="7%"  th:text="'Activado'"></th>
+							<th width="6%" th:text="'Id.'"></th>
+							<th width="8%" th:text="'N. Orden'"></th>
+							<th width="30%" th:text="'Texto submenú'"></th>
+							<th width="30%" th:text="'Dirección o Link (href) submenú'"></th>
+							<th width="5%"  th:text="'Activado'"></th>
 							<th width="7%"  th:text="'Acciones'"></th>
 							<th width="7%"  th:text="''"></th>
 							<th width="7%"  th:text="''"></th>
@@ -313,12 +313,12 @@ p.francesa {
 								<input type="text" class="form-control form-control-xs"  th:id="'idTextoSubMenu'+ ${iterStat.index}" th:name="'textoSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].textoSubMenuN1}" th:maxlength="30" th:readonly="true"/>											
 							</div>
 						</td>
-							<td th:classappend="${subMenuN1.activo}? div-desactivado"> 
-								<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
+						<td th:classappend="${subMenuN1.activo}? div-desactivado"> 
+							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
 									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${iterStat.index}" th:name="'hRefApliSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
-							    </div>
-							</td>
-							<td th:classappend="${subMenuN1.activo}? div-desactivado">
+							 </div>
+						</td>
+							<td th:classappend="${subMenuN1.activo}? div-desactivado" style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${iterStat.index}" th:name="'activadoSubMenu'+ ${iterStat.index}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>						
 								<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
 							</td>
@@ -330,11 +330,9 @@ p.francesa {
 							<td>
 								<a th:id="'idLinkCancelarSM' + ${iterStat.index}" th:name="'linkCancelarSM' + ${iterStat.index}" class="btn btn-primary btn-sm" role="button" th:onclick="'cancelarEleSubMenu(' + ${subMenuN1.idSubmenuNivel1} + ')' "  style="display:none;" >cancelar</a>	
 							</td>
-							
 							<td>
 								<a th:id="'idLinkBaja'+ ${iterStat.index}" th:name="'linkBaja'+ ${iterStat.index}" class="btn btn-colour-1" role="button" style="visibility:visible">baja</a>
-							</td>	
-																			
+							</td>											
 						</tr>
 						<tr>
 							<td></td>
@@ -347,23 +345,24 @@ p.francesa {
 							<td></td>
 							<td></td>
 							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 				 </table>
 				</div>
-				<div class="col-1"></div>
+				<div class="col-2"></div>
 			  </div>
 			  
 			</form>
 			
 			<div class="row">
-				<div class="col-1"></div>	
-				<div class="col-10 text-right">
+				<div class="col-2"></div>	
+				<div class="col-8 text-right">
 				 	<a th:href="@{/gestionmenus/obtenermenuprincipal}" class="btn btn-primary btn-sm" role="button">Volver a menus</a>
 					<a th:id="idPantallaAyuda"   th:name="pantallaAyuda"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Ayuda</a>
 					<a th:id="idBotonNuevoEleSM" th:name="botonNuevoEleSM"  th:if="${! noTieneSubmenus}" class="btn btn-primary btn-sm" role="button">Nuevo elemento</a>	
 				 </div>	
-				 <div class="col-1"></div>	
+				 <div class="col-2"></div>	
 			</div>
 		</div>
 			
@@ -387,9 +386,9 @@ p.francesa {
 				<table class="table table-sm">
 					<thead class="thead-light">
 					<tr>
-						<th width="15%" th:text="'Número Orden'"></th>
+						<th width="10%" th:text="'N. Orden'"></th>
 						<th width="40%" th:text="'Texto elemento del submenú'"></th>
-						<th width="35%" th:text="'Dirección o Link (href)'"></th>
+						<th width="40%" th:text="'Dirección o Link (href)'"></th>
 						<th width="10%" th:text="'Activado'"></th>
 					</tr>
 					</thead>
@@ -400,10 +399,10 @@ p.francesa {
 								<input type="hidden" th:id="'idMenuNHidden'"  th:name="'menuNHidden'" th:field="*{idMenu}" />			
 							</td>
 							<td>
-								<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:field="*{textoMenuSubMenu}"  placeholder="Teclee el texto del elemento de summenú" th:maxlength="30"/>											
+								<input type="text" class="form-control form-control-sm"  th:id="idTextoSubMenuN" th:name="textoSubMenuN" th:field="*{textoMenuSubMenu}" placeholder="Teclee el texto del elemento de summenú" th:maxlength="30" required/>											
 							</td>
 							<td>
-								<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionSMN" th:name="hrefAplicacionN" th:field="*{hrefAplicacionSubMenu}" th:maxlength="35"/>
+								<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionSMN" th:name="hrefAplicacionN" th:field="*{hrefAplicacionSubMenu}" th:maxlength="35" placeholder="Teclee o pegue la dirección del enlace" required/>
 							</td>
 							<td>
 								<input type="checkbox" th:checked="*{indActivoSubMenu}" class="form-control form-control-sm" th:id="idActivadoSMN" th:name="activadoN" th:field="*{indActivoSubMenu}" />											

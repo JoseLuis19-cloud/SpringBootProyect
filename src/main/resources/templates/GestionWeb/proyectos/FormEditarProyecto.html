@@ -2,21 +2,13 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
-	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
-
-<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
-<!--Font Awesome (added because you use icons in your prepend/append)-->
-	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-<!-- Inline CSS based on choices in "Settings" tab -->
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
 
  <style>
- 
-.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #000000 !important;} .asteriskField{color: red;}
-
 
 .form-control-xs {
 	height: calc(1em + .375rem + 2px) !important;
@@ -25,30 +17,8 @@
 	line-height: 1.5;
 	border-radius: .2rem;
 }
-
-h3 {
-	font-weight: bold !important;
-	color: #495057 !important;
-	font-size: 30px !important;
-	border-bottom: 2px solid #000 !important;
-	background: #e9ecef !important;
-	color: #003B49 !important;
-	display: inline-block !important;
-	padding: 8px 20px !important;
-	margin-left: 10px !important;
-}
-
-h5 {
-	color: #F2A900 !important;
-	font-size: 26px !important;
-	background: #e9ecef !important;
-	color: #F2A900 !important;
-	display: inline-block !important;
-	padding: 3px 15px !important;
-	margin-left: 10px !important;
-}
-
 </style>
+ 
 	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
@@ -75,7 +45,7 @@ h5 {
 	
 	<div class="container-fluid" style="margin-top:0px;">
 		<div class="row">
-			<div class="titulo-pag2">Gestión de Empleado</div>
+			<div class="titulo-pag2">Gestión Empleado</div>
 		</div>
 		<form th:action="@{/gestionWeb/empleados/modifempleado}" th:object="${empleadoWeb}" method="post">
 		<div class="row">
@@ -143,7 +113,7 @@ h5 {
 						<input type="text" class="form-control" id="idNIFWeb" th:field="*{nifWeb}" th:maxlength="14">
 					</div>
 					<div class="col-md-3 mb-4">
-						<label for="labelFecEmpleado">Fec. alta empleado</label>
+						<label for="labelFecAltaEmpleado" th:text="'Fec. alta empleado' "></label>
 						<div class="input-group">
 							<div class="input-group-addon">
        						 <i class="fa fa-calendar"> </i> 
@@ -206,75 +176,8 @@ h5 {
 		</div>
  		</form>
  	</div>
-	<!-- Modal -->
-    <div id="myModalAltaUsu" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-  		<div class="modal-dialog modal-xl">
-      <!-- Modal content-->
-      	<div class="modal-content">
-			<h5 th:text="'Datos Nuevo Usuario'"></h5>
-			<form action="#" th:action="@{/gestionWeb/usuarios/insertarusuario}" th:object="${usuarioWeb}" method="post">
-					<div class="form-row">
-						<div class="col-md-4 mb-3">
-							<label for="validationFullNameWeb" th:text="'Nombre completo'"></label>
-							 <input type="text" class="form-control" id="idfullNameWeb"
-								th:field="*{fullNameWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationUserNameWeb" th:text="'Nombre Usuario:' "></label>
-							<input type="text" class="form-control" id="idApelliCliWeb"
-								th:field="*{usernameWeb}" th:maxlength="25" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationPasswordWeb" th:text="'Password:' "></label>
-							<input type="text" class="form-control" id="idPasswordWeb"
-								th:field="*{passwordWeb}" th:maxlength="25" required>
-						</div>
-					</div>				
-					<div class="form-row">
-						<div class="col-md-4 mb-3">
-							<label for="validationEmailWeb" th:text="'email aplicación:'"></label> <input
-								type="text" class="form-control" id="idDirCliWeb"
-								th:field="*{emailWeb}" th:maxlength="35" required>
-						</div>
-
-						<div class="col-md-3 mb-3">
-						<label for="validationFecAltaUsu">Fecha Alta Empleado</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-       							 <i class="fa fa-calendar"> </i> 
-      					 		</div>
-       							<input type="text" class="form-control" id="idFecAltaUsuario" name="fecAltaUsuario"  th:maxlength="10" th:readonly="true" required />
-       							<input type="hidden" id="idFecAltaUsuHidden" name="fecAltaUsuHidden"  th:field="*{fecAltaUsuarioWeb}"/>
-							</div>
-						 	 
-						</div>
-						<div class="col-md-5 mb-3">
-							 <div class="form-group">
-								<label for="idRolAplicacion" th:text="'Rol de usario en la aplicación: ' "></label>
-								<select th:object="${usuarioWeb}" class="form-control" name="rolAplicacion" id="idRolAplicacion">
-									<option th:value="0" th:text="'Seleccionar rol Aplicación' "></option>
-									<option th:each ="rolApli:${usuarioWeb.rolUsuarioWeb}"
-   						 				th:value="${rolApli.id}"
-  						  				th:text ="${rolApli.name}">
-  									</option>
-    							</select>
-							</div>
-						</div>
-					</div>					
-        	<div class="modal-footer">
-          		<button type="submit" class="btn btn-colour-1" >Crear usuario</button>    
-       			<button type="button" class="btn btn-colour-1"  data-dismiss="modal">Cancelar</button>
-        	</div>
-        </form>	
-     </div>
-      
-    </div>
-  </div>
   
-  
-  
-  
-    <!-- Modal Cambiar Foto -->
+   <!-- Modal Cambiar Foto -->
   <div id="myModalCambiarFoto" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

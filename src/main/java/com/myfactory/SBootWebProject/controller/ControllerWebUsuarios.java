@@ -349,18 +349,17 @@ public class ControllerWebUsuarios {
 					userError = true;
 					}
 				}
-		}
 
-		if (! userError) {
-			if (! usuario.getUsername().equals(beanUsuarioWeb.getUsernameWeb().trim()) ) {
-				if ( servJPAUsuario.findByName( beanUsuarioWeb.getUsernameWeb().trim()) )
-					{
-					datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_USUARIO_DUPLICADO);
-					datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_USUARIO_DUPLICADO);
-					userError = true;
+			if (! userError) {
+				if (! usuario.getUsername().equals(beanUsuarioWeb.getUsernameWeb().trim()) ) {
+					if ( servJPAUsuario.findByName( beanUsuarioWeb.getUsernameWeb().trim()) )
+						{
+						datosErrorValidacion.setCodError(ConstantesErroresAplicacion.COD_ERROR_USUARIO_DUPLICADO);
+						datosErrorValidacion.setDesError(ConstantesErroresAplicacion.ERROR_USUARIO_DUPLICADO);
+						userError = true;
 					}
+				}
 			}
-		}
 		
 		if (! userError) {
 			if ( ! usuario.getEmail().equals(beanUsuarioWeb.getEmailWeb().trim() ) ) {
@@ -370,6 +369,8 @@ public class ControllerWebUsuarios {
 					userError = true;
 				}
 			}
+		}
+		
 		}
 	
 	if (! userError) 
