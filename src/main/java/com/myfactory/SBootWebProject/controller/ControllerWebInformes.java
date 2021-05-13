@@ -77,7 +77,7 @@ public class ControllerWebInformes {
 		
 	  modelo.addAttribute("datosInformes", "1");
 	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-	 return "GestionWeb/informes/FormInformeUsuarios.html";
+	 return "GestionWeb/informes/FormInformeUsuarios";
 	}
  
 	@RequestMapping("/informeusuarios")
@@ -100,7 +100,7 @@ public class ControllerWebInformes {
 	   
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
-		return "gestionWeb/informes/InformesAplicacion.html";
+		return "gestionWeb/informes/FormInformeUsuarios.html";
 	}
 	
 	@RequestMapping("/informeempleado")
@@ -123,7 +123,7 @@ public class ControllerWebInformes {
 	   
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
-		return "gestionWeb/informes/InformesAplicacion.html";
+		return "gestionWeb/informes/FormInformeEmpleados.html";
 	}
 	
 	@RequestMapping("/informeproyectos")
@@ -149,7 +149,7 @@ public class ControllerWebInformes {
 	   
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
-		return "gestionWeb/informes/InformesAplicacion.html";
+		return "gestionWeb/informes/FormInformeProyectos";
 	}
 	
 	@RequestMapping(value = "downloadFile1", method = RequestMethod.GET)

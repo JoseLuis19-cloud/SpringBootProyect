@@ -38,13 +38,17 @@ public class ControllerWebGestionMenus {
 	ServJPAMenu serviciosJPAMenu;
 	
 	@Autowired
-	ServJPAMenusUsuario  servJPAMenusUsuario;
+	ServJPAMenusUsuario servJPAMenusUsuario;
 	
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
  
+	 
+	
 	@GetMapping("/obtenermenuprincipal")
-	public String obtenerMenuPrincipal(Model modelo) {
+	public String obtenerMenuPrincipal(Model modelo,
+						@RequestParam(value = "errorValidacion", required = false) Boolean errorValidacion,
+						@RequestParam(value = "mensajeError", required = false) String mensajeError) {
   // Carga opciones del menu principal
 	  Iterable <Menu> menuPrincipalAplicacion = serviciosJPAMenu.obtenerMenusAplicacionSin0Todos(); 
 	  
@@ -75,6 +79,13 @@ public class ControllerWebGestionMenus {
 
   // Carga el menu general
 	  modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	  
+	  if ( errorValidacion != null )
+	  	{
+		  modelo.addAttribute("errorValidacion", errorValidacion);
+		  modelo.addAttribute("mensajeError", mensajeError);
+	  	}
+		  
 	  return "GestionMenus/GestionMenus";
 	}
 	
@@ -303,8 +314,7 @@ public class ControllerWebGestionMenus {
 	@RequestMapping(value = "/updateelementomenu", method = RequestMethod.POST)
 	public String updateElementoMenu(Model modelo, @ModelAttribute("elemenEditMenuApli") BeanMenuAplicacionWeb beanMenuAplicacionWeb,
 													@RequestParam(value = "activadoH", required = true) Boolean checkActivo)
-	  { 
-		
+	  {
 		Menu elementoMenu = new Menu();
 		
 		elementoMenu.setIdMenu(beanMenuAplicacionWeb.getIdMenu() ) ;
@@ -356,24 +366,27 @@ public class ControllerWebGestionMenus {
 	}
 	
 	@RequestMapping(value = "/eliminarmenu", method = RequestMethod.POST)
-	public String bajaMenu(Model modelo, RedirectAttributes redAtrib, @RequestParam(value = "idMenu", required = true) String idMenu)  {
+	public String bajaMenu(Model modelo, RedirectAttributes redAtrib, @RequestParam(value = "idMenu", required = true) Integer idMenu)  {
 		BeanErrorValidacion datosErrorValidacion = new BeanErrorValidacion(new Integer(0));
 		
 	 // Comprobamos que el elemento de menú no está dado de alta en ningún menu usuario.
 		if (! servJPAMenusUsuario.existenElementosMenuUsuario(new Integer(idMenu) ) ) 
 		   {
 		   serviciosJPAMenu.eliminarElementoMenu(new Integer(idMenu));
+		   
 		   }
 		else
 		  { 
-			datosErrorValidacion.setCodError(new Integer(11) );
-			datosErrorValidacion.setDesError( "El elemento de menu esta asignado a algun menu de un usuario de la aplicación" );
-			modelo.addAttribute("errorValidacion" , true);
-		    modelo.addAttribute("mensajeError", datosErrorValidacion.getCodError().toString() + ", " + datosErrorValidacion.getDesError() );
+			 datosErrorValidacion.setCodError(new Integer(11) );
+			  datosErrorValidacion.setDesError( "El elemento de menu no se ha borrado porque está asignado a algún menú de un usuario de la aplicación" );
+			redAtrib.addAttribute("errorValidacion", true);
+			redAtrib.addAttribute("mensajeError", "Cod. Error: " + datosErrorValidacion.getCodError().toString() + ". " + datosErrorValidacion.getDesError());;
 		  }
 		
-		redAtrib.addAttribute("idMenu", idMenu);
-		redAtrib.addAttribute("nomElemMenu", "falta");
+	//	redAtrib.addAttribute("idMenu", idMenu);
+	//	redAtrib.addAttribute("nomElemMenu",  serviciosJPAMenu.findIdMenu(idMenu).get().getTextoMenu());
+		redAtrib.addAttribute("errorValidacion", true);
+		redAtrib.addAttribute("mensajeError", datosErrorValidacion.getCodError().toString() + ", " + datosErrorValidacion.getDesError());
 		
 	// Carga el menu general
 	   modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());

@@ -67,7 +67,10 @@ public class ControllerWebEmpleados {
 	@GetMapping("/formeditarempleado")
 	public String formEditarEmpleado(Model modelo, @RequestParam(value = "idEmpleado", required = true) Integer idEmpleado,
 			@RequestParam(value = "errorValidacion", required = false) Boolean errorValidacion,
-			@RequestParam(value = "mensajeError", required = false) String mensajeError)  {
+			@RequestParam(value = "mensajeError", required = false) String mensajeError,
+			@RequestParam(value = "numPag", required = false) String numPag, 
+		    @RequestParam(value = "numPos", required = false) String numPos)
+		{
 
 		byte[] blobBytes = null;
 		byte[] encode =null;
@@ -97,6 +100,8 @@ public class ControllerWebEmpleados {
 		modelo.addAttribute("empleado", empleado);
 		modelo.addAttribute("objImagen", encode);
 		modelo.addAttribute("idEmpleadoImg", idEmpleado);
+		modelo.addAttribute("numPag", numPag);
+		modelo.addAttribute("numPos", numPos);
 		
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		
@@ -105,7 +110,7 @@ public class ControllerWebEmpleados {
 		
 		if (errorValidacion != null)
 			{
-			if  (errorValidacion) {
+			if (errorValidacion) {
 				modelo.addAttribute("errorValidacion", true);
 				modelo.addAttribute("mensajeError", mensajeError );
 				}
@@ -986,6 +991,9 @@ public class ControllerWebEmpleados {
 				}
 			}
 		
+		
+		modelo.addAttribute("numPos", numPosInt); 
+		
 		String URLPag = "/gestionWeb/empleados/pagempleados10nuemod?numPag=" ;
 		
 		CrearBotoneraPag.montarEnlacesBotonera10(paramBotonera, modelo, numPagInt, URLPag, busquedaCampo.getApellidosBusqueda().trim(), numPosInt);
@@ -1019,7 +1027,6 @@ public class ControllerWebEmpleados {
 	     return Base64.getMimeEncoder().encodeToString(byteData);
 	}
 	
-	 
 	private Map<String, Object> validarDatosEmpleado(BeanEmpleadoWeb datosEmpleadoWeb, String codPais, String codPuestoTrabajo, boolean esModificacion) {
 		
 		Map<String, Object> resultadoValidacion = new HashMap<>();

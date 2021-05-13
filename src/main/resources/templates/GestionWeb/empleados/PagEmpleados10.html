@@ -107,8 +107,8 @@
 							<td th:text="${empleado.telefMovil}"></td>
 							<td class="text-right" th:text="${#numbers.formatDecimal(empleado.impBrutoAnual,3,'POINT',2,'COMMA')}"></td>
 							<td><a th:if="${! empleado.indbajaEmpleado}" th:href="@{/gestionWeb/empleados/formbajaempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Baja</a></td>
-							<td><a th:if="${ empleado.indbajaEmpleado}"  th:href="@{/gestionWeb/empleados/formactivarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Activar</a></td>
-							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Editar</a></td>
+							<td><a th:if="${empleado.indbajaEmpleado}"   th:href="@{/gestionWeb/empleados/formactivarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Activar</a></td>
+							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado}, numPag=${numPag}, numPos=${numPos})}" class="btn btn-primary btn-sm" role="button">Editar</a></td>
 						</tr>
 					</tbody>
 				</table>

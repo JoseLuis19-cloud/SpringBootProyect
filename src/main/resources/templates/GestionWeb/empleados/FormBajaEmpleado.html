@@ -164,7 +164,7 @@ h5 {
 							</div>
 				 		</div>
 				<div class="col-md-3 mb-4">
-					<label for="validadNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
+					<label for="labelNumCCWeb" th:text="'Numero cuenta corriente (IBAN)' "></label>
 					<input type="text" class="form-control" id="idNumCCWeb" name="numCCWeb" th:field="*{numCuentaCorrienteWeb}" th:maxlength="24" th:readonly="true">
 				</div>
 				<div class="col-md-2 mb-4">
@@ -172,26 +172,25 @@ h5 {
 					<input type="text" class="form-control" id="idImpBrutoAnual" name="impBrutoAnual" th:field="*{impBrutoAnualWeb}" th:maxlength="10" th:readonly="true">
 				</div>
 			</div>
-			<div class="form-row">
-				<div class="col-md-5 mb-3"></div>
-				<div class="col-md-2 mb-3">
+ 
+  			<div class="form-row">
+				<div class="col-md-4 mb-3"></div>
+				<div class="col-md-4 mb-3">
 						<label for="labelFecEmpleado">Introduzca Fec. Baja empleado</label>
 						<div class="input-group">
-							<div class="input-group-addon">
-       						 <i class="fa fa-calendar"> </i> 
-      					 	</div>
        						<input type="text" class="form-control" th:id="idFecBajaEmpleado" th:name="fecBajaEmpleado" th:field="*{fecBajaEmpleadoWeb}" th:value="${#calendars.format(fecBajaEmpleadoWeb, 'dd/MM/yyyy')}" placeholder="MM/DD/YYYY" required>
 						</div> 
 			 	</div>
-			 	<div class="col-md-5 mb-3"></div>
-			  </div>	
+			 	<div class="col-md-4 mb-3"></div>
+			  </div>
+  			</div>
   			 <div class="col-1"></div>
- 			</div>
+ 		
  		</div>
  		<div class="row">
  			<div class="col-1"></div>
  			<div class="col-10 text-right">
- 				<a th:href="@{/gestionWeb/empleados/pagempleados10}" class="btn btn-primary" role="button">Volver</a>
+ 				<a th:href="@{/gestionWeb/empleados/pagempleados10nuemod}" class="btn btn-primary" role="button">Volver</a>
 				<button type="submit" class="btn btn-primary">Confirmar</button>
 			</div>
  			<div class="col-1"></div>
