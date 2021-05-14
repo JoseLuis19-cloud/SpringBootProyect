@@ -17,7 +17,7 @@
 
   .div-desactivado{
   	color: #DEBC8B;
-  	background-color: #ECC7CD;
+  	background-color: #B0B7B9;
   	border-color: #004E64;
   	font: 15px Arial, sans-serif;
  	letter-spacing: 0.05em;
@@ -68,7 +68,7 @@
 					<tr th:each="users:${pagUsuarios}">
 						<td th:text="${users.id}"></td>
 						<td th:text="${users.username}"></td>
-						<td th:classappend="${! users.enabled}? div-desactivado" th:text="${users.fullName}"></td>
+						<td th:text="${users.fullName}"></td>
 						<td>
 							<div style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:checked="${users.indEmpleado}" class="btn btn-primary btn-sm" th:id="'idUserEmpleado'+ ${users.id}" th:name="'userEmpleado'+ ${users.id}" disabled="true"/>
@@ -82,9 +82,9 @@
 						<td th:text="${users.email}"></td>
 					<!--	<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MMM/yyyy HH:mm')}"></td> -->
 						<td th:text="${#calendars.format(users.fecAltaUsuario, 'dd/MM/yyyy')}"></td>
-						<td>
-							<div style="display: flex; justify-content: center; align-items: center;">
-								<input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" disabled="true"/>
+						<td th:classappend="${! users.enabled}? div-desactivado" style="display: flex; justify-content: center; align-items: center;">
+							<div class="form-group">
+							 <input type="checkbox" th:checked="${users.enabled}" class="btn btn-primary btn-sm" th:id="'idUserActivado'+ ${users.id}" th:name="'userActivado'+ ${users.id}" disabled="true"/>
 							</div>
 						</td>
 						<td><a th:if="${users.enabled}"   th:href="@{/gestionWeb/usuarios/formcambiarpass(idUsuario=${users.id})}" class="btn btn-primary btn-sm" role="button">Password</a> </td>

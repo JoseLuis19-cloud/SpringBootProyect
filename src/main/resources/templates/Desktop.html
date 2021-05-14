@@ -73,11 +73,17 @@
 	<div class="container-fluid">
 	    <br>
 	    <br>
-	    <br>
+	    <div class="row">
+			<div class="col-3"></div>
+	  	 	<div class="col-6">
+	  	 	 <div  class="subtitulo-pag3" th:text="'Tareas de ' + ${usuarioApli}"></div>
+	  	 	</div>
+	  	 	<div class="col-3"></div>
+	  	 </div>
+	  	 
 		<div class="row" style="margin-bottom: 10px;">
 			<div class="col-3"></div>
 			<div class="col-6 divRounded" style="overflow-y: scroll; width:600px; height:360px;">
-				<div class="subtitulo-pag3" th:text="'Tareas de ' + ${usuarioApli}"></div>
 				<div class="panel-body" align="center">
 					<table class="table table-sm">
 						<thead>
@@ -86,7 +92,7 @@
 							<th th:text="Tarea"></th>
 							<th th:text="'Fecha Creación'"></th>
 							<th th:text="'Fecha Límite'"></th>
-							<th th:text="'Ir Tarea'"></th>
+							<th th:text="'Tarea'"></th>
 						 </tr>
 				 	  </thead>
 					  <tbody>

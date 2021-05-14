@@ -33,9 +33,9 @@ p.francesa {
   	border-radius: 0;
 	}
 	
-	.div-activado{
+  .div-activado{
   	color: #00CFB4;
-  	background-color: #00CFB4;
+  	background-color: #A7E6D7;
   	border-color: #004E64;
   	font: 15px Arial, sans-serif;
  	letter-spacing: 0.05em;
@@ -121,10 +121,10 @@ p.francesa {
 			 
 			if ( $("#idEditNumOrden").text() == "Editar")
 			   {
- 
 			    $("input[id^='idNumOrdSubMenu']").prop("readonly", false);
 			    $("#idEditNumOrden").text('grabar');
-			    
+				$("#idBotonNuevoEleSM").hide();
+				
 			    document.getElementById("idCancelNumOrden").style.display = "block";
 			   }
 			else
@@ -146,8 +146,9 @@ p.francesa {
 	 
 		$("#idCancelNumOrden").click(function() {
 			$("input[id^='idNumOrdSubMenu']").prop("readonly", true);
-			$("#idEditNumOrden").text('editar');
-				document.getElementById("idCancelNumOrden").style.display = "none";
+			$("#idEditNumOrden").text('Editar');
+			document.getElementById("idCancelNumOrden").style.display = "none";
+			$("#idBotonNuevoEleSM").show();
 		});
  
 		if (isErrorAlta)
@@ -319,12 +320,14 @@ p.francesa {
 						</td>
 						<td> 
 							<div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${iterStat.index}" th:name="'hRefApliSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
+								<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${iterStat.index}" th:name="'hRefApliSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
 							 </div>
 						</td>
 							<td th:classappend="${subMenuN1.activo}? div-activado" style="display: flex; justify-content: center; align-items: center;">
-								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${iterStat.index}" th:name="'activadoSubMenu'+ ${iterStat.index}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>						
-								<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
+								<div class="form-group">
+									<input type="checkbox" th:id="'idActivadoSubMenu'+ ${iterStat.index}" th:name="'activadoSubMenu'+ ${iterStat.index}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>						
+									<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
+								 </div>
 							</td>
 		
 							<td>
@@ -409,7 +412,7 @@ p.francesa {
 								<input type="text" class="form-control form-control-sm"  th:id="idhRefAplicacionSMN" th:name="hrefAplicacionN" th:field="*{hrefAplicacionSubMenu}" th:maxlength="35" placeholder="Teclee o pegue la dirección del enlace" required/>
 							</td>
 							<td>
-								<input type="checkbox" th:checked="*{indActivoSubMenu}" class="form-control form-control-sm" th:id="idActivadoSMN" th:name="activadoN" th:field="*{indActivoSubMenu}" />											
+								<input type="checkbox" class="form-control form-control-sm" th:checked="*{indActivoSubMenu}"  th:id="idActivadoSMN" th:name="activadoN" th:field="*{indActivoSubMenu}" />											
 							</td>		
 			  	 		</tr>
 				</tbody>

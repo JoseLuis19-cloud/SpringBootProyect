@@ -30,6 +30,15 @@
  	letter-spacing: 0.05em;
   	border-radius: 0;
 	}
+	
+	.div-activado{
+  	color: #00CFB4;
+  	background-color: #A7E6D7;
+  	border-color: #004E64;
+  	font: 15px Arial, sans-serif;
+ 	letter-spacing: 0.05em;
+  	border-radius: 0;
+	}
   </style>
 
   <script th:inline="javascript">
@@ -118,11 +127,11 @@
 		
 		// Evento Editar número de orden de menu
 		$("#idEditNumOrden").click(function() {
-			if ( $("#idEditNumOrden").text() == "editar")
+			if ( $("#idEditNumOrden").text() == "Editar")
 			   {
 			    $("input[id^='idNumOrdMenu']").prop("readonly", false);
 			    $("#idEditNumOrden").text('grabar');
-			    
+			    $("#idBotonNuevoEle").hide();
 			    document.getElementById("idCancelNumOrden").style.display = "block";
 			   }
 			else
@@ -138,7 +147,8 @@
 			
 		$("#idCancelNumOrden").click(function() {
 			$("input[id^='idNumOrdMenu']").prop("readonly", true);
-			$("#idEditNumOrden").text('editar');
+			$("#idBotonNuevoEle").show();
+			$("#idEditNumOrden").text('Editar');
 			  document.getElementById("idCancelNumOrden").style.display = "none";
 		});
  
@@ -221,7 +231,6 @@
 			//      alert ("indNumOrdenB: " + indNumOrdenB + " numOrdVal : " + numOrdVal  );
 		 		  if (indNumOrdenB == numOrdVal) 
 		 		     {
-		 			//  alert("Encuentra el numero en la secuencia");
 		 			  encuentraSecuencial = "S";
 		 			  break;
 		 		     }
@@ -315,8 +324,10 @@
 							 </div>
 						</td>
 						
-						 <td th:classappend="${mPrincipal.activo}? div-desactivado" style="display: flex; justify-content: center; align-items: center;">
-							<input type="checkbox" th:checked="*{beanMenuAplicacionWeb[__${iterStat.index}__].activo}" th:id="'idActivado'+ ${iterStat.index}" th:name="checksActivado[]" th:disabled="disabled" />											
+						 <td th:classappend="${mPrincipal.activo}? div-activado" style="display: flex; justify-content: center; align-items: center;">
+							<div class="form-group">
+							  <input type="checkbox" th:checked="*{beanMenuAplicacionWeb[__${iterStat.index}__].activo}" th:id="'idActivado'+ ${iterStat.index}" th:name="checksActivado[]" th:disabled="disabled" />											
+						 	</div>
 						 </td>
 		
 						<td><a th:id="'idLinkEdit' + ${iterStat.index}"     th:name="'linkEdit' + ${iterStat.index}"     class="btn btn-colour-1" role="button" th:disabled="false">editar</a></td>		
@@ -330,8 +341,8 @@
 						<tr>
 							<td></td>
 							<td>
-								<a href="#" th:id="idEditNumOrden" th:name="editNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true">editar</a>
-								<a href="#" th:id="idCancelNumOrden" th:name="editCancelNumOrden" class="btn btn-colour-1" role="button"  aria-disabled="true" style="display:none;">Cancelar</a>
+								<a href="#" th:id="idEditNumOrden"   th:name="editNumOrden"       class="btn btn-colour-1" role="button" aria-disabled="true">Editar</a>
+								<a href="#" th:id="idCancelNumOrden" th:name="editCancelNumOrden" class="btn btn-colour-1" role="button" aria-disabled="true" style="display:none;">Cancelar</a>
 							</td>	
 							<td></td>
 							<td></td>

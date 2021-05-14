@@ -53,24 +53,24 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="69" splitType="Stretch">
+		<band height="64" splitType="Stretch">
 			<image>
-				<reportElement x="3" y="3" width="50" height="50" uuid="e82670cd-20aa-442f-9c2a-77c4621fb4a0"/>
+				<reportElement x="3" y="4" width="50" height="50" uuid="e82670cd-20aa-442f-9c2a-77c4621fb4a0"/>
 				<imageExpression><![CDATA["/Users/UsuarioJoseLuis/Downloads/SBootWebProject/src/main/resources/plantillasjasper/images/LogoBeigar.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="59" y="4" width="20" height="12" uuid="691aff35-9f15-494d-9294-ae796c39bb08"/>
+				<reportElement x="59" y="5" width="20" height="12" uuid="691aff35-9f15-494d-9294-ae796c39bb08"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[CIF.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="58" y="33" width="120" height="12" uuid="9e14d54a-c33d-4eec-9bd3-6c053dcb0894"/>
+				<reportElement x="58" y="34" width="130" height="12" uuid="9e14d54a-c33d-4eec-9bd3-6c053dcb0894"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[28006 , Madrid]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="200" y="6" width="70" height="14" forecolor="#1D6378" uuid="f2c4ffa8-2e1c-4805-9749-10d32162fb46"/>
@@ -87,14 +87,14 @@
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="371" y="24" width="39" height="14" uuid="528cfb1f-d24b-4311-b742-fa6fbae5c424"/>
+				<reportElement x="371" y="24" width="39" height="12" uuid="528cfb1f-d24b-4311-b742-fa6fbae5c424"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[NIF]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="371" y="41" width="39" height="14" uuid="c64da479-1cf6-4822-b5b8-ca82af510ae3"/>
+				<reportElement x="371" y="41" width="39" height="12" uuid="c64da479-1cf6-4822-b5b8-ca82af510ae3"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -125,14 +125,14 @@
 				<textFieldExpression><![CDATA[$P{nomEmpCliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="414" y="24" width="140" height="14" uuid="56067d8a-3122-46d1-a3b7-0e7ede900b02"/>
+				<reportElement x="416" y="24" width="140" height="14" uuid="56067d8a-3122-46d1-a3b7-0e7ede900b02"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CIFEmpCliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="414" y="41" width="140" height="12" uuid="4c73349f-f45d-4aca-bf8a-c37ce7192ce3"/>
+				<reportElement x="415" y="41" width="140" height="12" uuid="4c73349f-f45d-4aca-bf8a-c37ce7192ce3"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -146,18 +146,18 @@
 				<textFieldExpression><![CDATA[$P{fecFactura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="4" width="100" height="12" uuid="504bd54e-e8d7-4534-ad6e-fad3674bf12b"/>
+				<reportElement x="80" y="5" width="108" height="12" uuid="504bd54e-e8d7-4534-ad6e-fad3674bf12b"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CIFBeigar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="59" y="18" width="130" height="12" uuid="42f2801c-70b2-4a7b-964c-b6a4c09c0a37"/>
+				<reportElement x="59" y="19" width="130" height="12" uuid="42f2801c-70b2-4a7b-964c-b6a4c09c0a37"/>
 				<textFieldExpression><![CDATA[$P{dirEmpBeigar}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="0" width="553" height="1" forecolor="#1C5E53" uuid="d2d5b855-4ccd-4440-8f6f-f6eee70c82ee"/>
+				<reportElement x="0" y="-5" width="555" height="1" forecolor="#1C5E53" uuid="d2d5b855-4ccd-4440-8f6f-f6eee70c82ee"/>
 			</line>
 		</band>
 	</title>
@@ -209,7 +209,7 @@
 				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement stretchType="ContainerBottom" x="50" y="3" width="360" height="34" isPrintWhenDetailOverflows="true" uuid="87d1ca7f-dbd9-4603-b5e7-1dac2d9d914a">
+				<reportElement stretchType="ContainerBottom" x="50" y="3" width="360" height="26" isPrintWhenDetailOverflows="true" uuid="87d1ca7f-dbd9-4603-b5e7-1dac2d9d914a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="641a8e1b-878b-4e07-99c3-d56fc787374a"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{CONCEPTO}]]></textFieldExpression>
@@ -233,7 +233,7 @@
 	<columnFooter>
 		<band height="15" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="9" width="554" height="1" uuid="2dbe7933-b19f-4a9b-9a73-7de216013af4"/>
+				<reportElement x="0" y="8" width="554" height="1" uuid="2dbe7933-b19f-4a9b-9a73-7de216013af4"/>
 			</line>
 		</band>
 	</columnFooter>
@@ -256,7 +256,9 @@
 				<text><![CDATA[/]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="310" y="3" width="100" height="16" uuid="86151729-6796-49e4-8ab0-2a171be1d3b8"/>
+				<reportElement x="310" y="2" width="100" height="14" uuid="86151729-6796-49e4-8ab0-2a171be1d3b8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
