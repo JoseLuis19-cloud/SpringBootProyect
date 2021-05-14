@@ -90,33 +90,32 @@ public class ControllerWebGestionMenus {
 	}
 	
 	@RequestMapping(value = "/obtenersubmenu", method = RequestMethod.GET)
-	public String obtenerSubMenu(Model modelo, @ModelAttribute(value="idMenu") String idMenu, 
-											@ModelAttribute(value="nomElemMenu") String nomEleMenu)
+	public String obtenerSubMenu(Model modelo, @ModelAttribute(value="idMenu") Integer idMenu, 
+												@ModelAttribute(value="nomElemMenu") String nomEleMenu)
 	{
 	Boolean noTieneSubmenus;
 		  
-	Iterable <SubMenuNivel1> subMenuNivel1 = serviciosJPAMenu.obtenerSubMenuAplicacionSin0(new Integer(idMenu));
-	// Iterator<SubMenuNivel1> menu = subMenuNivel1.iterator();
+	Iterable <SubMenuNivel1> subMenuNivel1 = serviciosJPAMenu.obtenerSubMenuAplicacionSin0( idMenu);
+
 		
-		BeanFormSubMenu beanFormSubMenu = new BeanFormSubMenu();
+	BeanFormSubMenu beanFormSubMenu = new BeanFormSubMenu();
 			  
-		List<SubMenuNivel1> listSubMenu = StreamSupport
-				  .stream(subMenuNivel1.spliterator(), false)
-				  .collect(Collectors.toList());
+	List<SubMenuNivel1> listSubMenu = StreamSupport
+			 .stream(subMenuNivel1.spliterator(), false)
+			 .collect(Collectors.toList());
 
-		ArrayList<SubMenuNivel1> arrListMenu = new ArrayList<SubMenuNivel1>(listSubMenu);
-		beanFormSubMenu.setBeanSubMenuAplicacionWeb(arrListMenu); 
+	ArrayList<SubMenuNivel1> arrListMenu = new ArrayList<SubMenuNivel1>(listSubMenu);
+	beanFormSubMenu.setBeanSubMenuAplicacionWeb(arrListMenu); 
 		
-		modelo.addAttribute("subMenu", beanFormSubMenu);
+	modelo.addAttribute("subMenu", beanFormSubMenu);
+		
+	modelo.addAttribute("idMenuH" , idMenu);
 		 
-	  //  modelo.addAttribute("subMenuNivel1", subMenuNivel1);
-		
-	//	System.out.println(subMenuNivel1.iterator().next().getMenu().getIdMenu());
 	    
-	    modelo.addAttribute("elemenMenuPrincipal", nomEleMenu);
+	modelo.addAttribute("elemenMenuPrincipal", nomEleMenu);
 
-	    Long numRegSubMenu = 0L;
-	    BeanSubMenuAplicacionWeb elemenSubMenuNuevo = new BeanSubMenuAplicacionWeb();
+	Long numRegSubMenu = 0L;
+	BeanSubMenuAplicacionWeb elemenSubMenuNuevo = new BeanSubMenuAplicacionWeb();
 	    
 	  // if (listSubMenu.size() == 0 ) 
 	  // {
@@ -152,14 +151,14 @@ public class ControllerWebGestionMenus {
 		modelo.addAttribute("noTieneSubmenus", noTieneSubmenus);
 		modelo.addAttribute("errorAltaElemento", false);  
 		
-		elemenSubMenuNuevo.setIdMenu(new Integer(idMenu));
+		elemenSubMenuNuevo.setIdMenu(idMenu);
 		elemenSubMenuNuevo.setNumOrdenSubMenu(listSubMenu.size() + 1 );
 		elemenSubMenuNuevo.setIndActivoSubMenu(false);
 		
 		modelo.addAttribute("elemenSubMenuNuevoWeb", elemenSubMenuNuevo);
 		
 		BeanSubMenuAplicacionWeb elementoEdicionSubMenuApli  = new BeanSubMenuAplicacionWeb();
-		elementoEdicionSubMenuApli.setIdMenu(new Integer(idMenu.trim()));
+		elementoEdicionSubMenuApli.setIdMenu(idMenu);
 		modelo.addAttribute("elemenEditSubMenuApli", elementoEdicionSubMenuApli);
 	    
 	    // Carga el menu general
@@ -207,7 +206,6 @@ public class ControllerWebGestionMenus {
 		beanFormMenu.setBeanMenuAplicacionWeb(arrListMenu); 
 		  
 		modelo.addAttribute("menuPrincipal", beanFormMenu);
-		
 		modelo.addAttribute("elemenMenuNuevoWeb", beanMenuAplicacionWeb);
 		
 		if (elemenMenu == null) {
@@ -216,7 +214,7 @@ public class ControllerWebGestionMenus {
 
 	 // Carga el menu general
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-	//	retu rn "GestionMenus/GestionMenus";
+
 		return "redirect:/gestionmenus/obtenermenuprincipal";
 	}
 	
@@ -444,7 +442,9 @@ public class ControllerWebGestionMenus {
 	}
 	
 	@RequestMapping(value = "/actualizarNumOrdenSubmenu", method = RequestMethod.POST)
-	public String actualizarNumOrdenSubMenu(@ModelAttribute  BeanFormSubMenu beanFormSubMenu, Model modelo )  {
+	public String actualizarNumOrdenSubMenu(@ModelAttribute  BeanFormSubMenu beanFormSubMenu, Model modelo, 
+											@RequestParam(value = "menuOrdenHidden", required = true) Integer idMenu,
+											RedirectAttributes redAtrib )  {
 		
 	 int numOrdenSec = 1;
 	
@@ -462,7 +462,9 @@ public class ControllerWebGestionMenus {
 	   
 	// Carga el menu general
 	   modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-	   		
+	   
+	  redAtrib.addAttribute("idMenu", idMenu);
+	  redAtrib.addAttribute("nomElemMenu", "");	
 	  return "redirect:/gestionmenus/obtenersubmenu";
 	}
 }

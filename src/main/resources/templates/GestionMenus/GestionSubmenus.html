@@ -32,17 +32,27 @@ p.francesa {
  	letter-spacing: 0.05em;
   	border-radius: 0;
 	}
+	
+	.div-activado{
+  	color: #00CFB4;
+  	background-color: #00CFB4;
+  	border-color: #004E64;
+  	font: 15px Arial, sans-serif;
+ 	letter-spacing: 0.05em;
+  	border-radius: 0;
+	}
+ 
   </style>
  
  
   <script th:inline="javascript">
 	
- /*<![CDATA[*/
-	var numElemenMenu = [[${#lists.size(subMenu.beanSubMenuAplicacionWeb)}]];
+ 	/*<![CDATA[*/
+		var numElemenMenu = [[${#lists.size(subMenu.beanSubMenuAplicacionWeb)}]];
   
-	var isErrorAlta = [[${errorAltaElemento}]];
-	var noTieneElemSubmenus = [[${noTieneSubmenus}]];
- /*]]>*/
+		var isErrorAlta = [[${errorAltaElemento}]];
+		var noTieneElemSubmenus = [[${noTieneSubmenus}]];
+ 	/*]]>*/
 	
 	 $(document).ready(function(){
 		 
@@ -61,11 +71,9 @@ p.francesa {
 		
 		// Evento de boton Editar
 		$('a[id^="idLinkEditarSM"]').click(function(event) {
-		//	alert ("Salta el envento ___" + event.target.id );
-			
+		 
 			var lastChar = getNumber(event.target.id);
-		//	alert("Paso 1, lastChar " + lastChar);
-			
+		 
 			if ($(this).text() == "editar")
 			   {
 				 $("a[id^='idLinkEditarSM']").hide(); 
@@ -87,8 +95,6 @@ p.francesa {
 				 $("#idHREFMenuSMHidden").val($("#idHRefApliSubMenu" + lastChar).val()); 
 				 $("#idActivadoSMHidden").val($("#idActivadoSubMenu" + lastChar).val()); 
 				 
-				 alert ("Submitir formulario")
-
 			 // Submitir formulario
 				document.getElementById("idFormEditSubMenu").submit();
 			}	
@@ -112,8 +118,10 @@ p.francesa {
 		
 		// Evento Editar numero de orden de menu
 		$("#idEditNumOrden").click(function() {
-			if ( $("#idEditNumOrden").text() == "editar")
+			 
+			if ( $("#idEditNumOrden").text() == "Editar")
 			   {
+ 
 			    $("input[id^='idNumOrdSubMenu']").prop("readonly", false);
 			    $("#idEditNumOrden").text('grabar');
 			    
@@ -219,15 +227,13 @@ p.francesa {
 	  	  {
 		  	numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val().trim();
 			encuentraSecuencial = "N";
-		//    alert("recorremos el " + numOrdVal + "numElemenMenu: " + numElemenMenu);
-
+		 
 		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++)
 		 	    { 
 			   // Encuentra el secuencial
-			//      alert ("indNumOrdenB: " + indNumOrdenB + " numOrdVal : " + numOrdVal  );
 		 		  if (indNumOrdenB == numOrdVal) 
 		 		     {
-		 		//	  alert("Encuentra el numero en la secuencia");
+		 		 
 		 			  encuentraSecuencial = "S";
 		 			  break;
 		 		     }
@@ -245,16 +251,13 @@ p.francesa {
 	  for (indNumOrden = 0; indNumOrden < numElemenMenu; indNumOrden++)  
 	  	   {
 		  	numOrdVal = $("#idNumOrdSubMenu" + indNumOrden).val().trim();
-
-			// alert("numOrdVal: " + numOrdVal   + " indNumCorrelativo: " + indNumCorrelativo);
+		 
 		 	if  (numOrdVal != indNumCorrelativo)
 		 		{
-		 	//	 alert("esta alterado el numero");
 		 		 return true;
 		 		}
 		 	indNumCorrelativo ++; 	
 	  	   }
-	  alert("No ha cambiado ningún numero de orden");
 	  return false;
 	 }
 	 
@@ -282,7 +285,8 @@ p.francesa {
 		</div>
 		
 		<form action="#" th:id="idFormElementosSubMenu" th:action="@{/gestionmenus/actualizarNumOrdenSubmenu}" th:object="${subMenu}" method="post">
-		
+			<input type="hidden" th:id="'idMenuOrdenHidden'" th:name="'menuOrdenHidden'" th:value="${idMenuH}" />	
+	
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8" style="border-bottom: 2px solid #000; margin-bottom: 2px">
@@ -318,7 +322,7 @@ p.francesa {
 									<input type="text" class="form-control form-control-xs"  th:id="'idHRefApliSubMenu'+ ${iterStat.index}" th:name="'hRefApliSubMenu'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].hrefAplicacionN1}" th:maxlength="50" th:readonly="true"/>											
 							 </div>
 						</td>
-							<td th:classappend="${subMenuN1.activo}? div-desactivado" style="display: flex; justify-content: center; align-items: center;">
+							<td th:classappend="${subMenuN1.activo}? div-activado" style="display: flex; justify-content: center; align-items: center;">
 								<input type="checkbox" th:id="'idActivadoSubMenu'+ ${iterStat.index}" th:name="'activadoSubMenu'+ ${iterStat.index}" th:checked= "*{beanSubMenuAplicacionWeb[__${iterStat.index}__].activo}" class="btn btn-primary btn-sm" th:disabled="disabled"/>						
 								<input type="hidden" th:id="'idSubMenuHidden'+ ${iterStat.index}" th:name="'subMenuHidden'+ ${iterStat.index}" th:field="*{beanSubMenuAplicacionWeb[__${iterStat.index}__].idSubmenuNivel1}"/>
 							</td>

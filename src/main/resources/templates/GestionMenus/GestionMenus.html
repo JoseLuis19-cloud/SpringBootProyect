@@ -213,15 +213,15 @@
 	  	  {
 		  	numOrdVal = $("#idNumOrdMenu" + indNumOrden).val().trim();
 			encuentraSecuencial = "N";
-		    alert("recorremos el " + numOrdVal + "numElemenMenu: " + numElemenMenu);
+		//    alert("recorremos el " + numOrdVal + "numElemenMenu: " + numElemenMenu);
 
 		 	 for (indNumOrdenB = 1; indNumOrdenB <= numElemenMenu; indNumOrdenB++)
 		 	    { 
 			   // Encuentra el secuencial
-			      alert ("indNumOrdenB: " + indNumOrdenB + " numOrdVal : " + numOrdVal  );
+			//      alert ("indNumOrdenB: " + indNumOrdenB + " numOrdVal : " + numOrdVal  );
 		 		  if (indNumOrdenB == numOrdVal) 
 		 		     {
-		 			  alert("Encuentra el numero en la secuencia");
+		 			//  alert("Encuentra el numero en la secuencia");
 		 			  encuentraSecuencial = "S";
 		 			  break;
 		 		     }
@@ -240,7 +240,7 @@
 	  	   {
 		  	numOrdVal = $("#idNumOrdMenu" + indNumOrden).val().trim();
 
-			alert("numOrdVal: " + numOrdVal   + " indNumCorrelativo: " + indNumCorrelativo);
+		//	alert("numOrdVal: " + numOrdVal   + " indNumCorrelativo: " + indNumCorrelativo);
 		 	if  (numOrdVal != indNumCorrelativo)
 		 		{
 		 		 alert("Esta alterado el numero");
