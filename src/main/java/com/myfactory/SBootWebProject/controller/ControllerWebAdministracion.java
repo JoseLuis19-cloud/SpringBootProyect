@@ -223,6 +223,8 @@ public class ControllerWebAdministracion {
 	@GetMapping("/pruebas")
 	public String pruebas(Model modelo) {
 	 System.out.println("12345");	
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+
 	 return "GestionWeb/administracion/Prueba1";
 	}
 	

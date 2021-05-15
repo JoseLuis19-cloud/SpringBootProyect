@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<head>
- 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} " />
+ <head>
+ 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
   
-  <style> 	
-	
-  </style>
-  
-   <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-   <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+ 	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+	 <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+ 	<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
    
-   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
    <script type="text/javascript" th:src="@{/js/Beigar.js}"></script>
-</head>
+ </head>
 
 <body>
-
-
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
-		<div id="spinner">        
+	<div id="spinner">        
 	 <img src="/images/circleWating.gif"></img>		 
     </div>
 	
@@ -36,27 +29,27 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10" style="border-bottom: 2px solid #000">
 			
-			<div class="panel panel-default">
-				<div class="panel-body" align="center">
+				<div class="panel panel-default">
+					<div class="panel-body" align="center">
 				
-				<table class="table table-sm">
-					<thead>
-						<tr>	
-							<th th:text="'núm. factura'"></th>
-							<th th:text="'Importe factura'"></th>
-							<th th:text="'Cliente'"></th>
-							<th th:text="'Fecha factura'"></th>
-							<th th:text="'Fecha emision'"></th>
-							<th th:text="'Forma pago'"></th>
-							<th th:text="'Editar'"></th>
-							<th th:text="'Imprimir'"></th>
-						</tr>
-					</thead>
+					<table class="table table-sm">
+						<thead>
+							<tr>	
+								<th th:text="'núm. factura'"></th>
+								<th th:text="'Importe factura'"></th>
+								<th th:text="'Cliente'"></th>
+								<th th:text="'Fecha factura'"></th>
+								<th th:text="'Fecha emision'"></th>
+								<th th:text="'Forma pago'"></th>
+								<th th:text="'Editar'"></th>
+								<th th:text="'Imprimir'"></th>
+							</tr>
+						</thead>
 
 					<tbody>
-					<tr th:if="${pagGenerica.empty}">
-						<td colspan="7">No hay Facturas</td>
-					</tr>
+						<tr th:if="${pagGenerica.empty}">
+							<td colspan="8">No hay Facturas</td>
+						</tr>
 						<tr th:each="factura:${pagGenerica.content}">
 							<td th:text="${factura.numFactura}"></td>
 							<td class="text-right" th:text="${#numbers.formatDecimal(factura.impFactura,3,'POINT',2,'COMMA')}"></td>
@@ -69,7 +62,7 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-1"></div>

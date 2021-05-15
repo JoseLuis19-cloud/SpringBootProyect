@@ -253,20 +253,6 @@ public class ControllerWebFacturas {
 		}
 	 	return "gestionWeb/facturas/FormAltaFactura";
 	}
-	 	
-	 //	datosFacturaWeb.getBeanFacturaLineas().add(new BeanFacturaLineas());
-	 	
-	 //	modelo.addAttribute("datosFacturaWeb", datosFacturaWeb);
-	 	
-	 //	modelo.addAttribute("formasPagoWeb", servicioJPA.getFormasPago());
-	//	modelo.addAttribute("empresaFactuWeb", servJPAEmpresa.listEmpresasProyecto() );	
-	 
-			
-	//	modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
-			
-	//	redirectAttrs.addFlashAttribute("mensaje", "Agregado correctamente").addFlashAttribute("clase", "success");
-
-//		return "gestionWeb/facturas/FormAltaFactura";
 	
 	@RequestMapping(value = "/modiffactura", method = RequestMethod.POST)
 	public String modifFactura(@ModelAttribute("datosFacturaWeb") @Valid BeanFacturaWeb datosFacturaWeb,

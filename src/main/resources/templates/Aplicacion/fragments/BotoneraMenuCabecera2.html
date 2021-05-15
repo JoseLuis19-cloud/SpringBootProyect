@@ -3,15 +3,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   	<link th:rel="stylesheet" th:href="../static/css/CustomBootstrap.css" />
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 	
 <style>
 	.navbar .dropdown-toggle, .navbar .dropdown-menu a {
 		cursor: pointer;
+		z-index:10;
 	}
 
 	.navbar .dropdown-item.active, .navbar .dropdown-item:active {
@@ -80,15 +76,15 @@
  </script>
 </head>
 
-<body>
+   <body>
 	<header th:fragment="menucabecera">
 	
-		<script th:inline="javascript">
+	  <script th:inline="javascript">
 		 function logoutSys()
 	 	 {
 	  	  document.getElementById("idFormLogout").submit();		
 	  	 }
-		</script>
+	  </script>
 	
 		<div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
 			
@@ -103,8 +99,8 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 
-				<li class="nav-item dropdown" th:each="elemenMenuPrincipal : ${opcionesMenuUsuario}">
-					<a class="nav-link dropdown-toggle" th:id="'dropdown'+ ${elemenMenuPrincipal.idMenuSesion}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${elemenMenuPrincipal.textoMenuSesion}"></a>
+					<li class="nav-item dropdown" th:each="elemenMenuPrincipal : ${opcionesMenuUsuario}">
+						<a class="nav-link dropdown-toggle" th:id="'dropdown'+ ${elemenMenuPrincipal.idMenuSesion}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${elemenMenuPrincipal.textoMenuSesion}"></a>
 
 						<ul class="dropdown-menu" th:aria-labelledby="'dropdown'+ ${elemenMenuPrincipal.idMenuSesion}" th:if="${not #lists.isEmpty(elemenMenuPrincipal.listBeanSubMenuN1UsuSession)}">
 							<th:block th:each="eleSubMenuN1 : ${elemenMenuPrincipal.listBeanSubMenuN1UsuSession}">
@@ -117,11 +113,11 @@
 					<img src="/images/botonOff2.png" width="40" height="40" th:alt="desconectar" th:onclick="logoutSys();"></img>
 					<b><span>Usuario: </span><span sec:authentication="name"></span></b>
 					<form th:id="idFormLogout" th:action="@{/logout}" method="post">
-				<!-- 	<input type="submit" value="Logout" />  -->
+			<!-- 	<input type="submit" value="Logout" />  -->
 					</form>
 				</div>
 			</div>
-	</div>
+		</div>
 	</header>
-</body>
+	</body>
 </html>
