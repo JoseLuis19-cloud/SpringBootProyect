@@ -10,7 +10,7 @@
 		
 	.div-desactivado{
   		color: #e0ddbc;
-  		background-color: #b7cebc;
+  		background-color: #E8B3C3;
   		border-color: #004E64;
   		font: 16px Arial, sans-serif;
  		letter-spacing: 0.05em;
@@ -36,7 +36,7 @@
 	.divRoundedBuscar {
   	 margin-top: 4px;
   	 margin-left: 6px;
-  	 margin-bottom: 4px;
+  	 margin-bottom: 8px;
    	 border-color: black;
    	 border-radius: 10px;
    	 border-style: solid;
@@ -106,9 +106,9 @@
 							<td th:classappend="${empleado.indbajaEmpleado}? div-desactivado" th:text="${empleado.email}"></td>
 							<td th:classappend="${empleado.indbajaEmpleado}? div-desactivado" th:text="${empleado.telefMovil}"></td>
 							<td th:classappend="${empleado.indbajaEmpleado}? div-desactivado"  class="text-right" th:text="${#numbers.formatDecimal(empleado.impBrutoAnual,3,'POINT',2,'COMMA')}"></td>
-							<td><a th:if="${! empleado.indbajaEmpleado}" th:href="@{/gestionWeb/empleados/formbajaempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Baja</a></td>
-							<td><a th:if="${empleado.indbajaEmpleado}"   th:href="@{/gestionWeb/empleados/formactivarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn btn-primary btn-sm" role="button">Activar</a></td>
-							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado}, numPag=${numPag}, numPos=${numPos})}" class="btn btn-primary btn-sm" role="button">Editar</a></td>
+							<td><a th:if="${! empleado.indbajaEmpleado}" th:href="@{/gestionWeb/empleados/formbajaempleado(idEmpleado=${empleado.idEmpleado})}" class="btn-primary btn-sm" role="button">Baja</a></td>
+							<td><a th:if="${empleado.indbajaEmpleado}"   th:href="@{/gestionWeb/empleados/formactivarempleado(idEmpleado=${empleado.idEmpleado})}" class="btn-primary btn-sm" role="button">Activar</a></td>
+							<td><a th:href="@{/gestionWeb/empleados/formeditarempleado(idEmpleado=${empleado.idEmpleado}, numPag=${numPag}, numPos=${numPos})}" class="btn-primary btn-sm" role="button">Editar</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -125,7 +125,7 @@
 	
 	<div class="row">
  		<div class="col-1"></div>
- 		<div class="col-10 text-right"> 
+ 		<div class="col-10 text-right">
  			<a th:href="@{/gestionWeb/empleados/formaltaempleado}" class="btn btn-primary" role="button">Nuevo Empleado</a>
  		</div>
  		<div class="col-1"></div>

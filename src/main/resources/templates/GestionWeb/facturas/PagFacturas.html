@@ -12,12 +12,19 @@
   
    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
    <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+   
    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-
+   <script type="text/javascript" th:src="@{/js/Beigar.js}"></script>
 </head>
 
 <body>
+
+
 	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
+		<div id="spinner">        
+	 <img src="/images/circleWating.gif"></img>		 
+    </div>
 	
 	<div class="container-fluid">
 	
@@ -58,7 +65,7 @@
 							<td th:text="${#calendars.format(factura.fecEmisionFactura, 'dd/MM/yyyy')}"></td>
 							<td th:text="${factura.formaPago.desForPago}"></td>
 							<td><a th:href="@{/gestionWeb/facturas/formeditarfactura(idFactura=${factura.idFactura})}" class="btn btn-primary btn-sm" role="button">Editar</a></td>
-							<td><a th:href="@{/gestionWeb/facturas/generarpdffactura(idFactura=${factura.idFactura}, numFactura=${factura.numFactura})}" class="btn btn-primary btn-sm" role="button">Imprimir</a></td>
+							<td><a th:href="@{/gestionWeb/facturas/generarpdffactura(idFactura=${factura.idFactura}, numFactura=${factura.numFactura})}" onclick="return showProgress();" class="btn btn-primary btn-sm" role="button">Imprimir</a></td>
 						</tr>
 					</tbody>
 				</table>

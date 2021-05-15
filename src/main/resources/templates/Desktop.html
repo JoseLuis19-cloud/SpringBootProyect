@@ -26,11 +26,55 @@
    padding: 15px;
 }
 
+div#spinner
+{
+    display: none;
+    width:240px;
+    height: 210px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background:url(/images/circleWating.gif) no-repeat center #fff;
+    text-align:center;
+    padding:10px;
+    font:normal 16px Tahoma, Geneva, sans-serif;
+    border:1px solid #666;
+    margin-left: -50px;
+    margin-top: -50px;
+    z-index:2;
+    overflow: auto;
+}
+
 </style>
 
+ <script th:inline="javascript">
+ var spinnerVisible = false;
+ function llamada() {
+     if (!spinnerVisible) {
+         $("div#spinner").fadeIn("fast");
+         spinnerVisible = true;
+     }
+ };
+ 
+ function hideProgress() {
+     if (spinnerVisible) {
+         var spinner = $("div#spinner");
+         spinner.stop();
+         spinner.fadeOut("fast");
+         spinnerVisible = false;
+     }
+ };
+ 
+ </script>
 </head>
 
 <body>
+
+ 
+   <div id="spinner">        
+	 <img src="/images/circleWating.gif"></img>		 
+    </div>
+    
   <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
   <header>
@@ -125,14 +169,14 @@
 	<!--		<a th:href="@{/informes/forminformeusuarios}" class="btn btn-primary" role="button">Informe Usuarios</a>  -->
 	<!--		<a th:href="@{/informes/forminformeempleados}" class="btn btn-primary" role="button">Informe Empleados</a>  -->
  	<!--		<a th:href="@{/administracion/formcreartarea}" class="btn btn-primary" role="button">Crear Tarea</a>  -->
-				<a th:href="@{/gestionWeb/empleados/pagempleados10nuemod}" class="btn btn-primary" role="button">Pag. Empleado</a>
+				<a th:href="@{/gestionWeb/empleados/pagempleados10nuemod}" class="btn btn-primary" role="button">Empleado</a>
 	<!--		<a th:href="@{/administracion/pruebas}" class="btn btn-primary" role="button">prueba Web</a>  -->
  				<a th:href="@{/administracion/formcopiaseguridad}" class="btn btn-primary" role="button">Copia Seguridad</a>
  				<a th:href="@{/administracion/formrestaurarcopiaseg}" class="btn btn-primary" role="button">Restaurar Cop Seg</a>
-				<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Pag Empresas</a>
-				<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Pag Proyectos</a>
+				<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Empresas</a>
+				<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Proyectos</a>
 		<!--	<a th:href="@{/administracion/forminfotecnologias}" class="btn btn-primary" role="button">Info. Tecnologias</a>  -->
-				<a th:href="@{/gestionWeb/facturas/enivaremailpdffactura}" class="btn btn-primary" role="button">Enviar PDF Fac email</a>
+				<a id="idLinkEnvEmail" th:href="@{/gestionWeb/facturas/enivaremailpdffactura}" onclick="return llamada();" class="btn btn-primary" role="button">Enviar PDF Fac email</a>
 			</div>
 			<div class="col-1"></div>
 		</div>

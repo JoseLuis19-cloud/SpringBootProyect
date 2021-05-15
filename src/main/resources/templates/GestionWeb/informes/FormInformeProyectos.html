@@ -3,14 +3,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
   
-	<link href="../static/css/CustomBootstrap.css" th:href="@{/css/CustomBootstrap.css}" rel="stylesheet" />
-  	
+	 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
     
     <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	
+	<script th:src="@{/js/Beigar.js}"></script>
    
  <style>
   
@@ -22,7 +25,10 @@
  <body>
 
 		<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
-	
+		
+		<div id="spinner">        
+	 <img src="/images/circleWating.gif"></img>		 
+    </div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Informes</div>
@@ -88,7 +94,7 @@
 			<div class="col-1"></div>	
 			<div class="col-10 text-right">
 				<a th:href="@{/}" class="btn btn-primary" role="button">Volver</a>
-				<button type="submit" class="btn btn-primary">Generar Informe</button>
+				<button type="submit" onclick="return showProgress();" class="btn btn-primary">Generar Informe</button>
 			</div>	
 			<div class="col-1"></div>	
 		</div>
