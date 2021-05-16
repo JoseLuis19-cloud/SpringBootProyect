@@ -136,13 +136,13 @@ body {
   font-family: Arial, sans-serif;;
 }
 
-h1 {
-  color: #00BCE1;
-  font-weight: 300;
-  margin-bottom: 40px;
-}
+	h1 {
+ 	 color: #00BCE1;
+  	font-weight: 300;
+  	margin-bottom: 40px;
+	}
 
-.container-fluid {
+	.container-fluid {
 	 overflow: hidden;
 	 padding-top: 0px;
   	 padding-bottom: 0px;
@@ -150,9 +150,8 @@ h1 {
  	 margin-top: -30px;
 	}
 	
-	
-div#spinner
-{
+	div#spinner
+	{
     display: none;
     width:230px;
     height: 220px;
@@ -168,4 +167,12 @@ div#spinner
     margin-top: -50px;
     z-index:2;
     overflow: auto;
-}
+	}
+
+	.form-control-xs {
+    	height: calc(1em + .375rem + 2px) !important;
+    	padding: .125rem .25rem !important;
+    	font-size: .75rem !important;
+    	line-height: 1.5;
+    	border-radius: .2rem;
+	}

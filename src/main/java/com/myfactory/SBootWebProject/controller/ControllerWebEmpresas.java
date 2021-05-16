@@ -114,7 +114,9 @@ public class ControllerWebEmpresas {
 	 Empresa empresa = servJPAEmpresa.buscarIdEmpresa(idEmpresa);
 	 modelo.addAttribute("datosEmpresaWeb", cargarBeansDatos.cargarBeanEmpresa(empresa));
 	 
-	return "GestionWeb/empresas/FormEditarEmpresa";
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 
+	 return "GestionWeb/empresas/FormEditarEmpresa";
 	}
 	
 	@RequestMapping(value = "/modifempresa", method = RequestMethod.POST)

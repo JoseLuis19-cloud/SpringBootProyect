@@ -6,19 +6,17 @@
 			<div class="d-flex justify-content-center">
 				<nav aria-label="Page navigation example" >
 					<ul class="pagination">
-					
-					<li class="page-item disabled">
-						<li th:if="${numPag != '0'}"       class="page-item"> <a class="page-link" th:href="${linkBotonAnt}" th:text="Previa"></a></li>
-						<li th:if="${numPagVisibles > 0}"  class="page-item" th:classappend="${numPagAct1 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton1}" th:text="${numPagWeb1}"></a></li>
-						<li th:if="${numPagVisibles > 10}" class="page-item" th:classappend="${numPagAct2 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton2}" th:text="${numPagWeb2}"></a></li>
-						<li th:if="${numPagVisibles > 20}" class="page-item" th:classappend="${numPagAct3 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton3}" th:text="${numPagWeb3}"></a></li>
-						<li th:if="${numPagVisibles > 30}" class="page-item" th:classappend="${numPagAct4 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton4}" th:text="${numPagWeb4}"></a></li>
-						<li th:if="${numPagVisibles > 40}" class="page-item" th:classappend="${numPagAct5 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton5}" th:text="${numPagWeb5}"></a></li>
-						<li th:if="${numPagVisibles > 50}" class="page-item"> <a class="page-link" th:href="${linkBotonAvan}" th:text="Siguiente"></a></li>
+						<li class="page-item disabled">
+							<li th:if="${numPag != '0'}"       class="page-item"> <a class="page-link" th:href="${linkBotonAnt}" th:text="Previa"></a></li>
+							<li th:if="${numPagVisibles > 0}"  class="page-item" th:classappend="${numPagAct1 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton1}" th:text="${numPagWeb1}"></a></li>
+							<li th:if="${numPagVisibles > 10}" class="page-item" th:classappend="${numPagAct2 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton2}" th:text="${numPagWeb2}"></a></li>
+							<li th:if="${numPagVisibles > 20}" class="page-item" th:classappend="${numPagAct3 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton3}" th:text="${numPagWeb3}"></a></li>
+							<li th:if="${numPagVisibles > 30}" class="page-item" th:classappend="${numPagAct4 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton4}" th:text="${numPagWeb4}"></a></li>
+							<li th:if="${numPagVisibles > 40}" class="page-item" th:classappend="${numPagAct5 == 'S'}? 'page-item active'"> <a class="page-link" th:href="${linkBoton5}" th:text="${numPagWeb5}"></a></li>
+							<li th:if="${numPagVisibles > 50}" class="page-item"> <a class="page-link" th:href="${linkBotonAvan}" th:text="Siguiente"></a></li>
 					</ul> 	
 					<!-- <a href="" class="baseclass" th:classappend="${isAdmin} ? adminclass : userclass"></a> -->												
 				</nav>
-				
 			</div>
 		</header>
 	</body>

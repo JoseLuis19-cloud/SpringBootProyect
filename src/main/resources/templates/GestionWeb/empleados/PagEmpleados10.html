@@ -3,8 +3,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
  <head>
 
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
-	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
+	 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+	 <link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}"/>
 	
 	<style> 	
 		
@@ -18,38 +18,36 @@
 	}
 	
 	.table-condensed{
-  	font-size: 15px;
+  		font-size: 15px;
 	}
 	
 	.margenDivPrincipal{
-  	 margin-top: 2px;!important;
+  		 margin-top: 2px;!important;
 	}
-	
-	.form-control-xs {
-   	 	height: calc(1em + .375rem + 2px) !important;
-   	 	padding: .125rem .25rem !important;
-    	font-size: .75rem !important;
-    	line-height: 1.5;
-    	border-radius: .2rem;
-		}
 		
 	.divRoundedBuscar {
-  	 margin-top: 4px;
-  	 margin-left: 6px;
-  	 margin-bottom: 8px;
-   	 border-color: black;
-   	 border-radius: 10px;
-   	 border-style: solid;
-   	 border-width: 1px;
-   	 width: 35%;
-   	 margin-right: 0;
-   	 padding: 15px;
-	}
+  	 	margin-top: 4px;
+  	 	margin-left: 6px;
+  	 	margin-bottom: 8px;
+   	 	border-color: black;
+   	 	border-radius: 10px;
+   	 	border-style: solid;
+   	 	border-width: 1px;
+   		width: 35%;
+   	 	margin-right: 0;
+   		padding: 15px;
+		}
   </style>
-</head>
+  
+ 	 <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	 <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+ 	 <script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+
+  
+ </head>
 
 <body>
-	  <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	 <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	
 	 <div class="container-fluid">
 	
@@ -130,8 +128,6 @@
  		</div>
  		<div class="col-1"></div>
 	</div>
-			
-
    
    </div>
 
