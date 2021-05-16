@@ -9,21 +9,9 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css}"/>
 
- <style>
- 
-.form-control-xs {
-	height: calc(1em + .375rem + 2px) !important;
-	padding: .125rem .25rem !important;
-	font-size: .75rem !important;
-	line-height: 1.5;
-	border-radius: .2rem;
- }
-
-</style>
-
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+ 	<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
 
  	<script th:inline="javascript">
  
@@ -83,7 +71,8 @@
  			});
 	 	});	
 
-	 });	 
+	 });
+	 
 	</script>
 
 </head>
@@ -183,7 +172,7 @@
 					<div class="col-md-5 mb-3">
 						<div id="idDivEmpresasDis">
 							<div class="subtitulo-pag3">Empresas disponibles para el proyecto</div>
-						<div th:insert="GestionWeb/fragments/anadirEmpresaProyecto :: anadirEmprProyecto" style="overflow-y: scroll; width:600px; height:500px; border: 1px solid black;"></div>
+						<div th:insert="GestionWeb/fragments/anadirEmpresaProyecto :: anadirEmprProyecto" style="overflow-y: scroll; width:600px; height:440px; border: 1px solid black;"></div>
 						</div>
 			 		</div>
 			 		
@@ -218,7 +207,7 @@
 					<div class="col-md-5 mb-3">
 						<div id="idDivSubMenu1Usu">
 							<div class="subtitulo-pag3"> Añada un empleado Beigar al proyecto</div>
-							<div th:insert="GestionWeb/fragments/anadirEmpleadoProyecto :: anadirEmplProyecto" style="overflow-y: scroll; width:600px; height:500px; border: 1px solid black;"></div>
+							<div th:insert="GestionWeb/fragments/anadirEmpleadoProyecto :: anadirEmplProyecto" style="overflow-y: scroll; width:600px; height:440px; border: 1px solid black;"></div>
 						</div>
 			 		</div>
 				
@@ -258,6 +247,7 @@
  		</form>		
  
 	</div>
+
  		
  <!-- Include Date Range Picker -->
   <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>

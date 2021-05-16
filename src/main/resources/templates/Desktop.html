@@ -8,9 +8,11 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}" />
 		
-	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+	 <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	 <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+ 	 <script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+ 	 
+ 	 <script type="text/javascript" th:src="@{/js/Beigar.js}"></script>
 
 <style>
   
@@ -48,22 +50,13 @@ div#spinner
 </style>
 
  <script th:inline="javascript">
- var spinnerVisible = false;
- function llamada() {
-     if (!spinnerVisible) {
-         $("div#spinner").fadeIn("fast");
-         spinnerVisible = true;
-     }
- };
+	$(document).ready(function() {
+	 
+ 		$('a[id^="idLinkTerminar"]').click(function(event) {
+		 $("#myModalFinTarea").modal();
+		});
  
- function hideProgress() {
-     if (spinnerVisible) {
-         var spinner = $("div#spinner");
-         spinner.stop();
-         spinner.fadeOut("fast");
-         spinnerVisible = false;
-     }
- };
+ 	});
  
  </script>
 </head>
@@ -137,6 +130,7 @@ div#spinner
 							<th th:text="'Fecha Creación'"></th>
 							<th th:text="'Fecha Límite'"></th>
 							<th th:text="'Tarea'"></th>
+							<th th:text="''"></th>
 						 </tr>
 				 	  </thead>
 					  <tbody>
@@ -149,8 +143,11 @@ div#spinner
 							<td th:text="${#calendars.format(aviso.fecLimiteAviso, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#calendars.format(aviso.fecCreacionAviso, 'dd/MM/yyyy')}"></td>
 							<td> 
-							  <a th:id="'idLinkTarea' + ${aviso.idAviso}" th:name="'linkTarea' + ${aviso.idAviso}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${aviso.idAviso}, nomUsuario=${aviso.idAviso} )}" class="btn btn-primary btn-sm" role="button">ir</a>
+							  <a th:id="'idLinkTarea' + ${aviso.idAviso}" th:name="'linkTarea' + ${aviso.idAviso}" th:href="@{/gestionmenususuario/obtenermenusuario(idUsuario=${aviso.idAviso}, nomUsuario=${aviso.idAviso} )}" class="btn-primary btn-sm" role="button">ir</a>
 							</td> 
+							<td> 
+							  <a th:id="'idLinkTerminar' + ${aviso.idAviso}" th:name="'linkTerminar' + ${aviso.idAviso}" class="btn-primary btn-sm" role="button">Finalizar</a>
+							</td>
 						</tr>
 					</tbody>
 				  </table>
@@ -176,7 +173,7 @@ div#spinner
 				<a th:href="@{/gestionWeb/empresas/pagempresas}" class="btn btn-primary" role="button">Empresas</a>
 				<a th:href="@{/gestionWeb/proyectos/pagproyectos}" class="btn btn-primary" role="button">Proyectos</a>
 		<!--	<a th:href="@{/administracion/forminfotecnologias}" class="btn btn-primary" role="button">Info. Tecnologias</a>  -->
-				<a id="idLinkEnvEmail" th:href="@{/gestionWeb/facturas/enivaremailpdffactura}" onclick="return llamada();" class="btn btn-primary" role="button">Enviar PDF Fac email</a>
+				<a id="idLinkEnvEmail" th:href="@{/gestionWeb/facturas/enivaremailpdffactura}" onclick="return showProgress();" class="btn btn-primary" role="button">Enviar PDF Fac email</a>
 			</div>
 			<div class="col-1"></div>
 		</div>
@@ -184,11 +181,35 @@ div#spinner
 		<div class="row">
 			<div class="col-9"></div>	
 			<div class="col-3">
-				<p>Copyright © 2020   Version Beta 1.0 </p>
+				<p>Copyright © 2020  Version Beta 1.0 </p>
 			</div>
 		</div>
 	</div>	
+
+<!-- Modal Confirmación -->
+  <div id="myModalFinTarea" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmación Terminar tarea</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<p th:id="'idP1'"> Termina la tarea</p>
+      	 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        <button type="button" th:onclick="" class="btn btn-primary" data-dismiss="modal">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
+
 </html>
 
 
