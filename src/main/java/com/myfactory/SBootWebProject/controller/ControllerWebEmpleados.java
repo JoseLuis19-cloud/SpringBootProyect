@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -60,6 +62,8 @@ public class ControllerWebEmpleados {
 	ServJPAUsuario servJPAUsuario;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
+	
+	private static final Logger logger = LogManager.getLogger();
 
 	@Value("${path.MACOSDescargaFicheros}")
 	private String pathMacOS;
@@ -89,7 +93,7 @@ public class ControllerWebEmpleados {
 			  } 
 			catch (Exception e) 
 			   {
-				System.out.println("error cargar foro formulario");
+				logger.error("Se ha producido un error al cargar la imagen del empleado"); 
 			   }
 			}
 		else
@@ -151,7 +155,7 @@ public class ControllerWebEmpleados {
 				modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
 				} 
 			catch (Exception e) {
-				System.out.println("Error cargar foto formulario");
+				logger.error("Se ha producido un error al cargar la imagen del empleado" ); 
 				modelo.addAttribute("imgFoto", null);	
 			 }
 			}
@@ -209,7 +213,7 @@ public class ControllerWebEmpleados {
 				modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
 				} 
 			catch (Exception e) {
-				System.out.println("Error cargar foto formulario");
+				logger.error("Se ha producido un error al cargar la imagen del empleado" ); 
 				modelo.addAttribute("imgFoto", null);	
 			 }
 			}
@@ -321,6 +325,7 @@ public class ControllerWebEmpleados {
 			}
 			catch (Exception e)
 			{
+			 logger.error("Se ha producido un error en el alta de un empleado" ); 
 			 modelo.addAttribute("errorValidacion" , true);
 			 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getDesError() );
 			}
@@ -421,7 +426,8 @@ public class ControllerWebEmpleados {
 		 {
 			if ( file.getSize() > 65535L)
 				{
-				 System.out.println("El tamaño de la foto no puede superar los 65.535 bytes");	
+				 System.out.println("El tamaño de la foto no puede superar los 65.535 bytes");
+				 logger.error("El tamaño de la foto no puede superar los 65.535 bytes" ); 
 				 attributes.addAttribute("errorValidacion", true);
 			     attributes.addAttribute("mensajeError", "52, " + "El tamaño de la foto no puede superar los 65.535 bytes");
 				}
@@ -438,7 +444,7 @@ public class ControllerWebEmpleados {
 		 }
 		catch (Exception exp) 
 		 {
-		  System.out.println("Error conversion");
+		  logger.error("Se ha producido un error al enviar la imagen del empleado" ); 
 		  attributes.addAttribute("errorValidacion", true);
 		  attributes.addAttribute("mensajeError", "53" + "Se ha producido un error en la inserción de la imagen");
 		 }
@@ -458,6 +464,7 @@ public class ControllerWebEmpleados {
          } 
         catch (IOException e) 
          {
+        	 logger.error("Se ha producido un error al grabar la imagen del empleado en el disco" ); 
            e.printStackTrace();
          }
 
@@ -534,7 +541,7 @@ public class ControllerWebEmpleados {
 	        modelo.addAttribute("imgFoto", this.getImgData(blobBytes));	
 			} 
 		catch (Exception e) {
-			System.out.println("error validacion");
+			 logger.error("Se ha producido un error al cargar la imagen del empleado en el disco" ); 
 		}
 	
 		modelo.addAttribute("empleado", empleado);
@@ -624,6 +631,7 @@ public class ControllerWebEmpleados {
 		 }
 		catch (Exception exp)
 		 {
+			 logger.error("Se ha producido un error en la creacion de botonera de la paginación de los empleados" ); 
 			exp.printStackTrace();
 		 }
 		

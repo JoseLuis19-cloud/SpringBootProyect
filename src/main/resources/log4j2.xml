@@ -21,10 +21,10 @@
     </Appenders>
       
       <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="FILE_INFO" level="debug"/>
-            <AppenderRef ref="FILE_ERROR" level="debug"/>
-            <AppenderRef ref="ConsoleAppender" level="info"/>
+        <Root level="INFO">
+            <AppenderRef ref="FILE_INFO" level="INFO"/>
+            <AppenderRef ref="FILE_ERROR" level="ERROR"/>
+            <AppenderRef ref="ConsoleAppender" level="INFO"/>
         </Root>
     </Loggers>
     

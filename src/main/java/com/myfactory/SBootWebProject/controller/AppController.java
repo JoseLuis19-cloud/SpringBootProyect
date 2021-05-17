@@ -117,6 +117,9 @@ public class AppController {
  		
  		logger.info("El usuario: " + beanIdUsuario.getIdUsuario() + " ha entrado en la aplicación" );
  
+ 		
+ 		logger.error("El usuario: ERROR ERROR ERROR" );
+ 		 
 	return "Desktop";
 	}
 	
@@ -133,27 +136,12 @@ public class AppController {
 	
 	private void enviarEmail()
 	{
-	/*	 System.out.println("Buenbas");
-		 SimpleMailMessage message = new SimpleMailMessage(); 
-	        message.setFrom("jlbuenome.andro@gmail.com");
-	        message.setTo("jlbuenome.andro@gmail.com"); 
-	        message.setSubject("Cabecera"); 
-	        message.setText("Cuerpo del mensaje");
-	        emailSender.send(message); */
-		
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 	    mailSender.setHost("smtp.gmail.com");
 	    mailSender.setPort(587);
 	    
 	    mailSender.setUsername("jlbuenome.andro@gmail.com");
 	    mailSender.setPassword("19buenomendez70");
-		
-		/* Properties props = mailSender.getJavaMailProperties();
-		    props.put("mail.transport.protocol", "smtp");
-		    props.put("mail.smtp.auth", "true");
-		    props.put("mail.smtp.starttls.enable", "true");
-		    props.put("mail.debug", "true"); */
-		    
 		    
 		  Properties props = new Properties();
 		  props.put("mail.smtp.host", "smtp.gmail.com");
@@ -186,39 +174,13 @@ public class AppController {
 	            System.out.println("Done");
 
 	        } catch (MessagingException e) {
+	        	logger.error("Se ha producido un error al enviar el email");
 	            e.printStackTrace();
 	        }
 
-	/*	String mailHost = "localhost";
-		String mailFrom = "jlbuenome.andro@gmail.com";
-		String[] arrDestinatarios = {"jlbuenome.andro@gmail.com"};
-		String mailSubject = "Asunto del email";
-		String mailMessage = "Prueba del mensaje del email"; */		
-		// Enviamos Mensaje de facturas vencidas el cobro al cliente
-	//	try {
-
-	//	AdapterMAIL.enviaMail(mailHost, mailFrom, arrDestinatarios,
-	//			mailSubject, mailMessage);
-//		}
-	//	catch (Exception exp)
-//		{
-//			System.out.println("Se ha  producido un error al enviar un email");
-//		}
  
 	}
 	
-/*	@Bean
-	public JavaMailSender getJavaMailSender() {
-	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	    mailSender.setHost("smtp.gmail.com");
-	    mailSender.setPort(587);
-	    
-	    mailSender.setUsername("jlbuenome.andro@gmail.com");
-	    mailSender.setPassword("19buenomendez70");
-	    
-	
-	    return mailSender;
-	} */
 	private void leerAvisosUsuario(Model modelo, Long idUsuario)
 	{
 		Iterable<Aviso> listAviso = servJPAAviso.listAvisosUsuario(idUsuario );

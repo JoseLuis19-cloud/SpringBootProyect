@@ -110,7 +110,7 @@ public class ControllerWebAdministracion {
 		               SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		                  
 		               try 
-		                  {
+		                 {
 		                  Path fileObj = Paths.get("/Users/UsuarioJoseLuis/Documents/" + archivos[i].getName());
 		                  BasicFileAttributes attr = Files.readAttributes(fileObj, BasicFileAttributes.class);
 		                  
@@ -119,9 +119,9 @@ public class ControllerWebAdministracion {
 							
 					      listFicheros.add(ficheroSO);
 		                  }
-		                  catch (Exception e)
+		                 catch (Exception e)
 		                  {
-		                	  
+		                   parentLogger.error("Se ha producido un error al recuperar la lista de copias de seguridad" ); 
 		                  }
 	                }
 	                // lo Metemos en un list
@@ -175,7 +175,7 @@ public class ControllerWebAdministracion {
 		                  }
 		                  catch (Exception e)
 		                  {
-		                	  
+		                   parentLogger.error("Se ha producido un error al recuperar la lista de copias de seguridad a restaurar" ); 
 		                  }
 		                }
 		                // lo Metemos en un list
@@ -272,6 +272,7 @@ public class ControllerWebAdministracion {
 				modelo.addAttribute("errorValidacion", true);
 				modelo.addAttribute("mensajeError",
 						datosError.getCodError().toString() + ", " + datosError.getDesError());
+		          parentLogger.error("Se ha producido un error al crear la tarea para el usuario: " + idUsuario ); 
 			}
 
 			modelo.addAttribute("datosTareaWeb", beanTareaWeb);
@@ -312,14 +313,12 @@ public class ControllerWebAdministracion {
             System.out.println("Se ha realizado la backup de la BBDD SpringBoot");//
 			// parentLogger.error("Se ha realizado la backup de la BBDD SpringBoot");
         } catch (IOException e1) {
+            parentLogger.error("Se ha producido un error en el fichero al restaurar la copia de seguridad"); 
             e1.printStackTrace();
         } catch (InterruptedException e) {
+            parentLogger.error("Se ha producido un error en el proceso de recuperación la copia de seguridad a restaurar" ); 
             e.printStackTrace();
         }
- 
-   // } else {
-    //	parentLogger.error("Se realizo la copia de seguridad ya");
-   // }
 	}
 	
 	
@@ -343,10 +342,12 @@ public class ControllerWebAdministracion {
        catch (IOException e1) 
           {
             e1.printStackTrace();
+            parentLogger.error("Se ha producido un error en el fichero al restaurar la copia de seguridad"); 
          } 
        catch (InterruptedException e)
          {
             e.printStackTrace();
+            parentLogger.error("Se ha producido un error en el proceso de recuperación la copia de seguridad a restaurar" ); 
          }
 	}
 
@@ -370,8 +371,10 @@ public class ControllerWebAdministracion {
             
       } catch (IOException e1) {
           e1.printStackTrace();
+          parentLogger.error("Se ha producido un error en el proceso de recuperación la copia de seguridad a restaurar" ); 
       } catch (InterruptedException e) {
           e.printStackTrace();
+          parentLogger.error("Se ha producido un error en el proceso de recuperación la copia de seguridad a restaurar" ); 
       }
 	}
 	
