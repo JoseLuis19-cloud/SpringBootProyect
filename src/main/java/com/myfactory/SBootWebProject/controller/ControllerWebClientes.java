@@ -270,7 +270,7 @@ public class ControllerWebClientes {
 		int numPagInt = 0;
 		int numPosInt = 0;
 		HashMap<String, Integer>  paramBotonera = null;
-		CrearBotoneraPag botoneraPag = null;
+	  	CrearBotoneraPag botoneraPag = null;
 		
 		if (numBloquePag == null)
 		{

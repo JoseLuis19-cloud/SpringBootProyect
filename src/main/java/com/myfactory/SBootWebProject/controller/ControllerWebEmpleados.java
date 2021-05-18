@@ -176,7 +176,6 @@ public class ControllerWebEmpleados {
 	public String bajaempleado(Model modelo, @ModelAttribute("formEmpleadoWeb") BeanEmpleadoWeb datosEmpleadoWeb)  { 
 		
 		Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( datosEmpleadoWeb.getIdEmpleadoWeb() );
-		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	 
 		 empleado.get().setFecBajaEmplelado(datosEmpleadoWeb.getFecBajaEmpleadoWeb()) ;
 		 empleado.get().setIndbajaEmpleado(true); 

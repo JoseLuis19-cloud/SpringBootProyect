@@ -20,16 +20,23 @@
 }
     </style> 
     
-      <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+     <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 	 <script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
  	 <script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
  
+  	<script type="text/javascript" th:src="@{/js/Beigar.js}"></script>
 </head>
 
  <body>
 
+
 <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
-	
+	 
+	 <div id="spinner">        
+	 <img src="/images/circleWating.gif"></img>		 
+    </div>
+    
+    
 	<div class="container-fluid">
 		<div class="row">
 			<div class="titulo-pag2">Administración</div>
@@ -69,7 +76,7 @@
   		<br>		 
  		<div class="row">
 			<div class="col-2"></div>
-  			<div class="col-8 text-right"><button type="submit" class="btn btn-primary">Generar Copia Seguridad</button></div>
+  			<div class="col-8 text-right"><button type="submit" onclick="return showProgress();" class="btn btn-primary">Generar Copia Seguridad</button></div>
   			<div class="col-2"></div>
 		</div>
 		<div class="row">

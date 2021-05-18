@@ -202,16 +202,16 @@ public class ControllerWebAdministracion {
 	@GetMapping("/formcreartarea")
 	public String formCrearTarea(Model modelo) {
 
-		BeanTareaWeb datosTareaWeb = new BeanTareaWeb();
+	 BeanTareaWeb datosTareaWeb = new BeanTareaWeb();
 
-		datosTareaWeb.setFecCreacionAviso(Calendar.getInstance());
-		datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
-		datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
+	 datosTareaWeb.setFecCreacionAviso(Calendar.getInstance());
+	 datosTareaWeb.setTpoFrecuRepeticion(servicioJPA.getTpoFrecRepeticion());
+	 datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
 
-		modelo.addAttribute("datosTareaWeb", datosTareaWeb);
-		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+	 modelo.addAttribute("datosTareaWeb", datosTareaWeb);
+	 modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 
-		return "GestionWeb/administracion/FormCrearTarea";
+	 return "GestionWeb/administracion/FormCrearTarea";
 	}
 	
 	@GetMapping("/forminfotecnologias")
@@ -269,10 +269,10 @@ public class ControllerWebAdministracion {
 			} 
 			catch (Exception e)
 			{
-				modelo.addAttribute("errorValidacion", true);
-				modelo.addAttribute("mensajeError",
-						datosError.getCodError().toString() + ", " + datosError.getDesError());
-		          parentLogger.error("Se ha producido un error al crear la tarea para el usuario: " + idUsuario ); 
+			modelo.addAttribute("errorValidacion", true);
+			modelo.addAttribute("mensajeError",
+			datosError.getCodError().toString() + ", " + datosError.getDesError());
+		    parentLogger.error("Se ha producido un error al crear la tarea para el usuario: " + idUsuario ); 
 			}
 
 			modelo.addAttribute("datosTareaWeb", beanTareaWeb);
@@ -286,7 +286,6 @@ public class ControllerWebAdministracion {
 		//	datosTareaWeb.setUsuario(servJPAUsuario.getUsuarios());
 
 			modelo.addAttribute("datosTareaWeb", beanTareaWeb);
-
 			return "GestionWeb/administracion/FormCrearTarea";
 		}
 	}
@@ -425,7 +424,6 @@ public class ControllerWebAdministracion {
 		usuario.setId(new Long(idUsuario) );
 
 		aviso.setUsuario(usuario);
-		 
 
 		TpoFrecuRepeticion tpoFrecuRepeticion = new TpoFrecuRepeticion();
 		tpoFrecuRepeticion.setIdFrecuRepeticion( new Integer(codFrecuencia) ); 
