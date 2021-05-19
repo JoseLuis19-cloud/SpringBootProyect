@@ -31,7 +31,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -62,7 +61,6 @@ import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.informesjasper.GeneradorJasper;
 import com.myfactory.SBootWebProject.model.Cliente;
-import com.myfactory.SBootWebProject.model.Empleado;
 import com.myfactory.SBootWebProject.model.Factura;
 import com.myfactory.SBootWebProject.model.FacturaLinea;
 import com.myfactory.SBootWebProject.model.FacturaSituacion;

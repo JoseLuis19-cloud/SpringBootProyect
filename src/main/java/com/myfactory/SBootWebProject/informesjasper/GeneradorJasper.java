@@ -51,9 +51,9 @@ import com.myfactory.SBootWebProject.model.User;
 @PropertySource(value = "classpath:/parametrosAplicacion.properties", ignoreResourceNotFound = true)
 public class GeneradorJasper {
 	
-	private static final String REPORTE_JAPSER_EMPLEADOS = "InformeEmpleados.jasper";
-	private static final String REPORTE_JAPSER_USUARIOS = "/jasper/informes/InformeUsuarios.jasper";
-	private static final String REPORTE_JAPSER_PROYECTO = "/jasper/informes/InformeUsuarios.jasper";
+	private static final String REPORTE_JAPSER_EMPLEADOS = "/plantillasjasper/InformeEmpleados.jrxml";
+	private static final String REPORTE_JAPSER_USUARIOS  = "/plantillasjasper/InformeUsuarios.jrxml";
+	private static final String REPORTE_JAPSER_PROYECTO  = "/plantillasjasper/InformeProyectos.jrxml";
 	
 	@Value("${pathMACOSdescargaficheros}")
     private String pathWindows;
@@ -61,7 +61,7 @@ public class GeneradorJasper {
 	// @PersistenceContext(unitName = "springboot")
 	// private EntityManager entityManager;
 
-	private java.sql.Connection conexionBBDD = null;
+    private java.sql.Connection conexionBBDD = null;
 	protected static final Logger parentLogger = LogManager.getLogger();
 	
 	private static final String DATE_FORMAT = "dd/MM/yyyy";
@@ -71,21 +71,9 @@ public class GeneradorJasper {
 	@Autowired
 	ResourceLoader resourceLoader;
 
-	// @Autowired
-	// static private Environment environment;
-
 	static DataSource datasource() throws PropertyVetoException {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		/*
-		 * dataSource.setDriverClassName(environment.getProperty(
-		 * "spring.datasource.driver-class-name"));
-		 * dataSource.setUrl(environment.getProperty("spring.datasource.url"));
-		 * dataSource.setUsername(environment.getProperty("spring.datasource.username"))
-		 * ;
-		 * dataSource.setPassword(environment.getProperty("spring.datasource.password"))
-		 * ;
-		 */
-
+ 
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl(
 				"jdbc:mysql://localhost:3308/springboot?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
@@ -105,7 +93,6 @@ public class GeneradorJasper {
 			conexionBBDD = datasource().getConnection();
 
 		} catch (Exception exp) {
-			System.out.println("Se ha producido un error en la conexion con la base de datos");//
 			parentLogger.error("Se ha producido un error en la conexion con la base de datos " + exp);
 		}
 	}
@@ -142,9 +129,9 @@ public class GeneradorJasper {
 			// Adding the additional parameters to the pdf.
 	        final Map<String, Object> parameters = new HashMap<>();
 	        parameters.put("createdBy", "javacodegeek.com");
-
+	        
 			// Fetching the .jrxml file from the resources folder.
-	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeEmpleados.jrxml");
+	        final InputStream stream = this.getClass().getResourceAsStream(REPORTE_JAPSER_EMPLEADOS);
 	        													
 	     // Compile the Jasper report from .jrxml to .japser
 	        JasperReport report = JasperCompileManager.compileReport(stream);
@@ -203,9 +190,8 @@ public class GeneradorJasper {
 	        final Map<String, Object> parameters = new HashMap<>();
 	        parameters.put("createdBy", "javacodegeek.com");
 	        
-			
 		// Fetching the .jrxml file from the resources folder.
-	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeUsuarios.jrxml");
+	        final InputStream stream = this.getClass().getResourceAsStream(REPORTE_JAPSER_USUARIOS);
 	     // Compile the Jasper report from .jrxml to .japser
 	        JasperReport report = JasperCompileManager.compileReport(stream);
 			
@@ -252,7 +238,7 @@ public class GeneradorJasper {
 	       
 			
 		// Fetching the .jrxml file from the resources folder.
-	        final InputStream stream = this.getClass().getResourceAsStream("/plantillasjasper/InformeProyectos.jrxml");
+	        final InputStream stream = this.getClass().getResourceAsStream(REPORTE_JAPSER_PROYECTO);
 	     // Compile the Jasper report from .jrxml to .japser
 	        JasperReport report = JasperCompileManager.compileReport(stream);
 			
