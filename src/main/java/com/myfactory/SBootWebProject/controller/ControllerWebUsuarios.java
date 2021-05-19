@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
+import com.myfactory.SBootWebProject.beanForm.CargaBeansDatos;
 import com.myfactory.SBootWebProject.constantes.ConstantesErroresAplicacion;
 import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
@@ -35,7 +36,7 @@ public class ControllerWebUsuarios {
 	ServJPAUsuario servJPAUsuario;
 	
 	@Autowired
-	CargarBeansDatos cargarBeansDatos;
+	CargaBeansDatos cargarBeansDatos;
 	
 	@Autowired
 	public BeanUsuarioSession beanUsuarioSession;

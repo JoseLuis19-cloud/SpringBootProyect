@@ -39,6 +39,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
+import com.myfactory.SBootWebProject.beanForm.CargaBeansDatos;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Empleado;
@@ -57,7 +58,7 @@ public class ControllerWebEmpleados {
 	@Autowired
 	BeanEmpleadoWeb beanEmpleadoWeb;
 	@Autowired
-	CargarBeansDatos cargarBeansDatos;
+	CargaBeansDatos cargarBeansDatos;
 	@Autowired
 	ServJPAUsuario servJPAUsuario;
 	@Autowired

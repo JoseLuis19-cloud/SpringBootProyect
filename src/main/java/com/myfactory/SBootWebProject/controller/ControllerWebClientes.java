@@ -34,6 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
+import com.myfactory.SBootWebProject.beanForm.CargaBeansDatos;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Cliente;
@@ -53,7 +54,7 @@ public class ControllerWebClientes {
 	@Autowired
 	BeanClienteWeb clienteWeb;
 	@Autowired
-	CargarBeansDatos cargarBeansDatos;
+	CargaBeansDatos cargarBeansDatos;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
 	

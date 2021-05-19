@@ -1,4 +1,4 @@
-package com.myfactory.SBootWebProject.controller;
+package com.myfactory.SBootWebProject.beanForm;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -11,14 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.ApplicationScope;
 
-import com.myfactory.SBootWebProject.beanForm.BeanClienteWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanUsuarioWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanEmpleadoWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
-import com.myfactory.SBootWebProject.beanForm.BeanFacturaLineas;
 import com.myfactory.SBootWebProject.model.Aviso;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.Empleado;
@@ -36,7 +28,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
 @Component
 @ApplicationScope
-public class CargarBeansDatos  implements Serializable {
+public class CargaBeansDatos  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -55,7 +47,7 @@ public class CargarBeansDatos  implements Serializable {
 	Iterable <FormaPago>  formasPago;
 	Iterable <Role>  roles;
 
-	public CargarBeansDatos() {
+	public CargaBeansDatos() {
 	}
 
 	public BeanFacturaWeb cargarBeanFactura (Factura factura)

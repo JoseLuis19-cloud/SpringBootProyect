@@ -21,7 +21,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanEmpresaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
 
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
-
+import com.myfactory.SBootWebProject.beanForm.CargaBeansDatos;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Empresa;
@@ -57,7 +57,7 @@ public class ControllerWebEmpresas {
 	@Autowired
 	BeanProyectoWeb beanEmpleadoWeb;
 	@Autowired
-	CargarBeansDatos cargarBeansDatos;
+	CargaBeansDatos cargarBeansDatos;
 	
 	@GetMapping("/formaltaempresa")
  	public String formularioAltaEmpresa(Model modelo)  {

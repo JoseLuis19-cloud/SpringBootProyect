@@ -40,6 +40,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanErrorValidacion;
 import com.myfactory.SBootWebProject.beanForm.BeanFicheroSO;
 import com.myfactory.SBootWebProject.beanForm.BeanTareaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
+import com.myfactory.SBootWebProject.beanForm.CargaBeansDatos;
 import com.myfactory.SBootWebProject.model.Aviso;
 import com.myfactory.SBootWebProject.model.TpoFrecuRepeticion;
 import com.myfactory.SBootWebProject.model.User;
@@ -62,7 +63,7 @@ public class ControllerWebAdministracion {
 	@Autowired
 	ServJPAAviso servJPAAviso;
 	@Autowired
-	CargarBeansDatos cargarBeansDatos;
+	CargaBeansDatos cargarBeansDatos;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
 

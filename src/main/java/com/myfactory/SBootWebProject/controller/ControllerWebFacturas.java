@@ -57,6 +57,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanFacturaLineas;
 import com.myfactory.SBootWebProject.beanForm.BeanFacturaWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanIdUsuario;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
+import com.myfactory.SBootWebProject.beanForm.CargaBeansDatos;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.informesjasper.GeneradorJasper;
@@ -92,7 +93,7 @@ public class ControllerWebFacturas {
 	@Autowired
 	BeanClienteWeb facturaWeb;
 	@Autowired
-	CargarBeansDatos cargarBeansDatos;
+	CargaBeansDatos cargarBeansDatos;
 	@Autowired
 	BeanUsuarioSession beanUsuarioSession;
 	@Autowired

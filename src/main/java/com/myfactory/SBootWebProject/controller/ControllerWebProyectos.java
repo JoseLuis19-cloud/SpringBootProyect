@@ -31,6 +31,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanCamposBusqueda;
 import com.myfactory.SBootWebProject.beanForm.BeanEmpAnadir;
 import com.myfactory.SBootWebProject.beanForm.BeanProyectoWeb;
 import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
+import com.myfactory.SBootWebProject.beanForm.CargaBeansDatos;
 import com.myfactory.SBootWebProject.beanForm.Person;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
@@ -63,7 +64,7 @@ public class ControllerWebProyectos {
 	@Autowired
 	BeanProyectoWeb beanEmpleadoWeb;
 	@Autowired
-	CargarBeansDatos cargarBeansDatos;
+	CargaBeansDatos cargarBeansDatos;
 	
 	BeanEmpAnadir beanEmpAnadir = new BeanEmpAnadir();
     public List<BeanEmpAnadir> listBeanEmpUTE = new ArrayList<BeanEmpAnadir>();
