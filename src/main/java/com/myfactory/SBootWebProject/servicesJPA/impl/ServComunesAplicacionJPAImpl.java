@@ -15,13 +15,13 @@ import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPARepository;
 import com.myfactory.SBootWebProject.repository.comunes.FacturaSituacionJPADao;
 import com.myfactory.SBootWebProject.repository.FormaPagoJPARepository;
-import com.myfactory.SBootWebProject.repository.TipoClienteJPARepository;
+import com.myfactory.SBootWebProject.repository.TipoClienteJPADao;
 import com.myfactory.SBootWebProject.repository.comunes.ProvinciaJPADao;
 import com.myfactory.SBootWebProject.repository.comunes.TpoFreRepeticionJPADao;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServComunesAplicacionJPA;
 
 @Service
-public class ServJPAImpl implements ServJPA{
+public class ServComunesAplicacionJPAImpl implements ServComunesAplicacionJPA{
 
 	@Autowired
 	ClienteJPARepository reposSDataCliente;
@@ -42,7 +42,7 @@ public class ServJPAImpl implements ServJPA{
 	FormaPagoJPARepository reposSDataFormaPago;
 	
 	@Autowired
-	TipoClienteJPARepository reposSDataTipoCliente;
+	TipoClienteJPADao reposSDataTipoCliente;
 	
 	@Autowired
 	ProvinciaJPADao provinciaJPADao;

@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.myfactory.SBootWebProject.model.TpoCliente;
 
 
-public interface TipoClienteJPARepository extends CrudRepository<TpoCliente, Integer> {
+public interface TipoClienteJPADao extends CrudRepository<TpoCliente, Integer> {
 
 	
 }

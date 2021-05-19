@@ -25,7 +25,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Empresa;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServComunesAplicacionJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAMenu;
@@ -47,7 +47,7 @@ public class ControllerWebEmpresas {
 	public BeanUsuarioSession beanUsuarioSession;
 	
 	@Autowired
-	ServJPA servJPA;
+	ServComunesAplicacionJPA servJPA;
 	@Autowired
 	ServJPAEmpresa  servJPAEmpresa;
 	@Autowired

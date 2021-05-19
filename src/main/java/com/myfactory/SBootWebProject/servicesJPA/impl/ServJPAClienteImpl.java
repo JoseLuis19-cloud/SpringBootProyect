@@ -14,7 +14,7 @@ import com.myfactory.SBootWebProject.repository.ClienteJPARepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPAPagRepository;
 import com.myfactory.SBootWebProject.repository.FacturaJPARepository;
 import com.myfactory.SBootWebProject.repository.FormaPagoJPARepository;
-import com.myfactory.SBootWebProject.repository.TipoClienteJPARepository;
+import com.myfactory.SBootWebProject.repository.TipoClienteJPADao;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 
 @Service
@@ -38,7 +38,7 @@ public class ServJPAClienteImpl implements ServJPACliente {
 	FormaPagoJPARepository reposSDataFormaPago;
 	
 	@Autowired
-	TipoClienteJPARepository reposSDataTipoCliente;
+	TipoClienteJPADao reposSDataTipoCliente;
 
 	@Override
 	public Iterable<Cliente> buscarTodosClientes() {

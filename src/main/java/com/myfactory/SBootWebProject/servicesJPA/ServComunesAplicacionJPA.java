@@ -9,7 +9,7 @@ import com.myfactory.SBootWebProject.model.TpoCliente;
 import com.myfactory.SBootWebProject.model.TpoFrecuRepeticion;
  
 @Service
-public interface ServJPA {
+public interface ServComunesAplicacionJPA {
 
 	public Iterable<FormaPago> getFormasPago();
 

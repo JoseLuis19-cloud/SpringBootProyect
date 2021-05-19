@@ -67,7 +67,7 @@ import com.myfactory.SBootWebProject.model.FacturaLinea;
 import com.myfactory.SBootWebProject.model.FacturaSituacion;
 import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Proyecto;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServComunesAplicacionJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpresa;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAFactura;
@@ -82,7 +82,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 public class ControllerWebFacturas {
 
 	@Autowired
-	ServJPA servicioJPA;
+	ServComunesAplicacionJPA servicioJPA;
 	@Autowired
 	ServJPAFactura servJPAFactura;
 	@Autowired

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import com.myfactory.SBootWebProject.model.Aviso;
 
-public interface AvisoJPAAvisoDao extends CrudRepository<Aviso, Integer>  {
+public interface AvisoJPADao extends CrudRepository<Aviso, Integer>  {
 
 //	@Query("SELECT a FROM Aviso a WHERE u.email = :email")
 //	public Optional<User> findByEmail(@Param("idUsuario") Long idUsuario);

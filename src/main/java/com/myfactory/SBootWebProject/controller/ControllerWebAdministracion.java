@@ -43,7 +43,7 @@ import com.myfactory.SBootWebProject.beanForm.BeanUsuarioSession;
 import com.myfactory.SBootWebProject.model.Aviso;
 import com.myfactory.SBootWebProject.model.TpoFrecuRepeticion;
 import com.myfactory.SBootWebProject.model.User;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServComunesAplicacionJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAAviso;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
@@ -54,7 +54,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 public class ControllerWebAdministracion {
 
 	@Autowired
-	ServJPA servicioJPA;
+	ServComunesAplicacionJPA servicioJPA;
 	@Autowired
 	ServJPACliente servicioClienteJPA;
 	@Autowired

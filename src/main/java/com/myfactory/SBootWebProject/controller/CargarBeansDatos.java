@@ -30,7 +30,7 @@ import com.myfactory.SBootWebProject.model.FormaPago;
 import com.myfactory.SBootWebProject.model.Proyecto;
 import com.myfactory.SBootWebProject.model.Role;
 import com.myfactory.SBootWebProject.model.User;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServComunesAplicacionJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAEmpleado;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPAUsuario;
 
@@ -44,7 +44,7 @@ public class CargarBeansDatos  implements Serializable {
 	ServJPAEmpleado servJPAEmpleado;
 	
 	@Autowired
-	ServJPA servJPA;
+	ServComunesAplicacionJPA servJPA;
 	
 	@Autowired
 	ServJPAUsuario servJPAUsuario;

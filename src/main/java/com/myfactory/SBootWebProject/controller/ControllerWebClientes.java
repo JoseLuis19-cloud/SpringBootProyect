@@ -38,7 +38,7 @@ import com.myfactory.SBootWebProject.common.CrearBotoneraPag;
 import com.myfactory.SBootWebProject.constantes.ConstantesAplicacion;
 import com.myfactory.SBootWebProject.model.Cliente;
 import com.myfactory.SBootWebProject.model.TpoCliente;
-import com.myfactory.SBootWebProject.servicesJPA.ServJPA;
+import com.myfactory.SBootWebProject.servicesJPA.ServComunesAplicacionJPA;
 import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
  
 @Controller
@@ -47,7 +47,7 @@ import com.myfactory.SBootWebProject.servicesJPA.ServJPACliente;
 public class ControllerWebClientes {
 
 	@Autowired
-	ServJPA servicioJPA;
+	ServComunesAplicacionJPA servicioJPA;
 	@Autowired
 	ServJPACliente servicioClienteJPA;
 	@Autowired
