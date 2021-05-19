@@ -410,26 +410,32 @@ public class ControllerWebEmpleados {
     																	@RequestParam(value = "numPag", required = true) String numPag,
     																	@RequestParam(value = "numPos", required = true) String numPos,
     																	RedirectAttributes redirectAttrs, Model modelo) {
-
 		byte[] arrayBytesImagen = null;
 		
      // check if file is empty
         if (file.isEmpty()) {
         	redirectAttrs.addAttribute("errorValidacion", true);
         	redirectAttrs.addAttribute("mensajeError", "51, "  + "El fichero enviado está vacio");
-            return "redirect:/";
+        	 logger.error("El fichero enviado está vacio"); 
+        	
+        	 redirectAttrs.addAttribute("idEmpleado", idEmpleado);
+             
+             redirectAttrs.addAttribute("numPag", numPag);
+             redirectAttrs.addAttribute("numPos", numPos);
+
+     		return "redirect:/gestionWeb/empleados/formeditarempleado";
         }
 
      // normalize the file path
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado( idEmpleado );
+        Optional<Empleado> empleado = servJPAEmpleado.buscarIdEmpleado(idEmpleado);
         
 		try
 		 {
 			if ( file.getSize() > 65535L)
 				{
 				 System.out.println("El tamaño de la foto no puede superar los 65.535 bytes");
-				 logger.error("El tamaño de la foto no puede superar los 65.535 bytes" ); 
+				 logger.error("El tamaño de la foto no puede superar los 65.535 bytes"); 
 				 redirectAttrs.addAttribute("errorValidacion", true);
 				 redirectAttrs.addAttribute("mensajeError", "52, " + "El tamaño de la foto no puede superar los 65.535 bytes");
 				}
@@ -446,14 +452,11 @@ public class ControllerWebEmpleados {
 		 }
 		catch (Exception exp) 
 		 {
-		  logger.error("Se ha producido un error al enviar la imagen del empleado" ); 
+		  logger.error("Se ha producido un error al enviar la imagen del empleado"); 
 		  redirectAttrs.addAttribute("errorValidacion", true);
 		  redirectAttrs.addAttribute("mensajeError", "53" + "Se ha producido un error en la inserción de la imagen");
 		 }
-		
-	//	modelo.addAttribute("empleadoWeb", cargarBeansDatos.cargarBeanEmpleado(empleado.get()));
-	//	modelo.addAttribute("nuevaAlta" , nuevaAlta);
-	   
+	 
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
         
@@ -470,9 +473,6 @@ public class ControllerWebEmpleados {
            e.printStackTrace();
          }
 
-      // return success response
-      //  attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
-        
         redirectAttrs.addAttribute("idEmpleado", idEmpleado);
       
         redirectAttrs.addAttribute("numPag", numPag);
@@ -520,11 +520,6 @@ public class ControllerWebEmpleados {
   //  } catch (IOException e) {
   //     e.printStackTrace();
   // }
-
-   // return success response
-  //   attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
-		
-  // modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
  
 		BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 		modelo.addAttribute("usuarioWeb", beanUsuarioWeb);

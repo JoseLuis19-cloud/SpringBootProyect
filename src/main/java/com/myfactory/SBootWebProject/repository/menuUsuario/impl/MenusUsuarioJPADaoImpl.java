@@ -62,13 +62,13 @@ public class MenusUsuarioJPADaoImpl implements CustomMenusUsuarioJPADao
  	{ 
  		TypedQuery<MenusUsuario> query = em.createQuery(
  				   "SELECT mu from MenusUsuario mu"
-				+  " JOIN mu.subMenu1 sm"
+				+  " JOIN mu.subMenu1 sm1"
 				+  " JOIN mu.menu me"
 				+  " JOIN mu.user us"
 				+  " WHERE us.id = :idUsuario"
 				+  " AND me.idMenu = :idMenu" 
-			 	+  " AND sm.idSubmenuNivel1 > 0"
-				+  " ORDER BY me.numOrdenMenu", MenusUsuario.class);
+			 	+  " AND sm1.idSubmenuNivel1 > 0"
+				+  " ORDER BY sm1.numOrdenMenu", MenusUsuario.class);
 		return query.setParameter("idUsuario", idUsuario).setParameter("idMenu", idMenu).getResultList();	
  	}
 	

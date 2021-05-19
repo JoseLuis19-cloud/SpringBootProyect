@@ -17,7 +17,6 @@
      }
  };
  
- 
  /*
  * Funci�n que rellena con ceros un campo hasta su longitud maxima
  * 
@@ -77,22 +76,22 @@
 
  	// Comprobamos que solo hemos introducido numeros
  	if (!EsNumeroEntero(entidad)){
- 		alert("Debe introducir el n�mero de entidad bancaria");
+ 		alert("Debe introducir el número de entidad bancaria");
  		return false;
  	}
 
  	if (!EsNumeroEntero(oficina)){
- 		alert("Debe introducir el n�mero de oficina");
+ 		alert("Debe introducir el número de oficina");
  		return false;
  	}
  	
  	if (!EsNumeroEntero(dc)){
- 		alert("Debe introducir los dos d�gitos de control");
+ 		alert("Debe introducir los dos dígitos de control");
  		return false;
  	}
 
  	if (!EsNumeroEntero(nc)){
- 		alert("Debe introducir el n�mero de cuenta");
+ 		alert("Debe introducir el número de cuenta");
  		return false;
  	}
 
@@ -102,7 +101,7 @@
  	var primer_control="00"+entidad+oficina;
  	var primer_digito=DigitoControl(primer_control);
  	if (primer_digito != dc.charAt(0)){
- 		alert("El c�digo de cuenta cliente proporcionado no es v�lido");
+ 		alert("El código de cuenta cliente proporcionado no es v�lido");
  		return false;
  	}
 
@@ -110,7 +109,7 @@
  	var segundo_control=nc;
  	var segundo_digito=DigitoControl(segundo_control);
  	if (segundo_digito != dc.charAt(1)){
- 		alert("El c�digo de cuenta cliente proporcionado no es v�lido");
+ 		alert("El código de cuenta cliente proporcionado no es v�lido");
  		return false;
  	}
 
