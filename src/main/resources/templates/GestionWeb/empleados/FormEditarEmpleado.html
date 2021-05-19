@@ -14,14 +14,6 @@
 	
  <style>
  
-.form-control-xs {
-	height: calc(1em + .375rem + 2px) !important;
-	padding: .125rem .25rem !important;
-	font-size: .75rem !important;
-	line-height: 1.5;
-	border-radius: .2rem;
-}
-
 p.letPeq {
 	font-size: small;
 }
@@ -200,7 +192,7 @@ p.letPeq {
       </div>
       <div class="modal-body">
     	<div class="container">	
-             <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado}" enctype="multipart/form-data">
+             <form method="post" th:action="@{/gestionWeb/empleados/uploadimagenempleado(numPag=${numPag}, numPos=${numPos})}" enctype="multipart/form-data">
                	 <input type="hidden" th:id="idEmpleadoImg" th:name="empleadoImg" th:value="${idEmpleadoImg}" /> 
                  <div class="form-group">
                    <input type="file" name="file" class="form-control-file btn-sm">
