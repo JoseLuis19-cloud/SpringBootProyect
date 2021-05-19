@@ -31,8 +31,8 @@
 </style>
 
  <script th:inline="javascript">
+ 
 	$(document).ready(function() {
-	 
  		$('a[id^="idLinkTerminar"]').click(function(event) {
 		 $("#myModalFinTarea").modal();
 		});
@@ -44,9 +44,9 @@
 
 <body>
 
-   <div id="spinner">        
-	 <img src="/images/circleWating.gif"></img>		 
-    </div>
+  <div id="spinner">        
+    <img src="/images/circleWating.gif"></img>		 
+  </div>
     
   <div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
 	

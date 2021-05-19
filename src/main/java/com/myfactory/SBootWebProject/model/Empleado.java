@@ -99,6 +99,11 @@ public class Empleado  implements Serializable {
 	@Column(name = "IMP_FACTURADO_MES", nullable = true)
 	private Float impFacturadoMes;
 	
+	@Column(name = "FEC_NACIMIENTO", nullable = true)
+	@Temporal(TemporalType.DATE)
+    private Calendar fecNacimiento;
+ 
+
 	public Integer getIdEmpleado() {
 		return idEmpleado;
 	}
@@ -235,5 +240,12 @@ public class Empleado  implements Serializable {
 	}
 	public void setImpFacturadoMes(Float impFacturadoMes) {
 		this.impFacturadoMes = impFacturadoMes;
+	}
+	
+	public Calendar getFecNacimiento() {
+		return fecNacimiento;
+	}
+	public void setFecNacimiento(Calendar fecNacimiento) {
+		this.fecNacimiento = fecNacimiento;
 	}
 }

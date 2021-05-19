@@ -95,8 +95,10 @@ public class AppController {
 
 	  	beanUsuarioSession.setIdUsuario(beanIdUsusario.getIdUsuario());
  		beanUsuarioSession.setListBeanMenuUsuarioSession(listMenuUsuarioSession);
- 		beanUsuarioSession.setUsuarioApli( (servJPAUsuario.findIdUsuario (beanIdUsusario.getIdUsuario()).get().getUsername() ));
- 		modelo.addAttribute("usuarioApli", beanUsuarioSession.getUsuarioApli());
+ 		beanUsuarioSession.setUsuarioApli( (servJPAUsuario.findIdUsuario (beanIdUsusario.getIdUsuario()).get().getUsername()  ));		
+ 		beanUsuarioSession.setAliasUsuario( (servJPAUsuario.findIdUsuario (beanIdUsusario.getIdUsuario()).get().getFullName()  ));
+ 
+ 		modelo.addAttribute("usuarioApli", beanUsuarioSession.getAliasUsuario());
  		
  		// Cargar la lista de submenu de cada menu en su Bean de session.
  		// Iterator<BeanMenuUsuarioSession> listBeanUsuSesionIter = listMenuUsuarioSession.iterator();

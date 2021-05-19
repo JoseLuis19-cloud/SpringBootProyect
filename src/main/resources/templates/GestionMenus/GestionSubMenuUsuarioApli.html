@@ -39,10 +39,8 @@
 			 
 			 $('[name="checks[]"]').on('change', function() {
 				if (this.checked) {
-					indCheck = $('[name="checks[]"]').index(this);
-				//	alert("ÇÇÇÇÇÇ  " +   $("#idCheckActivado" + indCheck).val() );
-					arrIdSubMenu[indCheck] = $("#idCheckActivado" + indCheck).val();
-					// alert (arrIdSubMenu[indCheck] );
+					indCheck = $('[name="checks[]"]').index(this);		 
+					arrIdSubMenu[indCheck] = $("#idCheckActivado" + indCheck).val();		 
 					} 
 				else
 					{
@@ -61,7 +59,6 @@
 			       }
 			  });
 			  
-			  
 			  $('[name="checksSubMenuUsu[]"]').on('change', function() {
 					if (this.checked) {
 						indCheck = $('[name="checksSubMenuUsu[]"]').index(this);
@@ -75,10 +72,19 @@
 				});
 			 
 			 $("#idLinkAnadirTodos").click(function() {
-				$("input[id^='idCheckActivado']").prop("checked", true);
-				document.getElementById("idP3").style.display = "block";	
-				$("#idAccionHidden").val("anadirtodos");
-				$("#myModalConfirm").modal();
+				 
+				 if ( $("#idCheckActivado0").val() == undefined)
+					 {
+					 alert ("No existen elementos de submenú para añadir") ;
+					 }
+				 else
+					 {
+					 
+					$("input[id^='idCheckActivado']").prop("checked", true);
+					document.getElementById("idP3").style.display = "block";	
+					$("#idAccionHidden").val("anadirtodos");
+					$("#myModalConfirm").modal();
+			 	   }
 			  });
 			 
 			 $("#idLinkConfirmar").click(function() {

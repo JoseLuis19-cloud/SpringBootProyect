@@ -78,10 +78,18 @@
 			  });
 			  
 			 $("#idLinkAnadirTodos").click(function() {
-				$("input[id^='idCheckActivado']").prop("checked", true);
-				document.getElementById("idP3").style.display = "block";
-				$("#idAccionHidden").val("anadirtodos");
-				$("#myModalConfirm").modal();
+				 
+			  if ( $("#idCheckActivado0").val() == undefined)
+				 {
+				  alert ("No existen elementos de menú para añadir");
+				 }
+			   else
+				 {
+				  $("input[id^='idCheckActivado']").prop("checked", true);
+				  document.getElementById("idP3").style.display = "block";
+				  $("#idAccionHidden").val("anadirtodos");
+				  $("#myModalConfirm").modal();
+			 	}
 			  });
 			 
 			 $("#idLinkConfirmar").click(function() {

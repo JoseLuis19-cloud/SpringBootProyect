@@ -177,6 +177,7 @@ public class CargarBeansDatos  implements Serializable {
 	
 		  beanEmpleadoWeb.setImpBrutoAnualWeb(empleado.getImpBrutoAnual());
 		  beanEmpleadoWeb.setImpFacturadoMes( empleado.getImpFacturadoMes());
+		  beanEmpleadoWeb.setFecNacimiento( empleado.getFecNacimiento());
 		  
 		  return beanEmpleadoWeb;
 	  }

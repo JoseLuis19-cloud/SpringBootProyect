@@ -57,6 +57,9 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 	private Iterable<PuestoTrabajo> puestoTrabajoWeb;
 	private Float impBrutoAnualWeb;
 	private Float impFacturadoMes;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Calendar fecNacimiento;
 
 	public BeanEmpleadoWeb() {
 	}
@@ -242,6 +245,14 @@ public class BeanEmpleadoWeb  implements Serializable, Cloneable {
 
 	public void setFecAltaEmpleadoWeb(Calendar fecAltaEmpleadoWeb) {
 		this.fecAltaEmpleadoWeb = fecAltaEmpleadoWeb;
+	}
+	
+	public Calendar getFecNacimiento() {
+		return fecNacimiento;
+	}
+
+	public void setFecNacimiento(Calendar fecNacimiento) {
+		this.fecNacimiento = fecNacimiento;
 	}
 
 	@Override

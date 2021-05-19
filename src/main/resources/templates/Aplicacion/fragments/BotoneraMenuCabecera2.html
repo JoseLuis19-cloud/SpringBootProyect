@@ -110,7 +110,7 @@
 				</ul>
         		<div class="navbar-brand" sec:authorize="isAuthenticated()">
         	 
-					<img th:src="@{/images/values.png}" width="40" height="40" th:onclick="logoutSys();"></img>
+					<img th:src="@{/images/botonOff2.png}" width="40" height="40" th:onclick="logoutSys();"></img>
 					<b><span>Usuario: </span><span sec:authentication="name"></span></b>
 					<form th:id="idFormLogout" th:action="@{/logout}" method="post">
 			<!-- 	<input type="submit" value="Logout" />  -->
