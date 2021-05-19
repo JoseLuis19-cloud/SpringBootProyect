@@ -47,9 +47,9 @@ public class ServJPAProyectoImpl implements ServJPAProyecto {
 			 restulPag = proyectoJPAPagRepository.findMayorProyecto(PageRequest.of(numPag, numRegPag, Sort.by("nomProyecto")), buscarProyecto);
 	 		}
 
-		if (restulPag.hasContent()) {
+	/*	if (restulPag.hasContent()) {
 			System.out.println("Tiene contenido la paginacion");
-		}
+		} */
 		return restulPag;
 	}
 

@@ -84,11 +84,7 @@ public class ServComunesAplicacionJPAImpl implements ServComunesAplicacionJPA{
 	@Override
 	public  Cliente grabarImagen( Cliente cliente){
 		Cliente cliente1 = null;
-		try {
-			 cliente1 = reposSDBaseCliente.save(cliente);
-		} catch (Exception ex) {
-			System.out.println("111");
-		}
+		cliente1 = reposSDBaseCliente.save(cliente);
 		return cliente1;
 	}
 }

@@ -47,9 +47,9 @@ public class ServJPAEmpresaImpl implements ServJPAEmpresa  {
 	 	restulPag = empresaJPAPagRepository.findMayorEmpresa(PageRequest.of(numPag, numRegPag, Sort.by("nomEmpresa")), buscarEmpresa);
 	 	}
 
-	if (restulPag.hasContent()) {
+/*	if (restulPag.hasContent()) {
 		System.out.println("Tiene contenido la paginacion");
-	}
+	} */
 	return restulPag;
 	}
 	

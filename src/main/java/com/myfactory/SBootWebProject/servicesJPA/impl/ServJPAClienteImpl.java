@@ -106,6 +106,4 @@ public class ServJPAClienteImpl implements ServJPACliente {
 		return reposSDataCliente.findAll();
 	}
 	 
-
-	
 }

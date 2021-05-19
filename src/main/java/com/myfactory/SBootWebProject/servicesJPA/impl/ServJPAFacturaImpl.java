@@ -36,13 +36,11 @@ public class ServJPAFacturaImpl implements ServJPAFactura{
 
 	@Override
 	public Iterable<Factura> buscarTodasFacturas() {
-
 		return reposSDataFactura.findAll();
 	}
 
 	@Override
 	public Optional<Factura> buscarIdFactura(Integer idFactura) {
-
 		return reposSDataFactura.findById(idFactura);
 	}
 

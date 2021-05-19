@@ -34,9 +34,9 @@ public class ServJPAUsuarioImp implements ServJPAUsuario {
 	public Page<User> paginacionUsuarios(Integer numPag, Integer numRegPag) {
 		Page<User> restulPag = usuarioJPAPagRepository.findAll(PageRequest.of(numPag, numRegPag, Sort.by("username")));
 
-		if (restulPag.hasContent()) {
-			System.out.println("Tiene contenido la paginacion");
-		}
+	//	if (restulPag.hasContent()) {
+//			System.out.println("Tiene contenido la paginacion");
+//		}
 
 		return restulPag;
 	}
