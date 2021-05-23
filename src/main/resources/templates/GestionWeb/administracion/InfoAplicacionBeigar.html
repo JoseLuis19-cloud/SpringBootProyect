@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	
+<head>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} "/>
+	<link th:rel="stylesheet" th:href="@{/css/CustomBootstrap.css}"/>
+
+<style>
+</style>
+
+	<script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+	<div th:insert="Aplicacion/fragments/BotoneraMenuCabecera2 :: menucabecera"></div>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="titulo-pag2">Administración</div>
+		</div>
+		
+	 
+		<div class="row">
+			<br>
+			 <div class="col-2"></div>
+  			 <div class="col-8" >
+  				<div class="subtitulo-pag2">Información de parametros de la aplicación Beigar</div>
+  			 </div>
+  			<div class="col-2"></div>
+  		 </div>
+  		 
+  		 <div class="row">
+			<br>
+			 <div class="col-2"></div>
+  			 <div class="col-8" >
+  				<p>La generación de PDF de Informes se hace en</p>
+  				<p>La generación los PDF de Facturas se hace en</p>
+  				<p>La generación los las copias de Seguridad se hace en </p>
+  				<p>El email de aplicación que envía los mensajes es:</p>
+  				<p>Información sobre el servidor SMTP desde el que enviamos los emails</p>
+  				<p>Porcentajes de IVA aplicados en la aplicacion en la facturación</p>
+  				<p>Texto de los mensajes de Facturas</p>
+  				
+  			 </div>
+  			<div class="col-2"></div>
+  		 </div>
+  		 
+  		  <div class="row">
+			<br>
+			 <div class="col-2"></div>
+  			 <div class="col-8" >
+  				<ul>
+				<li>JPA 2.2</li>
+				<li>Thymeleaf 3.0</li>
+				<li>Spring 5.1.3</li>
+			</ul>
+  			 </div>
+  			<div class="col-2"></div>
+  		 </div>
+  		 
+  		 <div class="row">
+			 <div class="col-2"></div>
+  			 <div class="col-8 text-right">
+				<a th:href="@{/}" class="btn btn-primary" role="button">Volver</a>
+			</div>	
+  			<div class="col-2"></div>
+  		 </div>
+	</div>		
+</body>
+</html>
+
+

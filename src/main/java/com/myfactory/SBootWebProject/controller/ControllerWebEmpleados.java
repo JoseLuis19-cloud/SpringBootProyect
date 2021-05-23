@@ -282,7 +282,9 @@ public class ControllerWebEmpleados {
 					RedirectAttributes redirectAttrs,
 					Model modelo, 
 			 		@RequestParam(value = "paisEmpleado", required = true) String codPais,
-		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo)   {
+		 			@RequestParam(value = "puestoTrabajoEmpleado", required = true) String codPuestoTrabajo,
+		 			@RequestParam(value = "numPag", required = false) String numPag, 
+				    @RequestParam(value = "numPos", required = false) String numPos)   {
 
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 	 
@@ -316,6 +318,8 @@ public class ControllerWebEmpleados {
 				 empleadoNuevo = servJPAEmpleado.altaEmpleado(empleado);
 
 				 redirectAttrs.addAttribute("idEmpleado" , empleadoNuevo.getIdEmpleado() ) ;
+				 redirectAttrs.addAttribute("numPag", numPag);
+	             redirectAttrs.addAttribute("numPos", numPos);
 				 
 				 modelo.addAttribute("errorValidacion" , false);
 				 modelo.addAttribute("mensajeError", "" );
@@ -340,12 +344,14 @@ public class ControllerWebEmpleados {
 			}
 		  else
 			{
-			modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);	
+			 datosEmpleadoWeb.setPaisWeb(servJPAEmpleado.obtenerPaises()); 
+			 datosEmpleadoWeb.setPuestoTrabajoWeb(servJPAEmpleado.obtenerPuestoTrabajo() ); 
+			 modelo.addAttribute("empleadoWeb", datosEmpleadoWeb);
+	 
+			 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
+			 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
 			
-			BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
-			modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
-			
-			return "GestionWeb/empleados/FormAltaEmpleado"; 
+			 return "GestionWeb/empleados/FormAltaEmpleado"; 
 			}
 	  }
 
@@ -355,7 +361,10 @@ public class ControllerWebEmpleados {
 				//	RedirectAttributes redirectAttrs,
 					Model modelo, 
 					@RequestParam(value = "paisEmpleado", required = true) String codPais,
-					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo){
+					@RequestParam(value = "puestoTrabajo", required = true) String codPuestoTrabajo,
+					@RequestParam(value = "numPag", required = false) String numPag, 
+				    @RequestParam(value = "numPos", required = false) String numPos)
+		{
 		
 		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
 		
@@ -373,7 +382,10 @@ public class ControllerWebEmpleados {
 			 if (datosError.getCodError().intValue() != 0) 
 				{
 				 modelo.addAttribute("errorValidacion" , true);
-				 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError()   );
+				 modelo.addAttribute("mensajeError", datosError.getCodError().toString() + ", " + datosError.getCodError() );
+				 
+				 modelo.addAttribute("numPag", numPag);
+				 modelo.addAttribute("numPos", numPos);
 				
 				 return "GestionWeb/empleados/FormEditarEmpleado"; 
 				}
@@ -386,6 +398,8 @@ public class ControllerWebEmpleados {
 				 modifEmpleado = (Empleado) resultValEmpleado.get("empleadoValidacion");
 				 
 				 servJPAEmpleado.modifEmpleado(modifEmpleado);
+				 modelo.addAttribute("numPag", numPag);
+				 modelo.addAttribute("numPos", numPos);
 				 return "redirect:/gestionWeb/empleados/" + "pagempleados10";
 			   }
 			 
@@ -401,6 +415,9 @@ public class ControllerWebEmpleados {
 			
 			 BeanUsuarioWeb beanUsuarioWeb = new BeanUsuarioWeb();
 			 modelo.addAttribute("usuarioWeb", beanUsuarioWeb);
+			 
+			 modelo.addAttribute("numPag", numPag);
+			 modelo.addAttribute("numPos", numPos);
 			
 			 return "GestionWeb/empleados/FormEditarEmpleado"; 
 			}

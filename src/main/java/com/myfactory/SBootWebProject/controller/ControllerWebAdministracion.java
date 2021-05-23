@@ -221,6 +221,12 @@ public class ControllerWebAdministracion {
 		return "GestionWeb/administracion/InfoTecnologias";
 	}
 	
+	@GetMapping("/forminfoaplibeigar")
+	public String formInformacionAplicacion(Model modelo) {
+		modelo.addAttribute("opcionesMenuUsuario", beanUsuarioSession.getListBeanMenuUsuarioSession());
+		return "GestionWeb/administracion/InfoAplicacionBeigar";
+	}
+	
 	@GetMapping("/pruebas")
 	public String pruebas(Model modelo) {
 	 System.out.println("12345");	
