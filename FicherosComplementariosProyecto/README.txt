@@ -31,4 +31,6 @@
 	    donde se generarán los fichero logs de la aplicacion
  
        /Users/UsuarioJoseLuis/Documents/logs/
-	   C:/Users/Public/logs/ 
+	   C:/Users/Public/logs/
+
+	   Punto prueba
